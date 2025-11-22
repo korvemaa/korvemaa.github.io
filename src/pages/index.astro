@@ -14,7 +14,6 @@ import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 		<Effects />
 		<Header />
 		<main>
-			<img src="dithered.png" class="avatar" />
 			<div class="text-container">
 				<h1>Jake Korvemaa</h1>
 				<p>Software Engineer</p>
@@ -32,23 +31,11 @@ import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 		margin: 0;
 	}
 
-	.avatar {
-		width: 500px;
-		height: 500px;
-		margin-left: -140px;
-		mix-blend-mode: color-dodge;
-		filter: contrast(1.2) brightness(1.4);
-		mask-image: radial-gradient(black 30%, transparent 80%);
-		flex-shrink: 0;
-	}
-
 	.text-container {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		margin-left: -180px;
-		margin-bottom: 165px;
 	}
 
 	body {
@@ -67,10 +54,9 @@ import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 		border: 2px solid var(--text-color);
 		gap: 2em;
 		image-rendering: pixelated;
-		padding: 0 2em;
+		padding: 2em 4em;
 		overflow: hidden;
 
-		height: 20em;
 	}
 
 	h1 {
@@ -83,7 +69,7 @@ import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 
 	p {
 		font-family: "Tiny5", sans-serif;
-		font-size: 18px;
+		font-size: 1em;
 		margin: 0;
 		margin-top: -20px;
 	}

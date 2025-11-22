@@ -13,8 +13,21 @@ if (pathname == "") pathname = "index";
 			<HeaderLink href="/blog">Blog</HeaderLink>
 			<HeaderLink href="/about">About</HeaderLink>
 		</div>
+		<input id="hue-slider" type="range" min="0" max="360" value="180" />
 	</nav>
 </header>
+
+<script>
+	const slider = document.getElementById("hue-slider") as HTMLInputElement;
+
+	// Get the current CSS variable, whether it's inline or from a stylesheet
+	const rootStyles = getComputedStyle(document.documentElement);
+	slider.value = rootStyles.getPropertyValue("--base-hue").trim() || "180";
+
+	slider.addEventListener("input", () => {
+		document.documentElement.style.setProperty("--base-hue", slider.value);
+	});
+</script>
 <style>
 	header {
 		margin: 0;

@@ -11,9 +11,9 @@
 	--base-saturation: 100%;
 	--base-light: 50%;
 	--base-color: hsl(var(--base-hue), var(--base-saturation), var(--base-light));
-	--text-color: hsl(var(--base-hue), var(--base-saturation), calc(var(--base-light) + 8%));
+	--text-color: var(--base-color);
 	--text-shadow: 0 0 16px color-mix(in srgb, currentColor 50%, transparent 50%), 0 0 2px color-mix(in srgb, currentColor 70%, transparent 30%);
-	--darker-color: hsl(var(--base-hue), calc(var(--base-saturation)), calc(var(--base-light) - 28%));
+	--darker-color: hsl(var(--base-hue), calc(var(--base-saturation)), calc(var(--base-light) - 42%));
 
 	--accent: var(--text-color);
 	--accent-dark: #000d8a;
