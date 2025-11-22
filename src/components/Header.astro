@@ -12,6 +12,7 @@ if (pathname == "") pathname = "index";
 			<HeaderLink href="/">Home</HeaderLink>
 			<HeaderLink href="/blog">Blog</HeaderLink>
 			<HeaderLink href="/about">About</HeaderLink>
+			<HeaderLink href="/contact">Contact</HeaderLink>
 		</div>
 		<input id="hue-slider" type="range" min="0" max="360" value="180" />
 	</nav>
@@ -53,6 +54,15 @@ if (pathname == "") pathname = "index";
 		color: var(--black);
 		text-decoration: none;
 	}
+
+	nav a:hover {
+		background-color: var(--text-color);
+		text-shadow: none;
+		color: black;
+
+		text-decoration: none;
+	}
+
 	nav a.active {
 		background-color: var(--text-color);
 		text-shadow: none;
