@@ -1,54 +1,90 @@
-/*
-  The CSS in this style tag is based off of Bear Blog's default CSS.
-  https://github.com/HermanMartinus/bearblog/blob/297026a877bc2ab2b3bdfbd6b9f7961c350917dd/templates/styles/blog/default.css
-  License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
- */
-
 :root {
-	--accent: #2337ff;
-	--accent-dark: #000d8a;
 	--black: 15, 18, 25;
 	--gray: 96, 115, 159;
 	--gray-light: 229, 233, 240;
 	--gray-dark: 34, 41, 57;
 	--gray-gradient: rgba(var(--gray-light), 50%), #fff;
 	--box-shadow:
-		0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%), 0 16px 32px
-		rgba(var(--gray), 33%);
+		0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%), 0 16px 32px rgba(var(--gray), 33%);
+
+	--base-hue: 150;
+	--base-saturation: 100%;
+	--base-light: 50%;
+	--base-color: hsl(var(--base-hue), var(--base-saturation), var(--base-light));
+	--text-color: hsl(var(--base-hue), var(--base-saturation), calc(var(--base-light) + 8%));
+	--text-shadow: 0 0 16px color-mix(in srgb, currentColor 50%, transparent 50%), 0 0 2px color-mix(in srgb, currentColor 70%, transparent 30%);
+	--darker-color: hsl(var(--base-hue), calc(var(--base-saturation)), calc(var(--base-light) - 28%));
+
+	--accent: var(--text-color);
+	--accent-dark: #000d8a;
 }
-@font-face {
-	font-family: "Atkinson";
-	src: url("/fonts/atkinson-regular.woff") format("woff");
+
+html {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+body {
+	font-family: monospace;
+	font-optical-sizing: auto;
 	font-weight: 400;
 	font-style: normal;
-	font-display: swap;
-}
-@font-face {
-	font-family: "Atkinson";
-	src: url("/fonts/atkinson-bold.woff") format("woff");
-	font-weight: 700;
-	font-style: normal;
-	font-display: swap;
-}
-body {
-	font-family: "Atkinson", sans-serif;
+
 	margin: 0;
-	padding: 0;
+	padding: 0 1em;
 	text-align: left;
-	background: linear-gradient(var(--gray-gradient)) no-repeat;
-	background-size: 100% 600px;
 	word-wrap: break-word;
 	overflow-wrap: break-word;
-	color: rgb(var(--gray-dark));
-	font-size: 20px;
-	line-height: 1.7;
+	color: var(--text-color);
+	text-shadow: var(--text-shadow);
+
+	font-size: 18px;
+	line-height: 1.6;
+
+	background-color: var(--darker-color);
 }
+
+body::after {
+	content: "";
+	pointer-events: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+
+	background-image: repeating-linear-gradient(0deg,
+			rgba(255, 255, 255, 0.08),
+			rgba(255, 255, 255, 0.1) 4px,
+			transparent 4px,
+			transparent 8px);
+
+	filter: brightness(0.1);
+	mix-blend-mode: multiply;
+	background-size: 100% 8px;
+
+	/* makes the stripe height match the pattern repeat */
+	animation: move-stripes 1s linear infinite;
+}
+
+@keyframes move-stripes {
+	from {
+		background-position: 0 0;
+	}
+
+	to {
+		background-position: 0 8px;
+		/* moves the pattern down by one repeat */
+	}
+}
+
 main {
-	width: 720px;
 	max-width: calc(100% - 2em);
 	margin: auto;
-	padding: 3em 1em;
+	padding: 1em 1em;
 }
+
 h1,
 h2,
 h3,
@@ -56,81 +92,112 @@ h4,
 h5,
 h6 {
 	margin: 0 0 0.5rem 0;
-	color: rgb(var(--black));
 	line-height: 1.2;
+	font-weight: 300;
+
 }
+
 h1 {
 	font-size: 3.052em;
 }
+
 h2 {
 	font-size: 2.441em;
 }
+
 h3 {
 	font-size: 1.953em;
 }
+
 h4 {
 	font-size: 1.563em;
 }
+
 h5 {
 	font-size: 1.25em;
 }
+
 strong,
 b {
 	font-weight: 700;
 }
+
+a::before {
+	content: "<";
+}
+
+a::after {
+	content: ">";
+}
+
 a {
 	color: var(--accent);
 }
+
 a:hover {
 	color: var(--accent);
 }
+
 p {
 	margin-bottom: 1em;
 }
+
 .prose p {
 	margin-bottom: 2em;
 }
+
 textarea {
 	width: 100%;
 	font-size: 16px;
 }
+
 input {
 	font-size: 16px;
 }
+
 table {
 	width: 100%;
 }
+
 img {
 	max-width: 100%;
 	height: auto;
 	border-radius: 8px;
 }
+
 code {
-	padding: 2px 5px;
-	background-color: rgb(var(--gray-light));
-	border-radius: 2px;
+	padding: 1px 5px;
+	background-color: rgb(0, 0, 0, 0.2);
+
+	border: 1px solid;
+	border-color: var(--text-color);
 }
+
 pre {
 	padding: 1.5em;
-	border-radius: 8px;
 }
-pre > code {
+
+pre>code {
 	all: unset;
 }
+
 blockquote {
 	border-left: 4px solid var(--accent);
 	padding: 0 0 0 20px;
 	margin: 0px;
 	font-size: 1.333em;
 }
+
 hr {
 	border: none;
 	border-top: 1px solid rgb(var(--gray-light));
 }
+
 @media (max-width: 720px) {
 	body {
 		font-size: 18px;
 	}
+
 	main {
 		padding: 1em;
 	}

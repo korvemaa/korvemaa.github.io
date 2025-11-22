@@ -1,8 +1,8 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import Effects from "../components/Effects.astro";
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 ---
 
 <!doctype html>
@@ -11,39 +11,80 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
 	<body>
+		<Effects />
 		<Header />
 		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
+			<img src="dithered.png" class="avatar" />
+			<div class="text-container">
+				<h1>Jake Korvemaa</h1>
+				<p>Software Engineer</p>
+			</div>
 		</main>
-		<Footer />
 	</body>
 </html>
+
+<style>
+	@import url("https://fonts.googleapis.com/css2?family=Jacquard+24&family=Tiny5&display=swap");
+
+	html,
+	body {
+		min-height: 100%;
+		margin: 0;
+	}
+
+	.avatar {
+		width: 500px;
+		height: 500px;
+		margin-left: -140px;
+		mix-blend-mode: color-dodge;
+		filter: contrast(1.2) brightness(1.4);
+		mask-image: radial-gradient(black 30%, transparent 80%);
+		flex-shrink: 0;
+	}
+
+	.text-container {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		margin-left: -180px;
+		margin-bottom: 165px;
+	}
+
+	body {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: flex-start;
+		text-align: center;
+	}
+
+	main {
+		display: flex;
+		flex-direction: row;
+		align-items: flex-end;
+
+		border: 2px solid var(--text-color);
+		gap: 2em;
+		image-rendering: pixelated;
+		padding: 0 2em;
+		overflow: hidden;
+
+		height: 20em;
+	}
+
+	h1 {
+		font-family: "Jacquard 24", system-ui;
+		font-weight: 400;
+		font-size: 6em;
+		font-style: normal;
+		margin: 0;
+	}
+
+	p {
+		font-family: "Tiny5", sans-serif;
+		font-size: 18px;
+		margin: 0;
+		margin-top: -20px;
+	}
+</style>

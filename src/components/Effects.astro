@@ -1,0 +1,59 @@
+---
+
+---
+
+<div class="background-vignette fullscreen"></div>
+<div class="background-noise fullscreen"></div>
+<div class="foreground-scan fullscreen"></div>
+
+<style>
+    .fullscreen {
+        position: fixed;
+        pointer-events: none;
+        inset: 0;
+
+        width: 100vw;
+        height: 100vh;
+
+        top: 0;
+        left: 0;
+    }
+
+    .background-vignette {
+        z-index: -50;
+
+        background-image: radial-gradient(transparent, black 80%);
+        mix-blend-mode: multiply;
+    }
+
+    .background-noise {
+        z-index: -100;
+        background-image: url("noise.png");
+        opacity: 0.1;
+        image-rendering: pixelated;
+        mix-blend-mode: multiply;
+    }
+
+    .foreground-scan {
+        z-index: 100;
+
+        top: -100%;
+        pointer-events: none;
+        background: linear-gradient(
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.02) 100%
+        );
+        mix-blend-mode: screen;
+        animation: scan 5s linear infinite;
+        animation-delay: 2.5s;
+    }
+
+    @keyframes scan {
+        0% {
+            top: -100%;
+        }
+        100% {
+            top: 100%;
+        }
+    }
+</style>
