@@ -1,7 +1,6 @@
 ---
 import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
-import Layout from "./Layout.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 
 type Props = CollectionEntry<"blog">["data"];
@@ -9,46 +8,84 @@ type Props = CollectionEntry<"blog">["data"];
 const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 ---
 
-<Layout>
-	<article>
-		<div class="hero-image">
-			{
-				heroImage && (
-					<Image width={1020} height={510} src={heroImage} alt="" />
-				)
-			}
-		</div>
-		<div class="prose">
-			<div class="title">
-				<h1>{title}</h1>
-				<div class="date">
-					<FormattedDate date={pubDate} />
-					{
-						updatedDate && (
-							<div class="last-updated-on">
-								Last updated on{" "}
-								<FormattedDate date={updatedDate} />
-							</div>
-						)
-					}
+<article>
+	<div class="prose">
+		<div class="header">
+			<div class="hero-image">
+				{heroImage && <Image src={heroImage} alt="image" />}
+			</div>
+
+			<div class="header-content">
+				<div class="title">
+					<h1>{title}</h1>
+					<div class="date">
+						<FormattedDate date={pubDate} />
+						{
+							updatedDate && (
+								<div class="last-updated-on">
+									Last updated on{" "}
+									<FormattedDate date={updatedDate} />
+								</div>
+							)
+						}
+					</div>
+				</div>
+				<div class="text-content">
+					<span>{description}</span>
 				</div>
 			</div>
-			<slot />
 		</div>
-	</article>
+		<slot />
+	</div>
+</article>
 
-	<style>
-		.title {
-			display: flex;
-			flex-direction: column;
-			background: var(--text-color);
-			color: black;
-			padding: 0.5em;
-		}
+<style>
+	.header {
+		display: flex;
+		flex-direction: row;
+		flex-grow: 1;
+	}
 
-		.title h1 {
-			padding: 0;
-			margin: 0;
-		}
-	</style>
-</Layout>
+	.header-content {
+		display: flex;
+		flex-direction: column;
+		flex-grow: 1;
+		border: 2px solid var(--text-color);
+	}
+
+	.header-content .text-content {
+		display: flex;
+		flex-grow: 1;
+		padding: 0.5em;
+	}
+
+	.hero-image {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 150px;
+		width: 256px;
+		overflow: hidden;
+		border: 2px solid var(--text-color);
+		border-right-width: 0;
+	}
+
+	.hero-image Img {
+	}
+
+	.title {
+		display: flex;
+		flex-direction: row;
+		background: var(--text-color);
+		color: black;
+		text-shadow: none;
+		padding: 0.5em;
+	}
+
+	.title h1 {
+		flex-grow: 1;
+		font-size: 2em;
+		padding: 0;
+		margin: 0;
+	}
+</style>

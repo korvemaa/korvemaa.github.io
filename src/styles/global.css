@@ -15,7 +15,7 @@
 	--text-shadow: 0 0 16px color-mix(in srgb, currentColor 50%, transparent 50%), 0 0 2px color-mix(in srgb, currentColor 70%, transparent 30%);
 	--darker-color: hsl(var(--base-hue), calc(var(--base-saturation)), calc(var(--base-light) - 42%));
 
-	--dimmed-glow-color: hsl(var(--base-hue), calc(var(--base-saturation)), calc(var(--base-light) - 18%));
+	--dimmed-glow-color: hsl(var(--base-hue), calc(var(--base-saturation)), calc(var(--base-light) - 42%));
 
 	--accent: var(--text-color);
 	--accent-dark: #000d8a;
@@ -30,9 +30,6 @@ html {
 
 body {
 	font-family: monospace;
-	font-optical-sizing: auto;
-	font-weight: 400;
-	font-style: normal;
 
 	margin: 0;
 	padding: 0 1em;

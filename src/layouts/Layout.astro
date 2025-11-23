@@ -15,7 +15,9 @@ import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
         <Effects />
         <Header />
         <main>
-            <slot />
+            <div id="scroll-container">
+                <slot />
+            </div>
         </main>
         <Footer />
     </body>
@@ -35,7 +37,7 @@ import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
         align-items: stretch;
         flex-grow: 1;
 
-        max-width: 800px;
+        max-width: 1440px;
     }
 
     main {
@@ -46,8 +48,34 @@ import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 
         border: 2px solid var(--text-color);
         image-rendering: pixelated;
-        padding: 1em 1em;
+        padding: 0em 1em;
+        height: 840px;
+    }
+
+    #scroll-container {
+        display: flex;
+        flex-direction: column;
         overflow: auto;
-        height: 600px;
+        flex-grow: 1;
+        padding: 1em 0;
+        padding-bottom: 0;
+        padding-right: 1em;
+    }
+
+    #scroll-container::-webkit-scrollbar {
+        margin: 1em;
+    }
+
+    #scroll-container::-webkit-scrollbar-track {
+        margin: 1em;
+        background-color: blue;
+    }
+
+    #scroll-container::-webkit-scrollbar-track-piece {
+        background-color: var(--dimmed-glow-color);
+    }
+
+    #scroll-container::-webkit-scrollbar-thumb {
+        background-color: var(--text-color);
     }
 </style>
