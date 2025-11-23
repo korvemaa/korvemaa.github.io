@@ -35,7 +35,9 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				</div>
 			</div>
 		</div>
-		<slot />
+		<span class="blog-content">
+			<slot />
+		</span>
 	</div>
 </article>
 
@@ -44,6 +46,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 		display: flex;
 		flex-direction: row;
 		flex-grow: 1;
+		margin-bottom: 0.5em;
 	}
 
 	.header-content {
@@ -63,11 +66,13 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		height: 150px;
 		width: 256px;
 		overflow: hidden;
 		border: 2px solid var(--text-color);
 		border-right-width: 0;
+	}
+
+	.blog-content {
 	}
 
 	.hero-image Img {

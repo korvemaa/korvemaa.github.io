@@ -15,7 +15,7 @@
 	--text-shadow: 0 0 16px color-mix(in srgb, currentColor 50%, transparent 50%), 0 0 2px color-mix(in srgb, currentColor 70%, transparent 30%);
 	--darker-color: hsl(var(--base-hue), calc(var(--base-saturation)), calc(var(--base-light) - 42%));
 
-	--dimmed-glow-color: hsl(var(--base-hue), calc(var(--base-saturation)), calc(var(--base-light) - 42%));
+	--dimmed-glow-color: hsl(var(--base-hue), calc(var(--base-saturation)), calc(var(--base-light) - 40%));
 
 	--accent: var(--text-color);
 	--accent-dark: #000d8a;
@@ -31,8 +31,6 @@ html {
 body {
 	font-family: monospace;
 
-	margin: 0;
-	padding: 0 1em;
 	text-align: left;
 	word-wrap: break-word;
 	overflow-wrap: break-word;
@@ -59,23 +57,35 @@ h6 {
 }
 
 h1 {
-	font-size: 3.052em;
+	font-size: 2em;
 }
 
 h2 {
-	font-size: 2.441em;
+	font-size: 1.6em;
 }
 
 h3 {
-	font-size: 1.953em;
+	font-size: 1.4em;
 }
 
 h4 {
-	font-size: 1.563em;
+	font-size: 1.2em;
 }
 
 h5 {
-	font-size: 1.25em;
+	font-size: 1.1em;
+}
+
+.blog-content h1 {
+	background: var(--text-color);
+	color: black;
+	text-shadow: none;
+	padding: 0.5rem;
+}
+
+.blog-content h2 {
+	background: var(--dimmed-glow-color);
+	padding: 0.5rem;
 }
 
 strong,
@@ -132,6 +142,7 @@ code {
 
 	border: 1px solid;
 	border-color: var(--text-color);
+	border-radius: 25px;
 }
 
 pre {
@@ -162,22 +173,4 @@ hr {
 	main {
 		padding: 1em;
 	}
-}
-
-.sr-only {
-	border: 0;
-	padding: 0;
-	margin: 0;
-	position: absolute !important;
-	height: 1px;
-	width: 1px;
-	overflow: hidden;
-	/* IE6, IE7 - a 0 height clip, off to the bottom right of the visible 1px box */
-	clip: rect(1px 1px 1px 1px);
-	/* maybe deprecated but we need to support legacy browsers */
-	clip: rect(1px, 1px, 1px, 1px);
-	/* modern browsers, clip-path works inwards from each corner */
-	clip-path: inset(50%);
-	/* added line to stop words getting smushed together (as they go onto separate lines and some screen readers do not understand line feeds as a space */
-	white-space: nowrap;
 }
