@@ -13,13 +13,11 @@ import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
     </head>
     <body>
         <Effects />
-        <span class="glowing output">
-            <Header />
-            <main>
-                <slot />
-            </main>
-            <Footer />
-        </span>
+        <Header />
+        <main>
+            <slot />
+        </main>
+        <Footer />
     </body>
 </html>
 
@@ -34,25 +32,22 @@ import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
         display: flex;
         flex-direction: column;
         justify-content: center;
-        align-items: stretch
-        text-align: center;
+        align-items: stretch;
+        flex-grow: 1;
 
-        min-width: 60vw;
+        max-width: 800px;
     }
 
-	main {
+    main {
         display: flex;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: stretch;
-  
-		border: 2px solid var(--text-color);
-		image-rendering: pixelated;
-		padding: 2em 4em;
-		overflow: hidden;
-        min-height: 60vh;
-	}
+        flex-direction: column;
 
-    .glowing {
-        filter: drop-shadow(0 0 64px color-mix(in srgb, currentColor 60%, transparent 40%));
+        border: 2px solid var(--text-color);
+        image-rendering: pixelated;
+        padding: 1em 1em;
+        overflow: auto;
+        height: 600px;
     }
 </style>

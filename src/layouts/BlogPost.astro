@@ -20,6 +20,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 		</div>
 		<div class="prose">
 			<div class="title">
+				<h1>{title}</h1>
 				<div class="date">
 					<FormattedDate date={pubDate} />
 					{
@@ -31,10 +32,23 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 						)
 					}
 				</div>
-				<h1>{title}</h1>
-				<hr />
 			</div>
 			<slot />
 		</div>
 	</article>
+
+	<style>
+		.title {
+			display: flex;
+			flex-direction: column;
+			background: var(--text-color);
+			color: black;
+			padding: 0.5em;
+		}
+
+		.title h1 {
+			padding: 0;
+			margin: 0;
+		}
+	</style>
 </Layout>

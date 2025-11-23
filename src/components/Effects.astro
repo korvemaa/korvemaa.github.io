@@ -5,6 +5,7 @@
 <div class="background-vignette fullscreen"></div>
 <div class="background-noise fullscreen"></div>
 <div class="foreground-scan fullscreen"></div>
+<div class="foreground-lines fullscreen"></div>
 
 <style>
     .fullscreen {
@@ -55,6 +56,35 @@
         }
         100% {
             top: 100%;
+        }
+    }
+
+    .foreground-lines {
+        z-index: 90;
+        background-image: repeating-linear-gradient(
+            0deg,
+            rgba(255, 255, 255, 0.08),
+            rgba(255, 255, 255, 0.1) 4px,
+            transparent 4px,
+            transparent 8px
+        );
+
+        filter: brightness(0.1);
+        mix-blend-mode: multiply;
+        background-size: 100% 8px;
+
+        /* makes the stripe height match the pattern repeat */
+        animation: move-stripes 1s linear infinite;
+    }
+
+    @keyframes move-stripes {
+        from {
+            background-position: 0 0;
+        }
+
+        to {
+            background-position: 0 8px;
+            /* moves the pattern down by one repeat */
         }
     }
 </style>
