@@ -3,7 +3,7 @@
 // all pages through the use of the <BaseHead /> component.
 import "../styles/global.css";
 import type { ImageMetadata } from "astro";
-import { SITE_TITLE } from "../consts";
+import { SITE_TITLE, THEME_HUE_KEY } from "../consts";
 import { undefined } from "astro:schema";
 
 interface Props {
@@ -21,7 +21,12 @@ const { title, description, image = undefined } = Astro.props;
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <link rel="sitemap" href="/sitemap-index.xml" />
-<link rel="alternate" type="application/rss+xml" title={SITE_TITLE} href={new URL("rss.xml", Astro.site)} />
+<link
+	rel="alternate"
+	type="application/rss+xml"
+	title={SITE_TITLE}
+	href={new URL("rss.xml", Astro.site)}
+/>
 <meta name="generator" content={Astro.generator} />
 
 <!-- Canonical URL -->
@@ -29,7 +34,14 @@ const { title, description, image = undefined } = Astro.props;
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Jacquard+24&family=Tiny5&display=swap" rel="stylesheet" />
+<link
+	href="https://fonts.googleapis.com/css2?family=Jacquard+24&family=Tiny5&display=swap"
+	rel="stylesheet"
+/>
+<link
+	rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0&icon_names=colors"
+/>
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
@@ -44,3 +56,13 @@ const { title, description, image = undefined } = Astro.props;
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image.src, Astro.url)} />
+
+<script is:inline define:vars={{ THEME_HUE_KEY }}>
+	const rootStyles = getComputedStyle(document.documentElement);
+	const hueValue =
+		localStorage.getItem(THEME_HUE_KEY) ||
+		rootStyles.getPropertyValue("--base-hue") ||
+		"150";
+
+	document.documentElement.style.setProperty("--base-hue", hueValue);
+</script>

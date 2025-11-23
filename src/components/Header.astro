@@ -1,5 +1,6 @@
 ---
 import HeaderLink from "./HeaderLink.astro";
+import { THEME_HUE_KEY } from "../consts";
 
 let pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, "");
 if (pathname == "") pathname = "index";
@@ -11,27 +12,67 @@ if (pathname == "") pathname = "index";
 			<HeaderLink href="/">Home</HeaderLink>
 			<HeaderLink href="/blog">Blog</HeaderLink>
 			<HeaderLink href="/about">About</HeaderLink>
-			<HeaderLink href="/contact">Contact</HeaderLink>
 		</div>
-		<input id="hue-slider" type="range" min="0" max="360" value="180" />
+		<div class="internal-links">
+			<span id="hue-icon" class="material-symbols-outlined">colors</span>
+			<input id="hue-slider" type="range" min="0" max="360" value="180" />
+		</div>
 	</nav>
 </header>
 
-<script>
-	const slider = document.getElementById("hue-slider") as HTMLInputElement;
+<script define:vars={{ THEME_HUE_KEY }}>
+	const hueIcon = document
+		.getElementById("hue-icon")
+		.addEventListener("click", () => {
+			setHue(150);
+		});
 
-	// Get the current CSS variable, whether it's inline or from a stylesheet
+	const slider = document.getElementById("hue-slider");
 	const rootStyles = getComputedStyle(document.documentElement);
-	slider.value = rootStyles.getPropertyValue("--base-hue").trim() || "180";
+	const hueValue =
+		localStorage.getItem(THEME_HUE_KEY) ||
+		rootStyles.getPropertyValue("--base-hue") ||
+		"150";
 
+	slider.value = hueValue;
 	slider.addEventListener("input", () => {
-		document.documentElement.style.setProperty("--base-hue", slider.value);
+		setHue(slider.value);
 	});
+
+	function setHue(value) {
+		slider.value = value;
+		document.documentElement.style.setProperty("--base-hue", value);
+		localStorage.setItem(THEME_HUE_KEY, value);
+	}
 </script>
 <style>
 	header {
 		margin: 0;
 		align-self: stretch;
+	}
+	#hue-icon {
+		cursor: pointer;
+	}
+
+	#hue-slider {
+		margin: 0;
+		margin-left: 8px;
+		appearance: none;
+		width: 100%;
+		height: 4px;
+		background-color: var(--dimmed-glow-color);
+	}
+
+	#hue-slider::-webkit-slider-thumb {
+		cursor: pointer;
+		transition: none;
+		background-color: var(--text-color);
+		appearance: none;
+		width: 8px;
+		height: 14px;
+	}
+
+	#hue-slider::-moz-range-thumb {
 	}
 
 	h2 {
@@ -52,10 +93,10 @@ if (pathname == "") pathname = "index";
 
 	.internal-links {
 		display: flex;
+		align-items: center;
 	}
 
 	nav a {
-		
 		text-transform: uppercase;
 		padding: 0.5em 1.2em;
 		color: var(--black);

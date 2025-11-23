@@ -3,3 +3,5 @@
 
 export const SITE_TITLE = 'Jakes Place';
 export const SITE_DESCRIPTION = '';
+
+export const THEME_HUE_KEY = 'terminal-hue';
