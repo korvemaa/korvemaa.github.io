@@ -1,0 +1,58 @@
+---
+import Effects from "../components/Effects.astro";
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    </head>
+    <body>
+        <Effects />
+        <span class="glowing output">
+            <Header />
+            <main>
+                <slot />
+            </main>
+            <Footer />
+        </span>
+    </body>
+</html>
+
+<style>
+    html,
+    body {
+        min-height: 100%;
+        margin: 0;
+    }
+
+    body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: stretch
+        text-align: center;
+
+        min-width: 60vw;
+    }
+
+	main {
+        display: flex;
+        justify-content: center;
+        align-items: stretch;
+  
+		border: 2px solid var(--text-color);
+		image-rendering: pixelated;
+		padding: 2em 4em;
+		overflow: hidden;
+        min-height: 60vh;
+	}
+
+    .glowing {
+        filter: drop-shadow(0 0 64px color-mix(in srgb, currentColor 60%, transparent 40%));
+    }
+</style>

@@ -1,0 +1,74 @@
+<footer><span id="hover-ui">$ > </span></footer>
+
+<script>
+    let typingInterval: any = null; // store current interval
+
+    let pathingPrefix = window.location.pathname; // e.g., /projects/
+    if (pathingPrefix === "/") pathingPrefix = "~";
+    else pathingPrefix = "~" + pathingPrefix
+
+    const prefix = `user@${window.location.hostname}:${pathingPrefix} $ `;
+
+    function getRelativePath(href: string) {
+        const target = new URL(href, window.location.origin).pathname;
+
+        // If target starts with current, remove current part
+        const current = window.location.pathname; // e.g., /projects/
+        if (target.startsWith(current)) {
+            let rel = target.slice(current.length);
+            return rel ? rel : "."; // "." if same page
+        }
+
+        return target == "/" ? "~" : "~" + target; // fallback to full path if not under current
+    }
+
+    function typeWriter(element: HTMLElement, text: string, speed = 35) {
+        clearInterval(typingInterval);
+        element.textContent = prefix;
+        let i = 0;
+
+        typingInterval = setInterval(() => {
+            element.textContent += text[i];
+            i++;
+            if (i >= text.length) clearInterval(typingInterval);
+        }, speed);
+    }
+
+    const ui = document.getElementById("hover-ui")!;
+    ui.textContent = prefix;
+
+    // cd selection
+    document.querySelectorAll("a").forEach((a) => {
+        a.addEventListener("mouseenter", () => {
+            typeWriter(ui, "cd " + getRelativePath(a.pathname));
+        });
+
+        a.addEventListener("mouseleave", () => {
+            ui.textContent = prefix;
+            clearInterval(typingInterval);
+        });
+    });
+</script>
+
+<style>
+    footer {
+        margin-top: 0.5em;
+    }
+
+    #hover-ui::after {
+        content: "|";
+        animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+        0%,
+        50%,
+        100% {
+            opacity: 1;
+        }
+        25%,
+        75% {
+            opacity: 0;
+        }
+    }
+</style>

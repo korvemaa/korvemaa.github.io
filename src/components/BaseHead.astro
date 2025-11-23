@@ -20,14 +20,8 @@ const { title, description, image = undefined } = Astro.props;
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="sitemap" href="/sitemap-index.xml" />
-<link
-	rel="alternate"
-	type="application/rss+xml"
-	title={SITE_TITLE}
-	href={new URL("rss.xml", Astro.site)}
-/>
+<link rel="alternate" type="application/rss+xml" title={SITE_TITLE} href={new URL("rss.xml", Astro.site)} />
 <meta name="generator" content={Astro.generator} />
 
 <!-- Canonical URL -->
@@ -35,15 +29,7 @@ const { title, description, image = undefined } = Astro.props;
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link
-	href="https://fonts.googleapis.com/css2?family=Jacquard+24&family=Tiny5&display=swap"
-	rel="stylesheet"
-/>
-
-<!-- Primary Meta Tags -->
-<title>{title}</title>
-<meta name="title" content={title} />
-<meta name="description" content={description} />
+<link href="https://fonts.googleapis.com/css2?family=Jacquard+24&family=Tiny5&display=swap" rel="stylesheet" />
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />

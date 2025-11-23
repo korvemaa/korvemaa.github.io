@@ -1,21 +1,8 @@
 ---
-import Effects from "../components/Effects.astro";
-import BaseHead from "../components/BaseHead.astro";
-import Header from "../components/Header.astro";
-import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+import Layout from "../layouts/Layout.astro";
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Effects />
-		<Header />
-		<main>
-			<h1>About Me</h1>
-			<p>Hi I do things and they are pretty cool</p>
-		</main>
-	</body>
-</html>
+<Layout>
+	<h1>About Me</h1>
+	<p>Hi I do things and they are pretty cool</p>
+</Layout>

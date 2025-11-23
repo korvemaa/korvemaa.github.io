@@ -15,6 +15,8 @@
 	--text-shadow: 0 0 16px color-mix(in srgb, currentColor 50%, transparent 50%), 0 0 2px color-mix(in srgb, currentColor 70%, transparent 30%);
 	--darker-color: hsl(var(--base-hue), calc(var(--base-saturation)), calc(var(--base-light) - 42%));
 
+	--dimmed-glow-color: hsl(var(--base-hue), calc(var(--base-saturation)), calc(var(--base-light) - 18%));
+
 	--accent: var(--text-color);
 	--accent-dark: #000d8a;
 }
@@ -77,12 +79,6 @@ body::after {
 		background-position: 0 8px;
 		/* moves the pattern down by one repeat */
 	}
-}
-
-main {
-	max-width: calc(100% - 2em);
-	margin: auto;
-	padding: 1em 1em;
 }
 
 h1,

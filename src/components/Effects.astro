@@ -22,14 +22,15 @@
     .background-vignette {
         z-index: -50;
 
-        background-image: radial-gradient(transparent, black 80%);
+        background-image: radial-gradient(transparent, black 120%);
+        box-shadow: inset 0 0 100000000px black;
         mix-blend-mode: multiply;
     }
 
     .background-noise {
         z-index: -100;
         background-image: url("noise.png");
-        opacity: 0.1;
+        opacity: 0.3;
         image-rendering: pixelated;
         mix-blend-mode: multiply;
     }
