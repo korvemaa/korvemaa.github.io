@@ -1,0 +1,56 @@
+---
+import { getImage } from "astro:assets";
+import FormattedDate from "../components/FormattedDate.astro";
+
+const { title, description, pubDate, updatedDate } = Astro.props;
+---
+
+<div class="tile">
+    <h1 id="title">{title}</h1>
+    <div class="text-container">
+        <span id="description">{description}</span>
+        <FormattedDate date={pubDate} />
+        {
+            updatedDate && (
+                <div class="last-updated-on">
+                    Last updated on <FormattedDate date={updatedDate} />
+                </div>
+            )
+        }
+    </div>
+</div>
+
+<style>
+    .tile {
+        border: 2px solid var(--text-color);
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+        text-transform: uppercase;
+        font-weight: bold;
+        padding: 1rem;
+        margin: 0;
+    }
+
+    #description {
+        flex-grow: 1;
+    }
+
+    .text-container {
+        display: flex;
+        flex-direction: column;
+        flex-shrink: 1;
+        flex-grow: 1;
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    .text-container * {
+        padding: 0;
+        margin: 0;
+    }
+</style>
