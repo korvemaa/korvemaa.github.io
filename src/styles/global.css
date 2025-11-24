@@ -30,6 +30,7 @@ html {
 
 body {
 	font-family: monospace;
+	font-synthesis-weight: none;
 
 	text-align: left;
 	word-wrap: break-word;
@@ -58,10 +59,16 @@ h6 {
 
 h1 {
 	font-size: 2em;
+	background: var(--text-color);
+	color: black;
+	text-shadow: none;
+	padding: 0.5rem;
 }
 
 h2 {
 	font-size: 1.6em;
+	background: var(--dimmed-glow-color);
+	padding: 0.5rem;
 }
 
 h3 {
@@ -74,18 +81,6 @@ h4 {
 
 h5 {
 	font-size: 1.1em;
-}
-
-.blog-content h1 {
-	background: var(--text-color);
-	color: black;
-	text-shadow: none;
-	padding: 0.5rem;
-}
-
-.blog-content h2 {
-	background: var(--dimmed-glow-color);
-	padding: 0.5rem;
 }
 
 strong,

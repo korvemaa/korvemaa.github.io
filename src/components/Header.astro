@@ -10,8 +10,9 @@ if (pathname == "") pathname = "index";
 	<nav>
 		<div class="internal-links">
 			<HeaderLink href="/">Home</HeaderLink>
-			<HeaderLink href="/blog">Blog</HeaderLink>
 			<HeaderLink href="/about">About</HeaderLink>
+			<HeaderLink href="/projects">Projects</HeaderLink>
+			<HeaderLink href="/blog">Blog</HeaderLink>
 		</div>
 		<div class="internal-links">
 			<span id="hue-icon" class="material-symbols-outlined">colors</span>
@@ -21,11 +22,9 @@ if (pathname == "") pathname = "index";
 </header>
 
 <script define:vars={{ THEME_HUE_KEY }}>
-	const hueIcon = document
-		.getElementById("hue-icon")
-		.addEventListener("click", () => {
-			setHue(150);
-		});
+	document.getElementById("hue-icon").addEventListener("click", () => {
+		setHue(150);
+	});
 
 	const slider = document.getElementById("hue-slider");
 	const rootStyles = getComputedStyle(document.documentElement);

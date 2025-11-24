@@ -16,8 +16,10 @@ import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
         <div class="content-container">
             <Header />
             <main>
-                <div id="scroll-container">
-                    <slot />
+                <div id="scroll-view">
+                    <div id="scroll-container">
+                        <slot />
+                    </div>
                 </div>
             </main>
             <Footer />
@@ -41,7 +43,7 @@ import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
         overflow: auto;
         flex-grow: 1;
         min-width: 0;
-        max-width: 1440px;
+        max-width: 1920px;
     }
 
     .content-container {
@@ -62,39 +64,46 @@ import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
         align-items: stretch;
         border: 2px solid var(--text-color);
         image-rendering: pixelated;
-        padding: 0em 1em;
         min-height: 0;
-        max-height: 720px;
+        max-height: 1080px;
         overflow: hidden;
+        padding: 0 1em;
     }
 
-    #scroll-container {
+    #scroll-view {
         display: flex;
         flex-direction: column;
-        justify-content: flex-start;
         max-height: 100%;
         min-height: 0;
         flex-grow: 1;
         box-sizing: border-box;
         overflow: auto;
         padding: 1em 0;
-        padding-right: 1em;
     }
 
-    #scroll-container::-webkit-scrollbar {
+    #scroll-view::-webkit-scrollbar {
         margin: 1em;
     }
 
-    #scroll-container::-webkit-scrollbar-track {
+    #scroll-view::-webkit-scrollbar-track {
         margin: 1em;
         background-color: blue;
     }
 
-    #scroll-container::-webkit-scrollbar-track-piece {
+    #scroll-view::-webkit-scrollbar-track-piece {
         background-color: var(--dimmed-glow-color);
     }
 
-    #scroll-container::-webkit-scrollbar-thumb {
+    #scroll-view::-webkit-scrollbar-thumb {
         background-color: var(--text-color);
+    }
+
+    #scroll-container {
+        display: flex;
+        flex-direction: column;
+        overflow: visible;
+        flex-grow: 1;
+        padding-right: 1em;
+        align-items: stretch;
     }
 </style>
