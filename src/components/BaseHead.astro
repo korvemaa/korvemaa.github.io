@@ -33,7 +33,9 @@ if (image) {
 	href={new URL("rss.xml", Astro.site)}
 />
 <meta name="generator" content={Astro.generator} />
+
 <title>{title}</title>
+<meta name="description" content={description} />
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />

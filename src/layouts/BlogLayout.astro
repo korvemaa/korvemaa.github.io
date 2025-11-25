@@ -39,7 +39,7 @@ const subpath = pathname.match(/[^\/]+/g);
 							{(posts as any).map((post: any) => (
 								<a
 									class={`post-link ${subpath?.[1]?.endsWith(post.id) ? "active" : ""}`}
-									href={`/blog/${post.id}/`}
+									href={`/blog/${post.id}`}
 								>
 									{post.data.title}
 								</a>
