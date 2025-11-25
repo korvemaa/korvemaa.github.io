@@ -4,23 +4,21 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+
+const { title } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
     <head>
-        <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+        <BaseHead title={title || SITE_TITLE} description={SITE_DESCRIPTION} />
     </head>
     <body>
         <Effects />
         <div class="content-container">
             <Header />
             <main>
-                <div id="scroll-view">
-                    <div id="scroll-container">
-                        <slot />
-                    </div>
-                </div>
+                <slot />
             </main>
             <Footer />
         </div>
@@ -67,43 +65,5 @@ import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
         min-height: 0;
         max-height: 1080px;
         overflow: hidden;
-        padding: 0 1em;
-    }
-
-    #scroll-view {
-        display: flex;
-        flex-direction: column;
-        max-height: 100%;
-        min-height: 0;
-        flex-grow: 1;
-        box-sizing: border-box;
-        overflow: auto;
-        padding: 1em 0;
-    }
-
-    #scroll-view::-webkit-scrollbar {
-        margin: 1em;
-    }
-
-    #scroll-view::-webkit-scrollbar-track {
-        margin: 1em;
-        background-color: blue;
-    }
-
-    #scroll-view::-webkit-scrollbar-track-piece {
-        background-color: var(--dimmed-glow-color);
-    }
-
-    #scroll-view::-webkit-scrollbar-thumb {
-        background-color: var(--text-color);
-    }
-
-    #scroll-container {
-        display: flex;
-        flex-direction: column;
-        overflow: visible;
-        flex-grow: 1;
-        padding-right: 1em;
-        align-items: stretch;
     }
 </style>

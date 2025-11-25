@@ -1,0 +1,77 @@
+<div id="scroll-view" class="scroll-view">
+    <div id="scroll-container">
+        <slot />
+    </div>
+</div>
+
+<script>
+    const scrollViews = document.querySelectorAll<HTMLElement>(".scroll-view");
+
+    function updateScrollbarPadding(div: HTMLElement) {
+        if (div.scrollHeight > div.clientHeight) {
+            div.classList.add("scrollbar-active");
+        } else {
+            div.classList.remove("scrollbar-active");
+        }
+    }
+
+    // loop through all scroll views
+    scrollViews.forEach((div) => {
+        updateScrollbarPadding(div);
+        // optional: observe content changes
+        const observer = new MutationObserver(() =>
+            updateScrollbarPadding(div),
+        );
+        observer.observe(div, {
+            childList: true,
+            subtree: true,
+            characterData: true,
+        });
+    });
+
+    // update on resize for all
+    window.addEventListener("resize", () => {
+        scrollViews.forEach(updateScrollbarPadding);
+    });
+</script>
+
+<style>
+    #scroll-view {
+        display: flex;
+        flex-direction: column;
+        max-height: 100%;
+        min-height: 0;
+        flex-grow: 1;
+        box-sizing: border-box;
+        overflow: auto;
+
+        scrollbar-gutter:;
+    }
+
+    #scroll-view::-webkit-scrollbar {
+        margin: 1rem;
+    }
+
+    #scroll-view::-webkit-scrollbar-track {
+    }
+
+    #scroll-view::-webkit-scrollbar-track-piece {
+        background-color: var(--dimmed-glow-color);
+    }
+
+    #scroll-view::-webkit-scrollbar-thumb {
+        background-color: var(--text-color);
+    }
+
+    #scroll-container {
+        display: flex;
+        flex-direction: column;
+        overflow: visible;
+        flex-grow: 1;
+        align-items: stretch;
+    }
+
+    .scrollbar-active #scroll-container {
+        padding-right: 1rem;
+    }
+</style>

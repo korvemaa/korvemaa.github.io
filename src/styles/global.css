@@ -88,14 +88,6 @@ b {
 	font-weight: 700;
 }
 
-a::before {
-	content: "<";
-}
-
-a::after {
-	content: ">";
-}
-
 a {
 	color: var(--accent);
 }
@@ -158,14 +150,4 @@ blockquote {
 hr {
 	border: none;
 	border-top: 1px solid rgb(var(--gray-light));
-}
-
-@media (max-width: 720px) {
-	body {
-		font-size: 18px;
-	}
-
-	main {
-		padding: 1em;
-	}
 }

@@ -1,0 +1,159 @@
+---
+import { getCollection } from "astro:content";
+import ScrollView from "../components/ScrollView.astro";
+
+const posts = await getCollection("blog");
+const postsByYear = posts
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.reduce((acc: any, post) => {
+		const year = post.data.pubDate.getFullYear();
+
+		if (!acc[year]) acc[year] = [];
+		acc[year].push(post);
+
+		return acc;
+	}, {});
+
+const pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, "");
+const subpath = pathname.match(/[^\/]+/g);
+---
+
+<div class="blog-layout">
+	<aside class="posts-list" id="posts-list-container">
+		<input
+			id="post-search"
+			type="text"
+			placeholder="Search posts…"
+			class="search-box"
+		/>
+
+		<ScrollView>
+			{
+				Object.entries(postsByYear)
+					//@ts-ignore
+					.sort(([a], [b]) => b - a)
+					.map(([year, posts]) => (
+						<div class="year-group">
+							<div class="year-label">{year}</div>
+
+							{(posts as any).map((post: any) => (
+								<a
+									class={`post-link ${subpath?.[1]?.endsWith(post.id) ? "active" : ""}`}
+									href={`/blog/${post.id}/`}
+								>
+									{post.data.title}
+								</a>
+							))}
+						</div>
+					))
+			}
+		</ScrollView>
+	</aside>
+	<div class="post-content">
+		<ScrollView>
+			<slot />
+		</ScrollView>
+	</div>
+</div>
+
+<script>
+	const search = document.getElementById("post-search") as HTMLInputElement;
+	const container = document.getElementById(
+		"posts-list-container",
+	) as HTMLElement;
+
+	search.addEventListener("input", () => {
+		const query = search.value.toLowerCase().trim();
+
+		for (const link of container.querySelectorAll<HTMLElement>(
+			".post-link",
+		)) {
+			const text = link.textContent.toLowerCase();
+			link.style.display = text.includes(query) ? "" : "none";
+		}
+
+		// Optional: hide year labels when all its posts hide
+		for (const group of container.querySelectorAll<HTMLElement>(
+			".year-group",
+		)) {
+			const visible = [
+				...group.querySelectorAll<HTMLElement>(".post-link"),
+			].some((el) => el.style.display !== "none");
+
+			group.style.display = visible ? "" : "none";
+		}
+	});
+</script>
+
+<style>
+	.blog-layout {
+		display: flex;
+		flex-grow: 1;
+		overflow: hidden;
+	}
+
+	.search-box {
+		font-family: monospace;
+		margin: 0 1rem;
+		padding: 0.5rem;
+		border: 0;
+		color: var(--text-color);
+		text-shadow: var(--text-shadow);
+		background: var(--dimmed-glow-color);
+	}
+
+	.search-box::placeholder {
+		color: var(--text-color);
+	}
+
+	.posts-list,
+	.post-content {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.posts-list {
+		border-right: 2px solid var(--text-color);
+		padding: 1rem 0;
+		width: 280px;
+		flex-shrink: 0;
+		gap: 1rem;
+	}
+
+	.post-content {
+		padding: 1rem;
+		flex-shrink: 1;
+		flex-grow: 1;
+	}
+
+	.post-link {
+		display: flex;
+		flex-direction: column;
+		padding: 0.5rem 1rem;
+		text-decoration: none;
+	}
+
+	.post-link:hover:not(.active) {
+		background-color: var(--dimmed-glow-color);
+	}
+
+	.post-link.active {
+		background-color: var(--text-color);
+		color: black;
+		text-shadow: none;
+		font-weight: bold;
+	}
+
+	.year-label {
+		padding: 0 1rem;
+		margin-bottom: 0.25rem;
+
+		color: var(--dimmed-glow-color);
+	}
+
+	.year-group {
+		display: flex;
+		flex-direction: column;
+		margin-bottom: 1rem;
+	}
+</style>

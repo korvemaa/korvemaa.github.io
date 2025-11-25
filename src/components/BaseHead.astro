@@ -4,7 +4,6 @@
 import "../styles/global.css";
 import type { ImageMetadata } from "astro";
 import { SITE_TITLE, THEME_HUE_KEY } from "../consts";
-import { undefined } from "astro:schema";
 
 interface Props {
 	title: string;
@@ -14,7 +13,7 @@ interface Props {
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const { title, description, image = undefined } = Astro.props;
+const { title, description, image } = Astro.props;
 ---
 
 <!-- Global Metadata -->
@@ -28,14 +27,16 @@ const { title, description, image = undefined } = Astro.props;
 	href={new URL("rss.xml", Astro.site)}
 />
 <meta name="generator" content={Astro.generator} />
+<title>{title}</title>
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
 
+<!-- Google Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link
-	href="https://fonts.googleapis.com/css2?family=Jacquard+24&display=swap"
+	href="https://fonts.googleapis.com/css2?family=Tiny5&family=Jacquard+24&display=swap"
 	rel="stylesheet"
 />
 <link
@@ -48,14 +49,21 @@ const { title, description, image = undefined } = Astro.props;
 <meta property="og:url" content={Astro.url} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={new URL(image.src, Astro.url)} />
+{image && <meta property="og:image" content={new URL(image.src, Astro.url)} />}
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:url" content={Astro.url} />
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={new URL(image.src, Astro.url)} />
+{
+	image && (
+		<meta
+			property="twitter:image"
+			content={new URL(image.src, Astro.url)}
+		/>
+	)
+}
 
 <script is:inline define:vars={{ THEME_HUE_KEY }}>
 	const rootStyles = getComputedStyle(document.documentElement);
