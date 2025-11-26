@@ -19,6 +19,8 @@
 
 	--accent: var(--text-color);
 	--accent-dark: #000d8a;
+
+	--border-width: 1px;
 }
 
 html {

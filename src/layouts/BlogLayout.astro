@@ -34,7 +34,11 @@ const subpath = pathname.match(/[^\/]+/g);
 					.sort(([a], [b]) => b - a)
 					.map(([year, posts]) => (
 						<div class="year-group">
-							<div class="year-label">{year}</div>
+							<div class="year-label">
+								<div class="dividing-line" />
+								<span>{year}</span>
+								<div class="dividing-line" />
+							</div>
 
 							{(posts as any).map((post: any) => (
 								<a
@@ -113,9 +117,9 @@ const subpath = pathname.match(/[^\/]+/g);
 	}
 
 	.posts-list {
-		border-right: 2px solid var(--text-color);
-		padding: 1rem 0;
-		width: 280px;
+		border-right: var(--border-width) solid var(--text-color);
+		margin: 1rem 0;
+		width: 300px;
 		flex-shrink: 0;
 		gap: 1rem;
 	}
@@ -145,10 +149,19 @@ const subpath = pathname.match(/[^\/]+/g);
 	}
 
 	.year-label {
+		display: flex;
 		padding: 0 1rem;
 		margin-bottom: 0.25rem;
+		flex-direction: row;
+		align-items: center;
+		gap: 1rem;
+	}
 
-		color: var(--dimmed-glow-color);
+	.year-label .dividing-line {
+		display: flex;
+		height: 2px;
+		flex-grow: 1;
+		background-color: var(--dimmed-glow-color);
 	}
 
 	.year-group {
