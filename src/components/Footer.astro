@@ -16,8 +16,6 @@
         const target = new URL(anchor.pathname, window.location.origin)
             .pathname;
 
-        let prefix = "cd ";
-
         if (target !== "/blog" && target.includes("blog")) {
             return "cat " + anchor.pathname.split("/").at(-1) + ".md";
         }

@@ -18,6 +18,7 @@ const project = defineCollection({
 	schema: ({ image }) => z.object({
 		title: z.string(),
 		group: z.string(),
+		description: z.string().optional(),
 		order: z.number().optional(),
 		thumbnail: image().optional(), // Shown in the projects panel. should be 1:1
 		gallery: z.array(image()).optional(), // hq images showed as a slideshow in the page
