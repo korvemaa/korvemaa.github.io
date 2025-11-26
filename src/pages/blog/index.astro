@@ -1,24 +1,10 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import BlogLayout from "../../layouts/BlogLayout.astro";
+/*
+    Just redirect to the latest blog post.
+*/
+
+import { getCollection } from "astro:content";
+const posts = await getCollection("blog");
+posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+return Astro.redirect(`/blog/${posts[0].id}`);
 ---
-
-<Layout title="Blogs">
-    <BlogLayout> <div class="empty-blog">Choose from the left</div></BlogLayout>
-</Layout>
-
-<style>
-    .empty-blog {
-        flex-grow: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-
-        font-family: "Jacquard 24", monospace;
-        font-weight: 400;
-        font-size: 6em;
-        font-style: normal;
-        margin: 0;
-    }
-</style>

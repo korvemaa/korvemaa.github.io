@@ -1,0 +1,35 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Home">
+	<div style="flex-grow:1;" class="text-container">
+		<div class="text-container">
+			<span class="title">404</span>
+			<p>This content doesn't exist</p>
+		</div>
+	</div>
+</Layout>
+
+<style>
+	.text-container {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.title {
+		font-family: "Jacquard 24", monospace;
+		font-weight: 400;
+		font-size: 6em;
+		font-style: normal;
+		margin: 0;
+	}
+
+	p {
+		font-family: "Tiny5", monospace;
+		margin: 0;
+	}
+</style>
+
