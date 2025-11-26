@@ -1,9 +1,8 @@
 ---
 title: "My First Astro Blog Post"
 description: "A simple example of a blog post in Astro using Markdown."
-pubDate: "Nov 23 2025"
-author: "Your Name"
-heroImage: "/public/dithered.png"
+date: "Nov 23 2025"
+image: "/public/dithered.png"
 tags: ["astro", "blogging", "markdown"]
 ---
 

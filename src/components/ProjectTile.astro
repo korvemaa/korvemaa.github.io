@@ -1,0 +1,46 @@
+---
+import { getImage } from "astro:assets";
+
+const { title, thumbnail } = Astro.props;
+
+const image = thumbnail != null ? await getImage({ src: thumbnail }) : null;
+---
+
+<div class="project-tile">
+    <div class="thumbnail" style={`background-image: url(${image?.src});`}>
+    </div>
+    <span class="title">{title}</span>
+</div>
+
+<style>
+    .project-tile {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+
+        border-top: var(--border-width) solid var(--text-color);
+    }
+
+    .thumbnail {
+        display: flex;
+        aspect-ratio: 1/1;
+        flex-grow: 1;
+
+        image-rendering: auto;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .title {
+        display: flex;
+        background-color: var(--text-color);
+        color: black;
+        padding: 0.5rem;
+        text-shadow: none;
+
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+    }
+</style>

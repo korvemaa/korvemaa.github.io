@@ -1,13 +1,24 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import ScrollView from "../components/ScrollView.astro";
 ---
 
 <Layout title="About">
-    <h2>Who am I?</h2>
-    <p>Hi I do things and they are pretty cool</p>
-    <h2>Experience</h2>
-    <p>
-        I work at Enviz fulltime. Done contract work for super boss games
-        and have done volunteer work for Eagle One
-    </p>
+    <ScrollView>
+        <div class="main-view">
+            <h2>Who am I?</h2>
+            <p>Hi I do things and they are pretty cool</p>
+            <h2>Experience</h2>
+            <p>
+                I work at Enviz fulltime. Done contract work for super boss
+                games and have done volunteer work for Eagle One
+            </p>
+        </div>
+    </ScrollView>
 </Layout>
+
+<style>
+    .main-view {
+        padding: 1rem;
+    }
+</style>

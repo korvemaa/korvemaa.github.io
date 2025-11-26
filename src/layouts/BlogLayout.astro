@@ -4,9 +4,9 @@ import ScrollView from "../components/ScrollView.astro";
 
 const posts = await getCollection("blog");
 const postsByYear = posts
-	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
 	.reduce((acc: any, post) => {
-		const year = post.data.pubDate.getFullYear();
+		const year = post.data.date.getFullYear();
 
 		if (!acc[year]) acc[year] = [];
 		acc[year].push(post);

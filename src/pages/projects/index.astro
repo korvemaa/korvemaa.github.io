@@ -1,6 +1,47 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import ScrollView from "../../components/ScrollView.astro";
+import ProjectTile from "../../components/ProjectTile.astro";
+
+import { getCollection } from "astro:content";
+const projects = (await getCollection("project")).sort(
+    (e) => e.data.order || 100,
+);
 ---
 
-<Layout title="Projects"> I've made a bunch of things </Layout>
+<Layout title="Projects">
+    <div class="main-view">
+        <ScrollView>
+            <div class="projects-view">
+                {
+                    projects.map((post) => {
+                        return (
+                            <a href={`/projects/${post.id}`}>
+                                <ProjectTile
+                                    title={post.data.title}
+                                    thumbnail={post.data.thumbnail}
+                                />
+                            </a>
+                        );
+                    })
+                }
+            </div>
+        </ScrollView>
+    </div>
+</Layout>
 
+<style>
+    .main-view {
+        display: flex;
+        padding: 1rem;
+        overflow: hidden;
+    }
+
+    .projects-view {
+        flex-direction: column;
+
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 1rem;
+    }
+</style>

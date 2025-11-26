@@ -5,21 +5,31 @@
 
     let pathingPrefix = window.location.pathname; // e.g., /projects/
     if (pathingPrefix === "/") pathingPrefix = "~";
-    else pathingPrefix = "~" + pathingPrefix
+    else pathingPrefix = "~" + pathingPrefix;
 
     const prefix = `user@${window.location.hostname}:${pathingPrefix} $ `;
 
-    function getRelativePath(href: string) {
-        const target = new URL(href, window.location.origin).pathname;
+    function getCommand(anchor: HTMLAnchorElement) {
+        if (!anchor.href.startsWith(window.location.origin))
+            return "curl " + anchor.href;
+
+        const target = new URL(anchor.pathname, window.location.origin)
+            .pathname;
+
+        let prefix = "cd ";
+
+        if (target !== "/blog" && target.includes("blog")) {
+            return "cat " + anchor.pathname.split("/").at(-1) + ".md";
+        }
 
         // If target starts with current, remove current part
         const current = window.location.pathname; // e.g., /projects/
         if (target.startsWith(current)) {
             let rel = target.slice(current.length);
-            return rel ? rel : "."; // "." if same page
+            return "cd " + (rel ? rel : "."); // "." if same page
         }
 
-        return target == "/" ? "~" : "~" + target; // fallback to full path if not under current
+        return "cd " + (target == "/" ? "~" : "~" + target); // fallback to full path if not under current
     }
 
     function typeWriter(element: HTMLElement, text: string, speed = 35) {
@@ -40,7 +50,7 @@
     // cd selection
     document.querySelectorAll("a").forEach((a) => {
         a.addEventListener("mouseenter", () => {
-            typeWriter(ui, "cd " + getRelativePath(a.pathname));
+            typeWriter(ui, getCommand(a));
         });
 
         a.addEventListener("mouseleave", () => {

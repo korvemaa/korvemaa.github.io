@@ -5,6 +5,6 @@
 
 import { getCollection } from "astro:content";
 const posts = await getCollection("blog");
-posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 return Astro.redirect(`/blog/${posts[0].id}`);
 ---
