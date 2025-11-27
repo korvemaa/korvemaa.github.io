@@ -1,8 +1,7 @@
 ---
-title:  "Space AI"
+title:  "Automated Conversions"
 group: "Enviz"
-order: -2025
 tags: ["cloud", "automation"]
-thumbnail: "../images/fallback.png"
+thumbnail: "images/space-ai.png"
 date: 'Jan 1 2024'
 ---

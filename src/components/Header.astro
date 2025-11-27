@@ -1,9 +1,14 @@
 ---
 import HeaderLink from "./HeaderLink.astro";
 import { THEME_HUE_KEY } from "../consts";
+import { getCollection } from "astro:content";
 
 let pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, "");
 if (pathname == "") pathname = "index";
+
+const latestBlogId = (await getCollection("blog"))
+	.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+	.at(0);
 ---
 
 <header>
@@ -13,7 +18,7 @@ if (pathname == "") pathname = "index";
 			<HeaderLink href="/">Home</HeaderLink>
 			<HeaderLink href="/about">About</HeaderLink>
 			<HeaderLink href="/projects">Projects</HeaderLink>
-			<HeaderLink href="/blog">Blog</HeaderLink>
+			<HeaderLink href={`/blog/${latestBlogId?.id}`}>Blog</HeaderLink>
 		</div>
 		<div class="internal-links">
 			<label
