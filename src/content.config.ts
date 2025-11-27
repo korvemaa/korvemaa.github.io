@@ -19,7 +19,7 @@ const project = defineCollection({
 		title: z.string(),
 		group: z.string(),
 		description: z.string().optional(),
-		order: z.number().optional(),
+		date: z.coerce.date().optional(),
 		thumbnail: image().optional(), // Shown in the projects panel. should be 1:1
 		gallery: z.array(image()).optional(), // hq images showed as a slideshow in the page
 		tags: z.array(z.string()).optional()

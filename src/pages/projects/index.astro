@@ -4,28 +4,58 @@ import ScrollView from "../../components/ScrollView.astro";
 import ProjectTile from "../../components/ProjectTile.astro";
 
 import { getCollection } from "astro:content";
-const projects = (await getCollection("project")).sort(
-    (e) => e.data.order || 100,
-);
+import type { CollectionEntry } from "astro:content";
+
+type Project = CollectionEntry<"project">;
+
+const raw = await getCollection("project");
+
+// 1. Sort by date (assuming `data.order` is your date/order field)
+raw.sort((a, b) => {
+    const da = a.data.date?.getTime() ?? 100;
+    const db = b.data.date?.getTime() ?? 100;
+    return db - da;
+});
+
+// 2. Group by "group" field
+type ProjectGroups = Record<string, Project[]>;
+
+// 2. Group by `group`
+const grouped: ProjectGroups = raw.reduce((acc: any, item) => {
+    const key = item.data.group ?? "Ungrouped";
+    if (!acc[key]) acc[key] = [];
+    acc[key].push(item);
+    return acc;
+}, {});
 ---
 
 <Layout title="Projects">
     <div class="main-view">
         <ScrollView>
-            <div class="projects-view">
-                {
-                    projects.map((post) => {
-                        return (
-                            <a href={`/projects/${post.id}`}>
-                                <ProjectTile
-                                    title={post.data.title}
-                                    thumbnail={post.data.thumbnail}
-                                />
-                            </a>
-                        );
-                    })
-                }
-            </div>
+            {
+                Object.entries(grouped).map(([group, posts]) => (
+                    <div class="project-group">
+                        <div class="group-header">
+                            <div class="dividing-line" />
+                            <span class="group-title">{group}</span>
+                            <div class="dividing-line" />
+                        </div>
+
+                        <div class="project-tile">
+                            {posts.map((post) => {
+                                return (
+                                    <a href={`/projects/${post.id}`}>
+                                        <ProjectTile
+                                            title={post.data.title}
+                                            thumbnail={post.data.thumbnail}
+                                        />
+                                    </a>
+                                );
+                            })}
+                        </div>
+                    </div>
+                ))
+            }
         </ScrollView>
     </div>
 </Layout>
@@ -37,11 +67,41 @@ const projects = (await getCollection("project")).sort(
         overflow: hidden;
     }
 
-    .projects-view {
+    .project-group {
+        margin-bottom: 1rem;
+    }
+
+    .group-header {
+        display: flex;
+        align-items: center;
+        flex-grow: 1;
+        gap: 1rem;
+        padding: 1rem 0;
+    }
+
+    .project-group:first-child .group-header {
+        padding-top: 0;
+    }
+
+    .group-title {
+    }
+
+    .date-range {
+        color: var(--dimmed-glow-color);
+    }
+
+    .dividing-line {
+        display: flex;
+        height: 2px;
+        flex-grow: 1;
+        background-color: var(--dimmed-glow-color);
+    }
+
+    .project-tile {
         flex-direction: column;
 
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
         gap: 1rem;
     }
 </style>

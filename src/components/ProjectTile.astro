@@ -29,7 +29,7 @@ const image = thumbnail != null ? await getImage({ src: thumbnail }) : null;
         image-rendering: auto;
         background-size: cover;
         background-repeat: no-repeat;
-        background-position: center;
+        background-position: left;
     }
 
     .title {
@@ -38,9 +38,10 @@ const image = thumbnail != null ? await getImage({ src: thumbnail }) : null;
         color: black;
         padding: 0.5rem;
         text-shadow: none;
+        font-weight: bold;
 
-        text-align: center;
-        justify-content: center;
+        text-align: left;
+        justify-content: flex-start;
         align-items: center;
     }
 </style>

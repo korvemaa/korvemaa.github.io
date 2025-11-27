@@ -40,7 +40,7 @@ body {
 	color: var(--text-color);
 	text-shadow: var(--text-shadow);
 
-	font-size: 18px;
+	font-size: 16px;
 	line-height: 1.6;
 
 	background-color: var(--darker-color);
