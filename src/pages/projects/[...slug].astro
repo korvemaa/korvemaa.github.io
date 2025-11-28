@@ -34,7 +34,11 @@ const gallery = post.data.gallery
     : null;
 ---
 
-<Layout title={post.data.title} image={post.data.thumbnail}>
+<Layout
+    title={post.data.title}
+    description={post.data.description}
+    image={post.data.thumbnail}
+>
     <div class="project-layout">
         <div class="project-content">
             <ScrollView>

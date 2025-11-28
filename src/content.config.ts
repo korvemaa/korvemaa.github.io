@@ -22,6 +22,7 @@ const project = defineCollection({
 		date: z.coerce.date().optional(),
 		thumbnail: image().optional(), // Shown in the projects panel. should be 1:1
 		gallery: z.array(image()).optional(), // hq images showed as a slideshow in the page
+		youtubeVideos: z.array(z.string()).optional(), // YouTube videos to show below the gallery in groups of two
 		tags: z.array(z.string()).optional()
 
 	})
