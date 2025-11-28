@@ -1,11 +1,12 @@
 ---
 import ScrollView from "../../components/ScrollView.astro";
+import DynamicLink from "../../components/DynamicLink.astro";
+
 import { timeAgo } from "../../utility";
 
 import { getImage } from "astro:assets";
 import { type CollectionEntry, getCollection, render } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
-import { date } from "astro:schema";
 
 export async function getStaticPaths() {
     const posts = await getCollection("project");
@@ -41,9 +42,16 @@ const gallery = post.data.gallery
 >
     <div class="project-layout">
         <div class="project-content">
-            back galley video markdown
-            <ScrollView>
-                <div class="project-gallery">
+            <header>
+                <nav>
+                    <a href="/projects"><</a>
+                    <a class="active" href="#gallery">Gallery</a>
+                    <a href="#videos">Videos</a>
+                    <a href="#article">Article</a>
+                </nav>
+            </header>
+            <ScrollView style="scroll-behavior:smooth;">
+                <section id="gallery" class="project-gallery">
                     {
                         gallery &&
                             gallery.map((img) => (
@@ -55,7 +63,7 @@ const gallery = post.data.gallery
                                 />
                             ))
                     }
-                </div>
+                </section>
                 <Content />
             </ScrollView>
         </div>
@@ -77,12 +85,54 @@ const gallery = post.data.gallery
                         </span>
                     )
                 }
+
+                {post.data.links && <div class="dividing-line" />}
+                {
+                    post.data.links &&
+                        post.data.links.map((link) => (
+                            <DynamicLink href={link} />
+                        ))
+                }
             </div>
         </aside>
     </div>
 </Layout>
 
 <style>
+    nav {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        margin-bottom: 1rem;
+        border-bottom: var(--border-width) solid var(--text-color);
+    }
+
+    .internal-links {
+        display: flex;
+        align-items: center;
+    }
+
+    nav a {
+        padding: 0.5rem 1.2rem;
+        font-size: 1em;
+        color: var(--black);
+        text-decoration: none;
+        text-transform: uppercase;
+    }
+
+    nav a:hover {
+        background-color: var(--dimmed-glow-color);
+    }
+
+    nav a.active {
+        background-color: var(--text-color);
+        text-shadow: none;
+        color: black;
+        font-weight: bold;
+
+        text-decoration: none;
+    }
+
     .project-layout {
         display: flex;
         overflow: hidden;
@@ -95,17 +145,18 @@ const gallery = post.data.gallery
         flex-direction: column;
         flex-grow: 1;
         padding: 1rem;
+        padding-left: 0;
     }
 
-    .project-galley {
+    .project-gallery {
         display: flex;
         flex-direction: column;
         gap: 1rem;
-        image-rendering: optimizeQuality;
     }
 
-    .project-galley img {
+    .project-gallery img {
         border-radius: 0;
+        image-rendering: auto;
     }
 
     .project-details {
@@ -118,7 +169,6 @@ const gallery = post.data.gallery
 
         border-left: var(--border-width) solid var(--text-color);
         margin: 1rem 0;
-        margin-right: 1rem;
     }
 
     .details-body {
@@ -130,6 +180,13 @@ const gallery = post.data.gallery
 
     .details-body p {
         margin: 0;
+    }
+
+    .dividing-line {
+        display: flex;
+        height: 2px;
+        flex-grow: 1;
+        background-color: var(--dimmed-glow-color);
     }
 
     .project-title {

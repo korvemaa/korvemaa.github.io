@@ -1,0 +1,25 @@
+---
+const { href } = Astro.props;
+
+const url = new URL(href);
+const domain = url.hostname;
+
+function getDetails() {
+    switch (domain) {
+        case "www.artstation.com":
+            return { name: "ArtStation", icon: "link" };
+        case "steamcommunity.com":
+            return { name: "Steam Workshop", icon: "steam" };
+    }
+
+    return { name: domain, icon: "link" };
+}
+
+const { name, icon } = getDetails();
+---
+
+<a target="_blank" href={href} class={"icon bi bi-" + icon}>
+    <span>
+        {name}
+    </span>
+</a>

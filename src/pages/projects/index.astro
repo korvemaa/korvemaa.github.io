@@ -31,7 +31,7 @@ const grouped: ProjectGroups = raw.reduce((acc: any, item) => {
 
 <Layout title="Projects">
     <div class="main-view">
-        <ScrollView>
+        <ScrollView style="visibility:hidden">
             {
                 Object.entries(grouped).map(([group, posts]) => (
                     <div class="project-group">
@@ -44,15 +44,18 @@ const grouped: ProjectGroups = raw.reduce((acc: any, item) => {
                         <div class="project-tile">
                             {posts.map((post) => {
                                 return (
-                                    <a href={`/projects/${post.id}`}>
-                                        <ProjectTile
-                                            title={post.data.title}
-                                            thumbnail={post.data.thumbnail}
-                                            imageCount={
-                                                post.data.gallery?.length || 0
-                                            }
-                                        />
-                                    </a>
+                                    <section id={post.id}>
+                                        <a href={`/projects/${post.id}`}>
+                                            <ProjectTile
+                                                title={post.data.title}
+                                                thumbnail={post.data.thumbnail}
+                                                imageCount={
+                                                    post.data.gallery?.length ||
+                                                    0
+                                                }
+                                            />
+                                        </a>
+                                    </section>
                                 );
                             })}
                         </div>
@@ -63,10 +66,29 @@ const grouped: ProjectGroups = raw.reduce((acc: any, item) => {
     </div>
 </Layout>
 
+<script>
+    const scroller = document.getElementById("scroll-view") as HTMLElement;
+    const key = `scroll:${location.pathname}`;
+
+    function save() {
+        sessionStorage.setItem(key, scroller.scrollTop.toString());
+    }
+
+    function restore() {
+        const pos = sessionStorage.getItem(key);
+        if (pos) scroller.scrollTop = Number(pos);
+    }
+
+    restore();
+    scroller.style.visibility = "visible";
+
+    window.addEventListener("beforeunload", save);
+</script>
+
 <style>
     .main-view {
         display: flex;
-        padding: 1rem;
+        padding: 1rem 0 ;
         overflow: hidden;
     }
 

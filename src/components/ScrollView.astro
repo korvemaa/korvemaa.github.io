@@ -1,4 +1,8 @@
-<div id="scroll-view" class="scroll-view">
+---
+const { style } = Astro.props;
+---
+
+<div id="scroll-view" class="scroll-view" style={style}>
     <div id="scroll-container">
         <slot />
     </div>
@@ -44,8 +48,6 @@
         flex-grow: 1;
         box-sizing: border-box;
         overflow: auto;
-
-        scrollbar-gutter:;
     }
 
     #scroll-view::-webkit-scrollbar {
