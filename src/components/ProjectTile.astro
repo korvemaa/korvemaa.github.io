@@ -1,13 +1,19 @@
 ---
 import { getImage } from "astro:assets";
 
-const { title, thumbnail } = Astro.props;
+const { title, thumbnail, imageCount } = Astro.props;
 
 const image = thumbnail != null ? await getImage({ src: thumbnail }) : null;
 ---
 
 <div class="project-tile">
     <div class="thumbnail" style={`background-image: url(${image?.src});`}>
+        <span
+            style={imageCount > 0 ? "display: flex" : "display: none"}
+            class="image-count-icon bi bi-card-image"
+        >
+            <span>{imageCount}</span>
+        </span>
     </div>
     <span class="title">{title}</span>
 </div>
@@ -26,10 +32,29 @@ const image = thumbnail != null ? await getImage({ src: thumbnail }) : null;
         aspect-ratio: 1/1;
         flex-grow: 1;
 
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: flex-start;
+        padding: 1rem;
+
         image-rendering: auto;
         background-size: cover;
         background-repeat: no-repeat;
         background-position: left;
+    }
+
+    .image-count-icon {
+        display: flex;
+        flex-grow: 0;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .image-count-icon span {
+        text-decoration: none;
     }
 
     .title {

@@ -48,6 +48,9 @@ const grouped: ProjectGroups = raw.reduce((acc: any, item) => {
                                         <ProjectTile
                                             title={post.data.title}
                                             thumbnail={post.data.thumbnail}
+                                            imageCount={
+                                                post.data.gallery?.length || 0
+                                            }
                                         />
                                     </a>
                                 );
@@ -99,9 +102,13 @@ const grouped: ProjectGroups = raw.reduce((acc: any, item) => {
 
     .project-tile {
         flex-direction: column;
-
+        text-decoration: none;
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
         gap: 1rem;
+    }
+
+    .project-tile a {
+        text-decoration: none;
     }
 </style>
