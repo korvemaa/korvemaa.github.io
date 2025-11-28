@@ -14,4 +14,5 @@ gallery: [
     "images/manta/gallery-6.jpg",
     "images/manta/gallery-7.jpg",
 ]
+links: ["https://www.artstation.com/artwork/B1GrWD"]
 ---

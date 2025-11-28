@@ -5,6 +5,7 @@ group: "Intruder"
 thumbnail: "images/panther/thumbnail.jpg"
 tags: ["substance-painter", "art"]
 date: 'March 6 2021'
+links: ["https://www.artstation.com/artwork/Ga2z8B"]
 gallery: [
     "images/panther/gallery-1.jpg",
     "images/panther/gallery-2.jpg",
