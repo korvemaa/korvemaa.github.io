@@ -34,7 +34,7 @@ const gallery = post.data.gallery
       )
     : null;
 
-const videos = post.data.youtubeVideos;
+const videos = post.data.videos;
 
 const hasArticle = (post.body || "").length > 0;
 ---
@@ -49,29 +49,49 @@ const hasArticle = (post.body || "").length > 0;
             <header>
                 <nav>
                     <a class="nav-link" href="/projects">{"<"}</a>
-                    {gallery && <a href="#gallery">Gallery</a>}
-                    {videos && <a href="#videos">Videos</a>}
                     {hasArticle && <a href="#article">Article</a>}
+                    {videos && <a href="#videos">Videos</a>}
+                    {gallery && <a href="#gallery">Gallery</a>}
                 </nav>
             </header>
             <ScrollView style="scroll-behavior:smooth;">
-                <section id="gallery" class="project-gallery">
+                <div class="inner-content">
                     {
-                        gallery &&
-                            gallery.map((img) => (
-                                <img
-                                    loading="lazy"
-                                    src={img.src}
-                                    width={img.attributes.width}
-                                    height={img.attributes.height}
-                                />
-                            ))
+                        hasArticle && (
+                            <section id="article" class="project-article">
+                                <Content />
+                            </section>
+                        )
                     }
-                </section>
-                <section id="videos"></section>
-                <section id="article">
-                    <Content />
-                </section>
+                    {
+                        videos && (
+                            <section id="videos" class="project-videos">
+                                {videos &&
+                                    videos.map((video) => (
+                                        <iframe
+                                            class="youtube-video"
+                                            src={`https://www.youtube.com/embed/${video}`}
+                                        />
+                                    ))}
+                            </section>
+                        )
+                    }
+                    {
+                        gallery && (
+                            <section id="gallery" class="project-gallery">
+                                {gallery &&
+                                    gallery.map((img) => (
+                                        <img
+                                            loading="lazy"
+                                            src={img.src}
+                                            width={img.attributes.width}
+                                            height={img.attributes.height}
+                                        />
+                                    ))}
+                            </section>
+                        )
+                    }
+                </div>
             </ScrollView>
         </div>
         <aside class="project-details">
@@ -196,6 +216,15 @@ const hasArticle = (post.body || "").length > 0;
         text-decoration: none;
     }
 
+    .inner-content {
+        display: flex;
+        flex-direction: column;
+        overflow: visible;
+        flex-grow: 1;
+        align-items: stretch;
+        gap: 1rem;
+    }
+
     .project-layout {
         display: flex;
         overflow: hidden;
@@ -221,6 +250,18 @@ const hasArticle = (post.body || "").length > 0;
     .project-gallery img {
         border-radius: 0;
         image-rendering: auto;
+    }
+
+    .project-videos {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+        justify-items: center;
+        gap: 1rem;
+    }
+
+    .youtube-video {
+        aspect-ratio: 16/9;
+        border: 0;
     }
 
     .project-details {
