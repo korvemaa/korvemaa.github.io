@@ -33,6 +33,10 @@ const gallery = post.data.gallery
           }),
       )
     : null;
+
+const videos = post.data.youtubeVideos;
+
+const hasArticle = (post.body || "").length > 0;
 ---
 
 <Layout
@@ -44,10 +48,10 @@ const gallery = post.data.gallery
         <div class="project-content">
             <header>
                 <nav>
-                    <a href="/projects"><</a>
-                    <a class="active" href="#gallery">Gallery</a>
-                    <a href="#videos">Videos</a>
-                    <a href="#article">Article</a>
+                    <a href="/projects">{"<"}</a>
+                    {gallery && <a href="#gallery">Gallery</a>}
+                    {videos && <a href="#videos">Videos</a>}
+                    {hasArticle && <a href="#article">Article</a>}
                 </nav>
             </header>
             <ScrollView style="scroll-behavior:smooth;">
@@ -68,13 +72,13 @@ const gallery = post.data.gallery
             </ScrollView>
         </div>
         <aside class="project-details">
-            <div>
+            <div class="details-header">
                 <div
                     class="project-thumbnail"
                     style={`background-image: url(${thumbnail?.src});`}
                 >
                 </div>
-                <span class="project-title"> {post.data.title}</span>
+                <span class="project-title">{post.data.title}</span>
             </div>
             <div class="details-body">
                 <p>{post.data.description}</p>
@@ -86,7 +90,7 @@ const gallery = post.data.gallery
                     )
                 }
 
-                {post.data.links && <div class="dividing-line" />}
+                {post.data.links && <hr/>}
                 {
                     post.data.links &&
                         post.data.links.map((link) => (
@@ -138,14 +142,15 @@ const gallery = post.data.gallery
         overflow: hidden;
         flex-direction: row;
         flex-grow: 1;
+    gap: 1rem;
     }
 
     .project-content {
         display: flex;
         flex-direction: column;
         flex-grow: 1;
+        border: var(--border-width) dotted var(--dimmed-glow-color);
         padding: 1rem;
-        padding-left: 0;
     }
 
     .project-gallery {
@@ -166,9 +171,7 @@ const gallery = post.data.gallery
         flex-shrink: 0;
 
         width: 400px;
-
-        border-left: var(--border-width) solid var(--text-color);
-        margin: 1rem 0;
+        border: var(--border-width) dotted var(--dimmed-glow-color);
     }
 
     .details-body {
@@ -176,26 +179,21 @@ const gallery = post.data.gallery
         flex-direction: column;
         padding: 1rem;
         gap: 1rem;
+        flex-grow: 1;
     }
 
     .details-body p {
         margin: 0;
     }
 
-    .dividing-line {
-        display: flex;
-        height: 2px;
-        flex-grow: 1;
-        background-color: var(--dimmed-glow-color);
-    }
-
     .project-title {
         display: flex;
         background-color: var(--text-color);
         color: black;
-        padding: 1rem;
+        padding: 0.5rem;
+        padding-left: 1rem;
         text-shadow: none;
-        font-weight: bold;
+        font-size: 24px;
 
         text-align: left;
         justify-content: flex-start;
@@ -203,13 +201,12 @@ const gallery = post.data.gallery
     }
 
     .project-age {
-        color: var(--dimmed-glow-color);
+        opacity: 0.3;
     }
 
     .project-thumbnail {
         display: flex;
         aspect-ratio: 1/1;
-
         image-rendering: auto;
         background-size: cover;
         background-repeat: no-repeat;

@@ -36,9 +36,9 @@ const grouped: ProjectGroups = raw.reduce((acc: any, item) => {
                 Object.entries(grouped).map(([group, posts]) => (
                     <div class="project-group">
                         <div class="group-header">
-                            <div class="dividing-line" />
+                            <hr />
                             <span class="group-title">{group}</span>
-                            <div class="dividing-line" />
+                            <hr />
                         </div>
 
                         <div class="project-tile">
@@ -88,7 +88,7 @@ const grouped: ProjectGroups = raw.reduce((acc: any, item) => {
 <style>
     .main-view {
         display: flex;
-        padding: 1rem 0 ;
+        padding: 1rem 0;
         overflow: hidden;
     }
 
@@ -113,13 +113,6 @@ const grouped: ProjectGroups = raw.reduce((acc: any, item) => {
 
     .date-range {
         color: var(--dimmed-glow-color);
-    }
-
-    .dividing-line {
-        display: flex;
-        height: 2px;
-        flex-grow: 1;
-        background-color: var(--dimmed-glow-color);
     }
 
     .project-tile {

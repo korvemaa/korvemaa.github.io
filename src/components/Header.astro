@@ -1,6 +1,6 @@
 ---
 import HeaderLink from "./HeaderLink.astro";
-import { THEME_HUE_KEY } from "../consts";
+import { THEME_HUE_KEY, SITE_TITLE } from "../consts";
 import { getCollection } from "astro:content";
 
 let pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, "");
@@ -9,7 +9,6 @@ if (pathname == "") pathname = "index";
 
 <header>
 	<nav>
-		PHNX-SYS®
 		<div class="internal-links">
 			<HeaderLink href="/">Home</HeaderLink>
 			<HeaderLink href="/about">About</HeaderLink>

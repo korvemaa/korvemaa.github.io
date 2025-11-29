@@ -23,6 +23,15 @@
 	--border-width: 1px;
 }
 
+@font-face {
+	font-family: 'Terminus';
+	src: url('/fonts/terminus-webfont.woff2') format('woff2');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
+
 html {
 	display: flex;
 	align-items: stretch;
@@ -31,8 +40,9 @@ html {
 }
 
 body {
-	font-family: monospace;
+	font-family: 'Terminus', 'Courier New', monospace;
 	font-synthesis-weight: none;
+	font-variant-ligatures: none;
 
 	text-align: left;
 	word-wrap: break-word;
@@ -130,7 +140,6 @@ code {
 
 	border: 1px solid;
 	border-color: var(--text-color);
-	border-radius: 25px;
 }
 
 pre {
@@ -149,6 +158,9 @@ blockquote {
 }
 
 hr {
+	display: flex;
+	height: 0;
 	border: none;
-	border-top: 1px solid rgb(var(--gray-light));
+	border-top: var(--border-width) dotted var(--dimmed-glow-color);
+	margin: 0;
 }

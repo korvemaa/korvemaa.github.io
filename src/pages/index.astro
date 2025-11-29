@@ -8,7 +8,18 @@ import ScrollView from "../components/ScrollView.astro";
 		<ScrollView>
 			<div style="flex-grow:1;" class="text-container">
 				<div class="title-group">
-					<span class="title">Jake Korvemaa</span>
+					<pre
+						id="ascii-title"> 
+   /$$$$$           /$$                       /$$   /$$                                                                          
+   |__  $$          | $$                      | $$  /$$/                                                                          
+      | $$  /$$$$$$ | $$   /$$  /$$$$$$       | $$ /$$/   /$$$$$$   /$$$$$$  /$$    /$$ /$$$$$$  /$$$$$$/$$$$   /$$$$$$   /$$$$$$ 
+      | $$ |____  $$| $$  /$$/ /$$__  $$      | $$$$$/   /$$__  $$ /$$__  $$|  $$  /$$//$$__  $$| $$_  $$_  $$ |____  $$ |____  $$
+ /$$  | $$  /$$$$$$$| $$$$$$/ | $$$$$$$$      | $$  $$  | $$  \ $$| $$  \__/ \  $$/$$/| $$$$$$$$| $$ \ $$ \ $$  /$$$$$$$  /$$$$$$$
+| $$  | $$ /$$__  $$| $$_  $$ | $$_____/      | $$\  $$ | $$  | $$| $$        \  $$$/ | $$_____/| $$ | $$ | $$ /$$__  $$ /$$__  $$
+|  $$$$$$/|  $$$$$$$| $$ \  $$|  $$$$$$$      | $$ \  $$|  $$$$$$/| $$         \  $/  |  $$$$$$$| $$ | $$ | $$|  $$$$$$$|  $$$$$$$
+ \______/  \_______/|__/  \__/ \_______/      |__/  \__/ \______/ |__/          \_/    \_______/|__/ |__/ |__/ \_______/ \_______/
+
+					</pre>
 					<span class="subtitle">
 						Software Engineer | Experimentalist
 					</span>
@@ -56,18 +67,11 @@ import ScrollView from "../components/ScrollView.astro";
 		flex-direction: column;
 	}
 
-	.title {
-		font-family: "Jacquard 24", monospace;
-		font-weight: 400;
-		font-size: 6em;
-		font-style: normal;
-		margin: 0;
-	}
-
-	.subtitle {
-		font-family: "Tiny5", monospace;
-		margin: 0;
-		margin-top: -40px;
+	#ascii-title {
+		font-family: "Terminus", "Courier New", monospace;
+		font-synthesis-weight: none;
+		font-variant-ligatures: none;
+		line-height: initial;
 	}
 
 	.underline {
