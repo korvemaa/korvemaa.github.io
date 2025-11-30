@@ -3,13 +3,21 @@ import Layout from "../layouts/Layout.astro";
 import ScrollView from "../components/ScrollView.astro";
 ---
 
-<Layout title="Home">
+<Layout>
 	<script slot="head" type="application/ld+json">
 		{
 			"@context": "https://schema.org",
 			"@type": "Person",
 			"name": "Jake Korvemaa",
 			"url": "https://korvema.dev",
+			"image": "https://korvemaa.dev/profile.png",
+			"jobTitle": "Software Engineer",
+			"worksFor": {
+				"@type": "Organization",
+				"name": "Enviz"
+			},
+			"nationality": "Australian",
+			"birthDate": "2003",
 			"sameAs": [
 				"https://www.facebook.com/jakekve",
 				"https://www.linkedin.com/jakekve",

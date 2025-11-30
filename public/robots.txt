@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://korvemaa.dev/sitemap-index.xml
