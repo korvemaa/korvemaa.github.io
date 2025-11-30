@@ -71,6 +71,7 @@ const hasArticle = (post.body || "").length > 0;
                                         <iframe
                                             class="youtube-video"
                                             src={`https://www.youtube.com/embed/${video}`}
+                                            allowfullscreen
                                         />
                                     ))}
                             </section>
@@ -292,8 +293,12 @@ const hasArticle = (post.body || "").length > 0;
     .details-body .tags {
         display: flex;
         flex-direction: row;
-        flex-wrap: 1;
+        flex-wrap: wrap;
+        flex-shrink: 1;
         gap: 4px;
+    }
+
+    .details-body .tags code {
     }
 
     .project-title {

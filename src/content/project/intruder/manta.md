@@ -14,5 +14,5 @@ gallery: [
     "images/manta/gallery-6.jpg",
     "images/manta/gallery-7.jpg",
 ]
-links: ["https://www.artstation.com/artwork/B1GrWD"]
+links: ["https://www.artstation.com/artwork/B1GrWD", "https://store.steampowered.com/app/518150/Intruder/"]
 ---

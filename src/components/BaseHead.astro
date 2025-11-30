@@ -34,7 +34,7 @@ if (image) {
 	href={new URL("rss.xml", Astro.site)}
 />
 <meta name="generator" content={Astro.generator} />
-<title>{title}</title>
+<title>{title ? title + ` | ${SITE_TITLE}` : SITE_TITLE}</title>
 <meta name="description" content={description} />
 <link rel="icon" href="/favicon.png" />
 

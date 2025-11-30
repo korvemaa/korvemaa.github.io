@@ -10,6 +10,10 @@ function getDetails() {
             return { name: "ArtStation", icon: "link" };
         case "steamcommunity.com":
             return { name: "Steam Workshop", icon: "steam" };
+        case "store.steampowered.com":
+            return { name: "Steam Store", icon: "steam" };
+        case "enviz.co":
+            return { name: "Enviz", icon: "link" };
     }
 
     return { name: domain, icon: "link" };
@@ -26,6 +30,18 @@ const { name, icon } = getDetails();
 
 <style>
     a {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
         text-decoration: none;
+
+        padding: 8px;
+        gap: 16px;
+        border: var(--border-width) dotted var(--dimmed-glow-color);
+    }
+
+    a:hover {
+        background-color: var(--dimmed-glow-color);
     }
 </style>
