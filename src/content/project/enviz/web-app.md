@@ -1,5 +1,6 @@
 ---
 title:  "Web App"
+description: ""
 group: "Enviz"
 tags: ["unity", "webgl", "csharp", "js"]
 thumbnail: "images/web-app.png"
