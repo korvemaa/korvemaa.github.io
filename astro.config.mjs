@@ -6,7 +6,7 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://korvemaa.github.io',
+	site: 'https://korvemaa.dev',
 	trailingSlash: 'never',
 	integrations: [mdx(), sitemap()],
 	output: 'static'

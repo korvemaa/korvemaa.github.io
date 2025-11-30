@@ -4,6 +4,20 @@ import ScrollView from "../components/ScrollView.astro";
 ---
 
 <Layout title="Home">
+	<script slot="head" type="application/ld+json">
+		{
+			"@context": "https://schema.org",
+			"@type": "Person",
+			"name": "Jake Korvemaa",
+			"url": "https://korvema.dev",
+			"sameAs": [
+				"https://www.facebook.com/jakekve",
+				"https://www.linkedin.com/jakekve",
+				"https://github.com/korvema"
+			]
+		}
+	</script>
+
 	<div class="main-view">
 		<ScrollView>
 			<div style="flex-grow:1;" class="text-container">

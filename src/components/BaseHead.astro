@@ -46,9 +46,6 @@ if (image) {
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
 />
 
-<!-- Google Fonts -->
-<meta name="google-site-verification" content="viIxhqZAenH9cVgzzjZzWx4Fd0dC4xe65OVbFOxia18" />
-
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
 <meta property="og:url" content={Astro.url} />
@@ -87,3 +84,5 @@ if (image) {
 
 	document.documentElement.style.setProperty("--base-hue", hueValue);
 </script>
+
+<slot/>

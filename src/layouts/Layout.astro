@@ -15,7 +15,9 @@ const { title, description, image } = Astro.props;
             image={image}
             title={title || SITE_TITLE}
             description={description || SITE_DESCRIPTION}
-        />
+        >
+            <slot name="head" />
+        </BaseHead>
     </head>
     <body>
         <Effects />
