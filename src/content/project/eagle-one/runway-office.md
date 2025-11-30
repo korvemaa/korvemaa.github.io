@@ -2,7 +2,7 @@
 title:  "Runway Office"
 description: "This was made for the Eagle One Development Team for their mod that unfortunately stopped development (due to scope and resources) called runway."
 group: "Eagle One"
-tags: ["source2", "hammer", "environment", "art"]
+tags: ["source2", "hammer", "art"]
 thumbnail: "images/runway-office/thumbnail.jpg"
 date: 'May 13 2021'
 gallery: [

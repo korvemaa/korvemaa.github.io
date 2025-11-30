@@ -25,6 +25,7 @@ if (image) {
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
+
 <link rel="sitemap" href="/sitemap-index.xml" />
 <link
 	rel="alternate"
@@ -33,9 +34,9 @@ if (image) {
 	href={new URL("rss.xml", Astro.site)}
 />
 <meta name="generator" content={Astro.generator} />
-
 <title>{title}</title>
 <meta name="description" content={description} />
+<link rel="icon" href="/favicon.png" />
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
@@ -85,4 +86,4 @@ if (image) {
 	document.documentElement.style.setProperty("--base-hue", hueValue);
 </script>
 
-<slot/>
+<slot />

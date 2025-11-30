@@ -34,36 +34,27 @@ const grouped: ProjectGroups = raw.reduce((acc: any, item) => {
         <ScrollView style="visibility:hidden">
             {
                 Object.entries(grouped).map(([group, posts]) => (
-                    <div class="project-group">
-                        <div class="group-header">
-                            <hr />
-                            <span class="group-title">{group}</span>
-                            <hr />
-                        </div>
-
-                        <div class="project-tile">
+                    <section id={group} class="project-group">
+                        <h2>{group}</h2>
+                        <div class="project-grid">
                             {posts.map((post) => {
                                 return (
-                                    <section id={post.id}>
-                                        <a href={`/projects/${post.id}`}>
-                                            <ProjectTile
-                                                title={post.data.title}
-                                                thumbnail={post.data.thumbnail}
-                                                imageCount={
-                                                    post.data.gallery?.length ||
-                                                    0
-                                                }
-                                                videoCount={
-                                                    post.data.videos?.length ||
-                                                    0
-                                                }
-                                            />
-                                        </a>
-                                    </section>
+                                    <a href={`/projects/${post.id}`}>
+                                        <ProjectTile
+                                            title={post.data.title}
+                                            thumbnail={post.data.thumbnail}
+                                            imageCount={
+                                                post.data.gallery?.length || 0
+                                            }
+                                            videoCount={
+                                                post.data.videos?.length || 0
+                                            }
+                                        />
+                                    </a>
                                 );
                             })}
                         </div>
-                    </div>
+                    </section>
                 ))
             }
         </ScrollView>
@@ -96,31 +87,34 @@ const grouped: ProjectGroups = raw.reduce((acc: any, item) => {
     }
 
     .project-group {
+        display: flex;
+        flex-direction: column;
         margin-bottom: 1rem;
         border: var(--border-width) dotted var(--dimmed-glow-color);
         padding: 1rem;
+        gap: 1rem;
     }
 
-    .group-header {
-        display: flex;
-        align-items: center;
-        flex-grow: 1;
-        gap: 1rem;
-        padding: 1rem 0;
+    .project-group h2 {
+        background-color: unset;
+        font-size: 1.2rem;
+        padding: 0;
+        margin: 0;
+    }
+
+    .project-group h2::before {
+        content: "// ";
     }
 
     .project-group:first-child .group-header {
         padding-top: 0;
     }
 
-    .group-title {
-    }
-
     .date-range {
         color: var(--dimmed-glow-color);
     }
 
-    .project-tile {
+    .project-grid {
         flex-direction: column;
         text-decoration: none;
         display: grid;
@@ -128,7 +122,7 @@ const grouped: ProjectGroups = raw.reduce((acc: any, item) => {
         gap: 1rem;
     }
 
-    .project-tile a {
+    .project-grid a {
         text-decoration: none;
     }
 </style>

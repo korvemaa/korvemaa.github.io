@@ -112,7 +112,14 @@ const hasArticle = (post.body || "").length > 0;
                         </span>
                     )
                 }
-
+                <div class="tags">
+                    {
+                        post.data.tags &&
+                            post.data.tags
+                                .sort()
+                                .map((tag) => <code>{tag}</code>)
+                    }
+                </div>
                 {post.data.links && <hr />}
                 {
                     post.data.links &&
@@ -280,6 +287,13 @@ const hasArticle = (post.body || "").length > 0;
 
     .details-body p {
         margin: 0;
+    }
+
+    .details-body .tags {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: 1;
+        gap: 4px;
     }
 
     .project-title {

@@ -84,14 +84,13 @@
         background-image: repeating-linear-gradient(
             0deg,
             rgba(255, 255, 255, 0.08),
-            rgba(255, 255, 255, 0.1) 4px,
-            transparent 4px,
-            transparent 8px
+            rgba(255, 255, 255, 0.1) 2px,
+            transparent 2px,
+            transparent 4px
         );
 
         filter: brightness(0.1);
         mix-blend-mode: multiply;
-        background-size: 100% 8px;
 
         /* makes the stripe height match the pattern repeat */
         animation: move-stripes 1s linear infinite;
@@ -103,7 +102,7 @@
         }
 
         to {
-            background-position: 0 8px;
+            background-position: 0 4px;
             /* moves the pattern down by one repeat */
         }
     }
