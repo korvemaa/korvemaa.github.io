@@ -156,13 +156,9 @@ const hasArticle = (post.body || "").length > 0;
 
             function findActive() {
                 const margin = lookup.at(-1)!.offsetTop;
-
                 const current = lookup.find(function (section) {
-                    console.log("section " + section.offsetTop);
                     return scroll.scrollTop >= section.offsetTop - margin;
                 });
-
-                console.log(scroll.scrollTop);
 
                 if (current !== active) {
                     navs.forEach((e) => e.classList.remove("active"));
@@ -270,7 +266,7 @@ const hasArticle = (post.body || "").length > 0;
         flex-grow: 0;
         flex-shrink: 0;
 
-        width: 350px;
+        width: 400px;
         border: var(--border-width) dotted var(--dimmed-glow-color);
     }
 

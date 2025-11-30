@@ -1,19 +1,29 @@
 ---
 import { getImage } from "astro:assets";
 
-const { title, thumbnail, imageCount } = Astro.props;
+const { title, thumbnail, imageCount, videoCount } = Astro.props;
 
 const image = thumbnail != null ? await getImage({ src: thumbnail }) : null;
 ---
 
 <div class="project-tile">
     <div class="thumbnail" style={`background-image: url(${image?.src});`}>
-        <span
-            style={imageCount > 0 ? "display: flex" : "display: none"}
-            class="image-count-icon bi bi-card-image"
-        >
-            <span>{imageCount}</span>
-        </span>
+        <div class="count-container">
+            {
+                imageCount > 0 && (
+                    <span class="count-icon bi bi-card-image">
+                        <span>{imageCount}</span>
+                    </span>
+                )
+            }
+            {
+                videoCount > 0 && (
+                    <span class="count-icon bi bi-youtube">
+                        <span>{videoCount}</span>
+                    </span>
+                )
+            }
+        </div>
     </div>
     <span class="title">{title}</span>
 </div>
@@ -23,13 +33,13 @@ const image = thumbnail != null ? await getImage({ src: thumbnail }) : null;
         display: flex;
         flex-direction: column;
         align-items: stretch;
-
-        border-top: var(--border-width) solid var(--text-color);
+        border: var(--border-width) dotted var(--dimmed-glow-color);
     }
 
     .thumbnail {
         display: flex;
         aspect-ratio: 1/1;
+
         flex-grow: 1;
 
         display: flex;
@@ -44,7 +54,14 @@ const image = thumbnail != null ? await getImage({ src: thumbnail }) : null;
         background-position: center;
     }
 
-    .image-count-icon {
+    .count-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .count-icon {
         display: flex;
         flex-grow: 0;
         flex-direction: row;
@@ -61,9 +78,9 @@ const image = thumbnail != null ? await getImage({ src: thumbnail }) : null;
         display: flex;
         background-color: var(--text-color);
         color: black;
-        padding: 0.5rem;
         text-shadow: none;
         font-weight: bold;
+        padding: 0.5rem;
 
         text-align: left;
         justify-content: flex-start;

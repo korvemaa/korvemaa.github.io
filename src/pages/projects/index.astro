@@ -53,6 +53,10 @@ const grouped: ProjectGroups = raw.reduce((acc: any, item) => {
                                                     post.data.gallery?.length ||
                                                     0
                                                 }
+                                                videoCount={
+                                                    post.data.videos?.length ||
+                                                    0
+                                                }
                                             />
                                         </a>
                                     </section>
@@ -88,12 +92,13 @@ const grouped: ProjectGroups = raw.reduce((acc: any, item) => {
 <style>
     .main-view {
         display: flex;
-        padding: 1rem 0;
         overflow: hidden;
     }
 
     .project-group {
         margin-bottom: 1rem;
+        border: var(--border-width) dotted var(--dimmed-glow-color);
+        padding: 1rem;
     }
 
     .group-header {

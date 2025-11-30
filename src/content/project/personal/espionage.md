@@ -1,9 +1,9 @@
 ---
 title:  "Espionage"
+description: "Espionage is a stealth action shooter game that I want to make but don't have the resources nor time to make it :("
 group: "Personal"
-order: 2024
+date: "June 14 2023"
 thumbnail: "./images/espionage.png"
-tags: ["unity"]
+tags: ["sbox", "game"]
+videos: ["Z8BanE7RN00", "d4yQjBsW9eE", "EVVD6YKtVbg", "XslsOlERqr0"]
 ---
-
-Could never even start it.. hahaha
