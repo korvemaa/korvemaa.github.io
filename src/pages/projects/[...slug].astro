@@ -95,40 +95,44 @@ const hasArticle = (post.body || "").length > 0;
                 </div>
             </ScrollView>
         </div>
-        <aside class="project-details">
-            <div class="details-header">
-                <div
-                    class="project-thumbnail"
-                    style={`background-image: url(${thumbnail?.src});`}
-                >
+        <aside>
+            <ScrollView useMargin={true}>
+                <div class="project-details">
+                    <div class="details-header">
+                        <div
+                            class="project-thumbnail"
+                            style={`background-image: url(${thumbnail?.src});`}
+                        >
+                        </div>
+                        <span class="project-title">{post.data.title}</span>
+                    </div>
+                    <div class="details-body">
+                        <p>{post.data.description}</p>
+                        {
+                            post.data.date && (
+                                <span class="project-age">
+                                    {timeAgo(post.data.date)}
+                                </span>
+                            )
+                        }
+                        <div class="tags">
+                            {
+                                post.data.tags &&
+                                    post.data.tags
+                                        .sort()
+                                        .map((tag) => <code>{tag}</code>)
+                            }
+                        </div>
+                        {post.data.links && <hr />}
+                        {
+                            post.data.links &&
+                                post.data.links.map((link) => (
+                                    <DynamicLink href={link} />
+                                ))
+                        }
+                    </div>
                 </div>
-                <span class="project-title">{post.data.title}</span>
-            </div>
-            <div class="details-body">
-                <p>{post.data.description}</p>
-                {
-                    post.data.date && (
-                        <span class="project-age">
-                            {timeAgo(post.data.date)}
-                        </span>
-                    )
-                }
-                <div class="tags">
-                    {
-                        post.data.tags &&
-                            post.data.tags
-                                .sort()
-                                .map((tag) => <code>{tag}</code>)
-                    }
-                </div>
-                {post.data.links && <hr />}
-                {
-                    post.data.links &&
-                        post.data.links.map((link) => (
-                            <DynamicLink href={link} />
-                        ))
-                }
-            </div>
+            </ScrollView>
         </aside>
     </div>
 </Layout>
@@ -235,7 +239,6 @@ const hasArticle = (post.body || "").length > 0;
         flex-direction: row;
         flex-grow: 1;
         gap: 1rem;
-        padding: 1rem;
     }
 
     .project-content {
@@ -244,6 +247,8 @@ const hasArticle = (post.body || "").length > 0;
         flex-grow: 1;
         border: var(--border-width) dotted var(--dimmed-glow-color);
         padding: 1rem;
+        margin: 1rem;
+    margin-right: 0;
     }
 
     .project-gallery {
@@ -269,13 +274,24 @@ const hasArticle = (post.body || "").length > 0;
         border: 0;
     }
 
-    .project-details {
+    aside {
         display: flex;
         flex-direction: column;
         flex-grow: 0;
         flex-shrink: 0;
 
-        width: 380px;
+        width: 400px;
+    }
+
+    .project-details {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        flex-shrink: 0;
+
+        margin: 1rem;
+        margin-left: 0;
+
         border: var(--border-width) dotted var(--dimmed-glow-color);
     }
 

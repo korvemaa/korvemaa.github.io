@@ -34,7 +34,7 @@ if (pathname == "") pathname = "index";
 		document.getElementById("current-time").textContent =
 			new Date().toLocaleTimeString();
 
-		requestAnimationFrame(updateClock);
+		setTimeout(updateClock, 500);
 	}
 
 	updateClock();
