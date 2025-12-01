@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import ScrollView from "../components/ScrollView.astro";
+import Box from "../components/Box.astro";
 ---
 
 <Layout>
@@ -25,13 +26,12 @@ import ScrollView from "../components/ScrollView.astro";
 			]
 		}
 	</script>
-
-	<div class="main-view">
-		<ScrollView>
-			<div style="flex-grow:1;" class="text-container">
-				<div class="title-group">
-					<pre
-						id="ascii-title"> 
+	<ScrollView useMargin={true} style="scroll-behavior:smooth;">
+		<!-- HERO -->
+		<section id="home" class="hero">
+			<div>
+				<pre
+					id="ascii-title"> 
                               ▄█    ▄████████    ▄█   ▄█▄    ▄████████                               
                              ███   ███    ███   ███ ▄███▀   ███    ███                               
                              ███   ███    ███   ███▐██▀     ███    █▀                                
@@ -51,54 +51,102 @@ import ScrollView from "../components/ScrollView.astro";
   ███   ▀█▀  ▀██████▀    ███    ███  ▀██████▀    ██████████  ▀█   ███   █▀    ███    █▀    ███    █▀ 
   ▀                      ███    ███                                                                  
 					</pre>
-					<span class="subtitle">
-						Software Engineer | Experimentalist
-					</span>
-					<hr>
-					<div class="socials">
-						<a
-							target="_blank"
-							href="https://github.com/korvemaa"
-							class="icon bi bi-github"
-							><span>GitHub</span>
-						</a>
-						<a
-							target="_blank"
-							href="https://linkedin.com/in/jakekve"
-							class="icon bi bi-linkedin"><span>LinkedIn</span></a
-						>
-						<a
-							target="_blank"
-							href="https://www.youtube.com/@JakeK"
-							class="icon bi bi-youtube"><span>YouTube</span></a
-						>
-					</div>
+				<span class="subtitle">
+					Software Engineer | Experimentalist
+				</span>
+				<hr />
+				<div class="socials">
+					<a
+						target="_blank"
+						href="https://github.com/korvemaa"
+						class="icon bi bi-github"
+						><span>GitHub</span>
+					</a>
+					<a
+						target="_blank"
+						href="https://linkedin.com/in/jakekve"
+						class="icon bi bi-linkedin"><span>LinkedIn</span></a
+					>
+					<a
+						target="_blank"
+						href="https://www.youtube.com/@JakeK"
+						class="icon bi bi-youtube"><span>YouTube</span></a
+					>
 				</div>
 			</div>
-		</ScrollView>
-	</div>
+		</section>
+		<!-- CONTENT -->
+		<div class="view-content">
+			<section id="about">
+				<Box title="About">
+					Hi this about a little website about me
+				</Box>
+				<Box title="Skills">
+					I can do a bunch of stuff yea thats right
+				</Box>
+			</section>
+			<section id="experience">
+				<Box title="Experience">
+					I work at enviz right now
+				</Box>
+			</section>
+		</div>
+	</ScrollView>
 </Layout>
 
-<style>
-	.main-view {
-		display: flex;
-		flex-grow: 1;
-		padding: 1rem;
+<script defer>
+	const container = document.getElementById("scroll-view");
+	function updateHeroHeight() {
+		const height = container.offsetHeight;
+		document.documentElement.style.setProperty(
+			"--hero-height",
+			`${height}px`,
+		);
 	}
 
-	.text-container {
+	updateHeroHeight();
+	window.addEventListener("resize", updateHeroHeight);
+</script>
+
+<style>
+	:root {
+		--hero-height: 0;
+	}
+
+	.hero > div {
 		display: flex;
+		flex-grow: 1;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
 		text-align: center;
+		border: var(--border-width) dotted var(--dimmed-glow-color);
+		margin: 1rem;
 	}
 
-	.title-group {
+	.hero {
 		display: flex;
 		flex-direction: column;
+		min-height: var(--hero-height);
+
+		flex: 0 0 auto;
+	}
+
+	.view-content {
+		display: flex;
+		flex-direction: column;
+		padding: 1rem;
+		gap: 1.5rem;
+	}
+
+	.view-content section {
+		flex-grow: 1;
+	}
+
+	.view-content #about {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
 		gap: 1rem;
-		padding: 2rem;
 	}
 
 	#ascii-title {

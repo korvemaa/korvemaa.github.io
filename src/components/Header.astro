@@ -9,23 +9,35 @@ if (pathname == "") pathname = "index";
 
 <header>
 	<nav>
-		Jake Korvemaa
+		<span id="site-title" class="not-important">{SITE_TITLE}</span>
 		<div class="internal-links">
 			<HeaderLink href="/">Home</HeaderLink>
-			<HeaderLink href="/about">About</HeaderLink>
 			<HeaderLink href="/projects">Projects</HeaderLink>
 			<HeaderLink href="/blog">Blog</HeaderLink>
 		</div>
-		<div class="internal-links">
+		<div style="display:flex; flex-grow: 1;"></div>
+		<span id="current-time" class="not-important">9:50PM</span>
+		<!-- <div class="internal-links" style="">
 			<label
 				for="hue-slider"
 				id="hue-icon"
 				class="material-symbols-outlined">colors</label
 			>
 			<input id="hue-slider" type="range" min="0" max="360" value="180" />
-		</div>
+		</div> -->
 	</nav>
 </header>
+
+<script defer>
+	function updateClock() {
+		document.getElementById("current-time").textContent =
+			new Date().toLocaleTimeString();
+
+		requestAnimationFrame(updateClock);
+	}
+
+	updateClock();
+</script>
 
 <script define:vars={{ THEME_HUE_KEY }}>
 	document.getElementById("hue-icon").addEventListener("click", () => {
@@ -55,6 +67,12 @@ if (pathname == "") pathname = "index";
 		margin: 0;
 		align-self: stretch;
 	}
+
+	header .not-important {
+		opacity: 0.4;
+		padding: 0.5rem 1rem;
+	}
+
 	#hue-icon {
 		cursor: pointer;
 	}
@@ -83,7 +101,7 @@ if (pathname == "") pathname = "index";
 	nav {
 		display: flex;
 		align-items: center;
-		justify-content: space-between;
+		justify-content: flex-start;
 	}
 
 	.internal-links {
