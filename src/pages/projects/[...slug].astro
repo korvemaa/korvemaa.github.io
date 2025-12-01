@@ -54,7 +54,7 @@ const hasArticle = (post.body || "").length > 0;
                     {gallery && <a href="#gallery">Gallery</a>}
                 </nav>
             </header>
-            <ScrollView style="scroll-behavior:smooth;">
+            <ScrollView style="scroll-behavior:smooth;" usePad={true}>
                 <div class="inner-content">
                     {
                         hasArticle && (
@@ -235,6 +235,7 @@ const hasArticle = (post.body || "").length > 0;
         flex-direction: row;
         flex-grow: 1;
         gap: 1rem;
+        padding: 1rem;
     }
 
     .project-content {
@@ -274,7 +275,7 @@ const hasArticle = (post.body || "").length > 0;
         flex-grow: 0;
         flex-shrink: 0;
 
-        width: 400px;
+        width: 380px;
         border: var(--border-width) dotted var(--dimmed-glow-color);
     }
 

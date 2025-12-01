@@ -53,11 +53,11 @@ const subpath = pathname.match(/[^\/]+/g);
 			}
 		</ScrollView>
 	</aside>
-	<div class="post-content">
-		<ScrollView>
+	<ScrollView useMargin={true}>
+		<div class="post-content">
 			<slot />
-		</ScrollView>
-	</div>
+		</div>
+	</ScrollView>
 </div>
 
 <script>
@@ -121,13 +121,15 @@ const subpath = pathname.match(/[^\/]+/g);
 		width: 300px;
 		flex-shrink: 0;
 		gap: 1rem;
+
+		padding: 1rem;
+		padding-right: 0;
 	}
 
 	.post-content {
-		padding-left: 1rem;
 		flex-shrink: 1;
 		flex-grow: 1;
-		padding-right: 0;
+		padding: 1rem;
 	}
 
 	.post-link {

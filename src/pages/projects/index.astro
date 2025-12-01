@@ -30,8 +30,8 @@ const grouped: ProjectGroups = raw.reduce((acc: any, item) => {
 ---
 
 <Layout title="Projects">
-    <div class="main-view">
-        <ScrollView style="visibility:hidden">
+    <ScrollView style="visibility:hidden" useMargin={true}>
+        <div class="main-view">
             {
                 Object.entries(grouped).map(([group, posts]) => (
                     <section id={group} class="project-group">
@@ -57,8 +57,8 @@ const grouped: ProjectGroups = raw.reduce((acc: any, item) => {
                     </section>
                 ))
             }
-        </ScrollView>
-    </div>
+        </div>
+    </ScrollView>
 </Layout>
 
 <script>
@@ -83,35 +83,32 @@ const grouped: ProjectGroups = raw.reduce((acc: any, item) => {
 <style>
     .main-view {
         display: flex;
-        overflow: hidden;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
     }
 
-    .project-group {
+    section {
         display: flex;
         flex-direction: column;
-        margin-bottom: 1rem;
         border: var(--border-width) dotted var(--dimmed-glow-color);
         padding: 1rem;
         gap: 1rem;
     }
 
-    .project-group h2 {
+    section h2 {
         background-color: unset;
         font-size: 1.2rem;
         padding: 0;
         margin: 0;
     }
 
-    .project-group h2::before {
+    section h2::before {
         content: "// ";
     }
 
-    .project-group:first-child .group-header {
+    section:first-child .group-header {
         padding-top: 0;
-    }
-
-    .date-range {
-        color: var(--dimmed-glow-color);
     }
 
     .project-grid {
