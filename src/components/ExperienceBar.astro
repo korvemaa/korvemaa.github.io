@@ -1,0 +1,15 @@
+---
+import { render } from "astro:content";
+
+const { experience } = Astro.props;
+const { Content } = await render(experience);
+---
+
+<div class="experience-bar">
+    {experience.data.name}
+</div>
+
+<style>
+    .experience-bar {
+    }
+</style>
