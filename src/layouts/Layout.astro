@@ -39,6 +39,11 @@ const { title, description, image } = Astro.props;
         padding: 0;
 
         display: flex;
+
+        /* Prevent crappy overscroll on iOS */
+        overscroll-behavior: none;
+        -webkit-user-drag: none;
+        -webkit-user-select: none;
     }
 
     body {
@@ -46,7 +51,7 @@ const { title, description, image } = Astro.props;
         align-items: stretch;
         overflow: auto;
         flex-grow: 1;
-        
+
         min-width: 0;
         max-width: 1440px;
     }
