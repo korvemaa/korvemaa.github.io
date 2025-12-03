@@ -1,6 +1,5 @@
 ---
 import { type CollectionEntry, getCollection, render } from "astro:content";
-import BlogPost from "../../layouts/BlogPost.astro";
 import BlogLayout from "../../layouts/BlogLayout.astro";
 import Layout from "../../layouts/Layout.astro";
 
@@ -19,8 +18,6 @@ const { Content } = await render(post);
 
 <Layout title={post.data.title} description={post.data.description}>
 	<BlogLayout>
-		<BlogPost {...post.data}>
-			<Content />
-		</BlogPost>
+		<Content />
 	</BlogLayout>
 </Layout>
