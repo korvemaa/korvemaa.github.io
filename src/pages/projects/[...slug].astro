@@ -49,7 +49,7 @@ const hasArticle = (post.body || "").length > 0;
             <header>
                 <nav>
                     <a class="nav-link" href="/projects">{"<"}</a>
-                    {hasArticle && <a href="#article">Article</a>}
+                    {hasArticle && <a href="#about">About</a>}
                     {videos && <a href="#videos">Videos</a>}
                     {gallery && <a href="#gallery">Gallery</a>}
                 </nav>
@@ -58,7 +58,7 @@ const hasArticle = (post.body || "").length > 0;
                 <div class="inner-content">
                     {
                         hasArticle && (
-                            <section id="article" class="project-article">
+                            <section id="about" class="project-article">
                                 <Content />
                             </section>
                         )

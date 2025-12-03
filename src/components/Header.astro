@@ -1,20 +1,23 @@
 ---
 import HeaderLink from "./HeaderLink.astro";
-import { THEME_HUE_KEY, SITE_TITLE } from "../consts";
 import { getCollection } from "astro:content";
+import { THEME_HUE_KEY, SITE_TITLE } from "../consts";
 
 let pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, "");
 if (pathname == "") pathname = "index";
+
+const latestPost = (await getCollection("blog")).sort(
+	(a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+)[0];
 ---
 
 <header>
 	<nav>
-		<span id="site-title" class="not-important">{SITE_TITLE}</span>
+		<span id="site-title" class="not-important">[ {SITE_TITLE} ]</span>
 		<div class="internal-links">
 			<HeaderLink href="/">Home</HeaderLink>
 			<HeaderLink href="/projects">Projects</HeaderLink>
-			<HeaderLink href="/blog">Blog</HeaderLink>
-			<HeaderLink href="/theme">Theme</HeaderLink>
+			<HeaderLink href={`/blog/${latestPost.id}`}>Blog</HeaderLink>
 		</div>
 		<div style="display:flex; flex-grow: 1;"></div>
 		<span id="current-time" class="not-important">9:50PM</span>

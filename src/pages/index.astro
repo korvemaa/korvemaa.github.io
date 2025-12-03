@@ -1,10 +1,26 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import ScrollView from "../components/ScrollView.astro";
+import ExperienceBar from "../components/ExperienceBar.astro";
 import Box from "../components/Box.astro";
+
+// const experience = (await getCollection("experience")).sort((a, b) => {
+// 	const da = a.data.endDate?.getTime() ?? -100;
+// 	const db = b.data.endDate?.getTime() ?? -100;
+// 	return db - da;
+// });
+
+import { getCollection } from "astro:content";
+const experience = await getCollection("experience");
 ---
 
 <Layout>
+	{
+		experience.map((job) => {
+			<div>{job.data.title}</div>;
+		})
+	}
+
 	<script slot="head" type="application/ld+json">
 		{
 			"@context": "https://schema.org",
@@ -30,8 +46,9 @@ import Box from "../components/Box.astro";
 		<!-- HERO -->
 		<section id="home" class="hero">
 			<div>
-				<pre
-					id="ascii-title"> 
+				<div class="hero-content">
+					<pre
+						id="ascii-title"> 
                               ▄█    ▄████████    ▄█   ▄█▄    ▄████████                               
                              ███   ███    ███   ███ ▄███▀   ███    ███                               
                              ███   ███    ███   ███▐██▀     ███    █▀                                
@@ -51,42 +68,59 @@ import Box from "../components/Box.astro";
   ███   ▀█▀  ▀██████▀    ███    ███  ▀██████▀    ██████████  ▀█   ███   █▀    ███    █▀    ███    █▀ 
   ▀                      ███    ███                                                                  
 					</pre>
-				<span class="subtitle">
-					Software Engineer | Experimentalist
-				</span>
-				<hr />
-				<div class="socials">
-					<a
-						target="_blank"
-						href="https://github.com/korvemaa"
-						class="icon bi bi-github"
-						><span>GitHub</span>
-					</a>
-					<a
-						target="_blank"
-						href="https://linkedin.com/in/jakekve"
-						class="icon bi bi-linkedin"><span>LinkedIn</span></a
-					>
-					<a
-						target="_blank"
-						href="https://www.youtube.com/@JakeK"
-						class="icon bi bi-youtube"><span>YouTube</span></a
-					>
+					<span class="subtitle">
+						Software Engineer | Experimentalist
+					</span>
+					<hr />
+					<div class="socials">
+						<a
+							target="_blank"
+							href="https://github.com/korvemaa"
+							class="icon bi bi-github"
+							><span>GitHub</span>
+						</a>
+						<a
+							target="_blank"
+							href="https://linkedin.com/in/jakekve"
+							class="icon bi bi-linkedin"><span>LinkedIn</span></a
+						>
+						<a
+							target="_blank"
+							href="https://www.youtube.com/@JakeK"
+							class="icon bi bi-youtube"><span>YouTube</span></a
+						>
+					</div>
 				</div>
+				<a
+					href="#about"
+					style="position: absolute; bottom: 24px; text-decoration:none;"
+					>[ MORE ]</a
+				>
 			</div>
 		</section>
 		<!-- CONTENT -->
 		<div class="view-content">
 			<section id="about">
 				<Box title="About">
-					Hi this about a little website about me
+					> I'm a software engineer with a genuine passion for
+					creating, improving, and understanding software. I love the
+					process - learning, experimenting, refining and putting a
+					lot of care and passion into the things I build. For me,
+					great engineering comes from balancing creativity with
+					discipline and respecting the fundamentals. I'm always
+					looking for opportunities where I can keep growing and
+					contribute to work that actually matters.
 				</Box>
-				<Box title="Skills">
-					I can do a bunch of stuff yea thats right
-				</Box>
+				<Box title="Skills"> Hi </Box>
 			</section>
 			<section id="experience">
-				<Box title="Experience"> I work at enviz right now </Box>
+				<Box title="Experience">
+					{
+						experience.map((job) => {
+							<ExperienceBar experience={job} />;
+						})
+					}
+				</Box>
 			</section>
 		</div>
 	</ScrollView>
@@ -130,6 +164,12 @@ import Box from "../components/Box.astro";
 		flex: 0 0 auto;
 	}
 
+	.hero-content {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
 	.view-content {
 		display: flex;
 		flex-direction: column;
@@ -151,7 +191,7 @@ import Box from "../components/Box.astro";
 		font-family: monospace;
 		font-synthesis-weight: none;
 		font-variant-ligatures: none;
-		line-height: initial;
+		line-height: 1;
 		font-size: 10px;
 		padding: 0;
 		margin: 0;

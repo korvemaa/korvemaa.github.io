@@ -3,7 +3,7 @@ import { glob } from 'astro/loaders';
 
 const blog = defineCollection({
 	loader: glob({ base: './src/content/blog', pattern: '**/*.{md,mdx}' }),
-	schema: ({ image }) =>
+	schema: () =>
 		z.object({
 			title: z.string(),
 			description: z.string(),
@@ -24,8 +24,20 @@ const project = defineCollection({
 		videos: z.array(z.string()).optional(), // YouTube videos to show below the gallery in groups of two
 		links: z.array(z.string()).optional(),
 		tags: z.array(z.string()).optional()
-
 	})
-})
+});
 
-export const collections = { blog, project };
+const experience = defineCollection({
+	loader: glob({ base: './src/content/experience', pattern: '**/*.{md,mdx}' }),
+	schema: ({ image }) => z.object({
+		title: z.string(),
+		employment: z.string(),
+		position: z.string(),
+		location: z.string(),
+		startDate: z.coerce.date(),
+		endDate: z.coerce.date().optional(),
+	})
+
+});
+
+export const collections = { blog, project, experience };
