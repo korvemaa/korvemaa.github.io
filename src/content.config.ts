@@ -30,12 +30,13 @@ const project = defineCollection({
 const experience = defineCollection({
 	loader: glob({ base: './src/content/experience', pattern: '**/*.{md,mdx}' }),
 	schema: ({ image }) => z.object({
-		title: z.string(),
+		name: z.string(),
 		employment: z.string(),
 		position: z.string(),
 		location: z.string(),
 		startDate: z.coerce.date(),
 		endDate: z.coerce.date().optional(),
+		icon: image().optional(), // Shown in the projects panel. should be 1:1
 	})
 
 });

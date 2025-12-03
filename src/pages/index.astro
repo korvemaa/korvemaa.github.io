@@ -3,24 +3,18 @@ import Layout from "../layouts/Layout.astro";
 import ScrollView from "../components/ScrollView.astro";
 import ExperienceBar from "../components/ExperienceBar.astro";
 import Box from "../components/Box.astro";
-
-// const experience = (await getCollection("experience")).sort((a, b) => {
-// 	const da = a.data.endDate?.getTime() ?? -100;
-// 	const db = b.data.endDate?.getTime() ?? -100;
-// 	return db - da;
-// });
-
 import { getCollection } from "astro:content";
-const experience = await getCollection("experience");
+import { Debug } from "astro/components";
+
+const now = new Date().getTime();
+const experience = (await getCollection("experience")).sort((a, b) => {
+	const da = a.data.endDate?.getTime() ?? now;
+	const db = b.data.endDate?.getTime() ?? now;
+	return db - da;
+});
 ---
 
 <Layout>
-	{
-		experience.map((job) => {
-			<div>{job.data.title}</div>;
-		})
-	}
-
 	<script slot="head" type="application/ld+json">
 		{
 			"@context": "https://schema.org",
@@ -99,8 +93,8 @@ const experience = await getCollection("experience");
 			</div>
 		</section>
 		<!-- CONTENT -->
-		<div class="view-content">
-			<section id="about">
+		<div id="about" class="view-content">
+			<section id="about-section">
 				<Box title="About">
 					> I'm a software engineer with a genuine passion for
 					creating, improving, and understanding software. I love the
@@ -113,14 +107,17 @@ const experience = await getCollection("experience");
 				</Box>
 				<Box title="Skills"> Hi </Box>
 			</section>
-			<section id="experience">
-				<Box title="Experience">
+			<section>
+				<Box title="Professional Experience" style="gap: 1rem;">
 					{
 						experience.map((job) => {
-							<ExperienceBar experience={job} />;
+							return <ExperienceBar experience={job} />;
 						})
 					}
 				</Box>
+			</section>
+			<section>
+				<Box title="Education" style="gap: 1rem;" />
 			</section>
 		</div>
 	</ScrollView>
@@ -181,7 +178,7 @@ const experience = await getCollection("experience");
 		flex-grow: 1;
 	}
 
-	.view-content #about {
+	.view-content section#about-section {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 		gap: 1rem;
