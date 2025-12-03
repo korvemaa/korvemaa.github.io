@@ -1,21 +1,29 @@
 ---
-const { title, ...props } = Astro.props;
+const { title, style, ...props } = Astro.props;
 ---
 
-<section {...props}>
-    <div class="header">
-        <hr style="width: 1rem; flex-grow: 0;" />
-        <h2>{title}</h2>
-        <hr />
-    </div>
-    <slot />
-</section>
+<div {...props} class="box-root">
+    <section style={style}>
+        <div class="header">
+            <hr style="width: 1rem; flex-grow: 0;" />
+            <h2>{title}</h2>
+            <hr />
+        </div>
+        <slot />
+    </section>
+</div>
 
 <style>
+    .box-root {
+        display: flex;
+        flex-grow: 1;
+    }
+
     section {
         position: relative;
 
         display: flex;
+        flex-grow: 1;
 
         flex-direction: column;
         border: var(--border-width) dotted var(--dimmed-glow-color);
@@ -24,7 +32,8 @@ const { title, ...props } = Astro.props;
         flex-shrink: 1;
 
         padding: 1rem;
-        padding-top: 1.5rem;
+        padding-top: 1.25rem;
+        margin-top: 0.5rem;
     }
 
     section .header hr {

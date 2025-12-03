@@ -44,7 +44,7 @@ function timeSince(from: Date, to: Date = new Date()): string {
 ---
 
 <div class="experience-bar">
-    <div class="employment-details">
+    <a href={experience.data.projects} class="employment-details">
         {
             experience.data.icon && (
                 <Image
@@ -69,7 +69,7 @@ function timeSince(from: Date, to: Date = new Date()): string {
                 </span>
             </span>
         </div>
-    </div>
+    </a>
     {
         hasContent && ( 
             <hr />
@@ -78,7 +78,6 @@ function timeSince(from: Date, to: Date = new Date()): string {
             </div>
         )
     }
-    
 </div>
 
 <style>
@@ -86,8 +85,16 @@ function timeSince(from: Date, to: Date = new Date()): string {
         display: flex;
         flex-direction: column;
         border: var(--border-width) dotted var(--dimmed-glow-color);
-        padding: 1rem;
         gap: 1rem;
+    }
+
+    a {
+        padding: 1rem;
+        text-decoration: none;
+    }
+
+    a:hover{
+        background-color: var(--dimmed-glow-color);
     }
 
     .employment-details h3 {
@@ -113,7 +120,7 @@ function timeSince(from: Date, to: Date = new Date()): string {
         opacity: 0.4;
     }
 
-    .employment-about > *:first-child {
-        margin-top: 0;
+    .employment-about {
+        margin: 1rem;
     }
 </style>

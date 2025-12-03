@@ -34,6 +34,7 @@ const experience = defineCollection({
 		employment: z.string(),
 		position: z.string(),
 		location: z.string(),
+		projects: z.string(),
 		startDate: z.coerce.date(),
 		endDate: z.coerce.date().optional(),
 		icon: image().optional(), // Shown in the projects panel. should be 1:1
