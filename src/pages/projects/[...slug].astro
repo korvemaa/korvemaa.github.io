@@ -66,6 +66,16 @@ const hasArticle = (post.body || "").length > 0;
             ))
     }
 
+    {
+        post.data.tags && (
+            <meta
+                slot="head"
+                property="keywords"
+                content={post.data.tags.join(", ")}
+            />
+        )
+    }
+
     <div class="project-layout">
         <div class="project-content">
             <header>

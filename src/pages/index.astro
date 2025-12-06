@@ -4,7 +4,6 @@ import ScrollView from "../components/ScrollView.astro";
 import ExperienceBar from "../components/ExperienceBar.astro";
 import Box from "../components/Box.astro";
 import { getCollection } from "astro:content";
-import { Debug } from "astro/components";
 
 const now = new Date().getTime();
 const experience = (await getCollection("experience")).sort((a, b) => {
@@ -14,7 +13,7 @@ const experience = (await getCollection("experience")).sort((a, b) => {
 });
 ---
 
-<Layout namespace="profile">
+<Layout>
 	<script slot="head" type="application/ld+json">
 		{
 			"@context": "https://schema.org",
@@ -37,6 +36,7 @@ const experience = (await getCollection("experience")).sort((a, b) => {
 		}
 	</script>
 
+	<meta slot="head" property="og:image" content={new URL("/profile.png", Astro.url)}>
 	<meta slot="head" property="profile:first_name" content="Jake">
 	<meta slot="head" property="profile:last_name" content="Korvemaa">
 	<meta slot="head" property="profile:gender" content="male">
