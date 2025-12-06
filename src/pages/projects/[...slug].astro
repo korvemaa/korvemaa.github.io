@@ -44,6 +44,28 @@ const hasArticle = (post.body || "").length > 0;
     description={post.data.description}
     image={post.data.thumbnail}
 >
+    {
+        gallery &&
+            gallery.map((image) => (
+                <meta
+                    slot="head"
+                    property="og:image"
+                    content={new URL(image.src, Astro.url)}
+                />
+            ))
+    }
+
+    {
+        gallery &&
+            gallery.map((image) => (
+                <meta
+                    slot="head"
+                    property="twitter:image"
+                    content={new URL(image.src, Astro.url)}
+                />
+            ))
+    }
+
     <div class="project-layout">
         <div class="project-content">
             <header>
@@ -248,7 +270,7 @@ const hasArticle = (post.body || "").length > 0;
         border: var(--border-width) dotted var(--dimmed-glow-color);
         padding: 1rem;
         margin: 1rem;
-    margin-right: 0;
+        margin-right: 0;
     }
 
     .project-gallery {

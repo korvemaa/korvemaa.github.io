@@ -5,17 +5,13 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 
-const { title, description, image } = Astro.props;
+const { title, description } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
     <head>
-        <BaseHead
-            image={image}
-            title={title}
-            description={description || SITE_DESCRIPTION}
-        >
+        <BaseHead title={title} description={description || SITE_DESCRIPTION}>
             <slot name="head" />
         </BaseHead>
     </head>
@@ -107,7 +103,7 @@ const { title, description, image } = Astro.props;
         overflow: hidden;
     }
 
-	@media (max-width: 550px) {
+    @media (max-width: 550px) {
         .content-container {
             margin: 0.5rem;
         }

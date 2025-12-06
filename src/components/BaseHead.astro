@@ -9,17 +9,13 @@ import { getImage } from "astro:assets";
 interface Props {
 	title: string;
 	description: string;
-	image?: ImageMetadata;
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const { title, description, image } = Astro.props;
+const { title, description } = Astro.props;
 
 let definedImage: GetImageResult | null = null;
-if (image) {
-	definedImage = await getImage({ src: image });
-}
 ---
 
 <!-- Global Metadata -->
