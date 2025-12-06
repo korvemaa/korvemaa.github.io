@@ -74,7 +74,7 @@ const experience = (await getCollection("experience")).sort((a, b) => {
 
 					<pre
 						id="ascii-title"
-						class="background-jake"> 
+						class="background-ascii"> 
                                                                                       .+@*@-+++*:#*@%.. :.:%+.                                                                                          
                                                                                       #+@@@+@+@@.=@  @*@=@@@@*@                                                                                         
                                                                                 @. .@@@-=#:.@.*.==.=-.-=+...:-%%@@                                                                                      
@@ -201,16 +201,28 @@ const experience = (await getCollection("experience")).sort((a, b) => {
 			</section>
 			<section id="about-section">
 				<Box title="About">
-					> I'm a software engineer with a genuine passion for
-					creating, improving, and understanding software. I love the
-					process - learning, experimenting, refining and putting a
-					lot of care and passion into the things I build. For me,
-					great engineering comes from balancing creativity with
-					discipline and respecting the fundamentals. I'm always
-					looking for opportunities where I can keep growing and
-					contribute to work that actually matters.
+					I'm a software engineer with a genuine passion for creating,
+					improving, and understanding software. I enjoy the whole
+					process; learning, experimenting, refining, and putting real
+					care into what I build. Good engineering, to me, comes from
+					balancing design with discipline and respecting the
+					fundamentals. I'm always looking for opportunities to keep
+					growing and contribute to work that actually matters.
 				</Box>
-				<Box title="Skills"> Hi </Box>
+				<Box title="Skills">
+					<span>
+						I work primarily with C# and Unity, focusing on systems
+						work and practical tooling. I've built source
+						generators, IL-driven utilities, and data-driven asset
+						pipelines, and I handle web technologies when the
+						project calls for it. My approach centres on practical
+						problem-solving, clear communication, and taking
+						ownership from early concept through to completion. You
+						can see examples of my work in my
+						<a href="/projects">projects</a> page, which demonstrate
+						the skills and solutions I bring to real projects.
+					</span>
+				</Box>
 			</section>
 			<section>
 				<Box title="Experience" style="gap: 1rem;">
@@ -219,6 +231,14 @@ const experience = (await getCollection("experience")).sort((a, b) => {
 							return <ExperienceBar experience={job} />;
 						})
 					}
+				</Box>
+			</section>
+			<section>
+				<Box title="Theme" style="display:flex; flex-direction: row; flex-wrap: wrap; gap: 1rem;">
+					<button>Green</button>
+					<button>Amber</button>
+					<button>Cyan</button>
+					<button>Red</button>
 				</Box>
 			</section>
 		</div>
@@ -278,12 +298,11 @@ const experience = (await getCollection("experience")).sort((a, b) => {
 		"Those who know do not speak, those who speak do not know.",
 	];
 
-	function getRndInteger(min, max) {
+	function getRandom(min, max) {
 		return Math.floor(Math.random() * (max - min + 1)) + min;
 	}
 
-	motd.textContent =
-		"MOTD: " + proverbs[getRndInteger(0, proverbs.length)];
+	motd.textContent = "MOTD: " + proverbs[getRandom(0, proverbs.length)];
 </script>
 
 <style>
@@ -353,19 +372,19 @@ const experience = (await getCollection("experience")).sort((a, b) => {
 	}
 
 	@media (max-width: 650px) {
-		#ascii-title:not(.background-jake) {
+		#ascii-title:not(.background-ascii) {
 			font-size: 8px;
 		}
 	}
 
 	@media (max-width: 550px) {
-		#ascii-title:not(.background-jake) {
+		#ascii-title:not(.background-ascii) {
 			font-size: 6px;
 		}
 	}
 
 	@media (max-width: 450px) {
-		#ascii-title:not(.background-jake) {
+		#ascii-title:not(.background-ascii) {
 			font-size: 5px;
 		}
 	}
@@ -402,7 +421,7 @@ const experience = (await getCollection("experience")).sort((a, b) => {
 		font-size: 1rem;
 	}
 
-	.background-jake {
+	.background-ascii {
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -423,7 +442,7 @@ const experience = (await getCollection("experience")).sort((a, b) => {
 	}
 
 	@media (max-width: 550px) {
-		.background-jake {
+		.background-ascii {
 			left: 0;
 			right: 0;
 		}
