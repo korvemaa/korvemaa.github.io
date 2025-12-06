@@ -1,7 +1,7 @@
 ---
 import HeaderLink from "./HeaderLink.astro";
 import { getCollection } from "astro:content";
-import { THEME_HUE_KEY, SITE_TITLE } from "../consts";
+import {  SITE_TITLE } from "../consts";
 
 let pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, "");
 if (pathname == "") pathname = "index";
@@ -21,14 +21,6 @@ const latestPost = (await getCollection("blog")).sort(
 		</div>
 		<div style="flex-grow: 1;" class="not-important"></div>
 		<span id="current-time" class="not-important">9:50PM</span>
-		<!-- <div class="internal-links" style="">
-			<label
-				for="hue-slider"
-				id="hue-icon"
-				class="material-symbols-outlined">colors</label
-			>
-			<input id="hue-slider" type="range" min="0" max="360" value="180" />
-		</div> -->
 	</nav>
 </header>
 
@@ -43,29 +35,6 @@ const latestPost = (await getCollection("blog")).sort(
 	updateClock();
 </script>
 
-<script define:vars={{ THEME_HUE_KEY }}>
-	document.getElementById("hue-icon").addEventListener("click", () => {
-		setHue(150);
-	});
-
-	const slider = document.getElementById("hue-slider");
-	const rootStyles = getComputedStyle(document.documentElement);
-	const hueValue =
-		localStorage.getItem(THEME_HUE_KEY) ||
-		rootStyles.getPropertyValue("--base-hue") ||
-		"150";
-
-	slider.value = hueValue;
-	slider.addEventListener("input", () => {
-		setHue(slider.value);
-	});
-
-	function setHue(value) {
-		slider.value = value;
-		document.documentElement.style.setProperty("--base-hue", value);
-		localStorage.setItem(THEME_HUE_KEY, value);
-	}
-</script>
 <style>
 	header {
 		margin: 0;

@@ -3,7 +3,7 @@ import Effects from "../components/Effects.astro";
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+import { SITE_DESCRIPTION, THEME_HUE_KEY } from "../consts";
 
 const { title, description, namespace } = Astro.props;
 ---
@@ -30,6 +30,15 @@ const { title, description, namespace } = Astro.props;
         </div>
     </body>
 </html>
+
+<script defer define:vars={{ THEME_HUE_KEY }}>
+    function setHue(value) {
+        document.documentElement.style.setProperty("--base-hue", value);
+        localStorage.setItem(THEME_HUE_KEY, value);
+    }
+
+    window.setHue = setHue;
+</script>
 
 <style>
     html,

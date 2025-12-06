@@ -234,11 +234,15 @@ const experience = (await getCollection("experience")).sort((a, b) => {
 				</Box>
 			</section>
 			<section>
-				<Box title="Theme" style="display:flex; flex-direction: row; flex-wrap: wrap; gap: 1rem;">
-					<button>Green</button>
-					<button>Amber</button>
-					<button>Cyan</button>
-					<button>Red</button>
+				<Box
+					title="Theme"
+					style="display:flex; flex-direction: row; flex-wrap: wrap; gap: 1rem;"
+				>
+					<button onclick="window.setHue(150)">Green</button>
+					<button onclick="window.setHue(40)">Amber</button>
+					<button onclick="window.setHue(190)">Cyan</button>
+					<button onclick="window.setHue(310)">Pink</button>
+					<button onclick="window.setHue(0)">Red</button>
 				</Box>
 			</section>
 		</div>
@@ -302,7 +306,7 @@ const experience = (await getCollection("experience")).sort((a, b) => {
 		return Math.floor(Math.random() * (max - min + 1)) + min;
 	}
 
-	motd.textContent = "MOTD: " + proverbs[getRandom(0, proverbs.length)];
+	motd.textContent = "MOTD: " + proverbs[getRandom(0, proverbs.length - 1)];
 </script>
 
 <style>
@@ -359,6 +363,21 @@ const experience = (await getCollection("experience")).sort((a, b) => {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 		gap: 1rem;
+	}
+
+	button {
+		appearance: none;
+		background: none;
+		color: var(--text-color);
+		text-shadow: var(--text-shadow);
+		font-family: "Terminus";
+
+		padding: 1rem;
+		border: var(--border-width) dotted var(--dimmed-glow-color);
+	}
+
+	button:hover {
+		background-color: var(--dimmed-glow-color);
 	}
 
 	#ascii-title {
