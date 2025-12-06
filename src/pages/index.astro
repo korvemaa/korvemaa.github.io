@@ -197,7 +197,7 @@ const experience = (await getCollection("experience")).sort((a, b) => {
 		<!-- CONTENT -->
 		<div id="about" class="view-content">
 			<section id="motd-section">
-				MOTD: What came first? The chicken or the egg?
+				MOTD: When you force a melon from the vines, it won't be sweet.
 			</section>
 			<section id="about-section">
 				<Box title="About">
@@ -213,7 +213,7 @@ const experience = (await getCollection("experience")).sort((a, b) => {
 				<Box title="Skills"> Hi </Box>
 			</section>
 			<section>
-				<Box title="Professional Experience" style="gap: 1rem;">
+				<Box title="Experience" style="gap: 1rem;">
 					{
 						experience.map((job) => {
 							return <ExperienceBar experience={job} />;
@@ -237,6 +237,53 @@ const experience = (await getCollection("experience")).sort((a, b) => {
 
 	updateHeroHeight();
 	window.addEventListener("resize", updateHeroHeight);
+</script>
+
+<script defer>
+	const motd = document.getElementById("motd-section");
+	const proverbs = [
+		"When you force a melon from the vines, it won't be sweet.",
+		"A man who plants melons will harvest melons, and a man who plants beans will harvest beans.",
+		"When you drink the water, remember the spring as the source of the water.",
+		"Constant dripping wears away a stone.",
+		"It takes more than one cold day for the river to freeze three feet deep.",
+		"Just as distance tests a horse's strength, time can reveal a person's heart.",
+		"Good medicine tastes bitter.",
+		"The timber's already a boat; the rice is cooked.",
+		"Great wisdom can seem foolish.",
+		"Water drops pierce stone; rope saws cut wood.",
+		"Blessings come in disguise.",
+		"If you don't do stupid things you won't end up in tragedy.",
+		"If small holes aren't fixed, then big holes will bring hardship.",
+		"It's better to walk thousands of miles than to read thousands of books.",
+		"Too many cooks spoil the broth.",
+		"Every step makes a footprint.",
+		"Ignorance is bliss.",
+		"Disaster comes from the careless talk.",
+		"You reap what you sow.",
+		"Those who just want speed don't succeed.",
+		"A book is a pocket garden.",
+		"An inch of time is worth an inch of gold, but an inch of gold may not buy an inch of time.",
+		"Flowers may bloom again; you're never young again.",
+		"A blind horse always frightens itself.",
+		"Different locks must be opened with different keys.",
+		"Dig the well before you are thirsty.",
+		"The best time to plant a tree was 20 years ago. The second best time is now.",
+		"The journey of a thousand miles begins with one step.",
+		"An ant's hole can cause the collapse of a dam.",
+		"Three parts fate, seven parts hard work.",
+		"Give a man a fish, and you feed him for a day; teach a man to fish, and you feed him for a lifetime.",
+		"When drinking water, think of its source.",
+		"Do not impose on others what you yourself do not desire.",
+		"Those who know do not speak, those who speak do not know.",
+	];
+
+	function getRndInteger(min, max) {
+		return Math.floor(Math.random() * (max - min + 1)) + min;
+	}
+
+	motd.textContent =
+		"MOTD: " + proverbs[getRndInteger(0, proverbs.length)];
 </script>
 
 <style>
@@ -319,7 +366,7 @@ const experience = (await getCollection("experience")).sort((a, b) => {
 
 	@media (max-width: 450px) {
 		#ascii-title:not(.background-jake) {
-			font-size: 4px;
+			font-size: 5px;
 		}
 	}
 

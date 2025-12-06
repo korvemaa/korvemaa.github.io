@@ -53,21 +53,35 @@ const { title, style, ...props } = Astro.props;
         top: 0;
     }
 
+    
     section .header h2::before {
-        content: "[ ";
+        content: "";
         color: var(--dimmed-glow-color);
+        position: absolute;
+
+        top: 6px;
+        bottom: 8px;
+        left: -1rem;
+        border-left: var(--border-width) dotted var(--dimmed-glow-color);
     }
 
     section .header h2::after {
-        content: " ]";
+        content: "";
         color: var(--dimmed-glow-color);
+        position: absolute;
+
+        top: 6px;
+        bottom: 8px;
+        right: -1rem;
+        border-right: var(--border-width) dotted var(--dimmed-glow-color);
     }
 
     section .header h2 {
+        position: relative;
         background-color: unset;
         font-size: 1.125rem;
-        padding: 0 1rem;
-        margin: 0;
+        padding: 0;
+        margin: 0 1rem;
         margin-top: -0.5rem;
     }
 </style>
