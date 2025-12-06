@@ -13,7 +13,7 @@ const latestPost = (await getCollection("blog")).sort(
 
 <header>
 	<nav>
-		<span id="site-title" class="not-important">[ {SITE_TITLE} ]</span>
+		<span id="site-title" class="not-important">{SITE_TITLE}</span>
 		<div class="internal-links">
 			<HeaderLink href="/">Home</HeaderLink>
 			<HeaderLink href="/projects">Projects</HeaderLink>
@@ -102,6 +102,7 @@ const latestPost = (await getCollection("blog")).sort(
 	#hue-slider::-moz-range-thumb {
 	}
 
+
 	nav {
 		display: flex;
 		align-items: center;
@@ -135,10 +136,10 @@ const latestPost = (await getCollection("blog")).sort(
 
 	@media (max-width: 550px) {
 		nav {
-			justify-content: center;
+			justify-content: space-between
 		}
 
-		header .not-important {
+		header .not-important:not(#site-title) {
 			display: none;
 		}
 
