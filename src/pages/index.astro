@@ -14,7 +14,7 @@ const experience = (await getCollection("experience")).sort((a, b) => {
 });
 ---
 
-<Layout>
+<Layout namespace="profile">
 	<script slot="head" type="application/ld+json">
 		{
 			"@context": "https://schema.org",
@@ -36,6 +36,11 @@ const experience = (await getCollection("experience")).sort((a, b) => {
 			]
 		}
 	</script>
+
+	<meta slot="head" property="profile:first_name" content="Jake">
+	<meta slot="head" property="profile:last_name" content="Korvemaa">
+	<meta slot="head" property="profile:gender" content="male">
+	
 	<ScrollView useMargin={true} style="scroll-behavior:smooth;">
 		<!-- HERO -->
 		<section id="home" class="hero">

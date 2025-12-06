@@ -16,8 +16,14 @@ const post = Astro.props;
 const { Content } = await render(post);
 ---
 
-<Layout title={post.data.title} description={post.data.description}>
+<Layout
+	title={post.data.title}
+	description={post.data.description}
+	namespace="article"
+>
 	<BlogLayout>
 		<Content />
 	</BlogLayout>
+
+	<meta slot="head" property="article:author" content="Jake Korvemaa" />
 </Layout>
