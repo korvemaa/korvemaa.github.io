@@ -2,7 +2,7 @@
 title:  "Deputy 4hr | Round 4"
 description: "Wanted to put this somewhere on my website cause I thought it was cool"
 group: "Motorsport"
-date: "2025"
+date: "May 2025"
 thumbnail: "./images/deputy4/thumbnail.webp"
 tags: ["other", "cars"]
 videos: ["4fio6yiJPpY", "g94ed8citeY", "abXQ3hdTtVk"]

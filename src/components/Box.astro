@@ -53,6 +53,16 @@ const { title, style, ...props } = Astro.props;
         top: 0;
     }
 
+    section .header h2::before {
+        content: "[ ";
+        color: var(--dimmed-glow-color);
+    }
+
+    section .header h2::after {
+        content: " ]";
+        color: var(--dimmed-glow-color);
+    }
+
     section .header h2 {
         background-color: unset;
         font-size: 1.125rem;

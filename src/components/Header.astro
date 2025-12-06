@@ -15,9 +15,9 @@ const latestPost = (await getCollection("blog")).sort(
 	<nav>
 		<span id="site-title" class="not-important">{SITE_TITLE}</span>
 		<div class="internal-links">
-			<HeaderLink href="/">Home</HeaderLink>
-			<HeaderLink href="/projects">Projects</HeaderLink>
-			<HeaderLink href={`/blog/${latestPost.id}`}>Blog</HeaderLink>
+			<HeaderLink href="/">/home</HeaderLink>
+			<HeaderLink href="/projects">/projects</HeaderLink>
+			<HeaderLink href={`/blog/${latestPost.id}`}>/blogs</HeaderLink>
 		</div>
 		<div style="flex-grow: 1;" class="not-important"></div>
 		<span id="current-time" class="not-important">9:50PM</span>
@@ -102,7 +102,6 @@ const latestPost = (await getCollection("blog")).sort(
 	#hue-slider::-moz-range-thumb {
 	}
 
-
 	nav {
 		display: flex;
 		align-items: center;
@@ -119,7 +118,7 @@ const latestPost = (await getCollection("blog")).sort(
 		font-size: 1em;
 		color: var(--black);
 		text-decoration: none;
-		text-transform: uppercase;
+		/* text-transform: uppercase; */
 	}
 
 	nav a:hover {

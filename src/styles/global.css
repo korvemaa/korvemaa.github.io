@@ -160,3 +160,9 @@ hr {
 	border-top: var(--border-width) dotted var(--dimmed-glow-color);
 	margin: 0;
 }
+
+.enviz-web-app {
+	aspect-ratio: 16/9;
+	width: 100%;
+	border: 0;
+}
