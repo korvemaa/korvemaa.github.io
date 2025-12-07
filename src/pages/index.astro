@@ -36,11 +36,6 @@ const experience = (await getCollection("experience")).sort((a, b) => {
 		}
 	</script>
 
-	<meta
-		slot="head"
-		property="og:image"
-		content={new URL("/profile.png", Astro.url)}
-	/>
 	<meta slot="head" property="profile:first_name" content="Jake" />
 	<meta slot="head" property="profile:last_name" content="Korvemaa" />
 	<meta slot="head" property="profile:gender" content="male" />

@@ -4,12 +4,12 @@ const { useMargin, usePad, ...props } = Astro.props;
 
 <div
     id="scroll-view"
-    class={"scroll-view " + (useMargin ? "use-margin " : "")+  (usePad ? "use-padding " : "")}
+    class={"scroll-view " +
+        (useMargin ? "use-margin " : "") +
+        (usePad ? "use-padding " : "")}
     {...props}
 >
-    <div id="scroll-container">
-        <slot />
-    </div>
+    <slot />
 </div>
 
 <script>
@@ -44,44 +44,37 @@ const { useMargin, usePad, ...props } = Astro.props;
 </script>
 
 <style>
-    #scroll-view {
-        display: flex;
-        position: relative;
-        flex-direction: column;
-        max-height: 100%;
-        min-height: 0;
-        flex-grow: 1;
-        box-sizing: border-box;
-        overflow-x: hidden;
-        overflow-y: auto;
-    }
+#scroll-view {
+	display: flex;
+	position: relative;
+	flex-direction: column;
+	max-height: 100%;
+	min-height: 0;
+	flex-grow: 1;
+	box-sizing: border-box;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
 
-    #scroll-view::-webkit-scrollbar {
-        margin: 1rem;
-        width: var(--border-width);
-    }
+#scroll-view::-webkit-scrollbar {
+	margin: 1rem;
+	width: var(--border-width);
+}
 
-    #scroll-view.use-margin::-webkit-scrollbar-track {
-        margin: 2rem;
-    }
+#scroll-view.use-margin::-webkit-scrollbar-track {
+	margin: 2rem;
+}
 
-    #scroll-view::-webkit-scrollbar-track-piece {
-        background-color: var(--dimmed-glow-color);
-    }
+#scroll-view::-webkit-scrollbar-track-piece {
+	background-color: var(--dimmed-glow-color);
+}
 
-    #scroll-view::-webkit-scrollbar-thumb {
-        background-color: var(--text-color);
-    }
+#scroll-view::-webkit-scrollbar-thumb {
+	background-color: var(--text-color);
+}
 
-    #scroll-container {
-        display: flex;
-        flex-direction: column;
-        overflow: visible;
-        flex: 1 0 auto;
-        align-items: stretch;
-    }
+#scroll-view.use-padding.scrollbar-active {
+	padding-right: 1rem;
+}
 
-    .use-padding.scrollbar-active #scroll-container {
-        padding-right: 1rem;
-    }
 </style>

@@ -81,9 +81,9 @@ const hasArticle = (post.body || "").length > 0;
             <header>
                 <nav>
                     <a class="nav-link" href="/projects">{"<"}</a>
-                    {hasArticle && <a href="#about">About</a>}
-                    {videos && <a href="#videos">Videos</a>}
-                    {gallery && <a href="#gallery">Gallery</a>}
+                    {hasArticle && <a href="#about">/about</a>}
+                    {videos && <a href="#videos">/videos</a>}
+                    {gallery && <a href="#gallery">/gallery</a>}
                 </nav>
             </header>
             <ScrollView style="scroll-behavior:smooth;" usePad={true}>
@@ -101,6 +101,7 @@ const hasArticle = (post.body || "").length > 0;
                                 {videos &&
                                     videos.map((video) => (
                                         <iframe
+                                            loading="lazy"
                                             class="youtube-video"
                                             src={`https://www.youtube.com/embed/${video}`}
                                             allowfullscreen
@@ -209,7 +210,6 @@ const hasArticle = (post.body || "").length > 0;
                     active = current;
                     if (current && navs.has(current.id)) {
                         navs.get(current.id)?.classList.add("active");
-                        history.replaceState(null, "", `#${current.id}`);
                     }
                 }
             }
@@ -224,23 +224,16 @@ const hasArticle = (post.body || "").length > 0;
 <style>
     nav {
         display: flex;
-        align-items: center;
+        align-items: flex-end;
         justify-content: flex-start;
         margin-bottom: 1rem;
         border-bottom: var(--border-width) solid var(--text-color);
     }
 
-    .internal-links {
-        display: flex;
-        align-items: center;
-    }
-
     nav a {
         padding: 0.5rem 1.2rem;
-        font-size: 1em;
         color: var(--black);
         text-decoration: none;
-        text-transform: uppercase;
     }
 
     nav a:hover {
@@ -296,7 +289,7 @@ const hasArticle = (post.body || "").length > 0;
 
     .project-videos {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(min(350px, 100%), 1fr));
         justify-items: center;
         gap: 1rem;
     }
@@ -311,8 +304,6 @@ const hasArticle = (post.body || "").length > 0;
         flex-direction: column;
         flex-grow: 0;
         flex-shrink: 0;
-
-        width: 400px;
     }
 
     .project-details {
@@ -324,6 +315,7 @@ const hasArticle = (post.body || "").length > 0;
         margin: 1rem;
         margin-left: 0;
 
+        max-width: 350px;
         border: var(--border-width) dotted var(--dimmed-glow-color);
     }
 
@@ -376,5 +368,65 @@ const hasArticle = (post.body || "").length > 0;
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;
+    }
+
+    @media (max-width: 800px) {
+        .project-layout {
+            flex-wrap: wrap-reverse;
+            overflow-y: scroll;
+            gap: 0;
+        }
+
+        .project-layout::-webkit-scrollbar {
+            margin: 1rem;
+            width: var(--border-width);
+        }
+
+        .project-layout::-webkit-scrollbar-track {
+            margin: 2rem;
+        }
+
+        .project-layout::-webkit-scrollbar-track-piece {
+            background-color: var(--dimmed-glow-color);
+        }
+
+        .project-layout::-webkit-scrollbar-thumb {
+            background-color: var(--text-color);
+        }
+
+        aside {
+            flex-shrink: 1;
+            flex-grow: 1;
+        }
+
+        header {
+            position: sticky;
+        }
+
+        .project-details {
+            flex-direction: column;
+            margin: 1rem;
+            margin-bottom: 0;
+            flex-grow: 1;
+            /* flex-wrap: wrap; */
+            max-width: unset;
+        }
+
+        .project-content {
+            margin: 1rem;
+        }
+
+        .details-body {
+            flex-shrink: 1;
+        }
+
+        .project-details .details-header {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-thumbnail {
+            display: none;
+        }
     }
 </style>
