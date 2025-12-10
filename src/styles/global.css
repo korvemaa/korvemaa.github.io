@@ -108,7 +108,7 @@ a:hover {
 }
 
 p {
-	margin-bottom: 1em;
+margin: 1rem 0;
 }
 
 .prose p {
@@ -159,6 +159,10 @@ hr {
 	border: none;
 	border-top: var(--border-width) dotted var(--dimmed-glow-color);
 	margin: 0;
+}
+
+ul {
+	padding-left: 1.5rem;
 }
 
 .enviz-web-app {

@@ -4,6 +4,7 @@ import ScrollView from "../components/ScrollView.astro";
 import ExperienceBar from "../components/ExperienceBar.astro";
 import Box from "../components/Box.astro";
 import { getCollection } from "astro:content";
+import figlet from "figlet";
 
 const now = new Date().getTime();
 const experience = (await getCollection("experience")).sort((a, b) => {
@@ -11,6 +12,8 @@ const experience = (await getCollection("experience")).sort((a, b) => {
 	const db = b.data.endDate?.getTime() ?? now;
 	return db - da;
 });
+
+const font = "Delta Corps Priest 1";
 ---
 
 <Layout>
@@ -45,28 +48,10 @@ const experience = (await getCollection("experience")).sort((a, b) => {
 		<section id="home" class="hero">
 			<div>
 				<div class="hero-content">
-					<pre
-						id="ascii-title"> 
-                              ▄█    ▄████████    ▄█   ▄█▄    ▄████████                               
-                             ███   ███    ███   ███ ▄███▀   ███    ███                               
-                             ███   ███    ███   ███▐██▀     ███    █▀                                
-                             ███   ███    ███  ▄█████▀     ▄███▄▄▄                                   
-                             ███ ▀███████████ ▀▀█████▄    ▀▀███▀▀▀                                   
-                             ███   ███    ███   ███▐██▄     ███    █▄                                
-                             ███   ███    ███   ███ ▀███▄   ███    ███                               
-                         █▄ ▄███   ███    █▀    ███   ▀█▀   ██████████                               
-                         ▀▀▀▀▀▀                 ▀                                                    
-   ▄█   ▄█▄  ▄██████▄     ▄████████  ▄█    █▄     ▄████████   ▄▄▄▄███▄▄▄▄      ▄████████    ▄████████
-  ███ ▄███▀ ███    ███   ███    ███ ███    ███   ███    ███ ▄██▀▀▀███▀▀▀██▄   ███    ███   ███    ███
-  ███▐██▀   ███    ███   ███    ███ ███    ███   ███    █▀  ███   ███   ███   ███    ███   ███    ███
- ▄█████▀    ███    ███  ▄███▄▄▄▄██▀ ███    ███  ▄███▄▄▄     ███   ███   ███   ███    ███   ███    ███
-▀▀█████▄    ███    ███ ▀▀███▀▀▀▀▀   ███    ███ ▀▀███▀▀▀     ███   ███   ███ ▀███████████ ▀███████████
-  ███▐██▄   ███    ███ ▀███████████ ███    ███   ███    █▄  ███   ███   ███   ███    ███   ███    ███
-  ███ ▀███▄ ███    ███   ███    ███ ███    ███   ███    ███ ███   ███   ███   ███    ███   ███    ███
-  ███   ▀█▀  ▀██████▀    ███    ███  ▀██████▀    ██████████  ▀█   ███   █▀    ███    █▀    ███    █▀ 
-  ▀                      ███    ███                                                                  
-					</pre>
-
+					<div class="hero-title">
+						<pre id="ascii-title">{figlet.textSync("Jake", {font})}</pre>
+						<pre id="ascii-title">{figlet.textSync("Korvemaa", {font})}</pre>
+					</div>
 					<pre
 						id="ascii-title"
 						class="background-ascii"> 
@@ -326,6 +311,7 @@ const experience = (await getCollection("experience")).sort((a, b) => {
 		display: flex;
 		flex-direction: column;
 		min-height: var(--hero-height);
+		perspective: 1px;
 
 		flex: 0 0 auto;
 	}
@@ -334,6 +320,15 @@ const experience = (await getCollection("experience")).sort((a, b) => {
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
+	}
+
+	.hero-title {
+		display: flex;
+		flex-direction: row;
+		gap: 1.5rem;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: center;
 	}
 
 	.view-content {
@@ -383,6 +378,7 @@ const experience = (await getCollection("experience")).sort((a, b) => {
 		font-size: 10px;
 		padding: 0;
 		margin: 0;
+		user-select: none;
 	}
 
 	@media (max-width: 650px) {

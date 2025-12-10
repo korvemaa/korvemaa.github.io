@@ -1,6 +1,6 @@
 ---
 title:  "Panther"
-description: "The intruders default pistol. I textured this in substance painter. Martino did the modeling"
+description: "The intruders default pistol."
 group: "Intruder"
 thumbnail: "images/panther/thumbnail.jpg"
 tags: ["substance-painter", "art"]

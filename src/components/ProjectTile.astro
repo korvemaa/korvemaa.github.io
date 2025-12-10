@@ -1,85 +1,123 @@
 ---
 import { getImage } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
 
-const { title, thumbnail, imageCount, videoCount } = Astro.props;
+import { timeAgo } from "../utility";
+import figlet from "figlet";
 
-const image = thumbnail != null ? await getImage({ src: thumbnail }) : null;
+type Project = CollectionEntry<"project">;
+
+interface Props {
+    project: Project;
+}
+
+const { project } = Astro.props;
+
+const image =
+    project.data.thumbnail != null
+        ? await getImage({
+              src: project.data.thumbnail,
+              height: 400,
+              width: 400,
+          })
+        : null;
 ---
 
-<div class="project-tile">
+<div class="tile">
     <div class="thumbnail" style={`background-image: url(${image?.src});`}>
-        <div class="count-container">
+    </div>
+    <div class="body">
+        <h2>{project.data.title}</h2>
+        <span class="group">{project.data.description}</span>
+
+        <div style="display: flex; flex-grow: 1;"></div>
+        <div class="tags">
             {
-                imageCount > 0 && (
-                    <span class="count-icon bi bi-card-image">
-                        <span>{imageCount}</span>
-                    </span>
-                )
+                project.data.tags &&
+                    project.data.tags.sort().map((tag) => <code>{tag}</code>)
             }
+        </div>
+
+        <div class="bottom">
+            {project.data.group}
             {
-                videoCount > 0 && (
-                    <span class="count-icon bi bi-youtube">
-                        <span>{videoCount}</span>
-                    </span>
+                project.data.date && (
+                    <span class="age">| {timeAgo(project.data.date)}</span>
                 )
             }
         </div>
     </div>
-    <h3 class="title">{title}</h3>
 </div>
 
 <style>
-    .project-tile {
+    .tile {
+        position: relative;
         display: flex;
-        flex-direction: column;
+        flex-grow: 1;
+        gap: 1rem;
+        padding: 1rem;
+        flex-direction: row;
         align-items: stretch;
         border: var(--border-width) dotted var(--dimmed-glow-color);
+        overflow: hidden;
+    }
+
+    .tile:hover {
+        border-style: solid;
+        border-color: var(--text-color);
+        box-shadow: inset 0 0 64px var(--dimmed-glow-color);
     }
 
     .thumbnail {
         display: flex;
         aspect-ratio: 1/1;
-        flex-grow: 1;
+        width: 180px;
+        height: 180px;
 
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-end;
-        align-items: flex-start;
-        padding: 1rem;
-
-        image-rendering: auto;
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;
     }
 
-    .count-container {
+    .body {
         display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 1rem;
+        flex-direction: column;
+        flex-grow: 1;
+        gap: 0.5rem;
     }
 
-    .count-icon {
-        display:
-         flex;
-        flex-grow: 0;
+    .group {
+        display: flex;
+        flex-grow: 1;
+    }
+
+    .tags {
+        display: flex;
         flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
+        flex-wrap: wrap;
+        flex-shrink: 1;
+        gap: 4px;
+        font-size: 12px;
     }
 
-    .image-count-icon span {
-        text-decoration: none;
+    .age {
+        opacity: 0.3;
     }
 
-    .title {
+    .ascii {
+        font-family: monospace;
+        line-height: 1;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        font-size: 12px;
+        z-index: -1;
+        padding: 0;
+        margin: 0;
+    }
+
+    h2 {
         display: flex;
-        background-color: var(--text-color);
-        color: black;
-        text-shadow: none;
-        font-weight: bold;
         padding: 0.5rem;
         margin: 0;
         font-size: 1.125rem;

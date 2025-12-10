@@ -1,6 +1,6 @@
 ---
 title:  "Manta"
-description: "The default smg in Intruder. I textured this in substance painter. Martino did the modeling"
+description: "The default smg in Intruder"
 group: "Intruder"
 thumbnail: "images/manta/thumbnail.jpg"
 tags: ["substance-painter", "art"]

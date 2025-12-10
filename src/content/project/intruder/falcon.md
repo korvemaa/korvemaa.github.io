@@ -3,7 +3,7 @@ title:  "Falcon"
 group: "Intruder"
 thumbnail: "./images/falcon/thumbnail.jpg"
 tags: ["substance-painter", "art"]
-description: "The sniper rifle in Intruder. I textured this in substance painter. Martino did the modeling"
+description: "The sniper rifle in Intruder."
 date: 'June 24 2021'
 links: ["https://www.artstation.com/artwork/q9kN6N", "https://store.steampowered.com/app/518150/Intruder/"]
 gallery: [

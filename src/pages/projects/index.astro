@@ -2,61 +2,31 @@
 import Layout from "../../layouts/Layout.astro";
 import ScrollView from "../../components/ScrollView.astro";
 import ProjectTile from "../../components/ProjectTile.astro";
-import Box from "../../components/Box.astro";
 
 import { getCollection } from "astro:content";
-import type { CollectionEntry } from "astro:content";
-
-type Project = CollectionEntry<"project">;
-
-const raw = await getCollection("project");
+const posts = await getCollection("project");
 
 // 1. Sort by date (assuming `data.order` is your date/order field)
-raw.sort((a, b) => {
+posts.sort((a, b) => {
     const da = a.data.date?.getTime() ?? 100;
     const db = b.data.date?.getTime() ?? 100;
     return db - da;
 });
 
-// 2. Group by "group" field
-type ProjectGroups = Record<string, Project[]>;
-
-// 2. Group by `group`
-const grouped: ProjectGroups = raw.reduce((acc: any, item) => {
-    const key = item.data.group ?? "Ungrouped";
-    if (!acc[key]) acc[key] = [];
-    acc[key].push(item);
-    return acc;
-}, {});
 ---
 
 <Layout title="Projects">
     <ScrollView style="visibility:hidden" useMargin={true}>
         <div class="main-view">
-            {
-                Object.entries(grouped).map(([group, posts]) => (
-                    <Box id={group} title={group}>
-                        <div class="project-grid">
-                            {posts.map((post) => {
-                                return (
-                                    <a href={`/projects/${post.id}`}>
-                                        <ProjectTile
-                                            title={post.data.title}
-                                            thumbnail={post.data.thumbnail}
-                                            imageCount={
-                                                post.data.gallery?.length || 0
-                                            }
-                                            videoCount={
-                                                post.data.videos?.length || 0
-                                            }
-                                        />
-                                    </a>
-                                );
-                            })}
-                        </div>
-                    </Box>
-                ))
-            }
+            <div class="project-grid">
+                {posts.map((post) => {
+                    return (
+                        <a href={`/projects/${post.id}`}>
+                            <ProjectTile project={post} />
+                        </a>
+                    );
+                })}
+            </div>
         </div>
     </ScrollView>
 </Layout>
@@ -92,7 +62,7 @@ const grouped: ProjectGroups = raw.reduce((acc: any, item) => {
         flex-direction: column;
         text-decoration: none;
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
         gap: 1rem;
     }
 

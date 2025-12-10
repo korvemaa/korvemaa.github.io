@@ -315,7 +315,9 @@ const hasArticle = (post.body || "").length > 0;
         margin: 1rem;
         margin-left: 0;
 
+        min-width: 350px;
         max-width: 350px;
+
         border: var(--border-width) dotted var(--dimmed-glow-color);
     }
 
@@ -409,6 +411,7 @@ const hasArticle = (post.body || "").length > 0;
             margin-bottom: 0;
             flex-grow: 1;
             /* flex-wrap: wrap; */
+            min-width: unset;
             max-width: unset;
         }
 
