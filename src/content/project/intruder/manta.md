@@ -1,6 +1,6 @@
 ---
 title:  "Manta"
-description: "The default smg in Intruder"
+description: "The default smg in Intruder."
 group: "Intruder"
 thumbnail: "images/manta/thumbnail.jpg"
 tags: ["substance-painter", "art"]

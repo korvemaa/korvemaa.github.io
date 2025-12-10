@@ -1,6 +1,6 @@
 ---
 title:  "Web Editor"
-description: Customer facing space editor for Enviz
+description: Customer facing space editor for Enviz.
 group: "Enviz"
 tags: ["webgl", "unity", "csharp"]
 thumbnail: "images/space-editor.png"

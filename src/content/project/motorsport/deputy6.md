@@ -1,6 +1,6 @@
 ---
 title:  "Deputy 4hr | Round 6"
-description: "Wanted to put this somewhere on my website cause I thought it was cool"
+description: "Wanted to put this somewhere on my website cause I thought it was cool."
 group: "Motorsport"
 date: "3 Aug 2025"
 thumbnail: "./images/deputy6/thumbnail.webp"

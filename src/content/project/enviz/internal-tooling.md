@@ -1,6 +1,6 @@
 ---
 title:  "Internal Tooling"
-description: "Internal tools developed for Enviz speeding up workflows"
+description: "Internal tools developed for Enviz speeding up workflows."
 group: "Enviz"
 tags: ["unity", "csharp"]
 thumbnail: "images/space-ai.png"

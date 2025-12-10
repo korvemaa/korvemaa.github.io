@@ -1,6 +1,6 @@
 ---
 title:  "Asset Browser"
-description: "Drag and drop assets from the cloud into the scene"
+description: "Drag and drop assets from the cloud into the scene."
 group: "Personal"
 tags: ["unity", "csharp", "tooling"]
 thumbnail: "images/asset-browser.jpg"

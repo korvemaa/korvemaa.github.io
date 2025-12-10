@@ -1,6 +1,6 @@
 ---
 title:  "Back Alley"
-description: "This environment is inspired by a map that was a style guide for the early era of the Half life 2 Beta (2000 - 2001)"
+description: "This environment is inspired by a map that was a style guide for the early era of the Half life 2 Beta (2000 - 2001)."
 group: "Personal"
 tags: ["source2", "hammer", "art"]
 thumbnail: "images/back-alley/thumbnail.jpg"

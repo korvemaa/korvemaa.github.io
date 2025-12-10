@@ -5,5 +5,5 @@ position: "Software Engineer"
 location: "Sydney, Australia"
 startDate: '2022-04-01'
 icon: 'images/enviz.jpg'
-projects: "/projects#Enviz"
+projects: "/projects#g:enviz"
 ---
