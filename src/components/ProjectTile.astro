@@ -126,4 +126,15 @@ const image =
         justify-content: flex-start;
         align-items: center;
     }
+
+    @media (max-width: 550px) {
+        .tile {
+            flex-direction: column;
+        }
+
+        .thumbnail {
+            width: unset;
+            height: unset;
+        }
+    }
 </style>
