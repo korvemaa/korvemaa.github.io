@@ -90,36 +90,42 @@ const hasArticle = (post.body || "").length > 0;
                         >
                     </nav>
                 </header>
-                <div
-                    class="thumbnail"
-                    style={`background-image: url(${thumbnail?.src});`}
-                >
+                <div class="content">
+                    <div
+                        class="thumbnail"
+                        style={`background-image: url(${thumbnail?.src});`}
+                    >
+                    </div>
+                    <div class="text">
+                        <h2>{post.data.title}</h2>
+                        <span class="description">{post.data.description}</span>
+                        <div class="tags">
+                            {
+                                post.data.tags &&
+                                    post.data.tags
+                                        .sort()
+                                        .map((tag) => <code>{tag}</code>)
+                            }
+                        </div>
+                        <div class="bottom">
+                            {post.data.group}
+                            {
+                                post.data.date && (
+                                    <span class="age">
+                                        | {timeAgo(post.data.date)}
+                                    </span>
+                                )
+                            }
+                        </div>
+                        {post.data.links && <hr />}
+                        {
+                            post.data.links &&
+                                post.data.links.map((link) => (
+                                    <DynamicLink href={link} />
+                                ))
+                        }
+                    </div>
                 </div>
-                <h2>{post.data.title}</h2>
-                <span class="group">{post.data.description}</span>
-                <div class="tags">
-                    {
-                        post.data.tags &&
-                            post.data.tags
-                                .sort()
-                                .map((tag) => <code>{tag}</code>)
-                    }
-                </div>
-                <div class="bottom">
-                    {post.data.group}
-                    {
-                        post.data.date && (
-                            <span class="age">| {timeAgo(post.data.date)}</span>
-                        )
-                    }
-                </div>
-                {post.data.links && <hr />}
-                {
-                    post.data.links &&
-                        post.data.links.map((link) => (
-                            <DynamicLink href={link} />
-                        ))
-                }
             </aside>
             <article>
                 {
@@ -224,6 +230,7 @@ const hasArticle = (post.body || "").length > 0;
 
     aside {
         display: flex;
+
         flex-direction: column;
         top: 1rem;
         position: sticky;
@@ -231,7 +238,22 @@ const hasArticle = (post.body || "").length > 0;
         padding: 1rem;
         margin: 1rem;
 
+        max-width: 350px;
+        min-width: 350px;
+
         margin-left: 0;
+        gap: 1rem;
+    }
+
+    aside .content {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    aside .text {
+        display: flex;
+        flex-direction: column;
         gap: 1rem;
     }
 
@@ -267,16 +289,14 @@ const hasArticle = (post.body || "").length > 0;
 
     .thumbnail {
         aspect-ratio: 1/1;
-        width: 350px;
 
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;
     }
 
-    .group {
+    .description {
         display: flex;
-        flex-grow: 1;
     }
 
     .tags {
@@ -328,6 +348,7 @@ const hasArticle = (post.body || "").length > 0;
     @media (max-width: 900px) {
         .page {
             flex-direction: column;
+            align-items: stretch;
         }
 
         aside {
@@ -338,8 +359,29 @@ const hasArticle = (post.body || "").length > 0;
             min-width: unset;
         }
 
+        aside .text {
+            flex-grow: 1;
+        }
+
+        aside .content {
+            flex-direction: row;
+        }
+
         .thumbnail {
-            width: min(350px, 100%);
+            min-width: 250px;
+            max-width: 250px;
+            flex-grow: 1;
+        }
+    }
+
+    @media (max-width: 650px) {
+        aside .content {
+            flex-direction: column;
+        }
+
+        .thumbnail {
+            max-width: unset;
+            flex-grow: 1;
         }
     }
 </style>
