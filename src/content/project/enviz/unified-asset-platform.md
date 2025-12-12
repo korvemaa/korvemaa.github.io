@@ -4,5 +4,7 @@ description: "A framework allowing for incredibly easy access to external assets
 group: "Enviz"
 tags: ["unity", "csharp", "database", "cloud"]
 thumbnail: "images/space-ai.png"
-date: 'Jan 1 2023'
+date: 'Jan 1 2024'
 ---
+
+This was a super dope project that I need to fill out the copy for

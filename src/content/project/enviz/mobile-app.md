@@ -4,7 +4,7 @@ group: "Enviz"
 description: "An app allowing exploration of spaces in AR/VR and other modes."
 tags: ["unity", "csharp", "ios", "android"]
 thumbnail: "images/mobile-app/thumbnail.png"
-date: 'Jul 13 2023'
+date: '2024'
 links: ["https://enviz.co", "https://apps.apple.com/au/app/enviz/id1579901968", "https://play.google.com/store/apps/details?id=com.EnvisionVR.EnvisionVR&hl=en"]
 videos: ["NnytluMi5rA", "wmEDHk5knnk"]
 ---

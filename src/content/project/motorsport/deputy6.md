@@ -14,6 +14,7 @@ gallery: [
     "./images/deputy6/image5.webp",
     "./images/deputy6/image6.webp"
 ]
+links: ["https://www.raceawaytracktime.com.au/news/deputy-4-hour-round-6-pheasant-wood-circuit"]
 ---
 
 ## Deputy 4 Hour Round 6

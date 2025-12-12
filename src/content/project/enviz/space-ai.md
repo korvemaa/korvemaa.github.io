@@ -4,6 +4,8 @@ description: "The conversion pipeline to get model files into the Enviz ecosyste
 group: "Enviz"
 tags: ["automation", "blender", "azure"]
 thumbnail: "images/space-ai.png"
-date: 'Jan 1 2024'
+date: 'Jan 2 2024'
 links: ["https://enviz.co"]
 ---
+
+This was a super dope project that I need to fill out the copy for

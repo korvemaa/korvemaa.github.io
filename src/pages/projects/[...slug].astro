@@ -126,7 +126,7 @@ const hasArticle = (post.body || "").length > 0;
             <article>
                 {
                     hasArticle && (
-                        <section id="about">
+                        <section id="about" style="gap: 0;">
                             <Content />
                         </section>
                     )
@@ -294,6 +294,7 @@ const hasArticle = (post.body || "").length > 0;
         padding-top: 1rem;
         display: flex;
         flex-direction: column;
+        gap: 1rem;
     }
 
     article {
