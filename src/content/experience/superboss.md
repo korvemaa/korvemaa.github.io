@@ -6,5 +6,5 @@ location: "Remote"
 startDate: "Jan 2019"
 endDate: "Jul 2021"
 icon: 'images/superboss.jpg'
-projects: "/projects#g:intruder"
+projects: "/projects#Intruder"
 ---

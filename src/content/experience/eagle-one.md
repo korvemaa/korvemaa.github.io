@@ -6,5 +6,5 @@ location: "Remote"
 startDate: "Mar 2019"
 endDate: "Jan 2022"
 icon: 'images/eagle-one.jpg'
-projects: "/projects#g:eagle one"
+projects: "/projects#Eagle One"
 ---

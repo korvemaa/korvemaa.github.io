@@ -13,25 +13,68 @@ posts.sort((a, b) => {
     return db - da;
 });
 
+const groups = Array.from(new Set(posts.map((p) => p.data.group)));
 ---
 
 <Layout title="Projects">
     <ScrollView style="visibility:hidden" useMargin={true}>
-        <div class="main-view">
-            <div class="project-grid">
-                {posts.map((post) => {
+        <nav class="filter">
+            <a href="#All" data-group="All">All</a>
+            {
+                groups.map((group) => (
+                    <a href={`#${group}`} data-group={group}>
+                        {group}
+                    </a>
+                ))
+            }
+        </nav>
+        <div class="project-grid">
+            {
+                posts.map((post) => {
                     return (
-                        <a href={`/projects/${post.id}`}>
+                        <a
+                            data-group={post.data.group}
+                            href={`/projects/${post.id}`}
+                        >
                             <ProjectTile project={post} />
                         </a>
                     );
-                })}
-            </div>
+                })
+            }
         </div>
     </ScrollView>
 </Layout>
 
 <script>
+    const projects = document.querySelectorAll<HTMLElement>(".project-grid a");
+    const links = document.querySelectorAll<HTMLElement>(".filter a");
+
+    function applyFilter(group: string) {
+        projects.forEach((p) => {
+            p.style.display =
+                group === "All" || p.dataset.group === group ? "" : "none";
+        });
+
+        links.forEach((link) => {
+            link.classList.toggle("active", link.dataset.group === group);
+        });
+    }
+
+    function updateFromHash() {
+        const hash = decodeURIComponent(location.hash.replace("#", ""));
+        const group = hash || "All";
+        applyFilter(group);
+    }
+
+    window.addEventListener("hashchange", updateFromHash);
+    updateFromHash(); // initial load
+</script>
+
+<script>
+    /*
+        Scrolling save state
+    */
+
     const scroller = document.getElementById("scroll-view") as HTMLElement;
     const key = `scroll:${location.pathname}`;
 
@@ -51,11 +94,41 @@ posts.sort((a, b) => {
 </script>
 
 <style>
-    .main-view {
+    nav {
         display: flex;
-        flex-direction: column;
-        gap: 1rem;
+        justify-content: flex-start;
+        align-items: center;
+        flex-direction: row;
+        flex-wrap: wrap;
         padding: 1rem;
+        padding-bottom: 0;
+        gap: 1rem;
+
+        overflow-x: visible;
+    }
+
+    @media (max-width: 1000px) {
+        nav {
+            justify-content: center;
+        }
+    }
+
+    nav a {
+        padding: 0.25rem 1rem;
+        text-decoration: none;
+        border: var(--border-width) dotted var(--dimmed-glow-color);
+        white-space: nowrap;
+    }
+
+    nav a:hover {
+        background-color: var(--dimmed-glow-color);
+    }
+
+    nav a.active {
+        background-color: var(--text-color);
+        border: none;
+        text-shadow: none;
+        color: black;
     }
 
     .project-grid {
@@ -63,6 +136,7 @@ posts.sort((a, b) => {
         text-decoration: none;
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(min(450px, 100%), 1fr));
+        padding: 1rem;
         gap: 1rem;
     }
 
