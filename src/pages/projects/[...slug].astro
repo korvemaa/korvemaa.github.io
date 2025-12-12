@@ -75,9 +75,7 @@ const hasArticle = (post.body || "").length > 0;
     }
 
     <ScrollView style="scroll-behavior:smooth;" useMargin={true}>
-        <div
-            style="display:flex;flex-direction:row-reverse;align-items:flex-start;"
-        >
+        <div class="page">
             <aside>
                 <header>
                     <nav>
@@ -218,6 +216,12 @@ const hasArticle = (post.body || "").length > 0;
 </script>
 
 <style>
+    .page {
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: flex-start;
+    }
+
     aside {
         display: flex;
         flex-direction: column;
@@ -226,8 +230,6 @@ const hasArticle = (post.body || "").length > 0;
         border: var(--border-width) dotted var(--dimmed-glow-color);
         padding: 1rem;
         margin: 1rem;
-        min-width: 350px;
-        max-width: 350px;
 
         margin-left: 0;
         gap: 1rem;
@@ -264,8 +266,8 @@ const hasArticle = (post.body || "").length > 0;
     }
 
     .thumbnail {
-        display: flex;
         aspect-ratio: 1/1;
+        width: 350px;
 
         background-size: cover;
         background-repeat: no-repeat;
@@ -321,5 +323,23 @@ const hasArticle = (post.body || "").length > 0;
         display: grid;
         justify-items: center;
         gap: 1rem;
+    }
+
+    @media (max-width: 900px) {
+        .page {
+            flex-direction: column;
+        }
+
+        aside {
+            margin: 1rem;
+            margin-bottom: 0;
+            position: unset;
+            max-width: unset;
+            min-width: unset;
+        }
+
+        .thumbnail {
+            width: min(350px, 100%);
+        }
     }
 </style>
