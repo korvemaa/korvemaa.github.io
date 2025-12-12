@@ -15,9 +15,9 @@ const latestPost = (await getCollection("blog")).sort(
 	<nav>
 		<span id="site-title" class="not-important">{SITE_TITLE}</span>
 		<div class="internal-links">
-			<HeaderLink href="/">/home</HeaderLink>
-			<HeaderLink href="/projects">/projects</HeaderLink>
-			<HeaderLink href={`/blog/${latestPost.id}`}>/blogs</HeaderLink>
+			<HeaderLink href="/">Home</HeaderLink>
+			<HeaderLink href="/projects">Projects</HeaderLink>
+			<HeaderLink href={`/blog/${latestPost.id}`}>Blogs</HeaderLink>
 		</div>
 		<div style="flex-grow: 1;" class="not-important"></div>
 		<span id="current-time" class="not-important">9:50PM</span>

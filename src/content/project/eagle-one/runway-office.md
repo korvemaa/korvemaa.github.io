@@ -1,6 +1,6 @@
 ---
 title:  "Runway Office"
-description: "This was made for the Eagle One Development Team for their mod that unfortunately stopped development (due to scope and resources) called runway."
+description: "This was made for the Eagle One for their mod 'runway' that unfortunately stopped development."
 group: "Eagle One"
 tags: ["source2", "hammer", "art"]
 thumbnail: "images/runway-office/thumbnail.jpg"

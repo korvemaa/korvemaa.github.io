@@ -70,9 +70,7 @@ h6 {
 
 h1 {
 	font-size: 2em;
-	background: var(--text-color);
-	color: black;
-	text-shadow: none;
+	background: var(--dimmed-glow-color);
 	padding: 0.5rem;
 }
 
@@ -108,7 +106,15 @@ a:hover {
 }
 
 p {
-margin: 1rem 0;
+	margin: 1rem 0;
+}
+
+p:first-child {
+	margin-top: 0;
+}
+
+p:last-child {
+	margin-bottom: 0;
 }
 
 .prose p {

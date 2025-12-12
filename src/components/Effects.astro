@@ -19,7 +19,7 @@
     .background-vignette {
         z-index: -50;
 
-        background-image: radial-gradient(transparent, black 100%);
+        background-image: radial-gradient(transparent, black 110%);
         mix-blend-mode: multiply;
     }
 
@@ -82,17 +82,14 @@
         z-index: 95;
         background-image: repeating-linear-gradient(
             0deg,
-            rgba(255, 255, 255, 0.08),
-            rgba(255, 255, 255, 0.1) 2px,
+            rgba(0, 0, 0, 0.15),
+            rgba(0, 0, 0, 0.15) 2px,
             transparent 2px,
             transparent 4px
         );
 
-        filter: brightness(0.1);
-        mix-blend-mode: multiply;
-
         /* makes the stripe height match the pattern repeat */
-        animation: move-stripes 1s linear infinite;
+        animation: move-stripes 0.5s linear infinite;
     }
 
     @keyframes move-stripes {

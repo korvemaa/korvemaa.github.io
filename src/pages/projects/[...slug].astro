@@ -1,9 +1,7 @@
 ---
 import ScrollView from "../../components/ScrollView.astro";
 import DynamicLink from "../../components/DynamicLink.astro";
-
 import { timeAgo } from "../../utility";
-
 import { getImage } from "astro:assets";
 import { type CollectionEntry, getCollection, render } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
@@ -76,98 +74,96 @@ const hasArticle = (post.body || "").length > 0;
         )
     }
 
-    <article class="project-layout">
-        <div class="project-content">
-            <header>
-                <nav>
-                    <a class="nav-link" href="/projects">{"<"}</a>
-                    {hasArticle && <a href="#about">/about</a>}
-                    {videos && <a href="#videos">/videos</a>}
-                    {gallery && <a href="#gallery">/gallery</a>}
-                </nav>
-            </header>
-            <ScrollView style="scroll-behavior:smooth;" usePad={true}>
-                <div class="inner-content">
-                    {
-                        hasArticle && (
-                            <section id="about" class="project-article">
-                                <Content />
-                            </section>
-                        )
-                    }
-                    {
-                        videos && (
-                            <section id="videos" class="project-videos">
-                                {videos &&
-                                    videos.map((video) => (
-                                        <iframe
-                                            loading="lazy"
-                                            class="youtube-video"
-                                            src={`https://www.youtube.com/embed/${video}`}
-                                            allowfullscreen
-                                        />
-                                    ))}
-                            </section>
-                        )
-                    }
-                    {
-                        gallery && (
-                            <section id="gallery" class="project-gallery">
-                                {gallery &&
-                                    gallery.map((img) => (
-                                        <img
-                                            loading="lazy"
-                                            src={img.src}
-                                            width={img.attributes.width}
-                                            height={img.attributes.height}
-                                        />
-                                    ))}
-                            </section>
-                        )
-                    }
-                </div>
-            </ScrollView>
-        </div>
-        <aside>
-            <ScrollView useMargin={true}>
-                <div class="project-details">
-                    <div class="details-header">
-                        <div
-                            class="project-thumbnail"
-                            style={`background-image: url(${thumbnail?.src});`}
+    <ScrollView style="scroll-behavior:smooth;" useMargin={true}>
+        <div
+            style="display:flex;flex-direction:row-reverse;align-items:flex-start;"
+        >
+            <aside>
+                <header>
+                    <nav>
+                        {hasArticle && <a href="#about">About</a>}
+                        {videos && <a href="#videos">Videos</a>}
+                        {gallery && <a href="#gallery">Gallery</a>}
+                        <div style="display:flex;flex-grow: 1;"></div>
+                        <a
+                            style="font-family:monospace;"
+                            class="nav-link"
+                            href="/projects">X</a
                         >
-                        </div>
-                        <span class="project-title">{post.data.title}</span>
-                    </div>
-                    <div class="details-body">
-                        <p>{post.data.description}</p>
-                        {
-                            post.data.date && (
-                                <span class="project-age">
-                                    {timeAgo(post.data.date)}
-                                </span>
-                            )
-                        }
-                        <div class="tags">
-                            {
-                                post.data.tags &&
-                                    post.data.tags
-                                        .sort()
-                                        .map((tag) => <code>{tag}</code>)
-                            }
-                        </div>
-                        {post.data.links && <hr />}
-                        {
-                            post.data.links &&
-                                post.data.links.map((link) => (
-                                    <DynamicLink href={link} />
-                                ))
-                        }
-                    </div>
+                    </nav>
+                </header>
+                <div
+                    class="thumbnail"
+                    style={`background-image: url(${thumbnail?.src});`}
+                >
                 </div>
-            </ScrollView>
-        </aside>
-    </article>
+                <h2>{post.data.title}</h2>
+                <span class="group">{post.data.description}</span>
+                <div class="tags">
+                    {
+                        post.data.tags &&
+                            post.data.tags
+                                .sort()
+                                .map((tag) => <code>{tag}</code>)
+                    }
+                </div>
+                <div class="bottom">
+                    {post.data.group}
+                    {
+                        post.data.date && (
+                            <span class="age">| {timeAgo(post.data.date)}</span>
+                        )
+                    }
+                </div>
+                {post.data.links && <hr />}
+                {
+                    post.data.links &&
+                        post.data.links.map((link) => (
+                            <DynamicLink href={link} />
+                        ))
+                }
+            </aside>
+            <article>
+                {
+                    hasArticle && (
+                        <section id="about">
+                            <Content />
+                        </section>
+                    )
+                }
+                {
+                    videos && (
+                        <section id="videos">
+                            {videos &&
+                                videos.map((video) => (
+                                    <iframe
+                                        loading="lazy"
+                                        class="youtube-video"
+                                        src={`https://www.youtube.com/embed/${video}`}
+                                        allowfullscreen
+                                    />
+                                ))}
+                        </section>
+                    )
+                }
+                {
+                    gallery && (
+                        <section id="gallery">
+                            {gallery &&
+                                gallery.map((img) => (
+                                    <img
+                                        loading="lazy"
+                                        src={img.src}
+                                        width={img.attributes.width}
+                                        height={img.attributes.height}
+                                    />
+                                ))}
+                        </section>
+                    )
+                }
+            </article>
+        </div>
+    </ScrollView>
 </Layout>
 
 <script>
@@ -181,7 +177,7 @@ const hasArticle = (post.body || "").length > 0;
             const lookup: HTMLElement[] = [];
 
             document
-                .querySelectorAll<HTMLAnchorElement>(".project-layout nav a")
+                .querySelectorAll<HTMLAnchorElement>("aside nav a")
                 .forEach((e) => {
                     const href = e.getAttribute("href");
                     if (!href?.startsWith("#")) return;
@@ -222,11 +218,29 @@ const hasArticle = (post.body || "").length > 0;
 </script>
 
 <style>
+    aside {
+        display: flex;
+        flex-direction: column;
+        top: 1rem;
+        position: sticky;
+        border: var(--border-width) dotted var(--dimmed-glow-color);
+        padding: 1rem;
+        margin: 1rem;
+        min-width: 350px;
+        max-width: 350px;
+
+        margin-left: 0;
+        gap: 1rem;
+    }
+
+    aside h2 {
+        margin-bottom: 0;
+    }
+
     nav {
         display: flex;
         align-items: flex-end;
         justify-content: flex-start;
-        margin-bottom: 1rem;
         border-bottom: var(--border-width) solid var(--text-color);
     }
 
@@ -249,49 +263,52 @@ const hasArticle = (post.body || "").length > 0;
         text-decoration: none;
     }
 
-    .inner-content {
+    .thumbnail {
+        display: flex;
+        aspect-ratio: 1/1;
+
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .group {
+        display: flex;
+        flex-grow: 1;
+    }
+
+    .tags {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        flex-shrink: 1;
+        gap: 4px;
+        font-size: 12px;
+    }
+
+    .age {
+        opacity: 0.3;
+    }
+
+    section {
+        padding-top: 1rem;
         display: flex;
         flex-direction: column;
-        overflow: visible;
-        flex-grow: 1;
-        align-items: stretch;
-        gap: 1rem;
     }
 
-    .project-layout {
-        display: flex;
-        overflow: hidden;
-        flex-direction: row;
-        flex-grow: 1;
-        gap: 1rem;
-    }
-
-    .project-content {
+    article {
         display: flex;
         flex-direction: column;
         flex-grow: 1;
         border: var(--border-width) dotted var(--dimmed-glow-color);
         padding: 1rem;
+        padding-top: 0;
         margin: 1rem;
-        margin-right: 0;
     }
 
-    .project-gallery {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-    }
-
-    .project-gallery img {
+    img {
         border-radius: 0;
         image-rendering: auto;
-    }
-
-    .project-videos {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(min(350px, 100%), 1fr));
-        justify-items: center;
-        gap: 1rem;
     }
 
     .youtube-video {
@@ -299,137 +316,9 @@ const hasArticle = (post.body || "").length > 0;
         border: 0;
     }
 
-    aside {
-        display: flex;
-        flex-direction: column;
-        flex-grow: 0;
-        flex-shrink: 0;
-    }
-
-    .project-details {
-        display: flex;
-        flex-direction: column;
-        flex-grow: 1;
-        flex-shrink: 0;
-
-        margin: 1rem;
-        margin-left: 0;
-
-        min-width: 350px;
-        max-width: 350px;
-
-        border: var(--border-width) dotted var(--dimmed-glow-color);
-    }
-
-    .details-body {
-        display: flex;
-        flex-direction: column;
-        padding: 1rem;
+    .grid-view {
+        display: grid;
+        justify-items: center;
         gap: 1rem;
-        flex-grow: 1;
-    }
-
-    .details-body p {
-        margin: 0;
-    }
-
-    .details-body .tags {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        flex-shrink: 1;
-        gap: 4px;
-    }
-
-    .details-body .tags code {
-    }
-
-    .project-title {
-        display: flex;
-        background-color: var(--text-color);
-        color: black;
-        text-shadow: none;
-
-        padding: 0.5rem;
-        padding-left: 1rem;
-        font-size: 24px;
-
-        text-align: left;
-        justify-content: flex-start;
-        align-items: center;
-    }
-
-    .project-age {
-        opacity: 0.3;
-    }
-
-    .project-thumbnail {
-        display: flex;
-        aspect-ratio: 1/1;
-        image-rendering: auto;
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
-    }
-
-    @media (max-width: 800px) {
-        .project-layout {
-            flex-wrap: wrap-reverse;
-            overflow-y: scroll;
-            gap: 0;
-        }
-
-        .project-layout::-webkit-scrollbar {
-            margin: 1rem;
-            width: var(--border-width);
-        }
-
-        .project-layout::-webkit-scrollbar-track {
-            margin: 2rem;
-        }
-
-        .project-layout::-webkit-scrollbar-track-piece {
-            background-color: var(--dimmed-glow-color);
-        }
-
-        .project-layout::-webkit-scrollbar-thumb {
-            background-color: var(--text-color);
-        }
-
-        aside {
-            flex-shrink: 1;
-            flex-grow: 1;
-        }
-
-        header {
-            position: sticky;
-        }
-
-        .project-details {
-            flex-direction: column;
-            margin: 1rem;
-            margin-bottom: 0;
-            flex-grow: 1;
-            /* flex-wrap: wrap; */
-            min-width: unset;
-            max-width: unset;
-        }
-
-        .project-content {
-            margin: 1rem;
-        }
-
-        .details-body {
-            flex-shrink: 1;
-        }
-
-        .project-details .details-header {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .project-thumbnail {
-            display: none;
-        }
     }
 </style>
