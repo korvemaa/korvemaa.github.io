@@ -1,10 +1,10 @@
 ---
 title:  "Deputy 4hr | Round 6"
-description: "Wanted to put this somewhere on my website cause I thought it was cool."
+description: "A bipolar weather endurance race"
 group: "Motorsport"
 date: "3 Aug 2025"
-thumbnail: "./images/deputy6/thumbnail.webp"
-tags: ["other", "cars", "motorsport"]
+thumbnail: "./images/deputy6/image7.webp"
+tags: ["other", "cars", "mx-5"]
 gallery: [
     "./images/deputy6/image1.webp",
     "./images/deputy6/image4.webp",
@@ -12,7 +12,8 @@ gallery: [
     "./images/deputy6/results.webp",
     "./images/deputy6/image3.webp",
     "./images/deputy6/image5.webp",
-    "./images/deputy6/image6.webp"
+    "./images/deputy6/image6.webp",
+    "./images/deputy6/image7.webp"
 ]
 links: ["https://www.raceawaytracktime.com.au/news/deputy-4-hour-round-6-pheasant-wood-circuit"]
 ---

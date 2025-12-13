@@ -106,11 +106,8 @@ a:hover {
 }
 
 p {
-	margin: 1rem 0;
-}
-
-p:first-child {
-	margin-top: 0;
+	margin: 0;
+	margin-bottom: 1rem;
 }
 
 p:last-child {

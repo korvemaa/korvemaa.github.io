@@ -14,3 +14,8 @@ gallery: [
 date: 'May 25 2020'
 links: ["https://www.artstation.com/artwork/aRvA90", "https://steamcommunity.com/sharedfiles/filedetails/?id=2108271041"]
 ---
+
+## What is Back Alley?
+
+Back alley was a style guide map that was inspired by another style guide map. It was made to demonstrate what a half life 2 beta map 
+could potentially look like in Source 2. All assets are from Half-Life: Alyx itself.
