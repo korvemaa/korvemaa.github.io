@@ -1,47 +1,10 @@
 ---
-const { useMargin, usePad, ...props } = Astro.props;
+const { ...props } = Astro.props;
 ---
 
-<div
-    id="scroll-view"
-    class={"scroll-view " +
-        (useMargin ? "use-margin " : "") +
-        (usePad ? "use-padding " : "")}
-    {...props}
->
+<div id="scroll-view" {...props}>
     <slot />
 </div>
-
-<script>
-    const scrollViews = document.querySelectorAll<HTMLElement>(".scroll-view");
-
-    function updateScrollbarPadding(div: HTMLElement) {
-        if (div.scrollHeight > div.clientHeight) {
-            div.classList.add("scrollbar-active");
-        } else {
-            div.classList.remove("scrollbar-active");
-        }
-    }
-
-    // loop through all scroll views
-    scrollViews.forEach((div) => {
-        updateScrollbarPadding(div);
-        // optional: observe content changes
-        const observer = new MutationObserver(() =>
-            updateScrollbarPadding(div),
-        );
-        observer.observe(div, {
-            childList: true,
-            subtree: true,
-            characterData: true,
-        });
-    });
-
-    // update on resize for all
-    window.addEventListener("resize", () => {
-        scrollViews.forEach(updateScrollbarPadding);
-    });
-</script>
 
 <style>
     #scroll-view {
@@ -61,7 +24,7 @@ const { useMargin, usePad, ...props } = Astro.props;
         width: var(--border-width);
     }
 
-    #scroll-view.use-margin::-webkit-scrollbar-track {
+    #scroll-view::-webkit-scrollbar-track {
         margin: 2rem;
     }
 
@@ -71,9 +34,5 @@ const { useMargin, usePad, ...props } = Astro.props;
 
     #scroll-view::-webkit-scrollbar-thumb {
         background-color: var(--text-color);
-    }
-
-    #scroll-view.use-padding.scrollbar-active {
-        padding-right: 1rem;
     }
 </style>

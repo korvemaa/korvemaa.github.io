@@ -5,6 +5,7 @@ import { timeAgo } from "../../utility";
 import { getImage } from "astro:assets";
 import { type CollectionEntry, getCollection, render } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
+import OpenGraphImage from "../../components/OpenGraphImage.astro";
 
 export async function getStaticPaths() {
     const posts = await getCollection("project");
@@ -19,22 +20,19 @@ type Props = CollectionEntry<"project">;
 const post = Astro.props;
 const { Content } = await render(post);
 
-const thumbnail =
-    post.data.thumbnail != null
-        ? await getImage({ src: post.data.thumbnail, width: 512 })
-        : null;
-
-const gallery = post.data.gallery
-    ? await Promise.all(
-          post.data.gallery.map(async (src) => {
-              return await getImage({ src });
-          }),
-      )
+const thumbnail = post.data.thumbnail
+    ? await getImage({ src: post.data.thumbnail, width: 512 })
     : null;
+
+const gallery = await Promise.all(
+    (post.data.gallery || []).map((src) => getImage({ src, width: 1440 })),
+);
 
 const videos = post.data.videos;
 
 const hasArticle = (post.body || "").length > 0;
+const hasGallery = gallery?.length != 0;
+const hasVideos = post.data.videos;
 ---
 
 <Layout
@@ -42,27 +40,11 @@ const hasArticle = (post.body || "").length > 0;
     description={post.data.description}
     image={post.data.thumbnail}
 >
-    {
-        gallery &&
-            gallery.map((image) => (
-                <meta
-                    slot="head"
-                    property="og:image"
-                    content={new URL(image.src, Astro.url)}
-                />
-            ))
-    }
+    <!-- Thumbnail first for thumbnail only platforms -->
+    <OpenGraphImage slot="head" image={thumbnail} />
 
-    {
-        gallery &&
-            gallery.map((image) => (
-                <meta
-                    slot="head"
-                    property="twitter:image"
-                    content={new URL(image.src, Astro.url)}
-                />
-            ))
-    }
+    <!-- Rest of the images just in case google wants to index them -->
+    {gallery.map((image) => <OpenGraphImage slot="head" image={image} />)}
 
     {
         post.data.tags && (
@@ -80,8 +62,8 @@ const hasArticle = (post.body || "").length > 0;
                 <header>
                     <nav>
                         {hasArticle && <a href="#about">About</a>}
-                        {videos && <a href="#videos">Videos</a>}
-                        {gallery && <a href="#gallery">Gallery</a>}
+                        {hasVideos && <a href="#videos">Videos</a>}
+                        {hasGallery && <a href="#gallery">Gallery</a>}
                         <div style="display:flex;flex-grow: 1;"></div>
                         <a
                             style="font-family:monospace;"
@@ -108,7 +90,9 @@ const hasArticle = (post.body || "").length > 0;
                             }
                         </div>
                         <div class="bottom">
-                            <a href={`/projects#${post.data.group}`}>{post.data.group}</a>
+                            <a href={`/projects#${post.data.group}`}
+                                >{post.data.group}</a
+                            >
                             {
                                 post.data.date && (
                                     <span class="age">
