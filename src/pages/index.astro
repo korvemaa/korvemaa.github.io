@@ -2,7 +2,6 @@
 import Layout from "../layouts/Layout.astro";
 import ScrollView from "../components/ScrollView.astro";
 import ExperienceBar from "../components/ExperienceBar.astro";
-import Box from "../components/Box.astro";
 import { getCollection } from "astro:content";
 import figlet from "figlet";
 
@@ -13,7 +12,23 @@ const experience = (await getCollection("experience")).sort((a, b) => {
 	return db - da;
 });
 
-const font = "Delta Corps Priest 1";
+const font = "Future";
+const firstName = figlet.textSync("Jake", { font });
+const lastName = figlet.textSync("Korvemaa", { font });
+
+const socials = [
+	{ title: "GitHub", icon: "github", url: "https://github.com/korvemaa" },
+	{
+		title: "LinkedIn",
+		icon: "linkedin",
+		url: "https://linkedin.com/in/jakekve",
+	},
+	{
+		title: "YouTube",
+		icon: "youtube",
+		url: "https://www.youtube.com/@JakeK",
+	},
+];
 ---
 
 <Layout>
@@ -39,209 +54,80 @@ const font = "Delta Corps Priest 1";
 		}
 	</script>
 
-	<meta slot="head" property="profile:first_name" content="Jake" />
-	<meta slot="head" property="profile:last_name" content="Korvemaa" />
-	<meta slot="head" property="profile:gender" content="male" />
-
 	<ScrollView useMargin={true} style="scroll-behavior:smooth;">
-		<!-- HERO -->
-		<section id="home" class="hero">
-			<div>
-				<div class="hero-content">
-					<div class="hero-title">
-						<pre id="ascii-title">{figlet.textSync("Jake", {font})}</pre>
-						<pre id="ascii-title">{figlet.textSync("Korvemaa", {font})}</pre>
-					</div>
-					<pre
-						id="ascii-title"
-						class="background-ascii"> 
-                                                                                      .+@*@-+++*:#*@%.. :.:%+.                                                                                          
-                                                                                      #+@@@+@+@@.=@  @*@=@@@@*@                                                                                         
-                                                                                @. .@@@-=#:.@.*.==.=-.-=+...:-%%@@                                                                                      
-                                                                               @@=#*@@@::=#..:..= -:.... =.:%-.==..*#                                                                                   
-                                                                              #@@@@:. -+.#+- *===@@:#+%@@@*%#:*..:......-                                                                               
-                                                                             *%--.:..*@@@@@@@@@#=...=.-:-. . .##:+...-@%....                                                                            
-                                                                           =-%%%%..=:+##+@#@@#@@%@@%@*+-%@@@@@*=:#+=*@@@-=*%@                                                                           
-                                                                         =:++#-..+-+:% :.:*@@##@+:#.  ..:.:.  .:..==+.##+%%.:+                                                                          
-                                                                       @@@@%%%#@#%@+:..=-=#--.*%#%%+%+@@##=+=%+.+:..=:.+@%@*%-:#                                                                        
-                                                                       *#%@%@%+*#%@:=@@%@@:.:--.-*-##%*...+.=::.@@##@#%@%@@@@@@-@                                                                       
-                                                                      *#%+%+%###@%=.#@@%*#=+#:::::.-:.:+*==@@*:::....*.=:+=..-==%.                                                                      
-                                                                      #*@#%=*@=*@+.:=+@@+++:-.:..-=##=:=-:+#+=#%%#@@=..#@@+#+*##%%                                                                      
-                                                                     %@@@@@@%#*%%#*..=@==#*..-+..=+=..--..=-:.+......+*+++@@@@++%#                                                                      
-                                                                     #%@*%%.@*:=@@*%%..:=+=*#=*%@@.@%%#@=:. =@*:- .+*+..=%.#@@@#*+                                                                      
-                                                                    :#@%==-*#-####-..%%--:#*=@@==#%@@**+ @@+...:=%@@#+@%@@.%@@@#%*                                                                      
-                                                                    #@@@*@+%%@=%+:-..:##+=@@@++*%@*:###@+*-=#=:...=+.+=+-*.#@@@@-#                                                                      
-                                                                    #@@@@%#%#@@@#@@#--+=*%%@%+-##-:--++@@%@*#+*#%-...=%=.:-@.%@@::+                                                                     
-                                                                    #@@@@@@%@##@@#**+ .*.. #=@@++@*#+#@=.:#=--%-=:-=%*@%.@%-.-%@@%#                                                                     
-                                                                    #@@@@@@*%+**%@@%:#.:=@@#%-%@+##%#+-%@-+.#=@**@@##@@-@=@:%##@##+                                                                     
-                                                                    #@#%@@@@@@-@%#@#@@#%.*:--+@+.@@*@*=...=%*:-.@@@=.:+-.=@@@@@@+@%                                                                     
-                                                                    %@@@@@%%@@=:-+#-%@@%-#-##=+*-*=#%@@@@@:@@%@@@.+==##*.*@@@@@%%%+                                                                     
-                                                                    %%@@@#=-#@@@+#@@-@#%*@@@#-@###%@@@@@@@@@%:=.=@@@%@+*%@%@@%%%@@#                                                                     
-                                                                    %@@@@@*==*@@@@@@**#@@@@@@=#+####@@*%#*@@%%@%@@#%@##@@@#@@@%%%##                                                                     
-                                                                    %@@@@@##==-*@@@+#%%%#%@@=#@@@@%##*++*#+#%@%%@@@@@@@@%*:#@@@@%#%                                                                     
-                                                                    #%@#+*##++======+=+#@@@%*#*+*+++*++###+=+*#%%#%@@@***%+=%%%@@@*@                                                                    
-                                                                    %@@%%@%***+*++***+++=-=+=+====+++==*+*+**+==#**++++***:=#**@@@%#                                                                    
-                                                                    %@@*##%**+****+++**++=+===++++=++++++*+++++==+++=+*%=--:==-%%#@@@##                                                                 
-                                                                    @@@#*+***+***+***+++++*+**++*++**++=++++++++++++++*#-:.-#+.+%%@:   .                                                                
-                                                                ..=#@@@@===+**+********+***+*****++*++++*+***+++****+#*+..-%#=:@%@@  -#.#                                                               
-                                                               *.=:.+@@%-=++*****+*+*+*#*******#*=**+*+++++++**+*++*##**@@@=+-:@@@%*%%@.+                                                               
-                                                               @.@@*-@@%-+=+*****+*+++#++****#++*+*++*++++=+**+***#*#=::-=-=+=-@@@-+=#@:@                                                               
-                                                                .*@:==@@:*+*+++===++*+*+***+++=***++++====++=+++=-+-..   ..+-+=@@#==-=#=                                                                
-                                                                +-%.-:@@:=**+==--=+========++*++*++***+++====------:...:--==:++@@:-++-=                                                                 
-                                                                 -=:%##@:=+**%@@@@@@@#*==-::-===+++++*==-::::-=*@@@@@@@@@@@@=:=@@+@@*-#                                                                 
-                                                                  *.#@@@*==*%@@%@#%@@@@@@@@@%-:.:-=+====+@@@@@@@@@@@*=:==+##=:-@-%@-:*                                                                  
-                                                                   *-::.@=+=+=+=+#@@-*@@@@@@@@@@*-=+=-%@@@###@@@@@ +@@@%*+#*+--@-:%*=                                                                   
-                                                                    *+%.#=+++*##%@@%-=@@@*.=*+*@@+=**+##==%@=..=+-%@@#++*##-+#@*=+#-                                                                    
-                                                                     +..+%=++**+-==@@*--=-%@@####*++++++%%@@@@%%##*+=++*%%*..%@*+==#                                                                    
-                                                                      .-*%++=**++#+*+**%#%%##*####+++*#*##**+++===+=+*+*#*...@#-=::                                                                     
-                                                                      -.:=*++++++*+####***+*#*###%+*+*#***+***++*******##- .#@+...                                                                      
-                                                                        =+%==+++**#**+#+##***+####**=+#**=*****#*###****-.=%#%@                                                                         
-                                                                          %-==++*++#%###******#**#**+**+***+++*+**#****+-=##*+                                                                          
-                                                                           :=++=++*****#*#**++*#%@%*+#%*+==++++++*=++=++*%%*+*                                                                          
-                                                                           =-+==++*********%@@@@#%#==#%#%@%**+*++=====+++##++@                                                                          
-                                                                           @:=#*===+=++++**#+ :.:--::-*@%%%#**++++=++****#+++@#=:.:                                                                     
-                                                                            -:*%#%**==*++*+**=+-==-:..:-:-=++*++*+****++##+-%@@@@@--=                                                                   
-                                                                             :=**%#@%#***+++*%@@#+=*+*#@@%++====*+++**+**#==@%%@@@@-+#                                                                  
-                                                                             +==+*+=+*#####%%%%@@@@@%@@@%%#%%#**##*+**+##=-@@@=@@@.*%%%                                                                 
-                                                                              ===##++=%##++++*#%@%#   .@%*#+=++*%**++*#*==@@@@*%@*-%@@%%                                                                
-                                                                               #==*#*=**%@@@%++%.  ... *%=-=*#@%*+=+#*==+@@@@@@@@@@@@@@%%                                                               
-                                                                               @@%=*###++*#%@@@@ .++#.. %@@@@%%*+++*+=+%@@@@@@@@@@@@@@@@%                                                               
-                                                                              #@@@@=-+%#***++#@  --##:.  %#+-===*++++*@@@@@%@@@@@@@@@#@@@%                                                              
-                                                                             %@@@@@@@:=+**###@+ ...%%+.:. %%***+**++*@@@@@@=@@@@@@@@%#@@#*                                                              
-                                                                            @%@@@@@@@@+-=+*#@@....+@@#=..  @%++*#=+#@@@@@@%@@@@@@@@@*@@#%@@                                                             
-                                                                          %#%@*@@@@@@@@%-=+@@ ...+%@@@#...  @%**++%@@@@%%@@@@@@@@@@@*@@*@@=:=                                                           
-                                                                        %%%@@@@@@@@@@@@@@*%@  ...*@#*%%=...  @@#+@@@@@@@@@@@@@@@@@@@@@%%*--*@*+*                                                        
-                                                                     @@#%@@@@@@@@@@@@@@@@@@  ...:%@@%@@#:.:.  @%@@@@@@@@@@@@@@@@@@@@@+++=*@@@-@=+%#==:                                                  
-                                                                   @-*@@@@@@@@@@@@@@@@@@@@ .:-:*#@@@@%@@#=:..  @@@@@@@@@@@@@@@@@@@@@*+-=@@@#+@=.#@@@--@*:                                               
-                                                                @%%@+++%@@@@@@@@@@@@@@@@@..+=::.        .#*=-.  @@@@@@@@@@@@@@@@@@@@@@@@@#..@.:@*##.:@*.-+*%..                                          
-                                                         #=*-:-==#@@@+***%%@@@@@@@@@@@@@. ........:::::....:=-.  @@@@@@@@@@@@@@@@@@@@@@%.:#@.%@@+*.:@+.%@*=*@@%::+#=#                                   
-                                                     *#=+++%@%***+**@@##+%@@@@@@@*@@@@@. ..:=*+:.............::.  @@@@@@@@@@@@@@@@@@@@@@%+#+@@=..:+@=.-#%@%#@:::+%+--%+::=                              
-                                               .:=+*%#=%@@@#%@@@@@#*#@@%@@@@@@@@@@@@@@. .###+.::::::.............  @@@@@@@@@@@@@@@@@@@%+@@@%: .*@@@@+-@@=.+@%+#%*+-=@*==+=:.:%                          
-                                            *+-++=-=@@*==+@@*+%#+@@@%%@@@@@@%@%@@@@@@ .###................=#*::::.   @@@@@@@@@@@@@@@@@*+===@@@@. *@.@@*@+@@@=#@#+@@@@=*#*++@@+.--                       
-                                       %+-:--==#@@@@#*@%@@#+@@@@=%%+*@@%%@@@@@@@@@@@..=.............:::-:....*##*:..  :@@@@@@@@@##@@#=+**@@%#%@@@@:......@..=-.==@%==*#++@@*-+#*-...                    
-                                   +==-=*###%@@%#@@#@@@@:@@@=*@@+#@@@@@%%@@@@@@@@@#  .......:=############*=....+###.  .@@@@@@@@%%#+++*##@%***%%%@@@@@@%##:-=..==-.--*=#@+-#%#+-:*@@@-:                 
-                                -==*###*+*+++%@@*=@@#@@@*#@@%*%@@@@@@@@@@%@@@@@@#   .-:+##%@@@-...................:+.::..@@@@@@@@#*+****+#***%%#*###*###%@@@@@@@@@@@%%##+=*#*+=@@@=.++.-..              
-                             =-**#****++%*==*#@@@@@@@@%@@@@@%@@@@@%%@@%@%@%@@@@   .:.*-#@@%   ..::::::..................  =@@@@@@#***##*%#%%%%####**+***##%#####++***##*#%%#*=+@#*#@@+.#-%%%            
-                          =*%#*#**+**++***#@@@@@@@@@@@@@@@@@@@%@@@@@@%@@@%%@@@.-*+:..##=  .*########++#######=.::...::...  .@@@@##***###@@%##*#+++*###%%%%***#***###%#*###+*#%#+#+@@. .@@@.%%           
-                        :-:..:+=-%+-+##%%%%@@%@@@@@@@@%@@@@@@@%@@@@@@@@@@@@@@.+:.......-##*..............:@@@@###..#..++-..  @@@#+**##*#*+++++++*##*%%####*##**##%#*##*#***==+%@#+@..#@#@@*+..          
-                       +.@@*+++@#=+@@*+=**##@@@@@@@@@@@%@@@@@@@@@@@@@@%@@@@@. ...----=..... .......=####:...=#%%%%##.....-:.  +@@*#*****==+++++*#%#%%###*%##*########*###*=*@@@@@@=-@=@@ .--+@.         
-                      -:*.#@@+.@@#@@#@@@-*##%@@%@%@@@@@@@@@@@@@@@@@@@@%@@@@  :##+:....:.=####%@@%%%%%##*---...  -=*#.:=-:..:.  .@@%*****####%%@@@@@@#**#*+**#####*#*###**==@@@@%@#@@@@=..*@@@@@@        
-                      #@+--=%@..@@@#@@@@%=*#@@@@@@@@@@@@@@@@%@@@@@@@@@@@@% .-+=......=#%@@@@@@.     ...         ++%#+=..:::::..  %@@##%@@@@@@@@@@@##***+*####***#####*#**=@@@@@@%@@@...-@@@@@# :+       
-                     +%@@**@**@*@@@#@@@@@*+*%@@@@@@@@@@@@@@@@@@%@@@@@@@@#  :.....:....    .  .:-...-=+**#######%%*%..::::..:::..  =@@@@@@@@@@@@@%#++**##%%%#######*#*##*+*@@@*:+@@* .=@@@@+..  .:       
-                     : .*@===-.@@@@@--@@@@+*#%@@%@@@@@%@@@@@@@@@@@@@@@@=  .....###-:.:+##%@@%*++**##%@@@@@@@@@@%#++  .........::.   @@********=-:=+%#%%##*####********+**@@@*:@@*-#.@-+=:=.#**@%+=      
-                   :.@@@%...++:.%%*%#+@@@@*+*#@@@@@@@@@@@@@@@@@@@@@@@@. .:--=###*%%%%%##@# ..@@@@@@@@@@@@%@@%@@.%@%%#*..........::.  %@@@%#++++#%##%####*%*+*#****===+=+=@@@+@*=+*@=@@@@@@+##@@*:*.     
-                  -:...@@@@@#@@+**%@@*+@@@@+*#%%@@@@@@@@@@@@@@@@@@@@@. .:::-... .:**+=#@@.  :@@@@@*#@@@@@@@%#@@::##**%%=....:.....:.  +@@%*+==+++*++++====-==-:--=#@@@@##@@@===+%%%#+*#@@##@@@@@@@:.    
-                 -.@@@%@#*%@@@*@@*=-#@*@@@@#+=++#%%%%%%%%@@@@@@@@@@@=..........+%%#*%@@%@*.+@@@@@@@+#@@@@@@#%@@@--*%++#%#=....::...... .+@@@@@@@@@@@@@@@@@@@@@@@@@@@##%@@@@:-%@%#%%%=%#%@%@%#@@:.*@+    
-                 .@-..#..:*.:=%@@@@%+=*@@@@#@@@@@@@@@@@@@@@@@%@@@@@#........:+%%#+=*#%##%##@@@@@%@@@*@@@@@@##@@@@+-+#==**%%*=....:.....   %@=@%#*#*++**%%+==+====+=***=+@@.=@@@######+#@@*%##@:.#@==    
-                =.%@@.*@:.#@@+%%*#%@@@=-@@@@#*#%@@@@@@@@@@@@@@@@@@# ..:::-=%%%#+++*%##*==+@@@@@@@@@@%*@@@@@##@@@@@@+==++=++##%*-::::.....  ..@@@@%*#%@%##**#%####*####+#@@*@@@%%*#@%%+@@@*%#@@..---::   
-                @+.#@@@@@@..-#%%*%#+#@@@*@@@##%@@@@@@@@@@@@@@@@@@-  :+*##%%#+*=++*#%*+++@@@@@@@@@@@@@*#@@@%#%@@@@@@@@+=-=++++*##%+........ * =*@:@%%%%#***#%##*####*#*=@@@@@%%+=+%%%#@@@@#%@#.%.*@@@*:  
-                .@..*@@@@@@@@@##*@@@#**@@@@@##%@@@@@@@@@@@@@@@@%   .##+++*+*+++**##+==+@@@@@%%%@@@@@@%*@@@%#%@@@@@@@@@@@*++=+***######*...##:+--.@#@@##**%%%###%#%%#***@@@@%*--*@@@*.@%%##@#...++-#@=.  
-                #@@...*@:::%@@@@#=+@@@#+@@@@##%%@@@@@@@@@@@::.  ...-*=+****+*+++**=-+@@@@@@@@@@%@@@@@@*.#%##@@@@@@@@@@@@#**+=--=-=+*#@@::#@.@*#::@%.@@###%#####*####*+#@@@=-:=*@@@@@@@@@@@:.%@@@@@@@@@@ 
-               :@@@@%:..@@@*#@@@@@=:+@@@@@@@%#%%@@@@@@@@@= %=*..++########***+*++=#@@@@@@@@@@@@@@@@@@@@@@@##@@@@@@@@@%#++#@@#+--=+*#%@+#@@*:@#%-#@  *@-@#####*##%####*@@@@.-+@@@@@.+@%@@@ .+=:....:-.-- 
-              .:-+*@@@@@:*@.@@@@@@@@--@@@@@@@#%%%%@@@@@%..-#-#@=.-*+++++*+*++==+@@@@@@@%@@@@@@@@@@@@@@@%@@@%@@@@@@@@@%@%@@@@@@@@*+*@@-#@@% %%%=-%@.%*@-@@@@@%#%####%#+@@#.*@@@@@@+@@@%@..*@@@@@@@@*-::.:
-              .=+..-::*=..-@@+-=-=*@@#-=@@@@@%%%@%@@@@ -.-#%@#%@@#@-=+=++=++++@@@@@%@@@@@@%@%%@%%%%%@@@%@@%%@@@@@@@@@@@%%@@#*%@@@@@=.@@@# *#*-%@@..#@. @.@ :%+#**##*+%@@@@@@@@@#.@@#*@..+#+===-::#@@@@@%
-              %@+#+=+-=%@@*:-@@@@@@@@@%+-%@@@%%%@@@@-. %** @%@@@@@@@%#+#%*+#@@@@@@@@@@@@@@@@@@@%@@@@@@@#@@@%@@@@@@@@%@@%@%#-@@@@@@:#@@@@ :+#*.-@@.@@=@=@.@@%@**##%%#*@@@@%:-....@@@*@-%@#=-:=#@@@+...@@.
-             .+@@%@@@@#+-:-:.:-+%@@@@@@@@@@@@@%%@@@. %+@## %@@@@@@@@@*+##*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%@@@#@@@@@@@@@@@%##+#@@%@-+@@@@* =@@#-@@@@@+@.%@%=:@:@@@#+*#*#@@+:%@@+%%-@@*#%.#@@@@@@@%++#%@@@#.
-             @*:@@#:.#@%@@%#=##=:....-*@@@@@@%%@@@.#.@*@##: @@@@@@@@@%%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%%%%#@@@@@@@@%#****-@@*%%%@@@#+#@@@*#@@@ :@%*%@@*-=#*=@@@@%@##@@@@@#:#%*:@@%#@@*=#%@@@@@@@@@@%-:.
-             -@@- .-.....:*=*@%#%@@@@@+:.:*@@@@@%+@@.@@+@@@..@@@@@@@@@@@@@@@#@@@@@@@@@@@@@@@@@@@@@@@@@@%%%@#@@@@@@@@***#%%+@@@@@@@**%@@@@@@@@@%--%--%@*%.+@=:.+@@#*@@@@@@-=@@#:@@#%@@@@@%*:....#@@@:=%*.
-            @@.##..=+@@@@@@%@@%%#%@@@@@@@@##@@@-.-@@.=@=%@@@=.@@@@@@@@@@%###*@@@@@@@@@@@@@@@@@@@@@@@@@@%%%@#@@@@@@###@@%#%#@@@@-..=@@@@@@@@@@*@@@.@@:@#@@@.-@+*+@.:*@@@.=%@@*-@%%##@@@@@@@@@@@@@@..#@@@@
-           -.. .@@@@@@: ..#%@@@@#=::-%@@@@@@@@.=+=#@+:@@@@@@@@:.#@@@@@@@@@@@@@%@@@@@@@@@@@@@@@@@@@@@@@@%%@@#@@@@@@@@@@@@@@@##%@@@@@@@@%%@@@@@.@@:*=@+@@@@=%**=+%#.*%*%@#%%%#-@@@@@@@@@-..-+%@@@..-@@=:..
-           ..@@@@#.  .-@@@@@@@@@@@@*-:.+@@@@=..#%@@@@#-#@@@@@@@@-..%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%@%@@@%@@@@@%%##******+*#@@@@@@@@@@@@@%%@.@@@:=@@@@@@@#+*=@..#=*=@@@@#:@@@@**###@@@@@@@@@@@@@**#@@.
-           .#..   .*@@@@%@@@@@@@@@@@@%+:.. . ..::-+-@#+-%%%%%@@@@@@=--+#@%%@@@@@@@@@@@@%%@%@@@@@%@%@%#@##****%###*++==------:..+%%%%%%%@%##%%.:#@%-*@+%#%@@@..... .....= =.**-.....:..   .      ......--
-					</pre>
-					<span class="subtitle">
-						Software Engineer | Experimentalist
-					</span>
-					<hr />
-					<div class="socials">
-						<a
-							target="_blank"
-							href="https://github.com/korvemaa"
-							class="icon bi bi-github"
-							><span>GitHub</span>
-						</a>
-						<a
-							target="_blank"
-							href="https://linkedin.com/in/jakekve"
-							class="icon bi bi-linkedin"><span>LinkedIn</span></a
-						>
-						<a
-							target="_blank"
-							href="https://www.youtube.com/@JakeK"
-							class="icon bi bi-youtube"><span>YouTube</span></a
-						>
-					</div>
+		<div class="page">
+			<section>
+				<div class="hero-title">
+					<pre class="ascii">{firstName}</pre>
+					<pre class="ascii">{lastName}</pre>
 				</div>
-			</div>
-		</section>
-		<!-- CONTENT -->
-		<div id="about" class="view-content">
-			<section id="motd-section">
-				MOTD: When you force a melon from the vines, it won't be sweet.
-			</section>
-			<section id="about-section">
-				<Box title="About">
-					I'm a software engineer with a genuine passion for creating,
-					improving, and understanding software. I enjoy the whole
-					process; learning, experimenting, refining, and putting real
-					care into what I build. Good engineering, to me, comes from
-					balancing design with discipline and respecting the
-					fundamentals. I'm always looking for opportunities to keep
-					growing and contribute to work that actually matters.
-				</Box>
-				<Box title="Skills">
-					<span>
-						I work primarily with C# and Unity, focusing on systems
-						work and practical tooling. I've built source
-						generators, IL-driven utilities, and data-driven asset
-						pipelines, and I handle web technologies when the
-						project calls for it. My approach centres on practical
-						problem-solving, clear communication, and taking
-						ownership from early concept through to completion. You
-						can see examples of my work in my
-						<a href="/projects">projects</a> page, which demonstrate
-						the skills and solutions I bring to real projects.
-					</span>
-				</Box>
-			</section>
-			<section>
-				<Box title="Experience" style="gap: 1rem;">
+				Software Engineer | Experimentalist
+				<hr />
+				<div class="socials">
 					{
-						experience.map((job) => {
-							return <ExperienceBar experience={job} />;
-						})
+						socials.map((social) => (
+							<a
+								target="_blank"
+								href={social.url}
+								class={"icon bi bi-" + social.icon}
+							>
+								{social.title}
+							</a>
+						))
 					}
-				</Box>
+				</div>
+				<span id="motd-section">MOTD</span>
 			</section>
 			<section>
-				<Box
-					title="Theme"
-					style="display:flex; flex-direction: row; flex-wrap: wrap; gap: 1rem;"
-				>
-					<button onclick="window.setHue(150)">Green</button>
-					<button onclick="window.setHue(40)">Amber</button>
-					<button onclick="window.setHue(190)">Cyan</button>
-					<button onclick="window.setHue(310)">Pink</button>
-					<button onclick="window.setHue(0)">Red</button>
-				</Box>
+				<h2>About Me</h2>
+				<p>
+					I'm an incredibly passionate software engineer with a taste
+					for <a href="/projects#Motorsport">motorsport</a>. I love
+					nothing more then learning, experimenting, refining and
+					putting real care into what I build.
+				</p>
+				<p>
+					I'm currently professionally working in C#/Unity but have a
+					burning desire to branch out into other software areas that
+					are more interesting.
+				</p>
+				<p>
+					If you would like to get in contact with me. You can connect
+					with me on <a
+						target="_blank"
+						href="https://linkedin.com/in/jakekve">LinkedIn</a
+					>. I'm always looking for opportunities to keep growing and
+					contribute to work that matters.
+				</p>
+			</section>
+			<section>
+				<h2>Experience</h2>
+				{experience.map((job) => <ExperienceBar experience={job} />)}
+			</section>
+			<section style="justify-content: center;">
+				<pre
+					style="text-align: center;"
+					class="ascii">
+       _                        
+       \`*-.                    
+        )  _`-.                 
+       .  : `. .                
+       : _   '  \               
+       ; *` _.   `*-._          
+       `-.-'          `-.       
+         ;       `       `.     
+         :.       .        \    
+         . \  .   :   .-'   .   
+         '  `+.;  ;  '      :   
+         :  '  |    ;       ;-. 
+         ; '   : :`-:     _.`* ;
+[bug] .*' /  .*' ; .*`- +'  `*' 
+      `*-*   `*-*  `*-*'
+				</pre>
 			</section>
 		</div>
 	</ScrollView>
 </Layout>
-
-<script defer>
-	const container = document.getElementById("scroll-view");
-	function updateHeroHeight() {
-		const height = container.offsetHeight;
-		document.documentElement.style.setProperty(
-			"--hero-height",
-			`${height * 0.9}px`,
-		);
-	}
-
-	updateHeroHeight();
-	window.addEventListener("resize", updateHeroHeight);
-</script>
 
 <script defer>
 	const motd = document.getElementById("motd-section");
@@ -286,175 +172,63 @@ const font = "Delta Corps Priest 1";
 		return Math.floor(Math.random() * (max - min + 1)) + min;
 	}
 
-	motd.textContent = "MOTD: " + proverbs[getRandom(0, proverbs.length - 1)];
+	motd.textContent = proverbs[getRandom(0, proverbs.length - 1)];
 </script>
 
 <style>
-	:root {
-		--hero-height: 0;
-	}
-
-	.hero > div {
-		display: flex;
-		position: relative;
-		flex-grow: 1;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		overflow: hidden;
-		text-align: center;
-		border: var(--border-width) dotted var(--dimmed-glow-color);
-		margin: 1rem;
-	}
-
-	.hero {
-		display: flex;
-		flex-direction: column;
-		min-height: var(--hero-height);
-		perspective: 1px;
-
-		flex: 0 0 auto;
-	}
-
-	.hero-content {
-		display: flex;
-		flex-direction: column;
-		gap: 1rem;
-	}
-
-	.hero-title {
-		display: flex;
-		flex-direction: row;
-		gap: 1.5rem;
-		flex-wrap: wrap;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.view-content {
-		display: flex;
-		flex-direction: column;
-		padding: 1rem;
-		padding-top: 0;
-		gap: 1rem;
-	}
-
-	section#motd-section {
-		border: var(--border-width) dotted var(--dimmed-glow-color);
-		padding: 1rem;
-		margin-bottom: 0;
-	}
-
-	.view-content section {
-		flex-grow: 1;
-	}
-
-	.view-content section#about-section {
+	.page {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		grid-template-columns: repeat(auto-fit, minmax(min(450px, 100%), 1fr));
+		margin: 1rem;
 		gap: 1rem;
 	}
 
-	button {
-		appearance: none;
-		background: none;
-		color: var(--text-color);
-		text-shadow: var(--text-shadow);
-		font-family: "Terminus";
-
+	section {
+		display: flex;
+		flex-direction: column;
 		padding: 1rem;
 		border: var(--border-width) dotted var(--dimmed-glow-color);
+		overflow: hidden;
+		gap: 1rem;
 	}
 
-	button:hover {
-		background-color: var(--dimmed-glow-color);
-	}
-
-	#ascii-title {
-		font-family: monospace;
-		font-synthesis-weight: none;
-		font-variant-ligatures: none;
-		line-height: 1;
-		font-size: 10px;
-		padding: 0;
+	section p,
+	section h2 {
+		/* Spacing is driven by gap */
 		margin: 0;
-		user-select: none;
-	}
-
-	@media (max-width: 650px) {
-		#ascii-title:not(.background-ascii) {
-			font-size: 8px;
-		}
-	}
-
-	@media (max-width: 550px) {
-		#ascii-title:not(.background-ascii) {
-			font-size: 6px;
-		}
-	}
-
-	@media (max-width: 450px) {
-		#ascii-title:not(.background-ascii) {
-			font-size: 5px;
-		}
 	}
 
 	.socials {
 		display: flex;
-		flex-wrap: wrap;
 		flex-direction: row;
-		justify-content: center;
-		align-items: center;
+		flex-wrap: wrap;
 		gap: 1rem;
-		padding: 1rem;
 	}
 
-	.socials .icon {
-		display: flex;
-		flex-wrap: wrap;
-		flex-direction: row;
-		align-items: center;
-		justify-content: center;
-
-		font-size: 1.5rem;
+	.socials a {
 		padding: 0.5rem 1rem;
-		text-decoration: none;
-		gap: 1rem;
 		border: var(--border-width) dotted var(--dimmed-glow-color);
+		display: flex;
+		flex-grow: 1;
+		justify-content: center;
+		text-decoration: none;
+		align-items: center;
 	}
 
-	.socials .icon:hover {
+	.socials a:hover {
 		background-color: var(--dimmed-glow-color);
 	}
 
-	.socials .icon > span {
-		font-size: 1rem;
+	.socials a::before {
+		padding-right: 1rem;
 	}
 
-	.background-ascii {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		overflow: hidden;
-
-		top: 0;
-		bottom: 0;
-		right: -300px;
-
+	.ascii {
+		font-family: monospace;
+		font-synthesis-weight: none;
+		font-variant-ligatures: none;
+		line-height: 1;
+		padding: 0;
+		margin: 0;
 		user-select: none;
-		z-index: -50;
-		position: absolute;
-
-		text-align: center;
-		color: var(--dimmed-glow-color);
-		opacity: 0.6;
-		font-size: 10px;
-	}
-
-	@media (max-width: 550px) {
-		.background-ascii {
-			left: 0;
-			right: 0;
-		}
-	}
 </style>
