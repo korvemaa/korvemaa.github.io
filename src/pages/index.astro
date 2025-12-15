@@ -29,6 +29,13 @@ const socials = [
 		url: "https://www.youtube.com/@JakeK",
 	},
 ];
+
+const themes = [
+	{ name: "Green", hue: 150 },
+	{ name: "Amber", hue: 40 },
+	{ name: "Cyan", hue: 180 },
+	{ name: "Pink", hue: 300 },
+];
 ---
 
 <Layout>
@@ -106,8 +113,7 @@ const socials = [
 			</section>
 			<section style="justify-content: center;">
 				<pre
-					style="text-align: center;"
-					class="ascii">
+					class="ascii cat">
        _                        
        \`*-.                    
         )  _`-.                 
@@ -124,6 +130,17 @@ const socials = [
 [bug] .*' /  .*' ; .*`- +'  `*' 
       `*-*   `*-*  `*-*'
 				</pre>
+				<div class="themes">
+					{
+						themes.map((e) => (
+							<button onclick={"window.setHue(" + e.hue + ")"}>
+								{e.name}
+							</button>
+						))
+					}
+
+					<button id="random-theme">Random</button>
+				</div>
 			</section>
 		</div>
 	</ScrollView>
@@ -173,6 +190,9 @@ const socials = [
 	}
 
 	motd.textContent = proverbs[getRandom(0, proverbs.length - 1)];
+	document.getElementById("random-theme").onclick = () => {
+		window.setHue(getRandom(0, 360));
+	};
 </script>
 
 <style>
@@ -231,4 +251,43 @@ const socials = [
 		padding: 0;
 		margin: 0;
 		user-select: none;
+	}
+
+	.cat {
+		text-align: center;
+		flex-grow: 1;
+		align-items: center;
+		justify-content: center;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.themes {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		gap: 1rem;
+		align-items: center;
+	}
+
+	.themes button {
+		align-items: center;
+		justify-content: center;
+		display: flex;
+		flex-grow: 1;
+
+		appearance: none;
+		background-color: unset;
+		border: var(--border-width) dotted var(--dimmed-glow-color);
+		padding: 1rem 0.5rem;
+
+		font-family: Terminus;
+
+		color: var(--text-color);
+		text-shadow: var(--text-shadow);
+	}
+
+	.themes button:hover {
+		background-color: var(--dimmed-glow-color);
+	}
 </style>
