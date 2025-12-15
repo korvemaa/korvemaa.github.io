@@ -21,7 +21,7 @@ const { Content } = await render(post);
 
 const thumbnail =
     post.data.thumbnail != null
-        ? await getImage({ src: post.data.thumbnail })
+        ? await getImage({ src: post.data.thumbnail, width: 512 })
         : null;
 
 const gallery = post.data.gallery
