@@ -35,17 +35,8 @@ const hasGallery = gallery?.length != 0;
 const hasVideos = post.data.videos;
 ---
 
-<Layout
-    title={post.data.title}
-    description={post.data.description}
-    image={post.data.thumbnail}
->
-    <!-- Thumbnail first for thumbnail only platforms -->
+<Layout title={post.data.title} description={post.data.description}>
     <OpenGraphImage slot="head" image={thumbnail} />
-
-    <!-- Rest of the images just in case google wants to index them -->
-    {gallery.map((image) => <OpenGraphImage slot="head" image={image} />)}
-
     {
         post.data.tags && (
             <meta
@@ -55,7 +46,7 @@ const hasVideos = post.data.videos;
             />
         )
     }
-
+    <button id="to-top">Back to Top</button>
     <ScrollView style="scroll-behavior:smooth;" useMargin={true}>
         <div class="page">
             <aside>
@@ -120,7 +111,7 @@ const hasVideos = post.data.videos;
                     )
                 }
                 {
-                    videos && (
+                    hasVideos && (
                         <section id="videos">
                             {videos &&
                                 videos.map((video) => (
@@ -135,7 +126,7 @@ const hasVideos = post.data.videos;
                     )
                 }
                 {
-                    gallery && (
+                    hasGallery && (
                         <section id="gallery">
                             {gallery &&
                                 gallery.map((img) => (
@@ -155,6 +146,20 @@ const hasVideos = post.data.videos;
 </Layout>
 
 <script>
+    const toTop = document.getElementById("to-top") as HTMLElement;
+    toTop?.addEventListener("click", () => {
+        const scroll = document.getElementById("scroll-view") as HTMLElement;
+        scroll.scrollTo(0, 0);
+    });
+
+    const scrollView = document.getElementById("scroll-view") as HTMLElement;
+    scrollView?.addEventListener("scroll", () => {
+        toTop?.classList.toggle(
+            "active",
+            scrollView.scrollTop > screen.height,
+        );
+    });
+
     document.addEventListener(
         "DOMContentLoaded",
         function () {
@@ -179,14 +184,10 @@ const hasVideos = post.data.videos;
 
             let active: HTMLElement | undefined;
 
-            const scroll = document.getElementById(
-                "scroll-view",
-            ) as HTMLElement;
-
             function findActive() {
                 const margin = lookup.at(-1)!.offsetTop;
                 const current = lookup.find(function (section) {
-                    return scroll.scrollTop >= section.offsetTop - margin;
+                    return scrollView.scrollTop >= section.offsetTop - margin;
                 });
 
                 if (current !== active) {
@@ -198,7 +199,7 @@ const hasVideos = post.data.videos;
                 }
             }
 
-            scroll.addEventListener("scroll", findActive);
+            scrollView.addEventListener("scroll", findActive);
             findActive();
         },
         false,
@@ -210,6 +211,34 @@ const hasVideos = post.data.videos;
         display: flex;
         flex-direction: row-reverse;
         align-items: flex-start;
+    }
+
+    #to-top {
+        display: none;
+        z-index: 10000;
+        position: absolute;
+        background-color: var(--dimmed-glow-color);
+        color: var(--text-color);
+        font-family: Terminus;
+        text-shadow: var(--text-shadow);
+        border: none;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+
+        padding: 0.5rem;
+        font-size: 1rem;
+        top: 1.5rem;
+        left: 1.5rem;
+    }
+
+    #to-top:hover {
+        background-color: var(--text-color);
+        color: black;
+        text-shadow: none;
+    }
+
+    #to-top.active {
+        opacity: 1;
     }
 
     aside {
@@ -342,6 +371,10 @@ const hasVideos = post.data.videos;
         .page {
             flex-direction: column;
             align-items: stretch;
+        }
+
+        #to-top {
+            display: flex;
         }
 
         aside {
