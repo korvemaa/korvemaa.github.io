@@ -31,15 +31,6 @@ const { title, description, namespace } = Astro.props;
     </body>
 </html>
 
-<script defer define:vars={{ THEME_HUE_KEY }}>
-    function setHue(value) {
-        document.documentElement.style.setProperty("--base-hue", value);
-        localStorage.setItem(THEME_HUE_KEY, value);
-    }
-
-    window.setHue = setHue;
-</script>
-
 <style>
     html,
     body {

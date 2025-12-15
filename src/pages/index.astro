@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import ScrollView from "../components/ScrollView.astro";
 import ExperienceBar from "../components/ExperienceBar.astro";
 import { getCollection } from "astro:content";
+import { THEME_HUE_KEY } from "../consts";
 import figlet from "figlet";
 
 const now = new Date().getTime();
@@ -63,7 +64,7 @@ const themes = [
 
 	<ScrollView useMargin={true} style="scroll-behavior:smooth;">
 		<div class="page">
-			<section>
+			<section id="hero" style="justify-content: center;">
 				<div class="hero-title">
 					<pre class="ascii">{firstName}</pre>
 					<pre class="ascii">{lastName}</pre>
@@ -83,9 +84,9 @@ const themes = [
 						))
 					}
 				</div>
-				<span id="motd-section">MOTD</span>
+				<span id="motd">MOTD</span>
 			</section>
-			<section>
+			<section id="about">
 				<h2>About Me</h2>
 				<p>
 					I'm an incredibly passionate software engineer with a taste
@@ -107,7 +108,7 @@ const themes = [
 					contribute to work that matters.
 				</p>
 			</section>
-			<section>
+			<section id="experience">
 				<h2>Experience</h2>
 				{experience.map((job) => <ExperienceBar experience={job} />)}
 			</section>
@@ -130,7 +131,10 @@ const themes = [
 [bug] .*' /  .*' ; .*`- +'  `*' 
       `*-*   `*-*  `*-*'
 				</pre>
-				<div class="themes">
+			</section>
+			<section id="themes">
+				<h2>Theme</h2>
+				<div class="presets">
 					{
 						themes.map((e) => (
 							<button onclick={"window.setHue(" + e.hue + ")"}>
@@ -138,16 +142,63 @@ const themes = [
 							</button>
 						))
 					}
-
-					<button id="random-theme">Random</button>
 				</div>
+				<div class="presets">
+					<span id="hue-value">HUE</span>
+					<input
+						id="hue-slider"
+						class="slider"
+						type="range"
+						min="0"
+						max="360"
+					/>
+				</div>
+			</section>
+			<section>
+				<h2>Skills</h2>
+				<p>
+					I can work in a wide variety of technologies and areas of
+					development. From level design, to texture art to then
+					software engineering and anything in between.
+				</p>
+				<p>
+					If you would like a complete set and proof of my skills go
+					to my <a href="/projects">projects</a> page. Where I demonstrate
+					what I'm capable in real projects.
+				</p>
 			</section>
 		</div>
 	</ScrollView>
 </Layout>
 
+<script defer define:vars={{ THEME_HUE_KEY }}>
+	const label = document.getElementById("hue-value");
+	const slider = document.getElementById("hue-slider");
+	const rootStyles = getComputedStyle(document.documentElement);
+	const hueValue =
+		localStorage.getItem(THEME_HUE_KEY) ||
+		rootStyles.getPropertyValue("--base-hue") ||
+		"150";
+
+	slider.value = hueValue;
+	slider.addEventListener("input", () => {
+		setHue(slider.value);
+	});
+
+	label.textContent = hueValue;
+
+	function setHue(value) {
+		slider.value = value;
+		document.documentElement.style.setProperty("--base-hue", value);
+		localStorage.setItem(THEME_HUE_KEY, value);
+		label.textContent = value;
+	}
+
+	window.setHue = setHue;
+</script>
+
 <script defer>
-	const motd = document.getElementById("motd-section");
+	const motd = document.getElementById("motd");
 	const proverbs = [
 		"When you force a melon from the vines, it won't be sweet.",
 		"A man who plants melons will harvest melons, and a man who plants beans will harvest beans.",
@@ -190,17 +241,56 @@ const themes = [
 	}
 
 	motd.textContent = proverbs[getRandom(0, proverbs.length - 1)];
-	document.getElementById("random-theme").onclick = () => {
-		window.setHue(getRandom(0, 360));
-	};
 </script>
 
 <style>
 	.page {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(min(450px, 100%), 1fr));
+		grid-template-columns: repeat(auto-fill, minmax(min(450px, 100%), 1fr));
 		margin: 1rem;
 		gap: 1rem;
+	}
+
+	.slider {
+		-webkit-appearance: none;
+		appearance: none;
+		display: flex;
+		margin: 0;
+		flex-grow: 1;
+		cursor: pointer;
+		background-color: transparent;
+		outline: none;
+		overflow: hidden;
+
+		border: var(--border-width) dotted var(--dimmed-glow-color);
+	}
+
+	.slider::-webkit-slider-runnable-track {
+		height: 16px;
+		background: transparent;
+		border-radius: 16px;
+	}
+
+	.slider::-moz-range-track {
+		height: 16px;
+		background: #ccc;
+		border-radius: 16px;
+	}
+
+	.slider::-webkit-slider-thumb {
+		-webkit-appearance: none;
+		appearance: none;
+		height: 16px;
+		width: 8px;
+		background-color: var(--text-color);
+		box-shadow: -900px 0 0 900px var(--dimmed-glow-color);
+	}
+
+	.slider::-moz-range-thumb {
+		height: 16px;
+		width: 8px;
+		background-color: #fff;
+		box-shadow: -900px 0 0 900px #f50;
 	}
 
 	section {
@@ -254,7 +344,6 @@ const themes = [
 	}
 
 	.cat {
-		text-align: center;
 		flex-grow: 1;
 		align-items: center;
 		justify-content: center;
@@ -262,15 +351,15 @@ const themes = [
 		flex-direction: column;
 	}
 
-	.themes {
+	#themes .presets {
 		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;
 		gap: 1rem;
 		align-items: center;
 	}
-
-	.themes button {
+	
+	#themes .presets button {
 		align-items: center;
 		justify-content: center;
 		display: flex;
@@ -279,7 +368,7 @@ const themes = [
 		appearance: none;
 		background-color: unset;
 		border: var(--border-width) dotted var(--dimmed-glow-color);
-		padding: 1rem 0.5rem;
+		padding: 0.75rem 1rem;
 
 		font-family: Terminus;
 
@@ -287,7 +376,7 @@ const themes = [
 		text-shadow: var(--text-shadow);
 	}
 
-	.themes button:hover {
+	#themes .presets button:hover {
 		background-color: var(--dimmed-glow-color);
 	}
 </style>
