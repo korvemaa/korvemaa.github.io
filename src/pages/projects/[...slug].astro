@@ -116,7 +116,6 @@ const hasVideos = post.data.videos;
                             {videos &&
                                 videos.map((video) => (
                                     <iframe
-                                        loading="lazy"
                                         class="youtube-video"
                                         src={`https://www.youtube.com/embed/${video}`}
                                         allowfullscreen
