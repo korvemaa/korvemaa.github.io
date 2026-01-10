@@ -64,8 +64,8 @@ const themes = [
 
 	<ScrollView useMargin={true} style="scroll-behavior:smooth;">
 		<div class="page">
-			<section id="hero" style="justify-content: center;">
-				<div class="hero-title">
+			<section style="justify-content: center;">
+				<div>
 					<pre class="ascii">{firstName}</pre>
 					<pre class="ascii">{lastName}</pre>
 				</div>
@@ -292,7 +292,6 @@ const themes = [
 		border-radius: 0;
 		border-width: 0;
 		box-shadow: -900px 0 0 900px var(--dimmed-glow-color);
-
 	}
 
 	section {
@@ -360,7 +359,7 @@ const themes = [
 		gap: 1rem;
 		align-items: center;
 	}
-	
+
 	#themes .presets button {
 		align-items: center;
 		justify-content: center;
