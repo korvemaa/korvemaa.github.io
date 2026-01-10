@@ -272,9 +272,7 @@ const themes = [
 	}
 
 	.slider::-moz-range-track {
-		height: 16px;
-		background: #ccc;
-		border-radius: 16px;
+		background: transparent;
 	}
 
 	.slider::-webkit-slider-thumb {
@@ -287,10 +285,14 @@ const themes = [
 	}
 
 	.slider::-moz-range-thumb {
-		height: 16px;
+		appearance: none;
+		height: 99px;
 		width: 8px;
-		background-color: #fff;
-		box-shadow: -900px 0 0 900px #f50;
+		background-color: var(--text-color);
+		border-radius: 0;
+		border-width: 0;
+		box-shadow: -900px 0 0 900px var(--dimmed-glow-color);
+
 	}
 
 	section {
