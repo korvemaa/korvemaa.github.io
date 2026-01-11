@@ -1,14 +1,23 @@
 ---
 import HeaderLink from "./HeaderLink.astro";
+import { THEME_HUE_KEY } from "../consts";
 
 let pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, "");
 if (pathname == "") pathname = "index";
+
+const themes = [
+	{ name: "Green", hue: 150 },
+	{ name: "Amber", hue: 40 },
+	{ name: "Cyan", hue: 180 },
+	{ name: "Pink", hue: 300 },
+];
 ---
 
 <nav>
 	<span class="not-important">Navigation</span>
 	<HeaderLink href="/">Home</HeaderLink>
 	<HeaderLink href="/blog">Blog</HeaderLink>
+	<HeaderLink href="/resume.pdf">Resume</HeaderLink>
 	<span class="not-important">Projects</span>
 	<HeaderLink href="/personal">Personal</HeaderLink>
 	<HeaderLink href="/motorsport">Motorsport</HeaderLink>
@@ -17,18 +26,27 @@ if (pathname == "") pathname = "index";
 	<HeaderLink href="/eagle-one">Eagle One</HeaderLink>
 	<HeaderLink href="/ravenfield">Ravenfield</HeaderLink>
 	<div style="flex-grow: 1;"></div>
-
-	<!-- Discord Status -->
-	<div class="online-status">
-		<div class="song-disk">
-			<img id="song-art" alt="Album art" />
-		</div>
-		<span id="song-name"></span>
-		<span id="song-artist"></span>
+	<span class="not-important">Theme</span>
+	<div class="presets">
+		{
+			themes.map((e) => (
+				<button onclick={"window.setHue(" + e.hue + ")"}>
+					{e.name}
+				</button>
+			))
+		}
 	</div>
-
 	<span id="current-time" class="not-important">9:50PM</span>
 </nav>
+
+<script defer define:vars={{ THEME_HUE_KEY }}>
+	function setHue(value) {
+		document.documentElement.style.setProperty("--base-hue", value);
+		localStorage.setItem(THEME_HUE_KEY, value);
+	}
+
+	window.setHue = setHue;
+</script>
 
 <script defer>
 	function updateClock() {
@@ -39,100 +57,12 @@ if (pathname == "") pathname = "index";
 	}
 
 	updateClock();
-
-	function getStatus() {
-		return fetch(
-			"https://api.lanyard.rest/v1/users/761439375594094612",
-		).then((r) => r.json());
-	}
-
-	getStatus().then((status) => {
-		if (!status.success) return; // Ignore
-
-		const data = status.data;
-
-		if (data.spotify != null) {
-			document
-				.querySelector(".online-status")
-				.classList.add("has-status");
-
-			const s = data.spotify;
-			document.getElementById("song-art").src = s.album_art_url;
-
-			document.getElementById("song-name").textContent = s.song;
-			document.getElementById("song-artist").textContent = s.artist;
-		}
-	});
 </script>
 
 <style>
 	.not-important {
 		opacity: 0.4;
 		padding: 0.5rem 1rem;
-	}
-
-	.online-status {
-		display: none;
-		padding: 0.5rem 1rem;
-		flex-direction: column;
-		border: var(--border-width) dotted var(--dimmed-glow-color);
-	}
-
-	.online-status.has-status {
-		display: flex;
-	}
-
-	.online-status .song-disk {
-		position: relative;
-		aspect-ratio: 1/1;
-		border-radius: 50%;
-		overflow: hidden;
-		margin-bottom: 0.5rem;
-
-		animation: spin 6s linear infinite;
-	}
-
-	/* light reflection */
-	.song-disk::before {
-		content: "";
-		position: absolute;
-		inset: 0;
-		border-radius: 50%;
-		background: linear-gradient(
-			135deg,
-			rgba(255, 255, 255, 0.15),
-			rgba(255, 255, 255, 0)
-		);
-		z-index: 1;
-		pointer-events: none;
-	}
-
-	@keyframes spin {
-		from {
-			transform: rotate(0deg);
-		}
-		to {
-			transform: rotate(360deg);
-		}
-	}
-
-	.online-status #song-art {
-		appearance: none;
-		border: 0;
-
-		-webkit-mask: radial-gradient(
-			circle,
-			transparent 0 10%,
-			white 12% 100%
-		);
-		mask: radial-gradient(circle, transparent 0 7%, white 7% 100%);
-	}
-
-	.online-status span {
-		display: flex;
-		min-width: 0;
-		white-space: normal;
-		flex-shrink: 1;
 	}
 
 	#hue-icon {
@@ -188,6 +118,39 @@ if (pathname == "") pathname = "index";
 		color: black;
 
 		text-decoration: none;
+	}
+
+	.presets {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+
+		padding: 0.5rem 1rem;
+		padding-top: 0;
+
+		align-items: center;
+	}
+
+	button {
+		align-items: center;
+		justify-content: center;
+		display: flex;
+		flex-grow: 1;
+
+		appearance: none;
+		background-color: unset;
+		border: var(--border-width) dotted var(--dimmed-glow-color);
+		padding: 0.75rem 1rem;
+
+		font-family: Terminus;
+
+		color: var(--text-color);
+		text-shadow: var(--text-shadow);
+	}
+
+	button:hover {
+		background-color: var(--dimmed-glow-color);
 	}
 
 	@media (max-width: 550px) {
