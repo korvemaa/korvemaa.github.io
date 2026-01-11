@@ -1,10 +1,10 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import ScrollView from "../components/ScrollView.astro";
+import Layout from "../../layouts/Layout.astro";
+import ScrollView from "../../components/ScrollView.astro";
 import { getCollection } from "astro:content";
 
 const projects = (await getCollection("project"))
-    .filter((e) => e.data.group == "Personal")
+    .filter((e) => e.data.group == "Eagle One")
     .sort((a, b) => {
         const da = a.data.date?.getTime() ?? 100;
         const db = b.data.date?.getTime() ?? 100;
@@ -14,7 +14,7 @@ const projects = (await getCollection("project"))
 
 <Layout title="Home">
     <ScrollView useMargin={true}>
-        <div class="content">Jake was here</div>
+        <div class="content">EAGLE FRIGGEN 1</div>
     </ScrollView>
 </Layout>
 
@@ -23,3 +23,6 @@ const projects = (await getCollection("project"))
         padding: 1rem;
     }
 </style>
+
+
+

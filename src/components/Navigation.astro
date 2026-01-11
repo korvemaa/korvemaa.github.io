@@ -7,7 +7,7 @@ if (pathname == "") pathname = "index";
 
 const themes = [
 	{ name: "Green", hue: 150 },
-	{ name: "Amber", hue: 40 },
+	{ name: "Orange", hue: 40 },
 	{ name: "Cyan", hue: 180 },
 	{ name: "Pink", hue: 300 },
 ];
@@ -17,10 +17,9 @@ const themes = [
 	<span class="not-important">Navigation</span>
 	<HeaderLink href="/">Home</HeaderLink>
 	<HeaderLink href="/blog">Blog</HeaderLink>
-	<HeaderLink href="/resume.pdf">Resume</HeaderLink>
+	<HeaderLink href="/motorsport">Motorsport</HeaderLink>
 	<span class="not-important">Projects</span>
 	<HeaderLink href="/personal">Personal</HeaderLink>
-	<HeaderLink href="/motorsport">Motorsport</HeaderLink>
 	<HeaderLink href="/enviz">Enviz</HeaderLink>
 	<HeaderLink href="/intruder">Intruder</HeaderLink>
 	<HeaderLink href="/eagle-one">Eagle One</HeaderLink>
@@ -126,9 +125,8 @@ const themes = [
 	}
 
 	.presets {
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
+		display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(min(75px, 100%), 1fr));
 		gap: 0.5rem;
 
 		padding: 0.5rem 1rem;

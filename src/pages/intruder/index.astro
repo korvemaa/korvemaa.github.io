@@ -1,7 +1,7 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import ScrollView from "../components/ScrollView.astro";
-import VerticalProjectTile from "../components/VerticalProjectTile.astro";
+import Layout from "../../layouts/Layout.astro";
+import ScrollView from "../../components/ScrollView.astro";
+import SimpleProjectTile from "../../components/SimpleProjectTile.astro";
 import { getCollection } from "astro:content";
 
 const projects = (await getCollection("project"))
@@ -31,9 +31,9 @@ const maps = projects.filter((e) => e.data.group.endsWith("Map"));
                             return (
                                 <a
                                     data-group={post.data.group}
-                                    href={`/projects/${post.id}`}
+                                    href={`/${post.id}`}
                                 >
-                                    <VerticalProjectTile
+                                    <SimpleProjectTile
                                         title={`[0${index}] ${post.data.title}`}
                                         date={post.data.date}
                                         thumbnail={post.data.thumbnail}
@@ -52,9 +52,9 @@ const maps = projects.filter((e) => e.data.group.endsWith("Map"));
                             return (
                                 <a
                                     data-group={post.data.group}
-                                    href={`/projects/${post.id}`}
+                                    href={`/${post.id}`}
                                 >
-                                    <VerticalProjectTile
+                                    <SimpleProjectTile
                                         title={`[0${index}] ${post.data.title}`}
                                         date={post.data.date}
                                         thumbnail={post.data.thumbnail}
@@ -77,6 +77,8 @@ const maps = projects.filter((e) => e.data.group.endsWith("Map"));
         border: var(--border-width) dotted var(--dimmed-glow-color);
         overflow: hidden;
         gap: 0.5rem;
+
+		background: var(--box-fade);
     }
 
     section#projects a {

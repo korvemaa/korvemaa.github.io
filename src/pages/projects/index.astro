@@ -20,13 +20,13 @@ const groups = Array.from(new Set(posts.map((p) => p.data.group)));
     <ScrollView style="visibility:hidden" useMargin={true}>
         <div class="project-grid">
             {
-                posts.map((post) => {
+                posts.map((post, index) => {
                     return (
                         <a
                             data-group={post.data.group}
                             href={`/projects/${post.id}`}
                         >
-                            <ProjectTile project={post} />
+                            <ProjectTile project={post} index={index} />
                         </a>
                     );
                 })

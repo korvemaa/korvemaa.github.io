@@ -1,0 +1,327 @@
+---
+import ScrollView from "../components/ScrollView.astro";
+import DynamicLink from "../components/DynamicLink.astro";
+import { timeAgo } from "../utility";
+import { getImage } from "astro:assets";
+import { type CollectionEntry, render } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+import OpenGraphImage from "../components/OpenGraphImage.astro";
+
+type Props = CollectionEntry<"project">;
+const post = Astro.props;
+const { Content } = await render(post);
+
+const thumbnail = post.data.thumbnail
+    ? await getImage({ src: post.data.thumbnail, width: 512 })
+    : null;
+
+const gallery = await Promise.all(
+    (post.data.gallery || []).map((src) => getImage({ src, width: 1440 })),
+);
+
+const videos = post.data.videos;
+
+const hasArticle = (post.body || "").length > 0;
+const hasGallery = gallery?.length != 0;
+const hasVideos = post.data.videos;
+---
+
+<Layout title={post.data.title} description={post.data.description}>
+    <OpenGraphImage slot="head" image={thumbnail} />
+    {
+        post.data.tags && (
+            <meta
+                slot="head"
+                property="keywords"
+                content={post.data.tags.join(", ")}
+            />
+        )
+    }
+    <button id="to-top">Back to Top</button>
+    <ScrollView style="scroll-behavior:smooth;" useMargin={true}>
+        <div class="page">
+            <aside>
+                <div class="content">
+                    <div
+                        class="thumbnail"
+                        style={`background-image: url(${thumbnail?.src});`}
+                    >
+                    </div>
+                    <div class="text">
+                        <span class="description">{post.data.description}</span>
+                        <div class="tags">
+                            {
+                                post.data.tags &&
+                                    post.data.tags
+                                        .sort()
+                                        .map((tag) => <code>{tag}</code>)
+                            }
+                        </div>
+                        <div class="bottom">
+                            <a href={`/projects#${post.data.group}`}
+                                >{post.data.group}</a
+                            >
+                            {
+                                post.data.date && (
+                                    <span class="age">
+                                        | {timeAgo(post.data.date)}
+                                    </span>
+                                )
+                            }
+                        </div>
+                        {post.data.links && <hr />}
+                        {
+                            post.data.links &&
+                                post.data.links.map((link) => (
+                                    <DynamicLink href={link} />
+                                ))
+                        }
+                    </div>
+                </div>
+            </aside>
+            <article>
+                {
+                    hasArticle && (
+                        <section id="about" style="gap: 0;">
+                            <Content />
+                        </section>
+                    )
+                }
+                {
+                    hasVideos && (
+                        <section id="videos">
+                            {videos &&
+                                videos.map((video) => (
+                                    <iframe
+                                        class="youtube-video"
+                                        src={`https://www.youtube.com/embed/${video}`}
+                                        allowfullscreen
+                                    />
+                                ))}
+                        </section>
+                    )
+                }
+                {
+                    hasGallery && (
+                        <section id="gallery">
+                            {gallery &&
+                                gallery.map((img) => (
+                                    <img
+                                        loading="lazy"
+                                        src={img.src}
+                                        width={img.attributes.width}
+                                        height={img.attributes.height}
+                                    />
+                                ))}
+                        </section>
+                    )
+                }
+            </article>
+        </div>
+    </ScrollView>
+</Layout>
+<style>
+    .page {
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: flex-start;
+    }
+
+    #to-top {
+        display: none;
+        z-index: 10000;
+        position: absolute;
+        background-color: var(--dimmed-glow-color);
+        color: var(--text-color);
+        font-family: Terminus;
+        text-shadow: var(--text-shadow);
+        border: none;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+
+        padding: 0.5rem;
+        font-size: 1rem;
+        top: 1.5rem;
+        left: 1.5rem;
+    }
+
+    #to-top:hover {
+        background-color: var(--text-color);
+        color: black;
+        text-shadow: none;
+    }
+
+    #to-top.active {
+        opacity: 1;
+    }
+
+    aside {
+        display: flex;
+
+        flex-direction: column;
+        top: 1rem;
+        position: sticky;
+        border: var(--border-width) dotted var(--dimmed-glow-color);
+        padding: 1rem;
+        margin: 1rem;
+
+        max-width: 350px;
+        min-width: 350px;
+
+        margin-left: 0;
+        gap: 1rem;
+    }
+
+    aside .content {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    aside .text {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    aside h2 {
+        margin-bottom: 0;
+    }
+
+    aside a {
+        text-decoration: none;
+    }
+
+    aside a:hover {
+        text-decoration: underline;
+    }
+
+    nav {
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-start;
+        border-bottom: var(--border-width) solid var(--text-color);
+    }
+
+    nav a {
+        padding: 0.5rem 1.2rem;
+        color: var(--black);
+        text-decoration: none;
+    }
+
+    nav a:hover {
+        background-color: var(--dimmed-glow-color);
+    }
+
+    nav a.active {
+        background-color: var(--text-color);
+        text-shadow: none;
+        color: black;
+        font-weight: bold;
+
+        text-decoration: none;
+    }
+
+    .thumbnail {
+        aspect-ratio: 1/1;
+
+        image-rendering: auto;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .description {
+        display: flex;
+    }
+
+    .tags {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        flex-shrink: 1;
+        gap: 4px;
+        font-size: 12px;
+    }
+
+    .age {
+        opacity: 0.3;
+    }
+
+    section {
+        padding-top: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    article {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        border: var(--border-width) dotted var(--dimmed-glow-color);
+        padding: 1rem;
+        padding-top: 0;
+        margin: 1rem;
+    }
+
+    img {
+        border-radius: 0;
+        image-rendering: auto;
+    }
+
+    .youtube-video {
+        aspect-ratio: 16/9;
+        border: 0;
+    }
+
+    .grid-view {
+        display: grid;
+        justify-items: center;
+        gap: 1rem;
+    }
+
+    @media (max-width: 900px) {
+        .page {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        #to-top {
+            display: flex;
+        }
+
+        aside {
+            margin: 1rem;
+            margin-bottom: 0;
+            position: unset;
+            max-width: unset;
+            min-width: unset;
+        }
+
+        aside .text {
+            flex-grow: 1;
+        }
+
+        aside .content {
+            flex-direction: row;
+        }
+
+        .thumbnail {
+            min-width: 250px;
+            max-width: 250px;
+            flex-grow: 1;
+        }
+    }
+
+    @media (max-width: 650px) {
+        aside .content {
+            flex-direction: column;
+        }
+
+        .thumbnail {
+            max-width: unset;
+            flex-grow: 1;
+        }
+    }
+</style>
