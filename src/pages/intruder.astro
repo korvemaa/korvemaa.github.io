@@ -1,0 +1,67 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ScrollView from "../components/ScrollView.astro";
+import VerticalProjectTile from "../components/VerticalProjectTile.astro";
+import { getCollection } from "astro:content";
+
+const project = (await getCollection("project"))
+    .filter((e) => e.data.group == "Intruder")
+    .sort((a, b) => {
+        const da = a.data.date?.getTime() ?? 100;
+        const db = b.data.date?.getTime() ?? 100;
+        return db - da;
+    });
+---
+
+<Layout title="Home">
+    <ScrollView useMargin={true}>
+        <div class="content">
+            <section id="about">
+                Intruder is a stealth action multiplayer game developed by
+                Superboss Games
+            </section>
+            Weapons
+            <section id="projects">
+                {
+                    project.map((post, index) => {
+                        return (
+                            <a
+                                data-group={post.data.group}
+                                href={`/projects/${post.id}`}
+                            >
+                                <VerticalProjectTile title={`[0${index}] ${post.data.title}`} date={post.data.date} thumbnail={post.data.thumbnail} />
+                            </a>
+                        );
+                    })
+                }
+            </section>
+        </div>
+    </ScrollView>
+</Layout>
+
+<style>
+    section {
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        border: var(--border-width) dotted var(--dimmed-glow-color);
+        overflow: hidden;
+        gap: 0.5rem;
+    }
+
+    section#projects a {
+        text-decoration: none;
+    }
+
+    section#projects {
+        display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(min(350px, 100%), 1fr));
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        gap: 1rem;
+    }
+</style>
