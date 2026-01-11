@@ -5,7 +5,7 @@ import SimpleProjectTile from "../../components/SimpleProjectTile.astro";
 import { getCollection } from "astro:content";
 
 const projects = (await getCollection("project"))
-    .filter(e=>e.data.group.startsWith("Intruder"))
+    .filter((e) => e.id.startsWith("intruder"))
     .sort((a, b) => {
         const da = a.data.date?.getTime() ?? 100;
         const db = b.data.date?.getTime() ?? 100;
@@ -16,25 +16,29 @@ const weapons = projects.filter((e) => e.data.group.endsWith("Weapon"));
 const maps = projects.filter((e) => e.data.group.endsWith("Map"));
 ---
 
-<Layout title="Home">
+<Layout title="Intruder">
     <ScrollView useMargin={true}>
         <div class="content">
             <section id="about">
-                Intruder is a stealth action multiplayer game developed by Superboss
-                Games.
+                Intruder is a stealth action multiplayer game developed by
+                Superboss Games.
             </section>
             <section id="projects">
                 Weapons
+                <hr />
+                My involvement with making the weapons for Intruder was texturing
+                them using Substance Painter and making skins for the experience update as well. Big shout-out
+                to Martino3D for making the models they look fantastic.
                 <div class="grid">
                     {
-                        weapons.map((post, index) => {
+                        weapons.map((post) => {
                             return (
                                 <a
                                     data-group={post.data.group}
                                     href={`/${post.id}`}
                                 >
                                     <SimpleProjectTile
-                                        title={`[0${index}] ${post.data.title}`}
+                                        title={post.data.title}
                                         date={post.data.date}
                                         thumbnail={post.data.thumbnail}
                                     />
@@ -46,16 +50,19 @@ const maps = projects.filter((e) => e.data.group.endsWith("Map"));
             </section>
             <section id="projects">
                 Maps
+                <hr />
+                Custom maps I made for Intruder. Making updates to the Unity tools
+                is actually what got me into programming!
                 <div class="grid">
                     {
-                        maps.map((post, index) => {
+                        maps.map((post) => {
                             return (
                                 <a
                                     data-group={post.data.group}
                                     href={`/${post.id}`}
                                 >
                                     <SimpleProjectTile
-                                        title={`[0${index}] ${post.data.title}`}
+                                        title={post.data.title}
                                         date={post.data.date}
                                         thumbnail={post.data.thumbnail}
                                     />
@@ -78,7 +85,7 @@ const maps = projects.filter((e) => e.data.group.endsWith("Map"));
         overflow: hidden;
         gap: 0.5rem;
 
-		background: var(--box-fade);
+        background: var(--box-fade);
     }
 
     section#projects a {

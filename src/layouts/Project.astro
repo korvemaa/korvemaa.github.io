@@ -58,13 +58,10 @@ const hasVideos = post.data.videos;
                             }
                         </div>
                         <div class="bottom">
-                            <a href={`/projects#${post.data.group}`}
-                                >{post.data.group}</a
-                            >
                             {
                                 post.data.date && (
                                     <span class="age">
-                                        | {timeAgo(post.data.date)}
+                                        {timeAgo(post.data.date)}
                                     </span>
                                 )
                             }

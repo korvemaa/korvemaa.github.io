@@ -78,7 +78,7 @@ const socials = [
 				</div>
 			</section>
 			<section id="status">
-				<h2>[00] My Status</h2>
+				<h2>My Status</h2>
 				<hr />
 				<!-- Spotify status through discord -->
 				<div class="spotify-status">
@@ -93,12 +93,15 @@ const socials = [
 						</div>
 					</div>
 				</div>
+				<div class="no-status">
+					OFFLINE
+				</div>
 				<div style="display:flex;flex-grow:1;"></div>
 				<hr />
 				<span id="motd" style="align-self: flex-start;">MOTD</span>
 			</section>
 			<section id="about">
-				<h2>[01] About Me</h2>
+				<h2>About Me</h2>
 				<hr />
 				<p>
 					I'm an incredibly passionate software engineer with a taste
@@ -121,7 +124,7 @@ const socials = [
 				</p>
 			</section>
 			<section>
-				<h2>[02] Skills & Technologies</h2>
+				<h2>Skills & Technologies</h2>
 				<hr />
 				<p>
 					I can work in a wide variety of technologies and areas of
@@ -133,7 +136,7 @@ const socials = [
 				</p>
 			</section>
 			<section id="experience">
-				<h2>[03] Professional Experience</h2>
+				<h2>Professional Experience</h2>
 				<hr />
 				{experience.map((job) => <ExperienceBar experience={job} />)}
 			</section>
@@ -178,6 +181,8 @@ const socials = [
 				.querySelector(".spotify-status")
 				.classList.add("has-status");
 
+			document.querySelector(".no-status").style.display = 'none';
+				
 			const s = data.spotify;
 			document.getElementById("song-art").src = s.album_art_url;
 

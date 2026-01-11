@@ -20,11 +20,12 @@
 	--accent: var(--text-color);
 	--accent-dark: #000d8a;
 
-	/* --box-fade: linear-gradient(to top, transparent 20%, rgba(100, 100, 100, 0.05)); */
-	--box-fade: linear-gradient(to bottom,
+	/* --box-fade: linear-gradient(to bottom,
 			hsla(var(--base-hue), calc(var(--base-saturation)), calc(var(--base-light) - 10%), 0.03) 0%,
 			hsla(var(--base-hue), calc(var(--base-saturation)), calc(var(--base-light) - 20%), 0.01) 35%,
-			rgba(0, 0, 0, 0) 100%);
+			rgba(0, 0, 0, 0) 100%); */
+
+	--box-fade: unset;
 
 	--border-width: 1px;
 }

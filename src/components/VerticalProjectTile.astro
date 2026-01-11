@@ -1,0 +1,58 @@
+---
+import { getImage } from "astro:assets";
+const { title, thumbnail, date } = Astro.props;
+import { timeAgo } from "../utility";
+
+const image = thumbnail != null ? await getImage({ src: thumbnail }) : null;
+---
+
+<article class="tile">
+    <div class="thumbnail" style={`background-image: url(${image?.src});`}>
+    </div>
+    <div class="body">
+        <h2>{title}</h2>
+        {date && <span class="age">{timeAgo(date)}</span>}
+    </div>
+</article>
+
+<style>
+    .tile {
+        display: flex;
+        flex-direction: column;
+        border: var(--border-width) dotted var(--dimmed-glow-color);
+    }
+
+    h2 {
+        background-color: transparent;
+        font-size: 14px;
+        padding: 0;
+        margin-bottom: 0;
+        display: flex;
+        flex-grow: 1;
+    }
+
+    .tile:hover {
+        background-color: var(--dimmed-glow-color);
+    }
+
+    .body {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 0.5rem;
+    }
+
+    .age {
+        display: flex;
+        align-self: flex-end;
+        opacity: 0.4;
+    }
+
+    .thumbnail {
+        aspect-ratio: 9/14;
+
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+</style>
