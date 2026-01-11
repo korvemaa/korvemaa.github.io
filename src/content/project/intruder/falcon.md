@@ -1,6 +1,6 @@
 ---
 title:  "Falcon"
-group: "Intruder"
+group: "Intruder/Weapon"
 thumbnail: "./images/falcon/thumbnail.jpg"
 tags: ["substance-painter", "art"]
 description: "The sniper rifle in Intruder."

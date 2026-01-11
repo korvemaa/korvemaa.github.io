@@ -235,7 +235,7 @@ const socials = [
 	const SPEED = 60; // pixels per second (tweak to taste)
 
 	function runMotd() {
-		motd.textContent = randomProverb();
+		motd.textContent = "MOTD: " + randomProverb();
 		motd.style.transition = "none";
 		motd.style.transform = `translateX(${motd.parentElement.clientWidth}px)`;
 
