@@ -8,10 +8,9 @@ type Project = CollectionEntry<"project">;
 
 interface Props {
     project: Project;
-    index: number;
 }
 
-const { project, index } = Astro.props;
+const { project } = Astro.props;
 
 const image =
     project.data.thumbnail != null
@@ -27,8 +26,8 @@ const image =
     <div class="thumbnail" style={`background-image: url(${image?.src});`}>
     </div>
     <div class="body">
-        <h2>[{index.toString().padStart(2, '0')}] {project.data.title}</h2>
-        <hr>
+        <h2>{project.data.title}</h2>
+        <hr />
         <span class="group">{project.data.description}</span>
 
         <div style="display: flex; flex-grow: 1;"></div>
@@ -58,6 +57,8 @@ const image =
         align-items: stretch;
         border: var(--border-width) dotted var(--dimmed-glow-color);
         overflow: hidden;
+        padding: 1rem;
+        gap: 1rem;
     }
 
     .tile:hover {
@@ -80,7 +81,6 @@ const image =
         flex-direction: column;
         flex-grow: 1;
         gap: 0.5rem;
-        padding: 1rem;
     }
 
     .group {

@@ -29,7 +29,7 @@ const title = figlet.textSync("Intruder", { font: "Future" });
                                     data-group={post.data.group}
                                     href={`/${post.id}`}
                                 >
-                                    <ProjectTile project={post} index={index} />
+                                    <ProjectTile project={post} />
                                 </a>
                             );
                         })
@@ -49,6 +49,12 @@ const title = figlet.textSync("Intruder", { font: "Future" });
         overflow: hidden;
         gap: 0.5rem;
         background: var(--box-fade);
+    }
+
+    section#projects {
+        background: none;
+        border: none;
+        padding: 0;
     }
 
     .grid a {
