@@ -1,8 +1,10 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import ScrollView from "../../components/ScrollView.astro";
+import DynamicLink from "../../components/DynamicLink.astro";
 import SimpleProjectTile from "../../components/SimpleProjectTile.astro";
 import { getCollection } from "astro:content";
+import figlet from "figlet";
 
 const projects = (await getCollection("project"))
     .filter((e) => e.id.startsWith("intruder"))
@@ -14,21 +16,33 @@ const projects = (await getCollection("project"))
 
 const weapons = projects.filter((e) => e.data.group.endsWith("Weapon"));
 const maps = projects.filter((e) => e.data.group.endsWith("Map"));
+
+const title = figlet.textSync("Intruder", { font: "Slant" });
 ---
 
 <Layout title="Intruder">
     <ScrollView useMargin={true}>
         <div class="content">
-            <section id="about">
-                Intruder is a stealth action multiplayer game developed by
-                Superboss Games.
-            </section>
+            <div class="header">
+                <section id="about">
+                    <pre class="ascii">{title}</pre>
+                    <hr />
+                    A stealth action multiplayer game developed by Superboss Games.
+                </section>
+                <section id="links">
+                    Check out intruder at the following links!
+                    <hr>
+                    <DynamicLink href="https://store.steampowered.com/app/518150/Intruder/" />
+                    <DynamicLink href="https://www.youtube.com/@SuperbossGames" />
+                </section>
+            </div>
             <section id="projects">
                 Weapons
                 <hr />
                 My involvement with making the weapons for Intruder was texturing
-                them using Substance Painter and making skins for the experience update as well. Big shout-out
-                to Martino3D for making the models they look fantastic.
+                them using Substance Painter and making skins for the experience update
+                as well. Big shout-out to Martino3D for making the models they look
+                fantastic.
                 <div class="grid">
                     {
                         weapons.map((post) => {
@@ -88,6 +102,18 @@ const maps = projects.filter((e) => e.data.group.endsWith("Map"));
         background: var(--box-fade);
     }
 
+    .content .header {
+        display: grid;
+        grid-template-columns: 1fr max-content;
+        gap: 1rem;
+    }
+
+    @media (max-width: 1100px) {
+        .content .header {
+            grid-template-columns: 1fr;
+        }
+    }
+
     section#projects a {
         text-decoration: none;
     }
@@ -103,5 +129,15 @@ const maps = projects.filter((e) => e.data.group.endsWith("Map"));
         flex-direction: column;
         padding: 1rem;
         gap: 1rem;
+    }
+
+    .ascii {
+        font-family: monospace;
+        font-synthesis-weight: none;
+        font-variant-ligatures: none;
+        line-height: 17px;
+        padding: 0;
+        margin: 0;
+        user-select: none;
     }
 </style>

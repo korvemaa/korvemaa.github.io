@@ -3,6 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import ScrollView from "../../components/ScrollView.astro";
 import { getCollection } from "astro:content";
 import ProjectTile from "../../components/ProjectTile.astro";
+import figlet from "figlet";
 
 const projects = (await getCollection("project"))
     .filter((e) => e.data.group == "Personal")
@@ -11,6 +12,8 @@ const projects = (await getCollection("project"))
         const db = b.data.date?.getTime() ?? 100;
         return db - da;
     });
+
+const title = figlet.textSync("Intruder", { font: "Future" });
 ---
 
 <Layout title="Personal">
