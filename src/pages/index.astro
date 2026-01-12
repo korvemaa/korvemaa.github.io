@@ -3,7 +3,6 @@ import Layout from "../layouts/Layout.astro";
 import ScrollView from "../components/ScrollView.astro";
 import ExperienceBar from "../components/ExperienceBar.astro";
 import { getCollection } from "astro:content";
-import { THEME_HUE_KEY } from "../consts";
 import figlet from "figlet";
 
 const now = new Date().getTime();
@@ -29,13 +28,6 @@ const socials = [
 		icon: "youtube",
 		url: "https://www.youtube.com/@JakeK",
 	},
-];
-
-const themes = [
-	{ name: "Green", hue: 150 },
-	{ name: "Amber", hue: 40 },
-	{ name: "Cyan", hue: 180 },
-	{ name: "Pink", hue: 300 },
 ];
 ---
 
@@ -64,8 +56,8 @@ const themes = [
 
 	<ScrollView useMargin={true} style="scroll-behavior:smooth;">
 		<div class="page">
-			<section id="hero" style="justify-content: center;">
-				<div class="hero-title">
+			<section style="justify-content: center;">
+				<div>
 					<pre class="ascii">{firstName}</pre>
 					<pre class="ascii">{lastName}</pre>
 				</div>
@@ -84,13 +76,36 @@ const themes = [
 						))
 					}
 				</div>
-				<span id="motd">MOTD</span>
+			</section>
+			<section id="status">
+				<h2>My Status</h2>
+				<hr />
+				<!-- Spotify status through discord -->
+				<div class="spotify-status">
+					Playing on Spotify
+					<div class="spotify-details">
+						<div class="song-disk">
+							<img id="song-art" alt="Album art" />
+						</div>
+						<div class="song-content">
+							<span id="song-name"></span>
+							<span id="song-artist"></span>
+						</div>
+					</div>
+				</div>
+				<div class="no-status">
+					OFFLINE
+				</div>
+				<div style="display:flex;flex-grow:1;"></div>
+				<hr />
+				<span id="motd" style="align-self: flex-start;">MOTD</span>
 			</section>
 			<section id="about">
 				<h2>About Me</h2>
+				<hr />
 				<p>
 					I'm an incredibly passionate software engineer with a taste
-					for <a href="/projects#Motorsport">motorsport</a>. I love
+					for <a href="/motorsport">motorsport</a>. I love
 					nothing more then learning, experimenting, refining and
 					putting real care into what I build.
 				</p>
@@ -108,8 +123,21 @@ const themes = [
 					contribute to work that matters.
 				</p>
 			</section>
+			<section>
+				<h2>Skills & Technologies</h2>
+				<hr />
+				<p>
+					I can work in a wide variety of technologies and areas of
+					development. From level design, to texture art to then
+					software engineering and anything in between.
+				</p>
+				<p>
+					FILL SHIT OUT HERE JAKE!!
+				</p>
+			</section>
 			<section id="experience">
-				<h2>Experience</h2>
+				<h2>Professional Experience</h2>
+				<hr />
 				{experience.map((job) => <ExperienceBar experience={job} />)}
 			</section>
 			<section style="justify-content: center;">
@@ -132,69 +160,36 @@ const themes = [
       `*-*   `*-*  `*-*'
 				</pre>
 			</section>
-			<section id="themes">
-				<h2>Theme</h2>
-				<div class="presets">
-					{
-						themes.map((e) => (
-							<button onclick={"window.setHue(" + e.hue + ")"}>
-								{e.name}
-							</button>
-						))
-					}
-				</div>
-				<div class="presets">
-					<span id="hue-value">HUE</span>
-					<input
-						id="hue-slider"
-						class="slider"
-						type="range"
-						min="0"
-						max="360"
-					/>
-				</div>
-			</section>
-			<section>
-				<h2>Skills</h2>
-				<p>
-					I can work in a wide variety of technologies and areas of
-					development. From level design, to texture art to then
-					software engineering and anything in between.
-				</p>
-				<p>
-					If you would like a complete set and proof of my skills go
-					to my <a href="/projects">projects</a> page. Where I demonstrate
-					what I'm capable of in real projects.
-				</p>
-			</section>
 		</div>
 	</ScrollView>
 </Layout>
 
-<script defer define:vars={{ THEME_HUE_KEY }}>
-	const label = document.getElementById("hue-value");
-	const slider = document.getElementById("hue-slider");
-	const rootStyles = getComputedStyle(document.documentElement);
-	const hueValue =
-		localStorage.getItem(THEME_HUE_KEY) ||
-		rootStyles.getPropertyValue("--base-hue") ||
-		"150";
-
-	slider.value = hueValue;
-	slider.addEventListener("input", () => {
-		setHue(slider.value);
-	});
-
-	label.textContent = hueValue;
-
-	function setHue(value) {
-		slider.value = value;
-		document.documentElement.style.setProperty("--base-hue", value);
-		localStorage.setItem(THEME_HUE_KEY, value);
-		label.textContent = value;
+<script defer>
+	function getStatus() {
+		return fetch(
+			"https://api.lanyard.rest/v1/users/761439375594094612",
+		).then((r) => r.json());
 	}
 
-	window.setHue = setHue;
+	getStatus().then((status) => {
+		if (!status.success) return; // Ignore
+
+		const data = status.data;
+
+		if (data.spotify != null) {
+			document
+				.querySelector(".spotify-status")
+				.classList.add("has-status");
+
+			document.querySelector(".no-status").style.display = 'none';
+				
+			const s = data.spotify;
+			document.getElementById("song-art").src = s.album_art_url;
+
+			document.getElementById("song-name").textContent = s.song;
+			document.getElementById("song-artist").textContent = s.artist;
+		}
+	});
 </script>
 
 <script defer>
@@ -236,11 +231,30 @@ const themes = [
 		"Those who know do not speak, those who speak do not know.",
 	];
 
-	function getRandom(min, max) {
-		return Math.floor(Math.random() * (max - min + 1)) + min;
+	function randomProverb() {
+		return proverbs[Math.floor(Math.random() * proverbs.length)];
 	}
 
-	motd.textContent = proverbs[getRandom(0, proverbs.length - 1)];
+	const SPEED = 60; // pixels per second (tweak to taste)
+
+	function runMotd() {
+		motd.textContent = "MOTD: " + randomProverb();
+		motd.style.transition = "none";
+		motd.style.transform = `translateX(${motd.parentElement.clientWidth}px)`;
+
+		requestAnimationFrame(() => {
+			const textWidth = motd.offsetWidth;
+			const screenWidth = motd.parentElement.clientWidth;
+			const duration = (screenWidth + textWidth) / SPEED;
+
+			motd.style.transition = `transform ${duration}s linear`;
+			motd.style.transform = `translateX(-${textWidth}px)`;
+
+			setTimeout(runMotd, duration * 1000);
+		});
+	}
+
+	runMotd();
 </script>
 
 <style>
@@ -292,7 +306,6 @@ const themes = [
 		border-radius: 0;
 		border-width: 0;
 		box-shadow: -900px 0 0 900px var(--dimmed-glow-color);
-
 	}
 
 	section {
@@ -301,13 +314,17 @@ const themes = [
 		padding: 1rem;
 		border: var(--border-width) dotted var(--dimmed-glow-color);
 		overflow: hidden;
-		gap: 1rem;
+		gap: 0.5rem;
+		background: var(--box-fade);
 	}
 
 	section p,
 	section h2 {
 		/* Spacing is driven by gap */
 		margin: 0;
+		background-color: transparent;
+		padding: 0;
+		font-size: 14px;
 	}
 
 	.socials {
@@ -328,7 +345,7 @@ const themes = [
 	}
 
 	.socials a:hover {
-		background-color: var(--dimmed-glow-color);
+		background-color: var(--dimmed-glow-color)		gap: 1rem;;
 	}
 
 	.socials a::before {
@@ -353,32 +370,83 @@ const themes = [
 		flex-direction: column;
 	}
 
-	#themes .presets {
+	/* Status */
+
+	#motd {
+		white-space: nowrap;
+	}
+
+	.spotify-details {
 		display: flex;
 		flex-direction: row;
-		flex-wrap: wrap;
+		align-items: center;
 		gap: 1rem;
-		align-items: center;
 	}
-	
-	#themes .presets button {
-		align-items: center;
-		justify-content: center;
+
+	.spotify-status {
+		display: none;
+		gap: 0.5rem;
+	}
+
+	.spotify-status.has-status {
 		display: flex;
-		flex-grow: 1;
-
-		appearance: none;
-		background-color: unset;
-		border: var(--border-width) dotted var(--dimmed-glow-color);
-		padding: 0.75rem 1rem;
-
-		font-family: Terminus;
-
-		color: var(--text-color);
-		text-shadow: var(--text-shadow);
+		flex-direction: column;
 	}
 
-	#themes .presets button:hover {
-		background-color: var(--dimmed-glow-color);
+	.spotify-details .song-content {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.spotify-details .song-disk {
+		position: relative;
+		aspect-ratio: 1/1;
+		width: 50px;
+		border-radius: 50%;
+		overflow: hidden;
+		animation: spin 6s linear infinite;
+	}
+
+	/* light reflection */
+	.song-disk::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		border-radius: 50%;
+		background: linear-gradient(
+			135deg,
+			rgba(255, 255, 255, 0.15),
+			rgba(255, 255, 255, 0)
+		);
+		z-index: 1;
+		pointer-events: none;
+	}
+
+	@keyframes spin {
+		from {
+			transform: rotate(0deg);
+		}
+		to {
+			transform: rotate(360deg);
+		}
+	}
+
+	.online-status #song-art {
+		appearance: none;
+		border: 0;
+
+		-webkit-mask: radial-gradient(
+			circle,
+			transparent 0 10%,
+			white 12% 100%
+		);
+		mask: radial-gradient(circle, transparent 0 7%, white 7% 100%);
+	}
+
+	.online-status span {
+		display: flex;
+		min-width: 0;
+		white-space: normal;
+		flex-shrink: 1;
 	}
 </style>

@@ -1,0 +1,81 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ScrollView from "../../components/ScrollView.astro";
+import { getCollection } from "astro:content";
+import VerticalProjectTile from "../../components/VerticalProjectTile.astro";
+
+const projects = (await getCollection("project"))
+    .filter((e) => e.data.group == "Motorsport")
+    .sort((a, b) => {
+        const da = a.data.date?.getTime() ?? 100;
+        const db = b.data.date?.getTime() ?? 100;
+        return db - da;
+    });
+---
+
+<Layout title="Motorsport">
+    <ScrollView useMargin={true}>
+        <div class="content">
+            <section id="about">
+                Motorsport is done currently with RaceAway TrackTime
+            </section>
+            <section id="projects">
+                RaceAway TrackTime
+                <div class="grid">
+                    {
+                        projects.map((post) => {
+                            return (
+                                <a
+                                    data-group={post.data.group}
+                                    href={`/${post.id}`}
+                                >
+                                    <VerticalProjectTile
+                                        title={`${post.data.title}`}
+                                        date={post.data.date}
+                                        thumbnail={post.data.thumbnail}
+                                    />
+                                </a>
+                            );
+                        })
+                    }
+                </div>
+            </section>
+            <section id="projects">
+                Track Days
+                <div class="grid">
+                    fill me out?
+                </div>
+            </section>
+        </div>
+    </ScrollView>
+</Layout>
+
+<style>
+   section {
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        border: var(--border-width) dotted var(--dimmed-glow-color);
+        overflow: hidden;
+        gap: 0.5rem;
+
+		background: var(--box-fade);
+    }
+
+    section#projects a {
+        text-decoration: none;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(min(250px, 100%), 1fr));
+        gap: 0.5rem;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        gap: 1rem;
+    }
+</style>

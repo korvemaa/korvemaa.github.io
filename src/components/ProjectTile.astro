@@ -8,9 +8,10 @@ type Project = CollectionEntry<"project">;
 
 interface Props {
     project: Project;
+    index: number;
 }
 
-const { project } = Astro.props;
+const { project, index } = Astro.props;
 
 const image =
     project.data.thumbnail != null
@@ -26,7 +27,8 @@ const image =
     <div class="thumbnail" style={`background-image: url(${image?.src});`}>
     </div>
     <div class="body">
-        <h2>{project.data.title}</h2>
+        <h2>[{index.toString().padStart(2, '0')}] {project.data.title}</h2>
+        <hr>
         <span class="group">{project.data.description}</span>
 
         <div style="display: flex; flex-grow: 1;"></div>
@@ -38,10 +40,9 @@ const image =
         </div>
 
         <div class="bottom">
-            {project.data.group}
             {
                 project.data.date && (
-                    <span class="age">| {timeAgo(project.data.date)}</span>
+                    <span class="age">{timeAgo(project.data.date)}</span>
                 )
             }
         </div>
@@ -53,8 +54,6 @@ const image =
         position: relative;
         display: flex;
         flex-grow: 1;
-        gap: 1rem;
-        padding: 1rem;
         flex-direction: row;
         align-items: stretch;
         border: var(--border-width) dotted var(--dimmed-glow-color);
@@ -62,9 +61,7 @@ const image =
     }
 
     .tile:hover {
-        border-style: solid;
-        border-color: var(--text-color);
-        box-shadow: inset 0 0 64px var(--dimmed-glow-color);
+        background-color: var(--dimmed-glow-color);
     }
 
     .thumbnail {
@@ -83,6 +80,7 @@ const image =
         flex-direction: column;
         flex-grow: 1;
         gap: 0.5rem;
+        padding: 1rem;
     }
 
     .group {
@@ -117,9 +115,11 @@ const image =
 
     h2 {
         display: flex;
-        padding: 0.5rem;
         margin: 0;
-        font-size: 1.125rem;
+        font-size: 14px;
+
+        background: transparent;
+        padding: 0;
 
         text-align: left;
         justify-content: flex-start;

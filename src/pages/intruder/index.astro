@@ -1,0 +1,107 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ScrollView from "../../components/ScrollView.astro";
+import SimpleProjectTile from "../../components/SimpleProjectTile.astro";
+import { getCollection } from "astro:content";
+
+const projects = (await getCollection("project"))
+    .filter((e) => e.id.startsWith("intruder"))
+    .sort((a, b) => {
+        const da = a.data.date?.getTime() ?? 100;
+        const db = b.data.date?.getTime() ?? 100;
+        return db - da;
+    });
+
+const weapons = projects.filter((e) => e.data.group.endsWith("Weapon"));
+const maps = projects.filter((e) => e.data.group.endsWith("Map"));
+---
+
+<Layout title="Intruder">
+    <ScrollView useMargin={true}>
+        <div class="content">
+            <section id="about">
+                Intruder is a stealth action multiplayer game developed by
+                Superboss Games.
+            </section>
+            <section id="projects">
+                Weapons
+                <hr />
+                My involvement with making the weapons for Intruder was texturing
+                them using Substance Painter and making skins for the experience update as well. Big shout-out
+                to Martino3D for making the models they look fantastic.
+                <div class="grid">
+                    {
+                        weapons.map((post) => {
+                            return (
+                                <a
+                                    data-group={post.data.group}
+                                    href={`/${post.id}`}
+                                >
+                                    <SimpleProjectTile
+                                        title={post.data.title}
+                                        date={post.data.date}
+                                        thumbnail={post.data.thumbnail}
+                                    />
+                                </a>
+                            );
+                        })
+                    }
+                </div>
+            </section>
+            <section id="projects">
+                Maps
+                <hr />
+                Custom maps I made for Intruder. Making updates to the Unity tools
+                is actually what got me into programming!
+                <div class="grid">
+                    {
+                        maps.map((post) => {
+                            return (
+                                <a
+                                    data-group={post.data.group}
+                                    href={`/${post.id}`}
+                                >
+                                    <SimpleProjectTile
+                                        title={post.data.title}
+                                        date={post.data.date}
+                                        thumbnail={post.data.thumbnail}
+                                    />
+                                </a>
+                            );
+                        })
+                    }
+                </div>
+            </section>
+        </div>
+    </ScrollView>
+</Layout>
+
+<style>
+    section {
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        border: var(--border-width) dotted var(--dimmed-glow-color);
+        overflow: hidden;
+        gap: 0.5rem;
+
+        background: var(--box-fade);
+    }
+
+    section#projects a {
+        text-decoration: none;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(min(350px, 100%), 1fr));
+        gap: 0.5rem;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        gap: 1rem;
+    }
+</style>

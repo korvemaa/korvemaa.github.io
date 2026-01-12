@@ -1,7 +1,7 @@
 ---
 title:  "Panther"
 description: "The intruders default pistol."
-group: "Intruder"
+group: "Intruder/Weapon"
 thumbnail: "images/panther/thumbnail.jpg"
 tags: ["substance-painter", "art"]
 date: 'March 6 2021'

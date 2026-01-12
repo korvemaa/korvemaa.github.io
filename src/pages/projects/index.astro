@@ -18,25 +18,15 @@ const groups = Array.from(new Set(posts.map((p) => p.data.group)));
 
 <Layout title="Projects">
     <ScrollView style="visibility:hidden" useMargin={true}>
-        <nav class="filter">
-            <a href="#All" data-group="All">All</a>
-            {
-                groups.map((group) => (
-                    <a href={`#${group}`} data-group={group}>
-                        {group}
-                    </a>
-                ))
-            }
-        </nav>
         <div class="project-grid">
             {
-                posts.map((post) => {
+                posts.map((post, index) => {
                     return (
                         <a
                             data-group={post.data.group}
                             href={`/projects/${post.id}`}
                         >
-                            <ProjectTile project={post} />
+                            <ProjectTile project={post} index={index} />
                         </a>
                     );
                 })
@@ -44,31 +34,6 @@ const groups = Array.from(new Set(posts.map((p) => p.data.group)));
         </div>
     </ScrollView>
 </Layout>
-
-<script>
-    const projects = document.querySelectorAll<HTMLElement>(".project-grid a");
-    const links = document.querySelectorAll<HTMLElement>(".filter a");
-
-    function applyFilter(group: string) {
-        projects.forEach((p) => {
-            p.style.display =
-                group === "All" || p.dataset.group === group ? "" : "none";
-        });
-
-        links.forEach((link) => {
-            link.classList.toggle("active", link.dataset.group === group);
-        });
-    }
-
-    function updateFromHash() {
-        const hash = decodeURIComponent(location.hash.replace("#", ""));
-        const group = hash || "All";
-        applyFilter(group);
-    }
-
-    window.addEventListener("hashchange", updateFromHash);
-    updateFromHash(); // initial load
-</script>
 
 <script>
     /*

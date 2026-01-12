@@ -20,6 +20,13 @@
 	--accent: var(--text-color);
 	--accent-dark: #000d8a;
 
+	/* --box-fade: linear-gradient(to bottom,
+			hsla(var(--base-hue), calc(var(--base-saturation)), calc(var(--base-light) - 10%), 0.03) 0%,
+			hsla(var(--base-hue), calc(var(--base-saturation)), calc(var(--base-light) - 20%), 0.01) 35%,
+			rgba(0, 0, 0, 0) 100%); */
+
+	--box-fade: unset;
+
 	--border-width: 1px;
 }
 
@@ -173,4 +180,46 @@ ul {
 	aspect-ratio: 16/9;
 	width: 100%;
 	border: 0;
+}
+
+/* 
+	Content Box
+*/
+
+.box {
+	display: flex;
+	flex-shrink: 0;
+	align-items: stretch;
+
+	position: relative;
+	border-top: var(--border-width) solid var(--text-color);
+	border-bottom: var(--border-width) solid var(--text-color);
+	image-rendering: pixelated;
+	overflow: hidden;
+}
+
+.box::before,
+.box::after {
+	content: "";
+	position: absolute;
+	height: calc(1rem / 2);
+	left: 0;
+	right: 0;
+
+	pointer-events: none;
+
+	border-left: var(--border-width) solid var(--text-color);
+	border-right: var(--border-width) solid var(--text-color);
+}
+
+.box::after {
+	content: "";
+	position: absolute;
+	top: 0;
+}
+
+.box::before {
+	content: "";
+	position: absolute;
+	bottom: 0;
 }

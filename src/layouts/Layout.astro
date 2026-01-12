@@ -1,9 +1,9 @@
 ---
 import Effects from "../components/Effects.astro";
 import BaseHead from "../components/BaseHead.astro";
-import Header from "../components/Header.astro";
+import Navigation from "../components/Navigation.astro";
 import Footer from "../components/Footer.astro";
-import { SITE_DESCRIPTION, THEME_HUE_KEY } from "../consts";
+import { SITE_DESCRIPTION } from "../consts";
 
 const { title, description, namespace } = Astro.props;
 ---
@@ -21,11 +21,20 @@ const { title, description, namespace } = Astro.props;
     </head>
     <body>
         <Effects />
-        <div class="content-container">
-            <Header />
-            <main>
-                <slot />
-            </main>
+        <div class="website">
+            <div style="display: flex;">
+                <span> KORVEMAA INDUSTRIES (TM) TERMINAL LINK </span>
+                <div style="display:flex;flex-grow:1;"></div>
+                <span> SERVER 4 </span>
+            </div>
+            <div class="content">
+                <div class="box">
+                    <Navigation />
+                </div>
+                <main class="box">
+                    <slot />
+                </main>
+            </div>
             <Footer />
         </div>
     </body>
@@ -55,7 +64,7 @@ const { title, description, namespace } = Astro.props;
         max-width: 1440px;
     }
 
-    .content-container {
+    .website {
         display: flex;
         flex-direction: column;
         flex: 1 1 auto;
@@ -63,32 +72,20 @@ const { title, description, namespace } = Astro.props;
         margin: 1rem;
         align-items: stretch;
         justify-content: center;
+        gap: 0.5rem;
     }
 
-    main::before,
-    main::after {
-        content: "";
-        position: absolute;
-        height: 1rem;
-        left: 0;
-        right: 0;
+    .content {
+        display: flex;
+        flex-direction: row;
+        flex: 1 1 auto;
+        min-height: 0;
+        align-items: stretch;
+        justify-content: center;
+        gap: 0.5rem;
 
-        pointer-events: none;
-
-        border-left: var(--border-width) solid var(--text-color);
-        border-right: var(--border-width) solid var(--text-color);
-    }
-
-    main::after {
-        content: "";
-        position: absolute;
-        top: 0;
-    }
-
-    main::before {
-        content: "";
-        position: absolute;
-        bottom: 0;
+        min-height: 0;
+        max-height: 1080px;
     }
 
     main {
@@ -104,13 +101,11 @@ const { title, description, namespace } = Astro.props;
 
         image-rendering: pixelated;
 
-        min-height: 0;
-        max-height: 1080px;
         overflow: hidden;
     }
 
     @media (max-width: 550px) {
-        .content-container {
+        .website {
             margin: 0.5rem;
         }
     }

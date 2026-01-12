@@ -1,7 +1,7 @@
 ---
 title:  "Manta"
 description: "The default smg in Intruder."
-group: "Intruder"
+group: "Intruder/Weapon"
 thumbnail: "images/manta/thumbnail.jpg"
 tags: ["substance-painter", "art"]
 date: 'April 23 2021'
