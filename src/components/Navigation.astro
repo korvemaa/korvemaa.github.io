@@ -41,7 +41,6 @@ const themes = [
 			}
 		</div>
 	</section>
-	<span id="current-time" class="not-important">9:50PM</span>
 </nav>
 
 <script defer define:vars={{ THEME_HUE_KEY }}>
@@ -51,17 +50,6 @@ const themes = [
 	}
 
 	window.setHue = setHue;
-</script>
-
-<script defer>
-	function updateClock() {
-		document.getElementById("current-time").textContent =
-			new Date().toLocaleTimeString();
-
-		setTimeout(updateClock, 500);
-	}
-
-	updateClock();
 </script>
 
 <style>
@@ -109,7 +97,7 @@ const themes = [
 	}
 
 	nav a {
-		padding: 0.5rem 1.2rem;
+		padding: 0.5rem 1rem;
 		font-size: 1em;
 		color: var(--black);
 		text-decoration: none;

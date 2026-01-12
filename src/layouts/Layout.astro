@@ -22,9 +22,10 @@ const { title, description, namespace } = Astro.props;
     <body>
         <Effects />
         <div class="website">
-            <div style="display: flex;">
+            <div style="display: flex; gap: 1rem;">
                 <span> KORVEMAA INDUSTRIES (TM) TERMINAL LINK </span>
                 <div style="display:flex;flex-grow:1;"></div>
+                <span id="current-time" style="opacity:0.4">9:50PM</span>
                 <span> SERVER 4 </span>
             </div>
             <div class="content">
@@ -39,6 +40,18 @@ const { title, description, namespace } = Astro.props;
         </div>
     </body>
 </html>
+
+<script defer>
+	function updateClock() {
+		document.getElementById("current-time").textContent =
+			new Date().toLocaleTimeString();
+
+		setTimeout(updateClock, 500);
+	}
+
+	updateClock();
+</script>
+
 
 <style>
     html,
