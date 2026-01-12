@@ -20,12 +20,12 @@
 	--accent: var(--text-color);
 	--accent-dark: #000d8a;
 
-	/* --box-fade: linear-gradient(to bottom,
+	--box-fade: linear-gradient(to bottom,
 			hsla(var(--base-hue), calc(var(--base-saturation)), calc(var(--base-light) - 10%), 0.03) 0%,
 			hsla(var(--base-hue), calc(var(--base-saturation)), calc(var(--base-light) - 20%), 0.01) 35%,
-			rgba(0, 0, 0, 0) 100%); */
+			rgba(0, 0, 0, 0) 100%);
 
-	--box-fade: unset;
+	/* --box-fade: unset; */
 
 	--border-width: 1px;
 }
@@ -222,4 +222,14 @@ ul {
 	content: "";
 	position: absolute;
 	bottom: 0;
+}
+
+.ascii-art {
+	font-family: monospace;
+	font-synthesis-weight: none;
+	font-variant-ligatures: none;
+	line-height: 17px;
+	padding: 0;
+	margin: 0;
+	user-select: none;
 }
