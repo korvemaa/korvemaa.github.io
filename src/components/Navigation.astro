@@ -14,27 +14,33 @@ const themes = [
 ---
 
 <nav>
-	<span class="not-important">Navigation</span>
-	<HeaderLink href="/">Home</HeaderLink>
-	<HeaderLink href="/blog">Blog</HeaderLink>
-	<HeaderLink href="/motorsport">Motorsport</HeaderLink>
-	<span class="not-important">Projects</span>
-	<HeaderLink href="/personal">Personal</HeaderLink>
-	<HeaderLink href="/enviz">Enviz</HeaderLink>
-	<HeaderLink href="/intruder">Intruder</HeaderLink>
-	<HeaderLink href="/eagle-one">Eagle One</HeaderLink>
-	<HeaderLink href="/ravenfield">Ravenfield</HeaderLink>
+	<section>
+		<span class="not-important">Navigation</span>
+		<HeaderLink href="/">Home</HeaderLink>
+		<HeaderLink href="/blog">Blog</HeaderLink>
+		<HeaderLink href="/motorsport">Motorsport</HeaderLink>
+	</section>
+	<section>
+		<span class="not-important">Projects</span>
+		<HeaderLink href="/personal">Personal</HeaderLink>
+		<HeaderLink href="/enviz">Enviz</HeaderLink>
+		<HeaderLink href="/intruder">Intruder</HeaderLink>
+		<HeaderLink href="/eagle-one">Eagle One</HeaderLink>
+		<HeaderLink href="/ravenfield">Ravenfield</HeaderLink>
+	</section>
 	<div style="flex-grow: 1;"></div>
-	<span class="not-important">Theme</span>
-	<div class="presets">
-		{
-			themes.map((e) => (
-				<button onclick={"window.setHue(" + e.hue + ")"}>
-					{e.name}
-				</button>
-			))
-		}
-	</div>
+	<section>
+		<span class="not-important">Theme</span>
+		<div class="presets">
+			{
+				themes.map((e) => (
+					<button onclick={"window.setHue(" + e.hue + ")"}>
+						{e.name}
+					</button>
+				))
+			}
+		</div>
+	</section>
 	<span id="current-time" class="not-important">9:50PM</span>
 </nav>
 
@@ -62,10 +68,6 @@ const themes = [
 	.not-important {
 		opacity: 0.4;
 		padding: 0.5rem 1rem;
-	}
-
-	.not-important:first-child {
-		padding-top: 0;
 	}
 
 	#hue-icon {
@@ -97,10 +99,11 @@ const themes = [
 		display: flex;
 		flex-direction: column;
 
-		min-width: 200px;
-		max-width: 200px;
+		min-width: 170px;
+		max-width: 170px;
 		flex-shrink: 0;
-	padding: 1rem 0;
+		padding: 1rem;
+		gap: 1rem;
 
 		flex-grow: 1;
 	}
@@ -126,10 +129,10 @@ const themes = [
 
 	.presets {
 		display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(min(75px, 100%), 1fr));
+		grid-template-columns: repeat(auto-fill, minmax(min(60px, 100%), 1fr));
 		gap: 0.5rem;
 
-		padding: 0.5rem 1rem;
+		/* padding: 0.5rem 1rem; */
 		padding-top: 0;
 
 		align-items: center;
@@ -143,7 +146,7 @@ const themes = [
 
 		appearance: none;
 		background-color: unset;
-		border: var(--border-width) dotted var(--dimmed-glow-color);
+		border: none;
 		padding: 0.75rem 1rem;
 
 		font-family: Terminus;
@@ -164,5 +167,12 @@ const themes = [
 		header .not-important:not(#site-title) {
 			display: none;
 		}
+	}
+
+	section {
+		background: var(--box-fade);
+		display: flex;
+		flex-direction: column;
+		border: var(--border-width) dotted var(--dimmed-glow-color);
 	}
 </style>
