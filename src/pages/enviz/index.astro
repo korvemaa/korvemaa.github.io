@@ -3,50 +3,91 @@ import { getCollection, getEntry } from "astro:content";
 import Layout from "@layout/Layout.astro";
 import ScrollView from "@component/ScrollView.astro";
 import VerticalProjectTile from "@component/VerticalProjectTile.astro";
+import DynamicLink from "@component/DynamicLink.astro";
 import ExperienceBar from "@component/ExperienceBar.astro";
 import { createText } from "@src/utility";
+import SimpleProjectTile from "@component/SimpleProjectTile.astro";
 
 const projects = (await getCollection("project"))
-    .filter((e) => e.data.group == "Enviz")
+    .filter((e) => e.id.startsWith("enviz"))
     .sort((a, b) => {
         const da = a.data.date?.getTime() ?? 100;
         const db = b.data.date?.getTime() ?? 100;
         return db - da;
     });
 
+const platforms = projects.filter((e) => e.data.group.endsWith("Apps"));
+const automation = projects.filter((e) => e.data.group.endsWith("Automation"));
+
 const experience = await getEntry("experience", "enviz");
-const title = createText("Enviz", "DiamFont", true);
+const title = createText("Enviz", "DiamFont", true) + "\n\n";
 ---
 
 <Layout title="Enviz">
     <ScrollView useMargin={true}>
         <div class="content">
             <div class="header">
-                <section id="about">
+                <section>
                     <pre class="ascii-art">{title}</pre>
+                    <hr />
+                    I did a bunch of stuff at Enviz and I worked there for a while
+                    very rad... What to add to this little section? Maybe something
+                    about what Enviz is?
                 </section>
-                <section>Enviz</section>
+                <section id="links">
+                    Find out more about Enviz at the following links!
+                    <hr />
+                    <DynamicLink href="https://enviz.co" />
+                    <DynamicLink href="https://explore.enviz.co/spaces" />
+                </section>
             </div>
             <section id="experience">
                 <ExperienceBar experience={experience} />
             </section>
             <section id="projects">
-                {
-                    projects.map((post) => {
-                        return (
-                            <a
-                                data-group={post.data.group}
-                                href={`/${post.id}`}
-                            >
-                                <VerticalProjectTile
-                                    title={post.data.title}
-                                    date={post.data.date}
-                                    thumbnail={post.data.thumbnail}
-                                />
-                            </a>
-                        );
-                    })
-                }
+                Apps
+                <hr />
+                <div class="grid">
+                    {
+                        platforms.map((post) => {
+                            return (
+                                <a
+                                    data-group={post.data.group}
+                                    href={`/${post.id}`}
+                                >
+                                    <VerticalProjectTile
+                                        title={post.data.title}
+                                        date={post.data.date}
+                                        thumbnail={post.data.thumbnail}
+                                    />
+                                </a>
+                            );
+                        })
+                    }
+                </div>
+            </section>
+            <section id="projects">
+                Automation
+                <hr />
+                The automation system that runs in the cloud.
+                <div class="grid">
+                    {
+                        automation.map((post) => {
+                            return (
+                                <a
+                                    data-group={post.data.group}
+                                    href={`/${post.id}`}
+                                >
+                                    <SimpleProjectTile
+                                        title={post.data.title}
+                                        date={post.data.date}
+                                        thumbnail={post.data.thumbnail}
+                                    />
+                                </a>
+                            );
+                        })
+                    }
+                </div>
             </section>
         </div>
     </ScrollView>
@@ -66,7 +107,7 @@ const title = createText("Enviz", "DiamFont", true);
 
     .content .header {
         display: grid;
-        grid-template-columns: max-content 1fr;
+        grid-template-columns: 1fr max-content;
         gap: 1rem;
     }
 
@@ -80,7 +121,7 @@ const title = createText("Enviz", "DiamFont", true);
         }
     }
 
-    section#projects {
+    .grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(min(250px, 100%), 1fr));
         gap: 0.5rem;
