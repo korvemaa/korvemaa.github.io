@@ -1,7 +1,7 @@
 ---
 title: Phoenix Framework
 description: An attachment system framework mutator for Ravenfield.
-group: Ravenfield 
+group: Personal 
 thumbnail: images/phoenix-framework/thumbnail.png
 date: 'Nov 20 2020'
 videos: ["D_-qEz8_9zo", pVIMyy-1tAk]

@@ -138,7 +138,7 @@ const socials = [
 			<section id="experience">
 				<h2>Professional Experience</h2>
 				<hr />
-				{experience.map((job) => <ExperienceBar experience={job} />)}
+				{experience.map((job) =>  (<a href={job.data.projects}><ExperienceBar experience={job} /></a>))}
 			</section>
 			<section style="justify-content: center;">
 				<pre
@@ -316,6 +316,16 @@ const socials = [
 		overflow: hidden;
 		gap: 0.5rem;
 		background: var(--box-fade);
+	}
+
+	section#experience a {
+		text-decoration: none;
+		border: var(--border-width) dotted var(--dimmed-glow-color);
+		padding: 1rem;
+	}
+
+	section#experience a:hover {
+		background-color: var(--dimmed-glow-color);
 	}
 
 	section p,

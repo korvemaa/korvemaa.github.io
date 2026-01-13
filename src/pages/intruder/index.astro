@@ -1,10 +1,11 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import ScrollView from "../../components/ScrollView.astro";
-import DynamicLink from "../../components/DynamicLink.astro";
-import SimpleProjectTile from "../../components/SimpleProjectTile.astro";
-import { getCollection } from "astro:content";
-import figlet from "figlet";
+import { getCollection, getEntry } from "astro:content";
+import Layout from "@layout/Layout.astro";
+import ScrollView from "@component/ScrollView.astro";
+import DynamicLink from "@component/DynamicLink.astro";
+import ExperienceBar from "@component/ExperienceBar.astro";
+import SimpleProjectTile from "@component/SimpleProjectTile.astro";
+import { createText } from "@src/utility";
 
 const projects = (await getCollection("project"))
     .filter((e) => e.id.startsWith("intruder"))
@@ -14,10 +15,12 @@ const projects = (await getCollection("project"))
         return db - da;
     });
 
+const experience = await getEntry("experience", "superboss");
+
 const weapons = projects.filter((e) => e.data.group.endsWith("Weapon"));
 const maps = projects.filter((e) => e.data.group.endsWith("Map"));
 
-const title = figlet.textSync("Intruder", { font: "Slant" });
+const title = createText("Intruder", "Slant");
 ---
 
 <Layout title="Intruder">
@@ -31,11 +34,16 @@ const title = figlet.textSync("Intruder", { font: "Slant" });
                 </section>
                 <section id="links">
                     Check out Intruder at the following links!
-                    <hr>
-                    <DynamicLink href="https://store.steampowered.com/app/518150/Intruder/" />
-                    <DynamicLink href="https://www.youtube.com/@SuperbossGames" />
+                    <hr />
+                    <DynamicLink href="https://intruderfps.com/" />
+                    <DynamicLink
+                        href="https://store.steampowered.com/app/518150/Intruder/"
+                    />
                 </section>
             </div>
+            <section id="experience">
+                <ExperienceBar experience={experience} />
+            </section>
             <section id="projects">
                 Weapons
                 <hr />
@@ -130,5 +138,4 @@ const title = figlet.textSync("Intruder", { font: "Slant" });
         padding: 1rem;
         gap: 1rem;
     }
-
 </style>

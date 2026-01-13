@@ -13,13 +13,16 @@ const projects = (await getCollection("project"))
         return db - da;
     });
 
-const title = figlet.textSync("Intruder", { font: "Future" });
+const title = figlet.textSync("Personal", { font: "Slant" });
 ---
 
 <Layout title="Personal">
     <ScrollView useMargin={true}>
         <div class="content">
-            <section id="about">I like to do stuff outside of work</section>
+            <section id="about">
+                <pre class="ascii-art">{title}</pre>
+                <hr>
+                I like to do stuff outside of work</section>
             <section id="projects">
                 <div class="grid">
                     {

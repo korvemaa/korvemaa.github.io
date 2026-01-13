@@ -28,6 +28,7 @@
 	/* --box-fade: unset; */
 
 	--border-width: 1px;
+	--font-size: 14px;
 }
 
 @font-face {

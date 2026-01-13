@@ -1,3 +1,5 @@
+import figlet from "figlet";
+
 export function timeAgo(date: Date): string {
     const now = new Date();
     const seconds = Math.floor((now.getTime() - date.getTime()) / 1000);
@@ -20,4 +22,12 @@ export function timeAgo(date: Date): string {
     }
 
     return "just now";
+}
+
+export function createText(text: string, font: string, trim: boolean = false) {
+    let output = figlet.textSync(text, { font: font });
+    if (trim)
+        output = output.split(/\r?\n/).filter(line => line.trim() !== '').join('\n');
+
+    return output;
 }

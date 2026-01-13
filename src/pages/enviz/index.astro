@@ -1,0 +1,99 @@
+---
+import { getCollection, getEntry } from "astro:content";
+import Layout from "@layout/Layout.astro";
+import ScrollView from "@component/ScrollView.astro";
+import VerticalProjectTile from "@component/VerticalProjectTile.astro";
+import ExperienceBar from "@component/ExperienceBar.astro";
+import { createText } from "@src/utility";
+
+const projects = (await getCollection("project"))
+    .filter((e) => e.data.group == "Enviz")
+    .sort((a, b) => {
+        const da = a.data.date?.getTime() ?? 100;
+        const db = b.data.date?.getTime() ?? 100;
+        return db - da;
+    });
+
+const experience = await getEntry("experience", "enviz");
+const title = createText("Enviz", "DiamFont", true);
+---
+
+<Layout title="Enviz">
+    <ScrollView useMargin={true}>
+        <div class="content">
+            <div class="header">
+                <section id="about">
+                    <pre class="ascii-art">{title}</pre>
+                </section>
+                <section>Enviz</section>
+            </div>
+            <section id="experience">
+                <ExperienceBar experience={experience} />
+            </section>
+            <section id="projects">
+                {
+                    projects.map((post) => {
+                        return (
+                            <a
+                                data-group={post.data.group}
+                                href={`/${post.id}`}
+                            >
+                                <VerticalProjectTile
+                                    title={post.data.title}
+                                    date={post.data.date}
+                                    thumbnail={post.data.thumbnail}
+                                />
+                            </a>
+                        );
+                    })
+                }
+            </section>
+        </div>
+    </ScrollView>
+</Layout>
+
+<style>
+    section {
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        border: var(--border-width) dotted var(--dimmed-glow-color);
+        overflow: hidden;
+        gap: 0.5rem;
+
+        background: var(--box-fade);
+    }
+
+    .content .header {
+        display: grid;
+        grid-template-columns: max-content 1fr;
+        gap: 1rem;
+    }
+
+    @media (max-width: 1100px) {
+        .content .header {
+            grid-template-columns: 1fr;
+        }
+
+        .content .header section {
+            align-items: center;
+        }
+    }
+
+    section#projects {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(min(250px, 100%), 1fr));
+        gap: 0.5rem;
+    }
+
+    section#projects a {
+        text-decoration: none;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        gap: 1rem;
+    }
+</style>

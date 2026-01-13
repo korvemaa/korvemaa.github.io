@@ -5,16 +5,13 @@ import { render } from "astro:content";
 const { experience } = Astro.props;
 const { Content } = await render(experience);
 
-const hasContent = (experience.body || "").length > 0;
-
 function formatTime(date: Date): string | null {
-    if (!date)
-        return null;
+    if (!date) return null;
 
-    return date.toLocaleDateString('en-us', {
-        year: 'numeric',
-        month: 'short',
-    })
+    return date.toLocaleDateString("en-us", {
+        year: "numeric",
+        month: "short",
+    });
 }
 
 function timeSince(from: Date, to: Date = new Date()): string {
@@ -39,53 +36,49 @@ function timeSince(from: Date, to: Date = new Date()): string {
         }
     }
 
-    return parts.length > 0 ? parts.slice(0, 2).join(", "): "just now";
+    return parts.length > 0 ? parts.slice(0, 2).join(", ") : "just now";
 }
 ---
 
 <div class="experience-bar">
-    <a href={experience.data.projects} class="employment-details">
-        {
-            experience.data.icon && (
-                <Image
-                    width="60"
-                    src={experience.data.icon}
-                    alt={experience.data.name}
-                />
-            )
-        }
-        <div class="employment-text">
-            <h3>{experience.data.name}</h3>
-            <span>
-                {experience.data.position}
-                <span class="sub-text">
-                    | {experience.data.employment}
-                </span>
-            </span>
-            <span>
-                {formatTime(experience.data.startDate)} - { formatTime(experience.data.endDate) || "Present"}
-                <span class="sub-text">
-                    | {timeSince(experience.data.startDate, experience.data.endDate)}
-                </span>
-            </span>
-        </div>
-    </a>
     {
-        hasContent && ( 
-            <hr />
-            <div class="employment-about">
-                <Content />
-            </div>
+        experience.data.icon && (
+            <Image
+                width="60"
+                src={experience.data.icon}
+                alt={experience.data.name}
+            />
         )
     }
+    <div class="employment-text">
+        <h3>{experience.data.name}</h3>
+        <span>
+            {experience.data.position}
+            <span class="sub-text">
+                | {experience.data.employment}
+            </span>
+        </span>
+        <span>
+            {formatTime(experience.data.startDate)} - {
+                formatTime(experience.data.endDate) || "Present"
+            }
+            <span class="sub-text">
+                | {
+                    timeSince(
+                        experience.data.startDate,
+                        experience.data.endDate,
+                    )
+                }
+            </span>
+        </span>
+    </div>
 </div>
 
 <style>
     .experience-bar {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         overflow: hidden;
-        border: var(--border-width) dotted var(--dimmed-glow-color);
         gap: 1rem;
     }
 
@@ -94,31 +87,22 @@ function timeSince(from: Date, to: Date = new Date()): string {
         text-decoration: none;
     }
 
-    a:hover{
+    a:hover {
         background-color: var(--dimmed-glow-color);
     }
 
-    .employment-details h3 {
+    h3 {
+        font-size: var(--font-size);
         margin-bottom: 0;
     }
 
-    .employment-details {
-        position: relative;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 1rem;
-    }
-
-    .employment-details {
-    }
-
-    .employment-details .employment-text {
+    .employment-text {
         display: flex;
         flex-direction: column;
+        gap: 0;
     }
 
-    .employment-details .sub-text {
+    .sub-text {
         opacity: 0.4;
     }
 
@@ -126,4 +110,3 @@ function timeSince(from: Date, to: Date = new Date()): string {
         margin: 1rem;
     }
 </style>
-
