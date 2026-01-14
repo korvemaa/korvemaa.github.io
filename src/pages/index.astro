@@ -40,7 +40,8 @@ const socials = [
 					<pre class="ascii">{lastName}</pre>
 				</div>
 				<div>
-					Sydney based software engineer at <a href="/enviz">Enviz</a>
+					Sydney based software engineer working at
+					<a href="/enviz">Enviz</a>
 				</div>
 				<hr />
 				<div class="socials">
@@ -73,9 +74,7 @@ const socials = [
 						</div>
 					</div>
 				</div>
-				<div class="no-status">
-					OFFLINE
-				</div>
+				<div class="no-status">OFFLINE</div>
 				<div style="display:flex;flex-grow:1;"></div>
 				<hr />
 				<span id="motd" style="align-self: flex-start;">MOTD</span>
@@ -89,15 +88,19 @@ const socials = [
 					software engineering and anything in between.
 				</p>
 				<p>
-					<div>
-						a technology
-					</div>
+					<div>a technology</div>
 				</p>
 			</section>
 			<section id="experience">
 				<h2>Professional Experience</h2>
 				<hr />
-				{experience.map((job) =>  (<a href={job.data.projects}><ExperienceBar experience={job} /></a>))}
+				{
+					experience.map((job) => (
+						<a href={job.data.projects}>
+							<ExperienceBar experience={job} />
+						</a>
+					))
+				}
 			</section>
 		</div>
 	</ScrollView>
@@ -120,8 +123,8 @@ const socials = [
 				.querySelector(".spotify-status")
 				.classList.add("has-status");
 
-			document.querySelector(".no-status").style.display = 'none';
-				
+			document.querySelector(".no-status").style.display = "none";
+
 			const s = data.spotify;
 			document.getElementById("song-art").src = s.album_art_url;
 

@@ -3,9 +3,9 @@ import Project from "../../layouts/Project.astro";
 import { type CollectionEntry, getCollection } from "astro:content";
 
 export async function getStaticPaths() {
-    const posts = (await getCollection("project")).filter(e=>e.id.startsWith("personal"));
+    const posts = (await getCollection("project")).filter(e=>e.id.startsWith("motorsport"));
     return posts.map((project) => ({
-        params: { slug: project.id.substring("personal".length) },
+        params: { slug: project.id.substring("motorsport".length) },
         props: project,
     }));
 }
@@ -13,4 +13,4 @@ export async function getStaticPaths() {
 type Props = CollectionEntry<"project">;
 ---
 
-<Project post={Astro.props} backUrl="/personal"></Project>
+<Project post={Astro.props} backUrl="/motorsport"></Project>

@@ -7,8 +7,8 @@ import { type CollectionEntry, render } from "astro:content";
 import Layout from "../layouts/Layout.astro";
 import OpenGraphImage from "../components/OpenGraphImage.astro";
 
-type Props = CollectionEntry<"project">;
-const post = Astro.props;
+type Props = { post: CollectionEntry<"project">; backUrl: string };
+const { post, backUrl } = Astro.props;
 const { Content } = await render(post);
 
 const thumbnail = post.data.thumbnail
@@ -39,6 +39,12 @@ const hasVideos = post.data.videos;
     }
     <button id="to-top">Back to Top</button>
     <ScrollView style="scroll-behavior:smooth;" useMargin={true}>
+        <div id="top-bar">
+            <a href={backUrl}>
+                {"<"}
+            </a>
+            <span>{post.data.title}</span>
+        </div>
         <div class="page">
             <aside>
                 <div class="content">
@@ -150,6 +156,24 @@ const hasVideos = post.data.videos;
 
     #to-top.active {
         opacity: 1;
+    }
+
+    #top-bar {
+        margin: 1rem;
+        margin-bottom: 0;
+        /* border: var(--border-width) dotted var(--dimmed-glow-color); */
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+    }
+
+    #top-bar a {
+        padding: 0 0.5rem;
+        text-decoration: none;
+    }
+
+    #top-bar a:hover {
+        background-color: var(--dimmed-glow-color);
     }
 
     aside {

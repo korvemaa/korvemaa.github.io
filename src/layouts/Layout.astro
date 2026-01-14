@@ -42,16 +42,19 @@ const { title, description, namespace } = Astro.props;
 </html>
 
 <script defer>
-	function updateClock() {
-		document.getElementById("current-time").textContent =
-			new Date().toLocaleTimeString();
+    function updateClock() {
+        document.getElementById("current-time").textContent =
+            "SYD " +
+            new Date().toLocaleTimeString("en", {
+                timeZone: "Australia/Sydney",
+                timeStyle: "short",
+            });
 
-		setTimeout(updateClock, 500);
-	}
+        setTimeout(updateClock, 10000);
+    }
 
-	updateClock();
+    updateClock();
 </script>
-
 
 <style>
     html,
