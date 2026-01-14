@@ -22,21 +22,23 @@ const { title, description, namespace } = Astro.props;
     <body>
         <Effects />
         <div class="website">
-            <div style="display: flex; gap: 1rem;">
-                <span> KORVEMAA INDUSTRIES (TM) TERMINAL LINK </span>
-                <div style="display:flex;flex-grow:1;"></div>
-                <span id="current-time" style="opacity:0.4">9:50PM</span>
-                <span> SERVER 03 </span>
-            </div>
-            <div class="content">
-                <div class="box">
-                    <Navigation />
+            <div class="height-restrict">
+                <div style="display: flex; gap: 1rem;">
+                    <span> KORVEMAA INDUSTRIES (TM) TERMINAL LINK </span>
+                    <div style="display:flex;flex-grow:1;"></div>
+                    <span id="current-time" style="opacity:0.4">9:50PM</span>
+                    <span> SERVER 03 </span>
                 </div>
-                <main class="box">
-                    <slot />
-                </main>
+                <div class="content">
+                    <div class="box">
+                        <Navigation />
+                    </div>
+                    <main class="box">
+                        <slot />
+                    </main>
+                </div>
+                <Footer />
             </div>
-            <Footer />
         </div>
     </body>
 </html>
@@ -91,6 +93,13 @@ const { title, description, namespace } = Astro.props;
         gap: 0.5rem;
     }
 
+    .height-restrict {
+        display: flex;
+        flex-direction: column;
+        min-height: calc(min(100%, var(--max-height)));
+        max-height: var(--max-height);
+    }
+
     .content {
         display: flex;
         flex-direction: row;
@@ -99,9 +108,6 @@ const { title, description, namespace } = Astro.props;
         align-items: stretch;
         justify-content: center;
         gap: 0.5rem;
-
-        min-height: 0;
-        max-height: var(--max-height);
     }
 
     main {
