@@ -28,7 +28,7 @@
 	/* --box-fade: unset; */
 
 	--border-width: 1px;
-	--font-size: 15px;
+	--font-size: 16px;
 }
 
 @font-face {
@@ -38,7 +38,6 @@
 	font-style: normal;
 	font-display: swap;
 }
-
 
 html {
 	display: flex;
