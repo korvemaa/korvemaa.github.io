@@ -51,13 +51,9 @@ const title = createText("Enviz", "DiamFont", true) + "\n\n";
                     {
                         platforms.map((post) => {
                             return (
-                                <a
-                                    data-group={post.data.group}
-                                    href={`/${post.id}`}
-                                >
+                                <a href={`/${post.id}`}>
                                     <VerticalProjectTile
                                         title={post.data.title}
-                                        date={post.data.date}
                                         thumbnail={post.data.thumbnail}
                                     />
                                 </a>
@@ -74,13 +70,9 @@ const title = createText("Enviz", "DiamFont", true) + "\n\n";
                     {
                         automation.map((post) => {
                             return (
-                                <a
-                                    data-group={post.data.group}
-                                    href={`/${post.id}`}
-                                >
+                                <a href={`/${post.id}`}>
                                     <SimpleProjectTile
                                         title={post.data.title}
-                                        date={post.data.date}
                                         thumbnail={post.data.thumbnail}
                                     />
                                 </a>

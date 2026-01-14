@@ -28,7 +28,7 @@
 	/* --box-fade: unset; */
 
 	--border-width: 1px;
-	--font-size: 14px;
+	--font-size: 15px;
 }
 
 @font-face {
@@ -58,7 +58,7 @@ body {
 	color: var(--text-color);
 	text-shadow: var(--text-shadow);
 
-	font-size: 14px;
+	font-size: var(--font-size);
 	line-height: 1.5;
 
 	background-color: var(--darker-color);
@@ -80,24 +80,29 @@ h1 {
 	font-size: 2em;
 	background: var(--dimmed-glow-color);
 	padding: 0.5rem;
+	font-size: var(--font-size);
 }
 
 h2 {
 	font-size: 1.6em;
 	background: var(--dimmed-glow-color);
 	padding: 0.5rem;
+	font-size: var(--font-size);
 }
 
 h3 {
 	font-size: 1.4em;
+	font-size: var(--font-size);
 }
 
 h4 {
 	font-size: 1.2em;
+	font-size: var(--font-size);
 }
 
 h5 {
 	font-size: 1.1em;
+	font-size: var(--font-size);
 }
 
 strong,
@@ -175,6 +180,11 @@ hr {
 ul {
 	margin-top: 0;
 	padding-left: 1.5rem;
+}
+
+button:hover {
+	cursor: pointer;
+
 }
 
 .enviz-web-app {

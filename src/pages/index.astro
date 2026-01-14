@@ -32,28 +32,6 @@ const socials = [
 ---
 
 <Layout>
-	<script slot="head" type="application/ld+json">
-		{
-			"@context": "https://schema.org",
-			"@type": "Person",
-			"name": "Jake Korvemaa",
-			"url": "https://korvema.dev",
-			"image": "https://korvemaa.dev/profile.png",
-			"jobTitle": "Software Engineer",
-			"worksFor": {
-				"@type": "Organization",
-				"name": "Enviz"
-			},
-			"nationality": "Australian",
-			"birthDate": "2003",
-			"sameAs": [
-				"https://www.facebook.com/jakekve",
-				"https://www.linkedin.com/jakekve",
-				"https://github.com/korvema"
-			]
-		}
-	</script>
-
 	<ScrollView useMargin={true} style="scroll-behavior:smooth;">
 		<div class="page">
 			<section style="justify-content: center;">
@@ -61,7 +39,9 @@ const socials = [
 					<pre class="ascii">{firstName}</pre>
 					<pre class="ascii">{lastName}</pre>
 				</div>
-				Software Engineer | Experimentalist
+				<div>
+					Sydney based software engineer at <a href="/enviz">Enviz</a>
+				</div>
 				<hr />
 				<div class="socials">
 					{
@@ -100,31 +80,8 @@ const socials = [
 				<hr />
 				<span id="motd" style="align-self: flex-start;">MOTD</span>
 			</section>
-			<section id="about">
-				<h2>About Me</h2>
-				<hr />
-				<p>
-					I'm an incredibly passionate software engineer with a taste
-					for <a href="/motorsport">motorsport</a>. I love
-					nothing more then learning, experimenting, refining and
-					putting real care into what I build.
-				</p>
-				<p>
-					I'm currently professionally working in C#/Unity but have a
-					burning desire to branch out into other software areas that
-					are more interesting.
-				</p>
-				<p>
-					If you would like to get in contact with me. You can connect
-					with me on <a
-						target="_blank"
-						href="https://linkedin.com/in/jakekve">LinkedIn</a
-					>. I'm always looking for opportunities to keep growing and
-					contribute to work that matters.
-				</p>
-			</section>
 			<section>
-				<h2>Skills & Technologies</h2>
+				<h2>Technologies</h2>
 				<hr />
 				<p>
 					I can work in a wide variety of technologies and areas of
@@ -132,33 +89,15 @@ const socials = [
 					software engineering and anything in between.
 				</p>
 				<p>
-					FILL SHIT OUT HERE JAKE!!
+					<div>
+						a technology
+					</div>
 				</p>
 			</section>
 			<section id="experience">
 				<h2>Professional Experience</h2>
 				<hr />
 				{experience.map((job) =>  (<a href={job.data.projects}><ExperienceBar experience={job} /></a>))}
-			</section>
-			<section style="justify-content: center;">
-				<pre
-					class="ascii cat">
-       _                        
-       \`*-.                    
-        )  _`-.                 
-       .  : `. .                
-       : _   '  \               
-       ; *` _.   `*-._          
-       `-.-'          `-.       
-         ;       `       `.     
-         :.       .        \    
-         . \  .   :   .-'   .   
-         '  `+.;  ;  '      :   
-         :  '  |    ;       ;-. 
-         ; '   : :`-:     _.`* ;
-[bug] .*' /  .*' ; .*`- +'  `*' 
-      `*-*   `*-*  `*-*'
-				</pre>
 			</section>
 		</div>
 	</ScrollView>
@@ -265,49 +204,6 @@ const socials = [
 		gap: 1rem;
 	}
 
-	.slider {
-		-webkit-appearance: none;
-		appearance: none;
-		display: flex;
-		margin: 0;
-		flex-grow: 1;
-		cursor: pointer;
-		background-color: transparent;
-		outline: none;
-		overflow: hidden;
-
-		border: var(--border-width) dotted var(--dimmed-glow-color);
-	}
-
-	.slider::-webkit-slider-runnable-track {
-		height: 16px;
-		background: transparent;
-		border-radius: 16px;
-	}
-
-	.slider::-moz-range-track {
-		background: transparent;
-	}
-
-	.slider::-webkit-slider-thumb {
-		-webkit-appearance: none;
-		appearance: none;
-		height: 16px;
-		width: 8px;
-		background-color: var(--text-color);
-		box-shadow: -900px 0 0 900px var(--dimmed-glow-color);
-	}
-
-	.slider::-moz-range-thumb {
-		appearance: none;
-		height: 99px;
-		width: 8px;
-		background-color: var(--text-color);
-		border-radius: 0;
-		border-width: 0;
-		box-shadow: -900px 0 0 900px var(--dimmed-glow-color);
-	}
-
 	section {
 		display: flex;
 		flex-direction: column;
@@ -334,7 +230,6 @@ const socials = [
 		margin: 0;
 		background-color: transparent;
 		padding: 0;
-		font-size: 14px;
 	}
 
 	.socials {
@@ -355,7 +250,7 @@ const socials = [
 	}
 
 	.socials a:hover {
-		background-color: var(--dimmed-glow-color)		gap: 1rem;;
+		background-color: var(--dimmed-glow-color);
 	}
 
 	.socials a::before {

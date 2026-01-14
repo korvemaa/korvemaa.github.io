@@ -7,20 +7,22 @@ if (pathname == "") pathname = "index";
 
 const themes = [
 	{ name: "Green", hue: 150 },
-	{ name: "Orange", hue: 40 },
+	{ name: "Amber", hue: 38 },
 	{ name: "Cyan", hue: 180 },
-	{ name: "Pink", hue: 300 },
+	{ name: "Yellow", hue: 55 },
+	{ name: "Magenta", hue: 300 },
+	{ name: "Red", hue: 360 },
 ];
 ---
 
 <nav>
-	<section>
+	<section id="navigation">
 		<span class="not-important">Navigation</span>
 		<HeaderLink href="/">Home</HeaderLink>
-		<HeaderLink href="/blog">Blog</HeaderLink>
+		<HeaderLink href="/about">About</HeaderLink>
 		<HeaderLink href="/motorsport">Motorsport</HeaderLink>
 	</section>
-	<section>
+	<section id="projects">
 		<span class="not-important">Projects</span>
 		<HeaderLink href="/personal">Personal</HeaderLink>
 		<HeaderLink href="/enviz">Enviz</HeaderLink>
@@ -28,18 +30,13 @@ const themes = [
 		<HeaderLink href="/eagle-one">Eagle One</HeaderLink>
 	</section>
 	<div style="flex-grow: 1;"></div>
-	<section>
-		<span class="not-important">Theme</span>
-		<div class="presets">
-			{
-				themes.map((e) => (
-					<button onclick={"window.setHue(" + e.hue + ")"}>
-						{e.name}
-					</button>
-				))
-			}
-		</div>
+	<section id="theme">
+		<span class="not-important">Monochrome</span>
+		<select id="theme-selector">
+			{themes.map((e) => <option value={e.hue}>{e.name}</option>)}
+		</select>
 	</section>
+	<span class="not-important" style="padding: 0;align-self: center;">Made by a human</span>
 </nav>
 
 <script defer define:vars={{ THEME_HUE_KEY }}>
@@ -48,6 +45,14 @@ const themes = [
 		localStorage.setItem(THEME_HUE_KEY, value);
 	}
 
+	const selector = document.getElementById("theme-selector");
+	selector.addEventListener("change", () => {
+		setHue(selector.options[selector.selectedIndex].value);
+	});
+
+	selector.selectedIndex = [...selector.options].findIndex(
+		(o) => o.value == localStorage.getItem(THEME_HUE_KEY),
+	);
 	window.setHue = setHue;
 </script>
 
@@ -143,6 +148,23 @@ const themes = [
 	}
 
 	button:hover {
+		background-color: var(--dimmed-glow-color);
+	}
+
+	select {
+		appearance: none;
+		overflow: visible;
+		background-color: unset;
+		font-size: var(--font-size);
+		color: var(--text-color);
+		text-shadow: var(--text-shadow);
+		font-family: Terminus;
+		border: none;
+		padding: 0.75rem 1rem;
+	}
+
+	select:hover {
+		cursor: pointer;
 		background-color: var(--dimmed-glow-color);
 	}
 
