@@ -18,8 +18,6 @@ gallery: [
 links: ["https://www.raceawaytracktime.com.au/news/deputy-4-hour-round-6-pheasant-wood-circuit"]
 ---
 
-## Deputy 4 Hour Round 6
-
 Round 6 was a lot of fun, the rainy conditions making it more fun. It was also ran on my birthday (3rd August) so I got a card from the team which was really nice of them. 
 
 We came home in first place overall in the blue 69 MX-5

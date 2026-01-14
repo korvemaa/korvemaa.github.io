@@ -20,6 +20,4 @@ gallery: [
 ]
 ---
 
-## Deputy 4 Hour Round 4
-
 we came home with a bronze medal coming third in our class.

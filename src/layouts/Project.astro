@@ -39,12 +39,6 @@ const hasVideos = post.data.videos;
     }
     <button id="to-top">Back to Top</button>
     <ScrollView style="scroll-behavior:smooth;" useMargin={true}>
-        <div id="top-bar">
-            <a href={backUrl}>
-                {"<"}
-            </a>
-            <span>{post.data.title}</span>
-        </div>
         <div class="page">
             <aside>
                 <div class="content">
@@ -83,6 +77,14 @@ const hasVideos = post.data.videos;
                 </div>
             </aside>
             <article>
+                <div id="top-bar">
+                    <a href={backUrl}>
+                        {"<"}
+                    </a>
+                    <span>{post.data.title}</span>
+                </div>
+                <hr />
+
                 {
                     hasArticle && (
                         <section id="about" style="gap: 0;">
@@ -159,16 +161,16 @@ const hasVideos = post.data.videos;
     }
 
     #top-bar {
-        margin: 1rem;
-        margin-bottom: 0;
         /* border: var(--border-width) dotted var(--dimmed-glow-color); */
         display: flex;
         flex-direction: row;
         gap: 1rem;
+        align-items: center;
+        padding-top: 0.5rem;
     }
 
     #top-bar a {
-        padding: 0 0.5rem;
+        padding: 0.5rem 1rem;
         text-decoration: none;
     }
 
