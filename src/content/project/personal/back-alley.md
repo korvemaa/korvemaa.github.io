@@ -1,6 +1,6 @@
 ---
 title:  "Back Alley"
-description: "This environment is inspired by a map that was a style guide for the early era of the Half life 2 Beta (2000 - 2001)."
+description: "A environment that was inspired by a map made for the early era of the Half Life: 2 beta (2000-2001). I made it to show what a half life 2 beta map could look like in Source 2."
 group: "Personal"
 tags: ["source2", "hammer", "art"]
 thumbnail: "images/back-alley/thumbnail.jpg"
@@ -14,8 +14,3 @@ gallery: [
 date: 'May 25 2020'
 links: ["https://www.artstation.com/artwork/aRvA90", "https://steamcommunity.com/sharedfiles/filedetails/?id=2108271041"]
 ---
-
-## What is Back Alley?
-
-Back alley was a style guide map that was inspired by another style guide map. It was made to demonstrate what a half life 2 beta map 
-could potentially look like in Source 2. All assets are from Half-Life: Alyx itself.

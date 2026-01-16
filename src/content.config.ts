@@ -23,7 +23,8 @@ const project = defineCollection({
 		gallery: z.array(image()).optional(), // hq images showed as a slideshow in the page
 		videos: z.array(z.string()).optional(), // YouTube videos to show below the gallery in groups of two
 		links: z.array(z.string()).optional(),
-		tags: z.array(z.string()).optional()
+		tags: z.array(z.string()).optional(),
+		global: z.boolean().optional().default(true),
 	})
 });
 

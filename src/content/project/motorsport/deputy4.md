@@ -1,5 +1,6 @@
 ---
 title:  "Deputy 4hr | Round 4"
+global: false
 description: "Wanted to put this somewhere on my website cause I thought it was cool."
 group: "Motorsport"
 date: "May 2025"

@@ -1,0 +1,16 @@
+---
+import Project from "../../layouts/Project.astro";
+import { type CollectionEntry, getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+    const posts = (await getCollection("project")).filter(e=>e.id.startsWith("superboss-games"));
+    return posts.map((project) => ({
+        params: { slug: project.id.substring("superboss-games".length) },
+        props: project,
+    }));
+}
+
+type Props = CollectionEntry<"project">;
+---
+
+<Project post={Astro.props} backUrl="/superboss-games"></Project>

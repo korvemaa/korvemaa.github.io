@@ -6,23 +6,21 @@ import ProjectTile from "@component/ProjectTile.astro";
 import { createText } from "@src/utility";
 
 const projects = (await getCollection("project"))
-    .filter((e) => e.data.group == "Personal")
+    .filter((e) => e.data.global)
     .sort((a, b) => {
         const da = a.data.date?.getTime() ?? 100;
         const db = b.data.date?.getTime() ?? 100;
         return db - da;
     });
-
-const title = createText("Personal", "Future");
 ---
 
 <Layout title="Personal">
     <ScrollView useMargin={true}>
         <div class="content">
             <section id="about">
-                <pre class="ascii-art">{title}</pre>
-                <hr />
-                A little bit of this, a little bit of that outside of work.
+                Projects
+                <hr>
+                All the projects I've worked on and felt that they are worthy of including here. Also includes projects from my professional experience.
             </section>
             <section id="projects">
                 {

@@ -2,6 +2,8 @@
 import Layout from "../../layouts/Layout.astro";
 import ScrollView from "../../components/ScrollView.astro";
 import { getCollection } from "astro:content";
+import SimpleProjectTile from "@component/SimpleProjectTile.astro";
+import VerticalProjectTile from "@component/VerticalProjectTile.astro";
 
 const projects = (await getCollection("project"))
     .filter((e) => e.data.group == "Eagle One")
@@ -14,15 +16,63 @@ const projects = (await getCollection("project"))
 
 <Layout title="Eagle One">
     <ScrollView useMargin={true}>
-        <div class="content">EAGLE FRIGGEN 1</div>
+        <div class="content">
+            <section>
+                Eagle One
+                <hr />
+                A collection of exceptionally talented developers and artists. I was an advisor, programmer and environment artist for a variety of projects.
+            </section>
+            <section id="projects">
+                Alyx Bond
+                <hr />
+                A multi-part campaign series about Alyx being a spy. Heavily inspired by Goldeneye.
+                <div class="grid">
+                    {
+                        projects.map((post) => {
+                            return (
+                                <a href={`/${post.id}`}>
+                                    <VerticalProjectTile
+                                        title={post.data.title}
+                                        date={post.data.date}
+                                        thumbnail={post.data.thumbnail}
+                                    />
+                                </a>
+                            );
+                        })
+                    }
+                </div>
+            </section>
+        </div>
     </ScrollView>
 </Layout>
 
 <style>
-    .content {
+    section {
+        display: flex;
+        flex-direction: column;
         padding: 1rem;
+        border: var(--border-width) dotted var(--dimmed-glow-color);
+        overflow: hidden;
+        gap: 0.5rem;
+
+        background: var(--box-fade);
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+        gap: 0.5rem;
+    }
+
+    section#projects a {
+        text-decoration: none;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        gap: 1rem;
     }
 </style>
-
-
 

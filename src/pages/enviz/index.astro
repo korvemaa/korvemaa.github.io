@@ -3,9 +3,6 @@ import { getCollection, getEntry } from "astro:content";
 import Layout from "@layout/Layout.astro";
 import ScrollView from "@component/ScrollView.astro";
 import VerticalProjectTile from "@component/VerticalProjectTile.astro";
-import DynamicLink from "@component/DynamicLink.astro";
-import ExperienceBar from "@component/ExperienceBar.astro";
-import { createText } from "@src/utility";
 import SimpleProjectTile from "@component/SimpleProjectTile.astro";
 
 const projects = (await getCollection("project"))
@@ -17,36 +14,43 @@ const projects = (await getCollection("project"))
     });
 
 const platforms = projects.filter((e) => e.data.group.endsWith("Apps"));
+const modes = projects.filter((e) => e.data.group.endsWith("Modes"));
 const automation = projects.filter((e) => e.data.group.endsWith("Automation"));
-
-const experience = await getEntry("experience", "enviz");
-const title = createText("Enviz", "DiamFont", true) + "\n\n";
 ---
 
 <Layout title="Enviz">
     <ScrollView useMargin={true}>
         <div class="content">
-            <div class="header">
-                <section>
-                    <pre class="ascii-art">{title}</pre>
-                    <hr />
-                    I did a bunch of stuff at Enviz and I worked there for a while
-                    very rad... What to add to this little section? Maybe something
-                    about what Enviz is?
-                </section>
-                <section id="links">
-                    Find out more about Enviz at the following links!
-                    <hr />
-                    <DynamicLink href="https://enviz.co" />
-                    <DynamicLink href="https://explore.enviz.co/spaces" />
-                </section>
-            </div>
-            <section id="experience">
-                <ExperienceBar experience={experience} />
+            <section>
+                Enviz
+                <hr />
+                The ultimate sales platform for selling un-built property.
+            </section>
+            <section id="projects">
+                Automation
+                <hr />
+                The backend system that runs in the cloud for processing automated
+                conversions.
+                <div class="grid">
+                    {
+                        automation.map((post) => {
+                            return (
+                                <a href={`/${post.id}`}>
+                                    <SimpleProjectTile
+                                        title={post.data.title}
+                                        thumbnail={post.data.thumbnail}
+                                    />
+                                </a>
+                            );
+                        })
+                    }
+                </div>
             </section>
             <section id="projects">
                 Apps
                 <hr />
+                Because Enviz's client uses Unity we're able to easily deploy to a
+                wide net of platforms such as VR, mobile and web.
                 <div class="grid">
                     {
                         platforms.map((post) => {
@@ -63,12 +67,13 @@ const title = createText("Enviz", "DiamFont", true) + "\n\n";
                 </div>
             </section>
             <section id="projects">
-                Automation
+                Modes
                 <hr />
-                The automation system that runs in the cloud.
+                Different types of modes in spaces that allow traversal and exploring
+                in a variety of ways.
                 <div class="grid">
                     {
-                        automation.map((post) => {
+                        modes.map((post) => {
                             return (
                                 <a href={`/${post.id}`}>
                                     <SimpleProjectTile
@@ -97,25 +102,9 @@ const title = createText("Enviz", "DiamFont", true) + "\n\n";
         background: var(--box-fade);
     }
 
-    .content .header {
-        display: grid;
-        grid-template-columns: 1fr max-content;
-        gap: 1rem;
-    }
-
-    @media (max-width: 1100px) {
-        .content .header {
-            grid-template-columns: 1fr;
-        }
-
-        .content .header section {
-            align-items: center;
-        }
-    }
-
     .grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(min(250px, 100%), 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr));
         gap: 0.5rem;
     }
 

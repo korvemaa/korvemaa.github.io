@@ -2,13 +2,10 @@
 import { getCollection, getEntry } from "astro:content";
 import Layout from "@layout/Layout.astro";
 import ScrollView from "@component/ScrollView.astro";
-import DynamicLink from "@component/DynamicLink.astro";
-import ExperienceBar from "@component/ExperienceBar.astro";
 import SimpleProjectTile from "@component/SimpleProjectTile.astro";
-import { createText } from "@src/utility";
 
 const projects = (await getCollection("project"))
-    .filter((e) => e.id.startsWith("intruder"))
+    .filter((e) => e.id.startsWith("superboss-games"))
     .sort((a, b) => {
         const da = a.data.date?.getTime() ?? 100;
         const db = b.data.date?.getTime() ?? 100;
@@ -19,30 +16,15 @@ const experience = await getEntry("experience", "superboss");
 
 const weapons = projects.filter((e) => e.data.group.endsWith("Weapon"));
 const maps = projects.filter((e) => e.data.group.endsWith("Map"));
-
-const title = createText("Intruder", "Slant");
 ---
 
-<Layout title="Intruder">
+<Layout title="Superboss Games">
     <ScrollView useMargin={true}>
         <div class="content">
-            <div class="header">
-                <section id="about">
-                    <pre class="ascii-art">{title}</pre>
-                    <hr />
-                    A stealth action multiplayer game developed by Superboss Games.
-                </section>
-                <section id="links">
-                    Check out Intruder at the following links!
-                    <hr />
-                    <DynamicLink href="https://intruderfps.com/" />
-                    <DynamicLink
-                        href="https://store.steampowered.com/app/518150/Intruder/"
-                    />
-                </section>
-            </div>
-            <section id="experience">
-                <ExperienceBar experience={experience} />
+            <section id="about">
+                Superboss Games
+                <hr />
+                I worked on Intruder, a stealth action multiplayer game as a technical artist.
             </section>
             <section id="projects">
                 Weapons
@@ -71,9 +53,9 @@ const title = createText("Intruder", "Slant");
                 </div>
             </section>
             <section id="projects">
-                Maps
+                Custom Maps
                 <hr />
-                Custom maps I made for Intruder. Making updates to the Unity tools
+                Making updates to the Unity tools
                 is actually what got me into programming!
                 <div class="grid">
                     {
@@ -99,6 +81,13 @@ const title = createText("Intruder", "Slant");
 </Layout>
 
 <style>
+    .content {
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        gap: 1rem;
+    }
+
     section {
         display: flex;
         flex-direction: column;
@@ -128,14 +117,7 @@ const title = createText("Intruder", "Slant");
 
     .grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(min(350px, 100%), 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
         gap: 0.5rem;
-    }
-
-    .content {
-        display: flex;
-        flex-direction: column;
-        padding: 1rem;
-        gap: 1rem;
     }
 </style>
