@@ -1,14 +1,16 @@
 ---
 import ScrollView from "../components/ScrollView.astro";
-import DynamicLink from "../components/DynamicLink.astro";
-import { timeAgo } from "../utility";
 import { getImage } from "astro:assets";
 import { type CollectionEntry, render } from "astro:content";
 import Layout from "../layouts/Layout.astro";
 import OpenGraphImage from "../components/OpenGraphImage.astro";
 
-type Props = { post: CollectionEntry<"project">; backUrl: string };
-const { post, backUrl } = Astro.props;
+type Props = {
+    post: CollectionEntry<"project">;
+    backUrl: string;
+    breadcrumb?: string;
+};
+const { post, backUrl, breadcrumb } = Astro.props;
 const { Content } = await render(post);
 
 const thumbnail = post.data.thumbnail
@@ -37,6 +39,25 @@ const hasVideos = post.data.videos;
             />
         )
     }
+    <div class="breadcrumbs">
+        <a id="back" href={backUrl}>{"<"}</a>
+        {
+            post.data.global && (
+                <a id="previous" href="/projects">Projects</a>
+                <span>{"/"}</span>
+            )
+        }
+        
+        {
+            breadcrumb && (
+                <a id="previous" href={backUrl}>
+                    {breadcrumb}
+                </a>
+                <span>{"/"}</span>
+            )
+        }
+        <span>{post.data.title}</span>
+    </div>
     <ScrollView style="scroll-behavior:smooth;" useMargin={true}>
         <article>
             {
@@ -86,6 +107,33 @@ const hasVideos = post.data.videos;
 </Layout>
 
 <style>
+    .breadcrumbs {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+
+        padding: 1rem 0;
+        padding-bottom: 0.5rem;
+        border-bottom: var(--border-width) dotted var(--dimmed-glow-color);
+        margin: 0 1rem;
+    }
+
+    .breadcrumbs a {
+        text-decoration: none;
+    }
+
+    .breadcrumbs #previous:hover {
+        text-decoration: underline;
+    }
+
+    .breadcrumbs #back {
+        padding: 0 0.5rem;
+    }
+
+    .breadcrumbs #back:hover {
+        background-color: var(--dimmed-glow-color);
+    }
+
     article {
         display: flex;
         flex-direction: column;
