@@ -16,6 +16,7 @@ const experience = await getEntry("experience", "superboss");
 
 const weapons = projects.filter((e) => e.data.group.endsWith("Weapon"));
 const maps = projects.filter((e) => e.data.group.endsWith("Map"));
+const videos = ["peCgGt7N-84", "hLJy1IBNfHs"];
 ---
 
 <Layout title="Superboss Games">
@@ -24,7 +25,23 @@ const maps = projects.filter((e) => e.data.group.endsWith("Map"));
             <section id="about">
                 Superboss Games
                 <hr />
-                I worked on Intruder, a stealth action multiplayer game as a technical artist.
+                I worked on Intruder, a stealth action multiplayer game as a technical
+                artist.
+            </section>
+            <section id="projects">
+                Videos
+                <hr />
+                <div class="videos">
+                    {
+                        videos.map((e) => (
+                            <iframe
+                                class="youtube"
+                                src=`https://www.youtube.com/embed/${e}`
+                                allowfullscreen
+                            />
+                        ))
+                    }
+                </div>
             </section>
             <section id="projects">
                 Weapons
@@ -55,8 +72,7 @@ const maps = projects.filter((e) => e.data.group.endsWith("Map"));
             <section id="projects">
                 Custom Maps
                 <hr />
-                Making updates to the Unity tools
-                is actually what got me into programming!
+                Making updates to the Unity tools is actually what got me into programming!
                 <div class="grid">
                     {
                         maps.map((post) => {
@@ -99,18 +115,6 @@ const maps = projects.filter((e) => e.data.group.endsWith("Map"));
         background: var(--box-fade);
     }
 
-    .content .header {
-        display: grid;
-        grid-template-columns: 1fr max-content;
-        gap: 1rem;
-    }
-
-    @media (max-width: 1100px) {
-        .content .header {
-            grid-template-columns: 1fr;
-        }
-    }
-
     section#projects a {
         text-decoration: none;
     }
@@ -119,5 +123,20 @@ const maps = projects.filter((e) => e.data.group.endsWith("Map"));
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
         gap: 0.5rem;
+    }
+
+    .videos {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(min(350px, 100%), 1fr));
+        gap: 0.5rem;
+    }
+
+    .videos .youtube {
+        display: inline-flex;
+        aspect-ratio: 16/9;
+        flex-grow: 1;
+        width: 100%;
+        height: 100%;
+        border: 0;
     }
 </style>

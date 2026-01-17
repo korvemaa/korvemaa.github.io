@@ -16,6 +16,8 @@ const projects = (await getCollection("project"))
 const platforms = projects.filter((e) => e.data.group.endsWith("Apps"));
 const modes = projects.filter((e) => e.data.group.endsWith("Modes"));
 const automation = projects.filter((e) => e.data.group.endsWith("Automation"));
+
+const videos = ["NnytluMi5rA", "wmEDHk5knnk"];
 ---
 
 <Layout title="Enviz">
@@ -25,6 +27,21 @@ const automation = projects.filter((e) => e.data.group.endsWith("Automation"));
                 Enviz
                 <hr />
                 The ultimate sales platform for selling un-built property.
+            </section>
+            <section id="projects">
+                Videos
+                <hr />
+                <div class="videos">
+                    {
+                        videos.map((e) => (
+                            <iframe
+                                class="youtube"
+                                src=`https://www.youtube.com/embed/${e}`
+                                allowfullscreen
+                            />
+                        ))
+                    }
+                </div>
             </section>
             <section id="projects">
                 Automation
@@ -91,6 +108,13 @@ const automation = projects.filter((e) => e.data.group.endsWith("Automation"));
 </Layout>
 
 <style>
+    .content {
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        gap: 1rem;
+    }
+
     section {
         display: flex;
         flex-direction: column;
@@ -102,20 +126,28 @@ const automation = projects.filter((e) => e.data.group.endsWith("Automation"));
         background: var(--box-fade);
     }
 
+    section#projects a {
+        text-decoration: none;
+    }
+
     .grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr));
         gap: 0.5rem;
     }
 
-    section#projects a {
-        text-decoration: none;
+    .videos {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(min(350px, 100%), 1fr));
+        gap: 0.5rem;
     }
 
-    .content {
-        display: flex;
-        flex-direction: column;
-        padding: 1rem;
-        gap: 1rem;
+    .videos .youtube {
+        display: inline-flex;
+        aspect-ratio: 16/9;
+        flex-grow: 1;
+        width: 100%;
+        height: 100%;
+        border: 0;
     }
 </style>
