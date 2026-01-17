@@ -58,6 +58,53 @@ const socials = [
 					}
 				</div>
 			</section>
+			<div class="about-content">
+				<section>
+					<h2>Technical Skills</h2>
+					<hr />
+					<p>
+						I can work in a wide variety of technologies and areas
+						of development. From level design, to texture art to
+						then programming and anything in between.
+					</p>
+					<hr />
+					<div class="technical">
+						<code>csharp</code>
+						<code>unity</code>
+						<code>javascript</code>
+						<code>azure</code>
+						<code>html/css</code>
+						<code>blender</code>
+						<code>lua</code>
+						<code>webgl</code>
+						<code>substance-painter</code>
+						<code>python</code>
+					</div>
+				</section>
+				<section>
+					<h2>My Interests</h2>
+					<hr />
+					<p>
+						I like learning new things, always challenging myself with building
+						different and unique projects.
+					</p>
+					<p>
+						Outside of development I love hitting the <a href="/motorsport">track and going fast</a> and unwinding
+						playing games when time allows it.
+					</p>
+				</section>
+			</div>
+			<section id="experience">
+				<h2>Professional Experience</h2>
+				<hr />
+				{
+					experience.map((job) => (
+						<a href={job.data.projects}>
+							<ExperienceBar experience={job} />
+						</a>
+					))
+				}
+			</section>
 			<section id="status">
 				<h2>My Status</h2>
 				<hr />
@@ -78,29 +125,6 @@ const socials = [
 				<div style="display:flex;flex-grow:1;"></div>
 				<hr />
 				<span id="motd" style="align-self: flex-start;">MOTD</span>
-			</section>
-			<section>
-				<h2>Technologies</h2>
-				<hr />
-				<p>
-					I can work in a wide variety of technologies and areas of
-					development. From level design, to texture art to then
-					software engineering and anything in between.
-				</p>
-				<p>
-					<div>a technology</div>
-				</p>
-			</section>
-			<section id="experience">
-				<h2>Professional Experience</h2>
-				<hr />
-				{
-					experience.map((job) => (
-						<a href={job.data.projects}>
-							<ExperienceBar experience={job} />
-						</a>
-					))
-				}
 			</section>
 		</div>
 	</ScrollView>
@@ -205,6 +229,16 @@ const socials = [
 		flex-direction: column;
 		margin: 1rem;
 		gap: 1rem;
+	}
+
+	.about-content {
+		display: grid;
+		gap: 1rem;
+		grid-template-columns: repeat(auto-fill, minmax(min(350px, 100%), 1fr));
+	}
+
+	.technical code {
+		font-size: 12px;
 	}
 
 	section {

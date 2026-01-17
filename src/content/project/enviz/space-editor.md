@@ -3,7 +3,7 @@ title:  "Space Editor"
 description: Customer facing space editor for Enviz.
 group: "Enviz/Apps"
 tags: ["azure", "webgl", "unity", "csharp"]
-thumbnail: "images/space-editor.png"
+thumbnail: "images/space-editor2.png"
 date: 'Jan 1 2024'
 links: ["https://enviz.co"]
 ---
