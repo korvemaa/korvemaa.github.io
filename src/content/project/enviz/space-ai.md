@@ -1,5 +1,6 @@
 ---
 title:  "Automated Conversions"
+global: false
 description: "The conversion pipeline to get model files into the Enviz ecosystem."
 group: "Enviz/Automation"
 tags: ["automation", "blender", "azure"]

@@ -1,5 +1,6 @@
 ---
 title:  "Scene Descriptor"
+global: false
 description: "The custom file format that holds converted scenes"
 group: "Enviz/Automation"
 tags: ["automation", "blender", "azure"]

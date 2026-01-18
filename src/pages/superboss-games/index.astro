@@ -3,6 +3,7 @@ import { getCollection, getEntry } from "astro:content";
 import Layout from "@layout/Layout.astro";
 import ScrollView from "@component/ScrollView.astro";
 import SimpleProjectTile from "@component/SimpleProjectTile.astro";
+import Breadcrumbs from "@component/Breadcrumbs.astro";
 
 const projects = (await getCollection("project"))
     .filter((e) => e.id.startsWith("superboss-games"))
@@ -20,6 +21,7 @@ const videos = ["peCgGt7N-84", "hLJy1IBNfHs"];
 ---
 
 <Layout title="Superboss Games">
+    <Breadcrumbs active={"Superboss Games"} routes={[{href: "/projects", name: "Projects"}]} />
     <ScrollView useMargin={true}>
         <div class="content">
             <section id="about">

@@ -1,5 +1,6 @@
 ---
 title:  "Mobile App"
+global: false
 group: "Enviz/Apps"
 description: "An app allowing exploration of spaces in AR/VR and other modes."
 tags: ["unity", "csharp", "ios", "android"]

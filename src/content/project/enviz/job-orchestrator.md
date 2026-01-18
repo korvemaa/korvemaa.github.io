@@ -1,5 +1,6 @@
 ---
 title:  "Job Orchestrator"
+global: false
 description: "The backend process that runs scheduled automation"
 group: "Enviz/Automation"
 tags: ["automation", "blender", "azure"]

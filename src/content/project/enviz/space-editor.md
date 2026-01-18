@@ -1,5 +1,6 @@
 ---
 title:  "Space Editor"
+global: false
 description: Customer facing space editor for Enviz.
 group: "Enviz/Apps"
 tags: ["azure", "webgl", "unity", "csharp"]

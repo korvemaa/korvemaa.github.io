@@ -3,15 +3,22 @@ import { getCollection } from "astro:content";
 import Layout from "@layout/Layout.astro";
 import ScrollView from "@component/ScrollView.astro";
 import ProjectTile from "@component/ProjectTile.astro";
-import { createText } from "@src/utility";
+import SimpleProjectTile from "@component/SimpleProjectTile.astro";
 
 const projects = (await getCollection("project"))
-    .filter((e) => e.data.global)
+    .filter((e) => e.id.startsWith("projects"))
     .sort((a, b) => {
         const da = a.data.date?.getTime() ?? 100;
         const db = b.data.date?.getTime() ?? 100;
         return db - da;
     });
+
+const now = new Date().getTime();
+const experience = (await getCollection("experience")).sort((a, b) => {
+    const da = a.data.endDate?.getTime() ?? now;
+    const db = b.data.endDate?.getTime() ?? now;
+    return db - da;
+});
 ---
 
 <Layout title="Personal">
@@ -19,22 +26,45 @@ const projects = (await getCollection("project"))
         <div class="content">
             <section id="about">
                 Projects
-                <hr>
-                All the projects I've worked on and felt that they are worthy of including here. Also includes projects from my professional experience.
+                <hr />
+                Notable projects I've worked.
+            </section>
+            <section id="experience">
+                Professional Work
+                <hr />
+                <div class="grid">
+                    {
+                        experience.map((company) => (
+                            <a href={company.data.projects}>
+                                <SimpleProjectTile
+                                    title={company.data.name}
+                                    thumbnail={
+                                        company.data.thumbnail ||
+                                        company.data.icon
+                                    }
+                                />
+                            </a>
+                        ))
+                    }
+                </div>
             </section>
             <section id="projects">
-                {
-                    projects.map((post, index) => {
-                        return (
-                            <a
-                                data-group={post.data.group}
-                                href={`/${post.id}`}
-                            >
-                                <ProjectTile project={post} />
-                            </a>
-                        );
-                    })
-                }
+                Personal Projects
+                <hr />
+                <div class="collection">
+                    {
+                        projects.map((post, index) => {
+                            return (
+                                <a
+                                    data-group={post.data.group}
+                                    href={`/${post.id}`}
+                                >
+                                    <ProjectTile project={post} />
+                                </a>
+                            );
+                        })
+                    }
+                </div>
             </section>
         </div>
     </ScrollView>
@@ -58,17 +88,24 @@ const projects = (await getCollection("project"))
         background: var(--box-fade);
     }
 
-    section#projects {
-        background: none;
-        border: none;
-        padding: 0;
+    section#projects .collection {
         display: flex;
         flex-direction: column;
         gap: 1rem;
     }
 
-    section#projects a {
+    section#projects .collection a {
         text-decoration: none;
-        background: var(--box-fade);
+        /* background: var(--box-fade); */
+    }
+
+    section#experience .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr));
+        gap: 0.5rem;
+    }
+
+    section#experience .grid a {
+        text-decoration: none;
     }
 </style>

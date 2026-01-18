@@ -4,6 +4,7 @@ import Layout from "@layout/Layout.astro";
 import ScrollView from "@component/ScrollView.astro";
 import VerticalProjectTile from "@component/VerticalProjectTile.astro";
 import SimpleProjectTile from "@component/SimpleProjectTile.astro";
+import Breadcrumbs from "@component/Breadcrumbs.astro";
 
 const projects = (await getCollection("project"))
     .filter((e) => e.id.startsWith("enviz"))
@@ -21,6 +22,7 @@ const videos = ["NnytluMi5rA", "wmEDHk5knnk"];
 ---
 
 <Layout title="Enviz">
+    <Breadcrumbs active={"Enviz"} routes={[{href: "/projects", name: "Projects"}]} />
     <ScrollView useMargin={true}>
         <div class="content">
             <section>

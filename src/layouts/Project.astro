@@ -1,9 +1,10 @@
 ---
-import ScrollView from "../components/ScrollView.astro";
 import { getImage } from "astro:assets";
 import { type CollectionEntry, render } from "astro:content";
-import Layout from "../layouts/Layout.astro";
-import OpenGraphImage from "../components/OpenGraphImage.astro";
+import Layout from "@layout/Layout.astro";
+import ScrollView from "@component/ScrollView.astro";
+import OpenGraphImage from "@component/OpenGraphImage.astro";
+import Breadcrumbs from "@component/Breadcrumbs.astro";
 
 type Props = {
     post: CollectionEntry<"project">;
@@ -26,6 +27,11 @@ const videos = post.data.videos;
 const hasArticle = (post.body || "").length > 0;
 const hasGallery = gallery?.length != 0;
 const hasVideos = post.data.videos;
+
+const routes = [{ href: "/projects", name: "Projects" }];
+if (breadcrumb) {
+    routes.push({ href: backUrl, name: breadcrumb || "undefined" });
+}
 ---
 
 <Layout title={post.data.title} description={post.data.description}>
@@ -39,25 +45,7 @@ const hasVideos = post.data.videos;
             />
         )
     }
-    <div class="breadcrumbs">
-        <a id="back" href={backUrl}>{"<"}</a>
-        {
-            post.data.global && (
-                <a id="previous" href="/projects">Projects</a>
-                <span>{"/"}</span>
-            )
-        }
-        
-        {
-            breadcrumb && (
-                <a id="previous" href={backUrl}>
-                    {breadcrumb}
-                </a>
-                <span>{"/"}</span>
-            )
-        }
-        <span>{post.data.title}</span>
-    </div>
+    <Breadcrumbs active={post.data.title} routes={routes} />
     <ScrollView style="scroll-behavior:smooth;" useMargin={true}>
         <article>
             {
@@ -74,14 +62,16 @@ const hasVideos = post.data.videos;
                     <section id="videos">
                         Videos
                         <hr />
-                        {videos &&
-                            videos.map((video) => (
-                                <iframe
-                                    class="youtube-video"
-                                    src={`https://www.youtube.com/embed/${video}`}
-                                    allowfullscreen
-                                />
-                            ))}
+                        <div class="grid">
+                            {videos &&
+                                videos.map((video) => (
+                                    <iframe
+                                        class="youtube-video"
+                                        src={`https://www.youtube.com/embed/${video}`}
+                                        allowfullscreen
+                                    />
+                                ))}
+                        </div>
                     </section>
                 )
             }
@@ -107,33 +97,6 @@ const hasVideos = post.data.videos;
 </Layout>
 
 <style>
-    .breadcrumbs {
-        display: flex;
-        flex-direction: row;
-        gap: 1rem;
-
-        padding: 1rem 0;
-        padding-bottom: 0.5rem;
-        border-bottom: var(--border-width) dotted var(--dimmed-glow-color);
-        margin: 0 1rem;
-    }
-
-    .breadcrumbs a {
-        text-decoration: none;
-    }
-
-    .breadcrumbs #previous:hover {
-        text-decoration: underline;
-    }
-
-    .breadcrumbs #back {
-        padding: 0 0.5rem;
-    }
-
-    .breadcrumbs #back:hover {
-        background-color: var(--dimmed-glow-color);
-    }
-
     article {
         display: flex;
         flex-direction: column;
@@ -199,8 +162,18 @@ const hasVideos = post.data.videos;
         image-rendering: auto;
     }
 
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(min(350px, 100%), 1fr));
+        gap: 0.5rem;
+    }
+
     .youtube-video {
+        display: inline-flex;
         aspect-ratio: 16/9;
+        flex-grow: 1;
+        width: 100%;
+        height: 100%;
         border: 0;
     }
 </style>

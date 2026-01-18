@@ -24,7 +24,6 @@ const project = defineCollection({
 		videos: z.array(z.string()).optional(), // YouTube videos to show below the gallery in groups of two
 		links: z.array(z.string()).optional(),
 		tags: z.array(z.string()).optional(),
-		global: z.boolean().optional().default(true),
 	})
 });
 
@@ -38,7 +37,8 @@ const experience = defineCollection({
 		projects: z.string(),
 		startDate: z.coerce.date(),
 		endDate: z.coerce.date().optional(),
-		icon: image().optional(), // Shown in the projects panel. should be 1:1
+		icon: image().optional(), // Shown in the experience panel. should be 1:1
+		thumbnail: image().optional(), // Shown in the projects panel. should be 16/9 roughly
 	})
 
 });

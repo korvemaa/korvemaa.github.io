@@ -1,0 +1,54 @@
+---
+type Props = {
+    routes: { href: string; name: string }[];
+    active: string;
+};
+
+const { routes, active } = Astro.props;
+
+const previous = routes[routes.length - 1].href;
+---
+
+<div class="breadcrumbs">
+    <a id="back" href={previous}>{"<"}</a>
+    {
+        routes.map(({ href, name }) => (
+            <>
+                <a id="previous" href={href}>
+                    {name}
+                </a>
+                <span>{"/"}</span>
+            </>
+        ))
+    }
+    <span>{active}</span>
+</div>
+
+<style>
+    .breadcrumbs {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+
+        padding: 1rem 0;
+        padding-bottom: 0.5rem;
+        border-bottom: var(--border-width) dotted var(--dimmed-glow-color);
+        margin: 0 1rem;
+    }
+
+    .breadcrumbs a {
+        text-decoration: none;
+    }
+
+    .breadcrumbs #previous:hover {
+        text-decoration: underline;
+    }
+
+    .breadcrumbs #back {
+        padding: 0 0.5rem;
+    }
+
+    .breadcrumbs #back:hover {
+        background-color: var(--dimmed-glow-color);
+    }
+</style>

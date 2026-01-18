@@ -1,9 +1,9 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import ScrollView from "../../components/ScrollView.astro";
 import { getCollection } from "astro:content";
-import SimpleProjectTile from "@component/SimpleProjectTile.astro";
+import Layout from "@layout/Layout.astro";
+import ScrollView from "@component/ScrollView.astro";
 import VerticalProjectTile from "@component/VerticalProjectTile.astro";
+import Breadcrumbs from "@component/Breadcrumbs.astro";
 
 const projects = (await getCollection("project"))
     .filter((e) => e.data.group == "Eagle One")
@@ -15,6 +15,7 @@ const projects = (await getCollection("project"))
 ---
 
 <Layout title="Eagle One">
+    <Breadcrumbs active={"Eagle One"} routes={[{href: "/projects", name: "Projects"}]} />
     <ScrollView useMargin={true}>
         <div class="content">
             <section>
