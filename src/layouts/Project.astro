@@ -5,6 +5,7 @@ import Layout from "@layout/Layout.astro";
 import ScrollView from "@component/ScrollView.astro";
 import OpenGraphImage from "@component/OpenGraphImage.astro";
 import Breadcrumbs from "@component/Breadcrumbs.astro";
+import { timeAgo } from "@src/utility";
 
 type Props = {
     post: CollectionEntry<"project">;
@@ -28,7 +29,11 @@ const hasArticle = (post.body || "").length > 0;
 const hasGallery = gallery?.length != 0;
 const hasVideos = post.data.videos;
 
-const routes = [{ href: "/projects", name: "Projects" }];
+const routes = [];
+
+if (!post.id.startsWith("motorsport"))
+    routes.push({ href: "/projects", name: "Projects" });
+
 if (breadcrumb) {
     routes.push({ href: backUrl, name: breadcrumb || "undefined" });
 }
@@ -45,22 +50,49 @@ if (breadcrumb) {
             />
         )
     }
-    <Breadcrumbs active={post.data.title} routes={routes} />
+    {
+        routes.length > 0 && (
+            <Breadcrumbs active={post.data.title} routes={routes} />
+        )
+    }
     <ScrollView style="scroll-behavior:smooth;" useMargin={true}>
         <article>
-            {
-                hasArticle && (
-                    <section id="article">
-                        <div>
-                            <Content />
-                        </div>
-                    </section>
-                )
-            }
+            <section id="about">
+                <div
+                    style={`background-image: url('${thumbnail?.src}')`}
+                    class="thumbnail"
+                >
+                </div>
+                <div class="content">
+                    <h2>{post.data.title}</h2>
+                    <hr />
+                    <p>{post.data.description}</p>
+                    <div style="display: flex; flex-grow: 1;"></div>
+                    <div class="tags">
+                        {
+                            post.data.tags &&
+                                post.data.tags
+                                    .sort()
+                                    .map((tag) => <code>{tag}</code>)
+                        }
+                    </div>
+
+                    <div class="bottom">
+                        {
+                            post.data.date && (
+                                <span class="age">
+                                    {timeAgo(post.data.date)}
+                                </span>
+                            )
+                        }
+                    </div>
+                </div>
+            </section>
+            {hasArticle && <Content />}
             {
                 hasVideos && (
                     <section id="videos">
-                        Videos
+                        <h2>Videos</h2>
                         <hr />
                         <div class="grid">
                             {videos &&
@@ -78,7 +110,7 @@ if (breadcrumb) {
             {
                 hasGallery && (
                     <section id="gallery">
-                        Gallery
+                        <h2>Gallery</h2>
                         <hr />
                         {gallery &&
                             gallery.map((img) => (
@@ -97,6 +129,13 @@ if (breadcrumb) {
 </Layout>
 
 <style>
+    h2 {
+        background: none;
+        padding: 0;
+        margin: 0;
+        font-size: var(--font-size);
+    }
+
     article {
         display: flex;
         flex-direction: column;
@@ -115,46 +154,44 @@ if (breadcrumb) {
     }
 
     section#about {
-    }
-
-    section#about .title {
         display: flex;
         flex-direction: row;
         gap: 1rem;
-    }
-
-    section#about .title a {
-        text-decoration: none;
-    }
-
-    section#about .title a:hover {
-        text-decoration: underline;
     }
 
     section#about .content {
         display: flex;
-        flex-direction: row;
-        gap: 1rem;
+        flex-direction: column;
+        flex-grow: 1;
+        gap: 0.5rem;
+    }
+
+    section#about .content p {
+        display: flex;
     }
 
     section#about .tags {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
+        flex-shrink: 1;
+        gap: 4px;
         font-size: 12px;
-        gap: 0.5rem;
-    }
-
-    section#about .thumbnail {
-        aspect-ratio: 1/1;
-        height: 150px;
-
-        background-position: center;
-        background-size: cover;
     }
 
     section#about .age {
         opacity: 0.4;
+    }
+
+    section#about .thumbnail {
+        display: flex;
+        aspect-ratio: 1/1;
+        width: 180px;
+        height: 180px;
+        image-rendering: auto;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
     }
 
     img {

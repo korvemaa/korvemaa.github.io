@@ -3,7 +3,7 @@ import { getImage } from "astro:assets";
 const { title, thumbnail, date } = Astro.props;
 import { timeAgo } from "../utility";
 
-const image = thumbnail != null ? await getImage({ src: thumbnail }) : null;
+const image = thumbnail != null ? await getImage({ src: thumbnail, width: 1024 }) : null;
 ---
 
 <article class="tile">

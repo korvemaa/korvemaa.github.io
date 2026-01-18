@@ -13,12 +13,10 @@ const previous = routes[routes.length - 1].href;
     <a id="back" href={previous}>{"<"}</a>
     {
         routes.map(({ href, name }) => (
-            <>
-                <a id="previous" href={href}>
-                    {name}
-                </a>
-                <span>{"/"}</span>
-            </>
+            <a id="previous" href={href}>
+                {name}
+            </a>
+            <span class="slash">{"/"}</span>
         ))
     }
     <span>{active}</span>
@@ -34,6 +32,10 @@ const previous = routes[routes.length - 1].href;
         padding-bottom: 0.5rem;
         border-bottom: var(--border-width) dotted var(--dimmed-glow-color);
         margin: 0 1rem;
+    }
+
+    .breadcrumbs .slash {
+        user-select: none;
     }
 
     .breadcrumbs a {
