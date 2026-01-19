@@ -46,26 +46,6 @@ const videos = ["NnytluMi5rA", "wmEDHk5knnk"];
                 </div>
             </section>
             <section id="projects">
-                Automation
-                <hr />
-                The backend system that runs in the cloud for processing automated
-                conversions.
-                <div class="grid">
-                    {
-                        automation.map((post) => {
-                            return (
-                                <a href={`/${post.id}`}>
-                                    <SimpleProjectTile
-                                        title={post.data.title}
-                                        thumbnail={post.data.thumbnail}
-                                    />
-                                </a>
-                            );
-                        })
-                    }
-                </div>
-            </section>
-            <section id="projects">
                 Apps
                 <hr />
                 Because Enviz's client uses Unity we're able to easily deploy to a
@@ -76,6 +56,26 @@ const videos = ["NnytluMi5rA", "wmEDHk5knnk"];
                             return (
                                 <a href={`/${post.id}`}>
                                     <VerticalProjectTile
+                                        title={post.data.title}
+                                        thumbnail={post.data.thumbnail}
+                                    />
+                                </a>
+                            );
+                        })
+                    }
+                </div>
+            </section>
+            <section id="projects">
+                Automation
+                <hr />
+                The backend system that runs in the cloud for processing automated
+                conversions.
+                <div class="grid">
+                    {
+                        automation.map((post) => {
+                            return (
+                                <a href={`/${post.id}`}>
+                                    <SimpleProjectTile
                                         title={post.data.title}
                                         thumbnail={post.data.thumbnail}
                                     />

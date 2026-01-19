@@ -2,7 +2,7 @@
 title:  "GoldSrc Map Loader"
 description: Load GoldSrc maps at runtime. Automatically mounting WADs and other assets.
 group: "Personal"
-tags: ["csharp", "goldsrc", "unity"]
+tags: ["c#", "goldsrc", "unity"]
 thumbnail: "images/goldsrc-bsp/thumbnail.webp"
 date: 'Dec 12 2023'
 videos: ["h0kvOKy3lW8"]
@@ -15,6 +15,8 @@ that it was a silly idea after a couple years. Occlusion and a bunch of other th
 
 A better idea would of been to make a BSP editor importer. Nonetheless it was still pretty cool.
 
-## Cool technical things
+## Interesting Technical Bits
 
-* The lightmaps get packed as its loading, as the lighting is done per-face instead of in separate packed textures.
+* The lightmaps in a .bsp are stored per-face. So because of this I pack them into atlases
+* Mounts WADs relative to the .bsp
+* Sets up correct entities based on their classname

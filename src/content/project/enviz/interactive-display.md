@@ -1,10 +1,10 @@
 ---
 title:  "Interactive Display"
 global: false
-description: "The custom file format that holds converted scenes"
+description: "The interactive display mode for projects"
 group: "Enviz/Modes"
-tags: ["automation", "blender", "azure"]
-thumbnail: "images/space-ai.png"
+tags: ["unity", "csharp"]
+thumbnail: "images/interactive-display.png"
 date: 'Jan 1 2024'
 links: ["https://enviz.co"]
 ---

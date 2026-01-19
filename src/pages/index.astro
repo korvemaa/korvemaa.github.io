@@ -29,6 +29,22 @@ const socials = [
 		url: "https://www.youtube.com/@JakeK",
 	},
 ];
+
+const skills = [
+	"c#",
+	"c/c++",
+	"unity",
+	"javascript",
+	"azure",
+	"html/css",
+	"blender",
+	"lua",
+	"webgl",
+	"substance-painter",
+	"python",
+	"git",
+	"kubernetes",
+].sort();
 ---
 
 <Layout>
@@ -63,34 +79,27 @@ const socials = [
 					<h2>Technical Skills</h2>
 					<hr />
 					<p>
-						I can work in a wide variety of technologies and areas
-						of development. From level design, to texture art to
-						then programming and anything in between.
+						I work across the software stack, from systems and
+						tooling to backend and frontend development, shaped by
+						real-time, interactive work and complemented by
+						experience in level design and texture art.
 					</p>
 					<hr />
 					<div class="technical">
-						<code>csharp</code>
-						<code>unity</code>
-						<code>javascript</code>
-						<code>azure</code>
-						<code>html/css</code>
-						<code>blender</code>
-						<code>lua</code>
-						<code>webgl</code>
-						<code>substance-painter</code>
-						<code>python</code>
+						{skills.map((skill) => <code>{skill}</code>)}
 					</div>
 				</section>
 				<section>
 					<h2>My Interests</h2>
 					<hr />
 					<p>
-						I like learning new things, always challenging myself with building
-						different and unique projects.
+						I like learning new things, always challenging myself
+						with building different and unique projects.
 					</p>
 					<p>
-						Outside of development I love hitting the <a href="/motorsport">track and going fast</a> and unwinding
-						playing games when time allows it.
+						Outside of development I love hitting the <a
+							href="/motorsport">track and going fast</a
+						> and unwinding playing games when time allows it.
 					</p>
 				</section>
 			</div>
@@ -235,6 +244,12 @@ const socials = [
 		display: grid;
 		gap: 1rem;
 		grid-template-columns: repeat(auto-fill, minmax(min(350px, 100%), 1fr));
+	}
+
+	.technical {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
 	}
 
 	.technical code {
