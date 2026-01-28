@@ -1,5 +1,5 @@
 ---
-title:  "2025 Deputy 4hr Round 6"
+title:  "Deputy 4hr Round 6"
 global: false
 description: "A bipolar weather endurance race"
 group: "Motorsport"

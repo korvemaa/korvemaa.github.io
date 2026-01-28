@@ -23,7 +23,7 @@ const { title, description, namespace } = Astro.props;
         <Effects />
         <div class="website">
             <div class="height-restrict">
-                <div style="display: flex; gap: 1rem;">
+                <div class="top-section">
                     <span> KORVEMAA INDUSTRIES (TM) TERMINAL LINK </span>
                     <div style="display:flex;flex-grow:1;"></div>
                     <span id="current-time" style="opacity:0.4">9:50PM</span>
@@ -110,6 +110,12 @@ const { title, description, namespace } = Astro.props;
         gap: 0.5rem;
     }
 
+    .top-section {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+    }
+
     main {
         position: relative;
 
@@ -129,6 +135,10 @@ const { title, description, namespace } = Astro.props;
     @media (max-width: 550px) {
         .website {
             margin: 0.5rem;
+        }
+
+        .top-section {
+            display: none;
         }
     }
 </style>
