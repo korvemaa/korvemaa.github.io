@@ -1,8 +1,8 @@
 ---
-import Effects from "../components/Effects.astro";
-import BaseHead from "../components/BaseHead.astro";
-import Navigation from "../components/Navigation.astro";
-import Footer from "../components/Footer.astro";
+import Effects from "@component/Effects.astro";
+import BaseHead from "@component/BaseHead.astro";
+import Navigation from "@component/Navigation.astro";
+import Footer from "@component/Footer.astro";
 import { SITE_DESCRIPTION } from "../consts";
 
 const { title, description, namespace } = Astro.props;
@@ -34,6 +34,7 @@ const { title, description, namespace } = Astro.props;
                         <Navigation />
                     </div>
                     <main class="box">
+                        <!-- this is where burger menu button will go  -->
                         <slot />
                     </main>
                 </div>
