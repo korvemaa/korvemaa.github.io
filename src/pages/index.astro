@@ -17,6 +17,7 @@ const firstName = figlet.textSync("Jake", { font });
 const lastName = figlet.textSync("Korvemaa", { font });
 
 const socials = [
+	{ title: "Email", icon: "envelope-fill", url: "mailto:contact@korvemaa.dev" },
 	{ title: "GitHub", icon: "github", url: "https://github.com/korvemaa" },
 	{
 		title: "LinkedIn",
@@ -244,7 +245,7 @@ const skills = [
 	.about-content {
 		display: grid;
 		gap: 1rem;
-		grid-template-columns: repeat(auto-fill, minmax(min(350px, 100%), 1fr));
+		grid-template-columns: repeat(auto-fill, minmax(min(400px, 100%), 1fr));
 	}
 
 	.technical {

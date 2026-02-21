@@ -17,18 +17,11 @@ const themes = [
 
 <nav>
 	<section id="navigation">
-		<span class="not-important">Navigation</span>
 		<HeaderLink href="/">Home</HeaderLink>
 		<!-- <HeaderLink href="/about">About Me</HeaderLink> -->
 		<HeaderLink href="/blog">Blog</HeaderLink>
 		<HeaderLink href="/projects">Projects</HeaderLink>
 		<HeaderLink href="/motorsport">Motorsport</HeaderLink>
-	</section>
-	<section id="projects">
-		<span class="not-important">Experience</span>
-		<HeaderLink href="/enviz">Enviz</HeaderLink>
-		<HeaderLink href="/eagle-one">Eagle One</HeaderLink>
-		<HeaderLink href="/superboss-games">Superboss Games</HeaderLink>
 	</section>
 	<div style="flex-grow: 1;"></div>
 	<section id="theme">
@@ -89,15 +82,15 @@ const themes = [
 
 	nav {
 		display: flex;
-		flex-direction: column;
+		flex-direction: row;
 
-		min-width: 170px;
-		max-width: 170px;
 		flex-shrink: 0;
-		padding: 1rem;
+		margin: 1rem;
+		margin-bottom: 0;
+		padding-bottom: 1rem;
+		border-bottom: var(--border-width) dotted var(--dimmed-glow-color);
+		
 		gap: 1rem;
-
-		flex-grow: 1;
 	}
 
 	nav a {
@@ -181,7 +174,7 @@ const themes = [
 	section {
 		background: var(--box-fade);
 		display: flex;
-		flex-direction: column;
+		flex-direction: row;
 		border: var(--border-width) dotted var(--dimmed-glow-color);
 	}
 </style>

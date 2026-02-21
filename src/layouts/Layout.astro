@@ -5,7 +5,10 @@ import Navigation from "@component/Navigation.astro";
 import Footer from "@component/Footer.astro";
 import { SITE_DESCRIPTION } from "../consts";
 
-const { title, description, namespace } = Astro.props;
+const { title, description, namespace, useNavigation } = Astro.props;
+
+let nav = useNavigation;
+if (useNavigation == undefined) nav = true;
 ---
 
 <!doctype html>
@@ -27,13 +30,10 @@ const { title, description, namespace } = Astro.props;
                     <span> KORVEMAA INDUSTRIES (TM) TERMINAL LINK </span>
                     <div style="display:flex;flex-grow:1;"></div>
                     <span id="current-time" style="opacity:0.4">9:50PM</span>
-                    <span> SERVER 03 </span>
                 </div>
                 <div class="content">
-                    <div class="box">
-                        <Navigation />
-                    </div>
                     <main class="box">
+                        {nav && <Navigation />}
                         <!-- this is where burger menu button will go  -->
                         <slot />
                     </main>

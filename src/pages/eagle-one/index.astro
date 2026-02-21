@@ -14,7 +14,7 @@ const projects = (await getCollection("project"))
     });
 ---
 
-<Layout title="Eagle One">
+<Layout title="Eagle One" useNavigation={false}>
     <Breadcrumbs active={"Eagle One"} routes={[{href: "/projects", name: "Projects"}]} />
     <ScrollView useMargin={true}>
         <div class="content">

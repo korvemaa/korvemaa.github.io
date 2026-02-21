@@ -39,7 +39,7 @@ if (breadcrumb) {
 }
 ---
 
-<Layout title={post.data.title} description={post.data.description}>
+<Layout title={post.data.title} description={post.data.description} useNavigation={false}>
     <OpenGraphImage slot="head" image={thumbnail} />
     {
         post.data.tags && (
