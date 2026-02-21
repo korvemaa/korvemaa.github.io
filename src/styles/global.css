@@ -53,6 +53,9 @@ body {
 	font-family: 'Terminus', 'Courier New', monospace;
 	font-synthesis-weight: none;
 	font-variant-ligatures: none;
+	font-smooth: never;
+	-webkit-font-smoothing: none;
+	text-rendering: optimizeLegibility;
 
 	text-align: left;
 	word-wrap: break-word;
@@ -216,8 +219,7 @@ button:hover {
 	font-size: var(--font-size);
 }
 
-.md-section p {
-}
+.md-section p {}
 
 /* 
 	Content Box

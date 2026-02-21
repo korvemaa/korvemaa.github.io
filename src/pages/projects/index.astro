@@ -5,8 +5,8 @@ import ScrollView from "@component/ScrollView.astro";
 import ProjectTile from "@component/ProjectTile.astro";
 import SimpleProjectTile from "@component/SimpleProjectTile.astro";
 
-const projects = (await getCollection("project"))
-    .filter((e) => e.id.startsWith("projects"))
+const personalProjects = (await getCollection("project"))
+    .filter((e) => e.data.group === "Personal")
     .sort((a, b) => {
         const da = a.data.date?.getTime() ?? 100;
         const db = b.data.date?.getTime() ?? 100;
@@ -21,7 +21,7 @@ const experience = (await getCollection("experience")).sort((a, b) => {
 });
 ---
 
-<Layout title="Personal">
+<Layout title="Projects">
     <ScrollView useMargin={true}>
         <div class="content">
             <section id="experience">
@@ -48,11 +48,11 @@ const experience = (await getCollection("experience")).sort((a, b) => {
                 <hr />
                 <div class="collection">
                     {
-                        projects.map((post, index) => {
+                        personalProjects.map((post, index) => {
                             return (
                                 <a
                                     data-group={post.data.group}
-                                    href={`/${post.id}`}
+                                    href={`/projects/${post.id}`}
                                 >
                                     <ProjectTile project={post} />
                                 </a>

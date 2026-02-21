@@ -17,7 +17,11 @@ const firstName = figlet.textSync("Jake", { font });
 const lastName = figlet.textSync("Korvemaa", { font });
 
 const socials = [
-	{ title: "Email", icon: "envelope-fill", url: "mailto:contact@korvemaa.dev" },
+	{
+		title: "Email",
+		icon: "envelope-fill",
+		url: "mailto:contact@korvemaa.dev",
+	},
 	{ title: "GitHub", icon: "github", url: "https://github.com/korvemaa" },
 	{
 		title: "LinkedIn",
@@ -52,30 +56,35 @@ const skills = [
 <Layout>
 	<ScrollView useMargin={true} style="scroll-behavior:smooth;">
 		<div class="page">
-			<section style="justify-content: center;">
-				<div>
-					<pre class="ascii">{firstName}</pre>
-					<pre class="ascii">{lastName}</pre>
-				</div>
-				<div>
-					Sydney based software developer working at
-					<a href="/enviz">Enviz</a>
-				</div>
-				<hr />
-				<div class="socials">
-					{
-						socials.map((social) => (
-							<a
-								target="_blank"
-								href={social.url}
-								class={"icon bi bi-" + social.icon}
-							>
-								{social.title}
-							</a>
-						))
-					}
-				</div>
-			</section>
+			<div class="header-content">
+				<section class="avatar-box">
+					<img src="/profile_fat.png" />
+				</section>
+				<section style="justify-content: center;">
+					<div>
+						<pre class="ascii">{firstName}</pre>
+						<pre class="ascii">{lastName}</pre>
+					</div>
+					<div>
+						Sydney based software developer working at
+						<a href="/projects/enviz">Enviz</a>
+					</div>
+					<hr />
+					<div class="socials">
+						{
+							socials.map((social) => (
+								<a
+									target="_blank"
+									href={social.url}
+									class={"icon bi bi-" + social.icon}
+								>
+									{social.title}
+								</a>
+							))
+						}
+					</div>
+				</section>
+			</div>
 			<div class="about-content">
 				<section>
 					<h2>Technical Skills</h2>
@@ -91,19 +100,26 @@ const skills = [
 						{skills.map((skill) => <code>{skill}</code>)}
 					</div>
 				</section>
-				<section>
-					<h2>My Interests</h2>
-					<hr />
-					<p>
-						I like learning new things, always challenging myself
-						with building different and unique projects.
-					</p>
-					<p>
-						Outside of development I love hitting the <a
-							href="/motorsport">track and going fast</a
-						> and unwinding playing games when time allows it.
-					</p>
-				</section>
+				<div style="display:flex;flex-direction: column; gap:1rem;">
+					<section>
+						<h2>My Interests</h2>
+						<hr />
+						<p>
+							I like learning new things, always challenging
+							myself with building different and unique projects.
+						</p>
+						<p>
+							Outside of development I love hitting the <a
+								href="/motorsport">track and going fast</a
+							> and unwinding playing games when time allows it.
+						</p>
+					</section>
+					<section>
+						<span id="motd" style="align-self: flex-start;"
+							>MOTD</span
+						>
+					</section>
+				</div>
 			</div>
 			<section id="experience">
 				<h2>Professional Experience</h2>
@@ -116,58 +132,9 @@ const skills = [
 					))
 				}
 			</section>
-			<section id="status">
-				<h2>My Status</h2>
-				<hr />
-				<!-- Spotify status through discord -->
-				<div class="spotify-status">
-					Playing on Spotify
-					<div class="spotify-details">
-						<div class="song-disk">
-							<img id="song-art" alt="Album art" />
-						</div>
-						<div class="song-content">
-							<span id="song-name"></span>
-							<span id="song-artist"></span>
-						</div>
-					</div>
-				</div>
-				<div class="no-status">OFFLINE</div>
-				<div style="display:flex;flex-grow:1;"></div>
-				<hr />
-				<span id="motd" style="align-self: flex-start;">MOTD</span>
-			</section>
 		</div>
 	</ScrollView>
 </Layout>
-
-<script defer>
-	function getStatus() {
-		return fetch(
-			"https://api.lanyard.rest/v1/users/761439375594094612",
-		).then((r) => r.json());
-	}
-
-	getStatus().then((status) => {
-		if (!status.success) return; // Ignore
-
-		const data = status.data;
-
-		if (data.spotify != null) {
-			document
-				.querySelector(".spotify-status")
-				.classList.add("has-status");
-
-			document.querySelector(".no-status").style.display = "none";
-
-			const s = data.spotify;
-			document.getElementById("song-art").src = s.album_art_url;
-
-			document.getElementById("song-name").textContent = s.song;
-			document.getElementById("song-artist").textContent = s.artist;
-		}
-	});
-</script>
 
 <script defer>
 	const motd = document.getElementById("motd");
@@ -212,10 +179,10 @@ const skills = [
 		return proverbs[Math.floor(Math.random() * proverbs.length)];
 	}
 
-	const SPEED = 60; // pixels per second (tweak to taste)
+	const SPEED = 80; // pixels per second
 
 	function runMotd() {
-		motd.textContent = "MOTD: " + randomProverb();
+		motd.textContent = "Proverb: " + randomProverb();
 		motd.style.transition = "none";
 		motd.style.transform = `translateX(${motd.parentElement.clientWidth}px)`;
 
@@ -240,6 +207,12 @@ const skills = [
 		flex-direction: column;
 		margin: 1rem;
 		gap: 1rem;
+	}
+
+	.header-content {
+		display: grid;
+		gap: 1rem;
+		grid-template-columns: max-content auto;
 	}
 
 	.about-content {
@@ -321,91 +294,26 @@ const skills = [
 		user-select: none;
 	}
 
-	.cat {
-		flex-grow: 1;
-		align-items: center;
-		justify-content: center;
-		display: flex;
-		flex-direction: column;
-	}
-
-	/* Status */
-
 	#motd {
 		white-space: nowrap;
 	}
 
-	.spotify-details {
+	/* Don't show avatar if screen is small */
+
+	@media (max-width: 890px) {
+		.header-content {
+			display: block;
+		}
+
+		.avatar-box {
+			display: none;
+		}
+	}
+
+	.avatar-box img {
+		align-self: flex-start;
 		display: flex;
-		flex-direction: row;
-		align-items: center;
-		gap: 1rem;
-	}
-
-	.spotify-status {
-		display: none;
-		gap: 0.5rem;
-	}
-
-	.spotify-status.has-status {
-		display: flex;
-		flex-direction: column;
-	}
-
-	.spotify-details .song-content {
-		display: flex;
-		flex-direction: column;
-	}
-
-	.spotify-details .song-disk {
-		position: relative;
 		aspect-ratio: 1/1;
-		width: 50px;
-		border-radius: 50%;
-		overflow: hidden;
-		animation: spin 6s linear infinite;
-	}
-
-	/* light reflection */
-	.song-disk::before {
-		content: "";
-		position: absolute;
-		inset: 0;
-		border-radius: 50%;
-		background: linear-gradient(
-			135deg,
-			rgba(255, 255, 255, 0.15),
-			rgba(255, 255, 255, 0)
-		);
-		z-index: 1;
-		pointer-events: none;
-	}
-
-	@keyframes spin {
-		from {
-			transform: rotate(0deg);
-		}
-		to {
-			transform: rotate(360deg);
-		}
-	}
-
-	.online-status #song-art {
-		appearance: none;
-		border: 0;
-
-		-webkit-mask: radial-gradient(
-			circle,
-			transparent 0 10%,
-			white 12% 100%
-		);
-		mask: radial-gradient(circle, transparent 0 7%, white 7% 100%);
-	}
-
-	.online-status span {
-		display: flex;
-		min-width: 0;
-		white-space: normal;
-		flex-shrink: 1;
+		width: 185px;
 	}
 </style>

@@ -5,10 +5,7 @@ import Navigation from "@component/Navigation.astro";
 import Footer from "@component/Footer.astro";
 import { SITE_DESCRIPTION } from "../consts";
 
-const { title, description, namespace, useNavigation } = Astro.props;
-
-let nav = useNavigation;
-if (useNavigation == undefined) nav = true;
+const { title, description, namespace } = Astro.props;
 ---
 
 <!doctype html>
@@ -33,7 +30,7 @@ if (useNavigation == undefined) nav = true;
                 </div>
                 <div class="content">
                     <main class="box">
-                        {nav && <Navigation />}
+                        <Navigation />
                         <!-- this is where burger menu button will go  -->
                         <slot />
                     </main>
@@ -60,6 +57,13 @@ if (useNavigation == undefined) nav = true;
 </script>
 
 <style>
+    .black-out  {
+        z-index: 9999999;
+        background-color: black;
+        /* height: 100%; */
+    flex-grow: 1;
+    }
+    
     html,
     body {
         height: 100%;

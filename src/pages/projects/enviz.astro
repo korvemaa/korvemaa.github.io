@@ -2,33 +2,33 @@
 import { getCollection, getEntry } from "astro:content";
 import Layout from "@layout/Layout.astro";
 import ScrollView from "@component/ScrollView.astro";
+import VerticalProjectTile from "@component/VerticalProjectTile.astro";
 import SimpleProjectTile from "@component/SimpleProjectTile.astro";
 import Breadcrumbs from "@component/Breadcrumbs.astro";
 
 const projects = (await getCollection("project"))
-    .filter((e) => e.id.startsWith("superboss-games"))
+    .filter((e) => e.id.startsWith("enviz"))
     .sort((a, b) => {
         const da = a.data.date?.getTime() ?? 100;
         const db = b.data.date?.getTime() ?? 100;
         return db - da;
     });
 
-const experience = await getEntry("experience", "superboss");
+const platforms = projects.filter((e) => e.data.group.endsWith("Apps"));
+const modes = projects.filter((e) => e.data.group.endsWith("Modes"));
+const automation = projects.filter((e) => e.data.group.endsWith("Automation"));
 
-const weapons = projects.filter((e) => e.data.group.endsWith("Weapon"));
-const maps = projects.filter((e) => e.data.group.endsWith("Map"));
-const videos = ["peCgGt7N-84", "hLJy1IBNfHs"];
+const videos = ["NnytluMi5rA", "wmEDHk5knnk"];
 ---
 
-<Layout title="Superboss Games" useNavigation={false}>
-    <Breadcrumbs active={"Superboss Games"} routes={[{href: "/projects", name: "Projects"}]} />
+<Layout title="Enviz" useNavigation={false}>
+    <Breadcrumbs active={"Enviz"} routes={[{href: "/projects", name: "Projects"}]} />
     <ScrollView useMargin={true}>
         <div class="content">
-            <section id="about">
-                Superboss Games
+            <section>
+                Enviz
                 <hr />
-                I worked on Intruder, a stealth action multiplayer game as a technical
-                artist.
+                The ultimate sales platform for showcasing un-built property.
             </section>
             <section id="projects">
                 Videos
@@ -46,23 +46,17 @@ const videos = ["peCgGt7N-84", "hLJy1IBNfHs"];
                 </div>
             </section>
             <section id="projects">
-                Weapons
+                Apps
                 <hr />
-                My involvement with making the weapons for Intruder was texturing
-                them using Substance Painter and making skins for the experience update
-                as well. Big shout-out to Martino3D for making the models they look
-                fantastic.
+                Because Enviz's client uses Unity we're able to easily deploy to a
+                wide net of platforms such as VR, mobile and web.
                 <div class="grid">
                     {
-                        weapons.map((post) => {
+                        platforms.map((post) => {
                             return (
-                                <a
-                                    data-group={post.data.group}
-                                    href={`/${post.id}`}
-                                >
-                                    <SimpleProjectTile
+                                <a href={`/projects/${post.id}`}>
+                                    <VerticalProjectTile
                                         title={post.data.title}
-                                        date={post.data.date}
                                         thumbnail={post.data.thumbnail}
                                     />
                                 </a>
@@ -72,20 +66,37 @@ const videos = ["peCgGt7N-84", "hLJy1IBNfHs"];
                 </div>
             </section>
             <section id="projects">
-                Other
+                Automation
                 <hr />
-                Assortment of minor projects official or not for Intruder
+                The backend system that runs in the cloud for processing automated
+                conversions.
                 <div class="grid">
                     {
-                        maps.map((post) => {
+                        automation.map((post) => {
                             return (
-                                <a
-                                    data-group={post.data.group}
-                                    href={`/${post.id}`}
-                                >
+                                <a href={`/projects/${post.id}`}>
                                     <SimpleProjectTile
                                         title={post.data.title}
-                                        date={post.data.date}
+                                        thumbnail={post.data.thumbnail}
+                                    />
+                                </a>
+                            );
+                        })
+                    }
+                </div>
+            </section>
+            <section id="projects">
+                Modes
+                <hr />
+                Different types of modes in spaces that allow traversal and exploring
+                in a variety of ways.
+                <div class="grid">
+                    {
+                        modes.map((post) => {
+                            return (
+                                <a href={`/projects/${post.id}`}>
+                                    <SimpleProjectTile
+                                        title={post.data.title}
                                         thumbnail={post.data.thumbnail}
                                     />
                                 </a>
@@ -123,7 +134,7 @@ const videos = ["peCgGt7N-84", "hLJy1IBNfHs"];
 
     .grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr));
         gap: 0.5rem;
     }
 

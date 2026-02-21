@@ -7,5 +7,5 @@ startDate: "March 29 2020"
 endDate: "Jul 2021"
 icon: 'images/superboss.jpg'
 thumbnail: 'images/superboss-thumbnail.png'
-projects: "/superboss-games"
+projects: "/projects/superboss-games"
 ---

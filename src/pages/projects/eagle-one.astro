@@ -3,7 +3,6 @@ import { getCollection } from "astro:content";
 import Layout from "@layout/Layout.astro";
 import ScrollView from "@component/ScrollView.astro";
 import VerticalProjectTile from "@component/VerticalProjectTile.astro";
-import Breadcrumbs from "@component/Breadcrumbs.astro";
 
 const projects = (await getCollection("project"))
     .filter((e) => e.data.group == "Eagle One")
@@ -14,8 +13,7 @@ const projects = (await getCollection("project"))
     });
 ---
 
-<Layout title="Eagle One" useNavigation={false}>
-    <Breadcrumbs active={"Eagle One"} routes={[{href: "/projects", name: "Projects"}]} />
+<Layout title="Eagle One">
     <ScrollView useMargin={true}>
         <div class="content">
             <section>
@@ -31,7 +29,7 @@ const projects = (await getCollection("project"))
                     {
                         projects.map((post) => {
                             return (
-                                <a href={`/${post.id}`}>
+                                <a href={`/projects/${post.id}`}>
                                     <VerticalProjectTile
                                         title={post.data.title}
                                         date={post.data.date}

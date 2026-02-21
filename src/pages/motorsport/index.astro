@@ -1,9 +1,8 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import ScrollView from "../../components/ScrollView.astro";
 import { getCollection } from "astro:content";
-import VerticalProjectTile from "../../components/VerticalProjectTile.astro";
-import figlet from "figlet";
+import Layout from "@layout/Layout.astro";
+import ScrollView from "@component/ScrollView.astro";
+import VerticalProjectTile from "@component/VerticalProjectTile.astro";
 
 const projects = (await getCollection("project"))
     .filter((e) => e.data.group == "Motorsport")
@@ -19,6 +18,7 @@ const projects = (await getCollection("project"))
         <div class="content">
             <section id="projects">
                 RaceAway TrackTime
+                <hr />
                 <div class="grid">
                     {
                         projects.map((post) => {
