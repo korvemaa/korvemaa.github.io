@@ -1,8 +1,9 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import ScrollView from "../components/ScrollView.astro";
-import ExperienceBar from "../components/ExperienceBar.astro";
 import { getCollection } from "astro:content";
+import Layout from "@layout/Layout.astro";
+import ScrollView from "@component/ScrollView.astro";
+import ExperienceBar from "@component/ExperienceBar.astro";
+import SimpleProjectTile from "@component/SimpleProjectTile.astro";
 import figlet from "figlet";
 
 const now = new Date().getTime();
@@ -57,10 +58,11 @@ const skills = [
 	<ScrollView useMargin={true} style="scroll-behavior:smooth;">
 		<div class="page">
 			<div class="header-content">
-				<section class="avatar-box">
-					<img src="/profile_fat.png" />
+				<section id="avatar">
+					<div style="background-image: url('/profile_fat.png')">
+					</div>
 				</section>
-				<section style="justify-content: center;">
+				<section id="personal" style="justify-content: center;">
 					<div>
 						<pre class="ascii">{firstName}</pre>
 						<pre class="ascii">{lastName}</pre>
@@ -210,9 +212,9 @@ const skills = [
 	}
 
 	.header-content {
-		display: grid;
+		display: flex;
 		gap: 1rem;
-		grid-template-columns: max-content auto;
+		/* grid-template-columns: max-content auto; */
 	}
 
 	.about-content {
@@ -249,6 +251,23 @@ const skills = [
 
 	section#experience a:hover {
 		background-color: var(--dimmed-glow-color);
+	}
+
+	section#personal {
+		flex-grow: 1;
+	}
+
+	section#avatar {
+		flex-grow: 0;
+		aspect-ratio: 1/1;
+	}
+
+	section#avatar div {
+		width: 100%;
+		height: 100%;
+
+		background-position: center;
+		background-size: cover;
 	}
 
 	section p,
@@ -305,15 +324,8 @@ const skills = [
 			display: block;
 		}
 
-		.avatar-box {
+		section#avatar {
 			display: none;
 		}
-	}
-
-	.avatar-box img {
-		align-self: flex-start;
-		display: flex;
-		aspect-ratio: 1/1;
-		width: 185px;
 	}
 </style>

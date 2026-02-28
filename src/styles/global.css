@@ -263,6 +263,15 @@ button:hover {
 	bottom: 0;
 }
 
+@media (max-width: 550px) {
+	.box,
+	.box::before,
+	.box::after {
+		border: none;
+	}
+
+}
+
 .ascii-art {
 	font-family: monospace;
 	font-synthesis-weight: none;
