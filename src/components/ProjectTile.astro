@@ -83,7 +83,6 @@ const image =
     }
 
     .group {
-        display: flex;
         flex-grow: 1;
     }
 
@@ -98,18 +97,6 @@ const image =
 
     .age {
         opacity: 0.3;
-    }
-
-    .ascii {
-        font-family: monospace;
-        line-height: 1;
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        font-size: 12px;
-        z-index: -1;
-        padding: 0;
-        margin: 0;
     }
 
     h2 {
@@ -130,6 +117,10 @@ const image =
             flex-direction: column;
         }
 
+        .group {
+            display: flex;
+        }
+        
         .thumbnail {
             width: unset;
             height: unset;

@@ -5,6 +5,7 @@ import Layout from "@layout/Layout.astro";
 import ScrollView from "@component/ScrollView.astro";
 import OpenGraphImage from "@component/OpenGraphImage.astro";
 import Breadcrumbs from "@component/Breadcrumbs.astro";
+import DynamicLink from "@component/DynamicLink.astro";
 import { timeAgo } from "@src/utility";
 
 type Props = {
@@ -25,6 +26,7 @@ const gallery = await Promise.all(
 
 const videos = post.data.videos;
 
+const hasLinks = post.data.links;
 const hasArticle = (post.body || "").length > 0;
 const hasGallery = gallery?.length != 0;
 const hasVideos = post.data.videos;
@@ -50,44 +52,47 @@ if (breadcrumb) {
             />
         )
     }
-    {
-        routes.length > 0 && (
-            <Breadcrumbs active={post.data.title} routes={routes} />
-        )
-    }
     <ScrollView style="scroll-behavior:smooth;">
         <article>
-            <section id="about">
-                <div
-                    style={`background-image: url('${thumbnail?.src}')`}
-                    class="thumbnail"
-                >
-                </div>
-                <div class="content">
+            <div class="header">
+                <section id="thumbnail">
+                    <div
+                        style={`background-image: url('${thumbnail?.src}')`}
+                        class="image"
+                    >
+                    </div>
+                </section>
+                <section id="about">
                     <h2>{post.data.title}</h2>
                     <hr />
                     <p>{post.data.description}</p>
                     <div style="display: flex; flex-grow: 1;"></div>
-                    <div class="tags">
-                        {
-                            post.data.tags &&
-                                post.data.tags
-                                    .sort()
-                                    .map((tag) => <code>{tag}</code>)
-                        }
-                    </div>
-
-                    <div class="bottom">
-                        {
-                            post.data.date && (
-                                <span class="age">
-                                    {timeAgo(post.data.date)}
-                                </span>
-                            )
-                        }
-                    </div>
-                </div>
-            </section>
+                    {
+                        post.data.tags && (
+                            <div class="tags">
+                                {post.data.tags.sort().map((tag) => (
+                                    <code>{tag}</code>
+                                ))}
+                            </div>
+                        )
+                    }
+                    {
+                        post.data.date && (
+                            <span class="age">{timeAgo(post.data.date)}</span>
+                        )
+                    }
+                    {
+                        post.data.links && (
+                            <hr />
+                            <div class="links">
+                                {post.data.links.map((e) => (
+                                    <DynamicLink href={e} />
+                                ))}
+                            </div>
+                        )
+                    }
+                </section>
+            </div>
             {hasArticle && <Content />}
             {
                 hasVideos && (
@@ -154,19 +159,10 @@ if (breadcrumb) {
     }
 
     section#about {
-        display: flex;
-        flex-direction: row;
-        gap: 1rem;
-    }
-
-    section#about .content {
-        display: flex;
-        flex-direction: column;
         flex-grow: 1;
-        gap: 0.5rem;
     }
 
-    section#about .content p {
+    section#about p {
         display: flex;
     }
 
@@ -183,15 +179,43 @@ if (breadcrumb) {
         opacity: 0.4;
     }
 
-    section#about .thumbnail {
+    section#about .links {
         display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    section#thumbnail .image {
+        width: 100%;
+
         aspect-ratio: 1/1;
-        width: 180px;
-        height: 180px;
+        height: 250px;
+
         image-rendering: auto;
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;
+    }
+
+    .header {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+    }
+
+    @media (max-width: 650px) {
+        .header {
+            flex-direction: column;
+        }
+
+        section#links {
+            flex-direction: column;
+        }
+
+        section#thumbnail .image {
+            height: unset;
+        }
     }
 
     img {
