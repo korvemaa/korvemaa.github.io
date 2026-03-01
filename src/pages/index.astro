@@ -3,13 +3,12 @@ import { getCollection } from "astro:content";
 import Layout from "@layout/Layout.astro";
 import ScrollView from "@component/ScrollView.astro";
 import ExperienceBar from "@component/ExperienceBar.astro";
-import SimpleProjectTile from "@component/SimpleProjectTile.astro";
 import figlet from "figlet";
 
 const now = new Date().getTime();
 const experience = (await getCollection("experience")).sort((a, b) => {
-	const da = a.data.endDate?.getTime() ?? now;
-	const db = b.data.endDate?.getTime() ?? now;
+	const da = a.data.startDate?.getTime() ?? now;
+	const db = b.data.startDate?.getTime() ?? now;
 	return db - da;
 });
 
@@ -55,7 +54,7 @@ const skills = [
 ---
 
 <Layout>
-	<ScrollView useMargin={true} style="scroll-behavior:smooth;">
+	<ScrollView style="scroll-behavior:smooth;">
 		<div class="page">
 			<div class="header-content">
 				<section id="avatar">

@@ -18,8 +18,8 @@ function timeSince(from: Date, to: Date = new Date()): string {
     let delta = Math.floor((to.getTime() - from.getTime()) / 1000); // difference in seconds
 
     const units: [string, number][] = [
-        ["year", 365 * 24 * 60 * 60],
-        ["month", 30 * 24 * 60 * 60],
+        ["yr", 365 * 24 * 60 * 60],
+        ["mo", 30 * 24 * 60 * 60],
         ["day", 24 * 60 * 60],
         ["hour", 60 * 60],
         ["minute", 60],
@@ -36,7 +36,7 @@ function timeSince(from: Date, to: Date = new Date()): string {
         }
     }
 
-    return parts.length > 0 ? parts.slice(0, 2).join(", ") : "just now";
+    return parts.length > 0 ? parts.slice(0, 2).join(" ") : "just now";
 }
 ---
 
@@ -44,32 +44,23 @@ function timeSince(from: Date, to: Date = new Date()): string {
     {
         experience.data.icon && (
             <Image
-                width="60"
+                width="64"
                 src={experience.data.icon}
                 alt={experience.data.name}
             />
         )
     }
     <div class="employment-text">
-        <h3>{experience.data.name}</h3>
+        <h3>
+            {experience.data.name}
+        </h3>
         <span>
             {experience.data.position}
-            <span class="sub-text">
-                | {experience.data.employment}
-            </span>
         </span>
         <span>
             {formatTime(experience.data.startDate)} - {
                 formatTime(experience.data.endDate) || "Present"
             }
-            <span class="sub-text">
-                | {
-                    timeSince(
-                        experience.data.startDate,
-                        experience.data.endDate,
-                    )
-                }
-            </span>
         </span>
     </div>
 </div>
@@ -83,8 +74,8 @@ function timeSince(from: Date, to: Date = new Date()): string {
     }
 
     .experience-bar img {
-        width: 60px;
-        height: 60px;
+        width: 64px;
+        height: 64px;
     }
 
     a {

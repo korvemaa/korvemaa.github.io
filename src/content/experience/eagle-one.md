@@ -1,7 +1,7 @@
 ---
 name: "Eagle One"
-employment: "Freelance Contributor"
-position: "Developer"
+employment: "Volunteer"
+position: "Environment Artist"
 location: "Remote"
 startDate: "Mar 2019"
 endDate: "Jan 2022"
