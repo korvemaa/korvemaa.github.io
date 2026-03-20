@@ -7,7 +7,9 @@ const image = thumbnail != null ? await getImage({ src: thumbnail }) : null;
 ---
 
 <article class="tile">
-    <div class="thumbnail" style={`background-image: url(${image?.src});`}>
+    <div class="masked">
+        <div class="thumbnail" style={`background-image: url(${image?.src});`}>
+        </div>
     </div>
     <div class="body">
         <h2>{title}</h2>
@@ -20,6 +22,10 @@ const image = thumbnail != null ? await getImage({ src: thumbnail }) : null;
         display: flex;
         flex-direction: column;
         border: var(--border-width) dotted var(--dimmed-glow-color);
+    }
+
+    .masked {
+        mask-image: linear-gradient(to bottom, black 60%, transparent 99%);
     }
 
     h2 {
@@ -39,7 +45,8 @@ const image = thumbnail != null ? await getImage({ src: thumbnail }) : null;
         display: flex;
         flex-direction: row;
         align-items: center;
-        padding: 0.5rem;
+        padding: 0.75rem;
+        padding-top: 0;
     }
 
     .age {

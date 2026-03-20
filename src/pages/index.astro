@@ -56,12 +56,11 @@ const skills = [
 <Layout>
 	<ScrollView style="scroll-behavior:smooth;">
 		<div class="page">
-			<div class="header-content">
-				<section id="avatar">
-					<div style="background-image: url('/profile_fat.png')">
-					</div>
-				</section>
-				<section id="personal" style="justify-content: center;">
+			<section id="personal">
+				<div id="avatar">
+					<div id="face-here-please-website"></div>
+				</div>
+				<div id="details">
 					<div>
 						<pre class="ascii">{firstName}</pre>
 						<pre class="ascii">{lastName}</pre>
@@ -84,11 +83,11 @@ const skills = [
 							))
 						}
 					</div>
-				</section>
-			</div>
+				</div>
+			</section>
 			<div class="about-content">
 				<section>
-					<h1 class="scramble">Technical Skills</h2>
+					<h1 class="scramble">Technical Skills</h1>
 					<hr />
 					<p>
 						I work across the software stack, from systems and
@@ -103,7 +102,7 @@ const skills = [
 				</section>
 				<div style="display:flex;flex-direction: column; gap:1rem;">
 					<section>
-						<h1 class="scramble">My Interests</h2>
+						<h1 class="scramble">My Interests</h1>
 						<hr />
 						<p>
 							I like learning new things, always challenging
@@ -123,7 +122,7 @@ const skills = [
 				</div>
 			</div>
 			<section id="experience">
-				<h1 class="scramble">Professional Experience</h2>
+				<h1 class="scramble">Professional Experience</h1>
 				<hr />
 				{
 					experience.map((job) => (
@@ -136,6 +135,21 @@ const skills = [
 		</div>
 	</ScrollView>
 </Layout>
+
+<script defer>
+	const profiles = [
+		"/profile_fat.png",
+		"/profile_sydney.png",
+		"/profile_banana.png",
+	];
+
+	function randomProfile() {
+		return profiles[Math.floor(Math.random() * profiles.length)];
+	}
+
+	document.getElementById("face-here-please-website").style.backgroundImage =
+		`url('${randomProfile()}')`;
+</script>
 
 <script defer>
 	const motd = document.getElementById("motd");
@@ -254,19 +268,37 @@ const skills = [
 
 	section#personal {
 		flex-grow: 1;
+		flex-direction: row;
+		align-items: stretch;
+		padding: 0;
 	}
 
-	section#avatar {
-		flex-grow: 0;
-		aspect-ratio: 1/1;
+	section#personal #details {
+		display: flex;
+		flex-grow: 1;
+		flex-direction: column;
+		gap: 0.5rem;
+		padding: 1rem;
 	}
 
-	section#avatar div {
+	section #avatar {
+		display: flex;
+		flex-direction: row;
+		width: 250px;
+		mask-image: linear-gradient(to right, black 50%, transparent);
+		overflow: hidden;
+		position: relative;
+	}
+
+	section #avatar div {
+		position: absolute;
+
 		width: 100%;
 		height: 100%;
 
 		background-position: center;
 		background-size: cover;
+		background-repeat: no-repeat;
 	}
 
 	section p,
@@ -323,7 +355,7 @@ const skills = [
 			display: block;
 		}
 
-		section#avatar {
+		section #avatar {
 			display: none;
 		}
 	}
