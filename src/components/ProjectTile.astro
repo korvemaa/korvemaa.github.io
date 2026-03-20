@@ -23,7 +23,8 @@ const image =
 ---
 
 <article class="tile">
-    <div class="thumbnail" style={`background-image: url(${image?.src});`}>
+    <div class="masked">
+        <div class="thumbnail" style={`background-image: url(${image?.src});`}></div>
     </div>
     <div class="body">
         <h2>{project.data.title}</h2>
@@ -53,10 +54,18 @@ const image =
         position: relative;
         display: flex;
         flex-grow: 1;
-        flex-direction: row;
+        flex-direction: column;
         align-items: stretch;
         border: var(--border-width) dotted var(--dimmed-glow-color);
         overflow: hidden;
+    
+        transition: background-color 0.1s ease-in-out;
+    }
+
+    .masked {
+        mask-image: linear-gradient(to bottom, black 50%,  transparent 95%), url("/noise.png");
+        mask-composite: intersect;
+        -webkit-mask-composite: destination-in;
     }
 
     .tile:hover {
@@ -66,8 +75,8 @@ const image =
     .thumbnail {
         display: flex;
         aspect-ratio: 1/1;
-        width: 190px;
-        height: 190px;
+        width: unset;
+        height: unset;
 
         background-size: cover;
         background-repeat: no-repeat;
@@ -79,10 +88,12 @@ const image =
         flex-direction: column;
         flex-grow: 1;
         gap: 0.5rem;
+        margin-top: -16px;
         padding: 1rem;
     }
 
     .group {
+        display: flex;
         flex-grow: 1;
     }
 
@@ -120,7 +131,7 @@ const image =
         .group {
             display: flex;
         }
-        
+
         .thumbnail {
             width: unset;
             height: unset;

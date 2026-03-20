@@ -75,39 +75,9 @@ h3,
 h4,
 h5,
 h6 {
-	margin: 0 0 0.5rem 0;
-	line-height: 1.2;
-	font-weight: 300;
-
-}
-
-h1 {
-	font-size: 2em;
-	background: var(--dimmed-glow-color);
-	padding: 0.5rem;
 	font-size: var(--font-size);
-}
-
-h2 {
-	font-size: 1.6em;
-	background: var(--dimmed-glow-color);
-	padding: 0.5rem;
-	font-size: var(--font-size);
-}
-
-h3 {
-	font-size: 1.4em;
-	font-size: var(--font-size);
-}
-
-h4 {
-	font-size: 1.2em;
-	font-size: var(--font-size);
-}
-
-h5 {
-	font-size: 1.1em;
-	font-size: var(--font-size);
+	margin: 0;
+	padding: 0;
 }
 
 strong,

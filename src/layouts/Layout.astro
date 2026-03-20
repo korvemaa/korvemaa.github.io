@@ -56,14 +56,105 @@ const { title, description, namespace } = Astro.props;
     updateClock();
 </script>
 
+<script defer>
+    class TextScramble {
+        constructor(el) {
+            this.el = el;
+            this.chars = "!<>-_\\/[]{}—=+*^?#________";
+
+            // Store final text once
+            this.finalText = el.textContent;
+
+            // 👇 Immediately replace with scrambled text
+            this.el.textContent = this.randomString(this.finalText.length);
+        }
+
+        scramble() {
+            const length = this.finalText.length;
+
+            this.queue = [];
+
+            for (let i = 0; i < length; i++) {
+                const to = this.finalText[i];
+
+                const start = Math.floor(Math.random() * 20);
+                const end = start + Math.floor(Math.random() * 20);
+
+                this.queue.push({ to, start, end, char: this.randomChar() });
+            }
+
+            cancelAnimationFrame(this.frameRequest);
+            this.frame = 0;
+            this.update();
+        }
+
+        update() {
+            let output = "";
+            let complete = 0;
+
+            for (let i = 0; i < this.queue.length; i++) {
+                let { to, start, end, char } = this.queue[i];
+
+                if (this.frame >= end) {
+                    complete++;
+                    output += to;
+                } else {
+                    if (this.frame >= start && Math.random() < 0.3) {
+                        char = this.randomChar();
+                        this.queue[i].char = char;
+                    }
+                    output += char;
+                }
+            }
+
+            this.el.textContent = output;
+
+            if (complete === this.queue.length) {
+                this.el.textContent = this.finalText;
+            } else {
+                this.frameRequest = requestAnimationFrame(() => this.update());
+                this.frame++;
+            }
+        }
+
+        randomChar() {
+            return this.chars[Math.floor(Math.random() * this.chars.length)];
+        }
+
+        randomString(length) {
+            let result = "";
+            for (let i = 0; i < length; i++) {
+                result += this.randomChar();
+            }
+            return result;
+        }
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+        const instances = [];
+
+        document.querySelectorAll(".scramble, h1").forEach((el) => {
+            // 👇 constructor runs immediately → no flash of real text
+            instances.push(new TextScramble(el));
+        });
+
+        // 👇 only delay the unravel animation
+        instances.forEach((fx, i) => {
+            setTimeout(() => {
+                fx.scramble();
+            }, i * 120);
+        });
+    });
+</script>
+
 <style>
-    .black-out  {
+    .black-out {
         z-index: 9999999;
         background-color: black;
         /* height: 100%; */
-    flex-grow: 1;
+        flex-grow: 1;
     }
-    
+
     html,
     body {
         height: 100%;

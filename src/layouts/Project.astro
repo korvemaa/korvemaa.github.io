@@ -63,7 +63,7 @@ if (breadcrumb) {
                     </div>
                 </section>
                 <section id="about">
-                    <h2>{post.data.title}</h2>
+                    <h1>{post.data.title}</h2>
                     <hr />
                     <p>{post.data.description}</p>
                     <div style="display: flex; flex-grow: 1;"></div>
@@ -97,7 +97,7 @@ if (breadcrumb) {
             {
                 hasVideos && (
                     <section id="videos">
-                        <h2>Videos</h2>
+                        <h1>Videos</h2>
                         <hr />
                         <div class="grid">
                             {videos &&
@@ -115,7 +115,7 @@ if (breadcrumb) {
             {
                 hasGallery && (
                     <section id="gallery">
-                        <h2>Gallery</h2>
+                        <h1>Gallery</h2>
                         <hr />
                         {gallery &&
                             gallery.map((img) => (
@@ -134,6 +134,7 @@ if (breadcrumb) {
 </Layout>
 
 <style>
+    h1,
     h2 {
         background: none;
         padding: 0;

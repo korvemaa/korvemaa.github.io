@@ -1,6 +1,6 @@
 ---
 title: Phoenix Framework
-description: "A mutator mod for Ravenfield that allowed weapon modders to add more functionality to their weapons. Such as an attachment system, aim reloading, inspect animations, camera animation plus more."
+description: "Mod that added an attachment system, aim reloading, inspect animations, camera animation and more to weapons."
 group: Personal 
 thumbnail: images/phoenix-framework/thumbnail.png
 date: 'Nov 20 2020'

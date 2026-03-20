@@ -25,7 +25,7 @@ const experience = (await getCollection("experience")).sort((a, b) => {
     <ScrollView>
         <div class="content">
             <section id="experience">
-                Professional Work
+                <h1>Professional Work</h1>
                 <hr />
                 <div class="grid">
                     {
@@ -44,16 +44,13 @@ const experience = (await getCollection("experience")).sort((a, b) => {
                 </div>
             </section>
             <section id="projects">
-                Personal Projects
+                <h1>Personal Projects</h1>
                 <hr />
-                <div class="collection">
+                <div class="grid">
                     {
                         personalProjects.map((post, index) => {
                             return (
-                                <a
-                                    data-group={post.data.group}
-                                    href={`/projects/${post.id}`}
-                                >
+                                <a href={`/projects/${post.id}`}>
                                     <ProjectTile project={post} />
                                 </a>
                             );
@@ -83,24 +80,15 @@ const experience = (await getCollection("experience")).sort((a, b) => {
         background: var(--box-fade);
     }
 
-    section#projects .collection {
-        display: flex;
-        flex-direction: column;
+    section .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(min(250px, 100%), 1fr));
         gap: 1rem;
     }
 
-    section#projects .collection a {
+    section .grid a {
         text-decoration: none;
-        /* background: var(--box-fade); */
-    }
-
-    section#experience .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr));
-        gap: 0.5rem;
-    }
-
-    section#experience .grid a {
-        text-decoration: none;
+        flex-grow: 1;
+        display: flex;
     }
 </style>
