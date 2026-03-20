@@ -26,11 +26,7 @@ const image = thumbnail != null ? await getImage({ src: thumbnail, width: 1024 }
     }
 
     .masked {
-        image-rendering: pixelated;
-        mask-image: linear-gradient(to bottom, black 60%,  transparent 97%), url("/noise.png");
-        mask-composite: intersect;
-        -webkit-mask-image: linear-gradient(to bottom, black 60%,  transparent 97%), url("/noise.png");
-        -webkit-mask-composite: destination-in;
+        mask-image: linear-gradient(to bottom, black 60%,  transparent 97%);
     }
 
     h2 {
