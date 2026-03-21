@@ -201,8 +201,8 @@ button:hover {
 	align-items: stretch;
 
 	position: relative;
-	border-top: var(--border-width) solid var(--text-color);
-	border-bottom: var(--border-width) solid var(--text-color);
+	border-top: var(--border-width) solid var(--dimmed-glow-color);
+	border-bottom: var(--border-width) solid var(--dimmed-glow-color);
 	image-rendering: pixelated;
 	overflow: hidden;
 }
@@ -217,8 +217,8 @@ button:hover {
 
 	pointer-events: none;
 
-	border-left: var(--border-width) solid var(--text-color);
-	border-right: var(--border-width) solid var(--text-color);
+	border-left: var(--border-width) solid var(--dimmed-glow-color);
+	border-right: var(--border-width) solid var(--dimmed-glow-color);
 }
 
 .box::after {
