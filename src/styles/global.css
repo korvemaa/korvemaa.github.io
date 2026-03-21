@@ -222,12 +222,14 @@ button:hover {
 }
 
 .box::after {
+	mask-image: linear-gradient(to bottom, black 25%,  transparent);
 	content: "";
 	position: absolute;
 	top: 0;
 }
 
 .box::before {
+	mask-image: linear-gradient(to top, black 25%, transparent);
 	content: "";
 	position: absolute;
 	bottom: 0;
