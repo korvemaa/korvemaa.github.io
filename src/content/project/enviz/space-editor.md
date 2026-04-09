@@ -1,5 +1,6 @@
 ---
 title:  "Space Editor"
+job: "enviz"
 global: false
 description: Customer facing space editor for Enviz.
 group: "Enviz/Apps"

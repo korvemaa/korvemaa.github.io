@@ -28,11 +28,11 @@ const themes = [
 		<HeaderLink href="/projects">Projects</HeaderLink>
 		<HeaderLink href="/motorsport">Motorsport</HeaderLink>
 	</section>
-	<section id="theme">
+	<!-- <section id="theme">
 		<select id="theme-selector">
 			{themes.map((e) => <option value={e.hue}>{e.name}</option>)}
 		</select>
-	</section>
+	</section> -->
 </nav>
 
 <script>
@@ -89,16 +89,15 @@ const themes = [
 		flex-shrink: 0;
 		margin: 1rem;
 		margin-bottom: 0;
-		padding-bottom: 1rem;
+		padding-bottom: 0.5rem;
 		border-bottom: var(--border-width) dotted var(--dimmed-glow-color);
-
 		gap: 1rem;
 	}
 
 	nav section {
-		background: var(--box-fade);
 		display: flex;
 		flex-direction: row;
+		background: var(--box-fade);
 		border: var(--border-width) dotted var(--dimmed-glow-color);
 	}
 
@@ -112,8 +111,8 @@ const themes = [
 	}
 
 	nav a {
-		padding: 0.5rem 1.25rem;
-		font-size: 1em;
+		display: flex;
+		padding: 0.25rem 1rem;
 		color: var(--black);
 		text-decoration: none;
 		user-select: none;
@@ -124,10 +123,7 @@ const themes = [
 	}
 
 	nav a.active {
-		background-color: var(--text-color);
-		text-shadow: none;
-		color: black;
-
+		background-color: var(--dimmed-glow-color);
 		text-decoration: none;
 	}
 

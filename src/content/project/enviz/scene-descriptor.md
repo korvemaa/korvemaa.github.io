@@ -1,5 +1,6 @@
 ---
 title:  "Scene Descriptor"
+job: "enviz"
 global: false
 description: "The custom file format that holds converted scenes"
 group: "Enviz/Automation"

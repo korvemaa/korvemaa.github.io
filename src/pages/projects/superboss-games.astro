@@ -3,6 +3,7 @@ import { getCollection, getEntry } from "astro:content";
 import Layout from "@layout/Layout.astro";
 import ScrollView from "@component/ScrollView.astro";
 import SimpleProjectTile from "@component/SimpleProjectTile.astro";
+import ProjectTile from "@component/ProjectTile.astro";
 import Breadcrumbs from "@component/Breadcrumbs.astro";
 
 const projects = (await getCollection("project"))
@@ -21,7 +22,7 @@ const videos = ["peCgGt7N-84", "hLJy1IBNfHs"];
 ---
 
 <Layout title="Superboss Games" useNavigation={false}>
-    <!-- <Breadcrumbs active={"Superboss Games"} routes={[{href: "/projects", name: "Projects"}]} /> -->
+    <Breadcrumbs routes={[{href: "/", name: "Home"}]} active="Superboss Games"></Breadcrumbs>
     <ScrollView>
         <div class="content">
             <section id="about">
@@ -49,7 +50,7 @@ const videos = ["peCgGt7N-84", "hLJy1IBNfHs"];
                 <h1>Weapons</h1>
                 <hr />
                 My involvement with making the weapons for Intruder was texturing
-                them using Substance Painter and making skins for the experience update
+                them using Substance Painter and making skins for the xp update
                 as well. Big shout-out to Martino3D for making the models they look
                 fantastic.
                 <div class="grid">
@@ -83,11 +84,7 @@ const videos = ["peCgGt7N-84", "hLJy1IBNfHs"];
                                     data-group={post.data.group}
                                     href={`/projects/${post.id}`}
                                 >
-                                    <SimpleProjectTile
-                                        title={post.data.title}
-                                        date={post.data.date}
-                                        thumbnail={post.data.thumbnail}
-                                    />
+                                    <ProjectTile project={post}/>
                                 </a>
                             );
                         })

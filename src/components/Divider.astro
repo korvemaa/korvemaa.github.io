@@ -1,0 +1,22 @@
+---
+const { id, title } = Astro.props;
+---
+
+<div id={id} class="divider">
+    {title}<hr />
+</div>
+
+<style>
+    .divider {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        padding-top: 0.5rem;
+        align-items: center;
+        color: var(--dimmed-glow-color);
+    }
+
+    .divider hr {
+        flex-grow: 1;
+    }
+</style>

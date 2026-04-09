@@ -1,19 +1,18 @@
 ---
 import { getImage } from "astro:assets";
-import { type CollectionEntry, render } from "astro:content";
+import { type CollectionEntry, render, getEntry } from "astro:content";
 import Layout from "@layout/Layout.astro";
 import ScrollView from "@component/ScrollView.astro";
 import OpenGraphImage from "@component/OpenGraphImage.astro";
-import Breadcrumbs from "@component/Breadcrumbs.astro";
+import Breadcrumbs from "@component/Breadcrumbs.astro"
+import Divider from "@component/Divider.astro";
 import DynamicLink from "@component/DynamicLink.astro";
 import { timeAgo } from "@src/utility";
 
 type Props = {
     post: CollectionEntry<"project">;
-    backUrl: string;
-    breadcrumb?: string;
 };
-const { post, backUrl, breadcrumb } = Astro.props;
+const { post } = Astro.props;
 const { Content } = await render(post);
 
 const thumbnail = post.data.thumbnail
@@ -33,11 +32,12 @@ const hasVideos = post.data.videos;
 
 const routes = [];
 
-if (!post.id.startsWith("motorsport"))
-    routes.push({ href: "/projects", name: "Projects" });
+routes.push({ href: "/", name: "Home" });
 
-if (breadcrumb) {
-    routes.push({ href: backUrl, name: breadcrumb || "undefined" });
+if (post.data.job) {
+    const job = await getEntry("experience", post.data.job);
+    if (job) routes.push({ href: job.data.projects, name: job.data.name });
+
 }
 ---
 
@@ -52,16 +52,29 @@ if (breadcrumb) {
             />
         )
     }
+
+    <Breadcrumbs routes={routes} active={post.data.title}></Breadcrumbs>
     <ScrollView style="scroll-behavior:smooth;">
         <article>
             <div class="header">
-                <section id="thumbnail">
-                    <div
-                        style={`background-image: url('${thumbnail?.src}')`}
-                        class="image"
-                    >
-                    </div>
-                </section>
+                <div>
+                    <section id="thumbnail">
+                        <div
+                            style={`background-image: url('${thumbnail?.src}')`}
+                            class="image"
+                        >
+                        </div>
+                    </section>
+                    {
+                        post.data.links && (
+                            <div class="links">
+                                {post.data.links.map((e) => (
+                                    <DynamicLink href={e} />
+                                ))}
+                            </div>
+                        )
+                    }
+                </div>
                 <section id="about">
                     <h1>{post.data.title}</h2>
                     <hr />
@@ -81,24 +94,18 @@ if (breadcrumb) {
                             <span class="age">{timeAgo(post.data.date)}</span>
                         )
                     }
-                    {
-                        post.data.links && (
-                            <hr />
-                            <div class="links">
-                                {post.data.links.map((e) => (
-                                    <DynamicLink href={e} />
-                                ))}
-                            </div>
-                        )
-                    }
                 </section>
             </div>
-            {hasArticle && <Content />}
+            {
+                hasArticle && (
+                    <Divider id="content" title="Content"/>
+                    <Content />
+                )
+            }
             {
                 hasVideos && (
+                    <Divider id="videos" title="Videos"/>
                     <section id="videos">
-                        <h1>Videos</h2>
-                        <hr />
                         <div class="grid">
                             {videos &&
                                 videos.map((video) => (
@@ -114,9 +121,8 @@ if (breadcrumb) {
             }
             {
                 hasGallery && (
+                    <Divider id="gallery" title="Gallery"/>
                     <section id="gallery">
-                        <h1>Gallery</h2>
-                        <hr />
                         {gallery &&
                             gallery.map((img) => (
                                 <img
@@ -180,11 +186,16 @@ if (breadcrumb) {
         opacity: 0.4;
     }
 
-    section#about .links {
+    .links {
         display: flex;
-        flex-direction: row;
-        gap: 1rem;
+        flex-direction: column;
         flex-wrap: wrap;
+        margin-top: 1rem;
+        gap: 0.5rem;
+    }
+
+    section#thumbnail { 
+        padding: 0;
     }
 
     section#thumbnail .image {
@@ -197,6 +208,10 @@ if (breadcrumb) {
         background-position: center;
     }
 
+    section#gallery { 
+        gap: 1rem;
+    }
+
     .header {
         display: flex;
         flex-direction: row;
@@ -205,10 +220,6 @@ if (breadcrumb) {
 
     @media (max-width: 650px) {
         .header {
-            flex-direction: column;
-        }
-
-        section#links {
             flex-direction: column;
         }
 

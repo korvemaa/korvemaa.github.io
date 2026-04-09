@@ -1,5 +1,6 @@
 ---
 title:  "Interactive Display"
+job: "enviz"
 global: false
 description: "The interactive display mode for projects"
 group: "Enviz/Modes"

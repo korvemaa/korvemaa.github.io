@@ -17,7 +17,7 @@ function getDetails() {
         case "apps.apple.com":
             return { name: "Apple App Store", icon: "apple" };
         case "github.com":
-            return { name: "GitHub Repository", icon: "github" };
+            return { name: "Repository", icon: "github" };
         case "www.youtube.com":
             return { name: "YouTube", icon: "youtube" };
     }
@@ -39,12 +39,13 @@ const { name, icon } = getDetails();
         display: flex;
         flex-direction: row;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
         text-decoration: none;
         padding: 8px 14px;
         flex-grow: 1;
         gap: 16px;
         border: var(--border-width) dotted var(--dimmed-glow-color);
+        background: var(--box-fade);
     }
 
     a:hover {

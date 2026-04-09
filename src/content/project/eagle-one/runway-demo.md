@@ -1,5 +1,6 @@
 ---
 title:  "Runway Demo"
+job: "eagle-one"
 description: "a Half-Life Alyx campaign mod with high ambition and talent working together."
 group: "Eagle One"
 tags: ["source2", "hammer", "art"]

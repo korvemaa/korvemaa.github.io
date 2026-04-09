@@ -1,12 +1,12 @@
 ---
 import { SOCIALS, SKILLS } from "@src/consts";
-import { formatTime } from "@src/utility"
+import { formatTime } from "@src/utility";
 import { getCollection } from "astro:content";
 import Layout from "@layout/Layout.astro";
 import ScrollView from "@component/ScrollView.astro";
 import ProjectTile from "@component/ProjectTile.astro";
 import WideProjectTile from "@component/WideProjectTile.astro";
-import VerticalProjectTile from "@component/VerticalProjectTile.astro";
+import Divider from "@component/Divider.astro";
 import figlet from "figlet";
 import SimpleProjectTile from "@component/SimpleProjectTile.astro";
 
@@ -41,18 +41,19 @@ const lastName = figlet.textSync("Korvemaa", { font });
 <Layout>
 	<ScrollView style="scroll-behavior:smooth;">
 		<div class="page">
-			<section id="personal">
-				<div id="avatar">
+			<div class="header-content">
+				<section id="avatar">
 					<div id="face-here-please-website"></div>
-				</div>
-				<div id="details">
+				</section>
+				<section id="personal">
 					<div>
 						<pre class="ascii">{firstName}</pre>
 						<pre class="ascii">{lastName}</pre>
 					</div>
 					<div>
-						Sydney based software developer with 5+ years of experience working at
-						<a href="/projects/enviz">Enviz</a> 
+						Sydney based software developer with 5+ years of
+						experience working at
+						<a href="/projects/enviz">Enviz</a>
 					</div>
 					<hr />
 					<div class="socials">
@@ -68,8 +69,8 @@ const lastName = figlet.textSync("Korvemaa", { font });
 							))
 						}
 					</div>
-				</div>
-			</section>
+				</section>
+			</div>
 			<div class="about-content">
 				<section>
 					<h1>Technical Skills</h1>
@@ -106,9 +107,7 @@ const lastName = figlet.textSync("Korvemaa", { font });
 					</section>
 				</div>
 			</div>
-			<div id="experience" class="divider">
-				01 Projects <hr />
-			</div>
+			<Divider id="experience" title="Projects" />
 			<section>
 				<h1>Professional Experience</h1>
 				<hr />
@@ -137,7 +136,10 @@ const lastName = figlet.textSync("Korvemaa", { font });
 					{
 						projects.map((post, index) => {
 							return (
-								<a style="display: flex; flex-grow: 1;" href={`/projects/${post.id}`}>
+								<a
+									style="display: flex; flex-grow: 1;"
+									href={`/projects/${post.id}`}
+								>
 									<ProjectTile project={post} />
 								</a>
 							);
@@ -145,9 +147,7 @@ const lastName = figlet.textSync("Korvemaa", { font });
 					}
 				</div>
 			</section>
-			<div id="motorsport" class="divider">
-				02 Motorsport <hr />
-			</div>
+			<Divider id="motorsport" title="Motorsport" />
 			<section id="projects">
 				<h1>RaceAway TrackTime</h1>
 				<hr />
@@ -263,8 +263,8 @@ const lastName = figlet.textSync("Korvemaa", { font });
 
 	.header-content {
 		display: flex;
+		flex-direction: row;
 		gap: 1rem;
-		/* grid-template-columns: max-content auto; */
 	}
 
 	.about-content {
@@ -312,26 +312,22 @@ const lastName = figlet.textSync("Korvemaa", { font });
 		flex-direction: row;
 		align-items: stretch;
 		padding: 0;
-	}
 
-	section#personal #details {
-		display: flex;
-		flex-grow: 1;
 		flex-direction: column;
 		gap: 0.5rem;
 		padding: 1rem;
 	}
 
-	section #avatar {
+	section#avatar {
+		padding: 0;
 		display: flex;
 		flex-direction: row;
-		width: 250px;
-		mask-image: linear-gradient(to right, black 50%, transparent);
+		min-width: 200px;
 		overflow: hidden;
 		position: relative;
 	}
 
-	section #avatar div {
+	section#avatar div {
 		position: absolute;
 
 		width: 100%;
@@ -389,28 +385,16 @@ const lastName = figlet.textSync("Korvemaa", { font });
 		white-space: nowrap;
 	}
 
-	.divider {
-		display: flex;
-		flex-direction: row;
-		gap: 1rem;
-		padding-top: 0.5rem;
-		align-items: center;
-		color: var(--dimmed-glow-color);
-	}
-
-	.divider hr {
-		flex-grow: 1;
-	}
-
 	/* Don't show avatar if screen is small */
 
-	@media (max-width: 880px) {
+	@media (max-width: 600px) {
 		.header-content {
-			display: block;
+			flex-wrap: wrap;
 		}
 
-		section #avatar {
-			display: none;
+		section#avatar { 
+			width: 100%;
+			height: 300px;
 		}
 	}
 </style>

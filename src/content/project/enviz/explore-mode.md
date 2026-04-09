@@ -1,5 +1,6 @@
 ---
 title:  "Clickable"
+job: "enviz"
 global: false
 description: "The clickable mode for Enviz spaces"
 group: "Enviz/Modes"

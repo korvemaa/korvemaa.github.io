@@ -1,5 +1,6 @@
 ---
 title:  "Manta"
+job: "superboss"
 description: "The default smg in Intruder."
 group: "Intruder/Weapon"
 thumbnail: "images/manta/thumbnail.jpg"

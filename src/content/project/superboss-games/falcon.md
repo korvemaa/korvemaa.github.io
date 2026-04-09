@@ -1,5 +1,6 @@
 ---
 title:  "Falcon"
+job: "superboss"
 group: "Intruder/Weapon"
 thumbnail: "./images/falcon/thumbnail.jpg"
 tags: ["substance-painter", "art"]

@@ -1,7 +1,10 @@
 ---
 title:  "Deputy 4hr Round 4"
 global: false
-description: "Wanted to put this somewhere on my website cause I thought it was cool."
+blurb: "My first race"
+description: | 
+    Wanted to put this somewhere on my website cause I thought it was cool.
+    We came home with a bronze medal coming third in our class.
 group: "Motorsport"
 date: "May 2025"
 thumbnail: "./images/deputy4/gallery-4.webp"
@@ -20,5 +23,3 @@ gallery: [
     "./images/deputy4/gallery-9.webp",
 ]
 ---
-
-we came home with a bronze medal coming third in our class.

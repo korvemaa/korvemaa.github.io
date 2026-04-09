@@ -1,5 +1,6 @@
 ---
 title:  "Panther"
+job: "superboss"
 description: "The intruders default pistol."
 group: "Intruder/Weapon"
 thumbnail: "images/panther/thumbnail.jpg"

@@ -1,5 +1,6 @@
 ---
 title:  "Job Orchestrator"
+job: "enviz"
 global: false
 description: "The backend process that runs scheduled automation"
 group: "Enviz/Automation"

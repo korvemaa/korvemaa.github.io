@@ -1,5 +1,6 @@
 ---
 title:  "Shooting Range"
+job: "superboss"
 group: "Intruder/Map"
 thumbnail: "./images/shooting-range/thumbnail.jpg"
 tags: ["unity", "substance-painter", "blender", "art"]

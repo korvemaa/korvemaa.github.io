@@ -1,5 +1,6 @@
 ---
 title:  "Walkable"
+job: "enviz"
 global: false
 description: "The walkable mode for Enviz spaces"
 group: "Enviz/Modes"
