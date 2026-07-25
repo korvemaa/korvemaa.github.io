@@ -1,5 +1,6 @@
 ---
 title:  "Panther"
+fileName: "panther.spp"
 job: "superboss"
 description: "The intruders default pistol."
 group: "Intruder/Weapon"

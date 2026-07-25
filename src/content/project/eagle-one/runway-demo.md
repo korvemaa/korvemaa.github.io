@@ -1,5 +1,6 @@
 ---
 title:  "Runway Demo"
+fileName: "runway_demo.vmap"
 job: "eagle-one"
 description: "a Half-Life Alyx campaign mod with high ambition and talent working together."
 group: "Eagle One"

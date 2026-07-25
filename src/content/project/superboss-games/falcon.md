@@ -1,5 +1,6 @@
 ---
 title:  "Falcon"
+fileName: "falcon.spp"
 job: "superboss"
 group: "Intruder/Weapon"
 thumbnail: "./images/falcon/thumbnail.jpg"

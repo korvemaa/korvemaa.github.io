@@ -1,97 +1,48 @@
 ---
-import HeaderLink from "./HeaderLink.astro";
-import { THEME_HUE_KEY } from "../consts";
+import ExplorerFolder from "@component/ExplorerFolder.astro";
+import ScrollView from "@component/ScrollView.astro";
 
 let pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, "");
 if (pathname == "") pathname = "index";
 
-const themes = [
-	{ name: "Green", hue: 150 },
-	{ name: "Amber", hue: 38 },
-	{ name: "Cyan", hue: 180 },
-	{ name: "Yellow", hue: 55 },
-	{ name: "Magenta", hue: 300 },
-	{ name: "Red", hue: 360 },
-];
+const pages = Object.values(
+	import.meta.glob("/src/pages/**/*.astro", { eager: true }),
+);
+
+const explorer = pages
+	.filter((page: any) => page.explorer)
+	.map((page: any) => ({
+		name: page.explorer.name,
+		folder: page.explorer.folder,
+		order: page.explorer.order,
+		url: page.url || "/",
+		children: page.explorer.children,
+	}))
+	.sort((a, b) => a.order - b.order);
+
+const rootFolder = `korvemaa.dev`;
 ---
 
+<ScrollView>
 <nav id="navigation">
-	<section id="prompt">
-		<a id="nav-prompt" target="_blank" class={"icon bi bi-list"}>
-			<span id="text">Navigate</span>
-			<span class="not-important">Navigation</span>
-		</a>
-	</section>
-
-	<section id="links">
-		<HeaderLink href="/">Home</HeaderLink>
-		<HeaderLink href="/projects">Projects</HeaderLink>
-		<HeaderLink href="/motorsport">Motorsport</HeaderLink>
-	</section>
-	<!-- <section id="theme">
-		<select id="theme-selector">
-			{themes.map((e) => <option value={e.hue}>{e.name}</option>)}
-		</select>
-	</section> -->
+	<ExplorerFolder name={rootFolder} items={explorer}/>
 </nav>
-
-<script>
-	const anchor = document.getElementById("nav-prompt") as HTMLAnchorElement;
-	anchor.addEventListener("click", function (event) {
-		event.preventDefault();
-
-		const navbar = document.getElementById("navigation");
-		if (!navbar) return;
-
-		navbar.classList.toggle("showing");
-	});
-
-	const links = document.getElementById("links");
-	if (links) {
-		let navTitle = "";
-		for (const child of links.children) {
-			if (child.classList.contains("active"))
-				navTitle = child.textContent;
-		}
-
-		document.querySelector("#navigation #nav-prompt #text")!.textContent =
-			navTitle;
-	}
-</script>
-
-<script defer define:vars={{ THEME_HUE_KEY }}>
-	function setHue(value) {
-		document.documentElement.style.setProperty("--base-hue", value);
-		localStorage.setItem(THEME_HUE_KEY, value);
-	}
-
-	const selector = document.getElementById("theme-selector");
-	selector.addEventListener("change", () => {
-		setHue(selector.options[selector.selectedIndex].value);
-	});
-
-	selector.selectedIndex = [...selector.options].findIndex(
-		(o) => o.value == localStorage.getItem(THEME_HUE_KEY),
-	);
-	window.setHue = setHue;
-</script>
+</ScrollView>
 
 <style>
-	.not-important {
-		opacity: 0.4;
-		padding: 0.5rem 1rem;
-	}
-
 	nav {
 		display: flex;
-		flex-direction: row;
+		flex-direction: column;
+		align-items: stretch;
 
+		flex-grow: 1;
 		flex-shrink: 0;
 		margin: 1rem;
 		margin-bottom: 0;
 		padding-bottom: 0.5rem;
 		border-bottom: var(--border-width) dotted var(--dimmed-glow-color);
-		gap: 1rem;
+
+		min-width: 220px;
 	}
 
 	nav section {
@@ -101,19 +52,8 @@ const themes = [
 		border: var(--border-width) dotted var(--dimmed-glow-color);
 	}
 
-	nav section#prompt {
-		display: none;
-	}
-
-	nav section#theme {
-		/* Fill out the space to the left */
-		margin-left: auto;
-	}
-
 	nav a {
 		display: flex;
-		padding: 0.25rem 1rem;
-		color: var(--black);
 		text-decoration: none;
 		user-select: none;
 	}
@@ -125,69 +65,5 @@ const themes = [
 	nav a.active {
 		background-color: var(--dimmed-glow-color);
 		text-decoration: none;
-	}
-
-	nav section#prompt a#nav-prompt {
-		display: flex;
-		align-items: center;
-		padding: 0.5rem 1rem;
-		gap: 0.75rem;
-	}
-
-	nav section#prompt a#nav-prompt .not-important {
-		padding: 0;
-		margin-left: auto;
-	}
-
-	select {
-		appearance: none;
-		overflow: visible;
-		background-color: unset;
-		font-size: var(--font-size);
-		color: var(--text-color);
-		text-shadow: var(--text-shadow);
-		font-family: Terminus;
-		border: none;
-		padding: 0.75rem 1rem;
-	}
-
-	select:hover {
-		cursor: pointer;
-		background-color: var(--dimmed-glow-color);
-	}
-
-	/* Screen is to small for full nav bar */
-	@media (max-width: 650px) {
-		nav {
-			flex-direction: column;
-		}
-
-		nav section#prompt {
-			display: flex;
-		}
-
-		nav section#theme {
-			margin-left: unset;
-			flex-direction: row;
-			justify-content: space-between;
-		}
-
-		nav section {
-			flex-direction: column;
-		}
-
-		nav:not(.showing) section {
-			display: none;
-		}
-	}
-
-	@media (max-width: 550px) {
-		nav {
-			justify-content: space-between;
-		}
-
-		header .not-important:not(#site-title) {
-			display: none;
-		}
 	}
 </style>

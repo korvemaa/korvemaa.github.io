@@ -18,7 +18,6 @@
 	--dimmed-glow-color: hsl(var(--base-hue), calc(var(--base-saturation)), calc(var(--base-light) - 40%));
 
 	--accent: var(--text-color);
-	--accent-dark: #000d8a;
 
 	--box-fade: linear-gradient(to bottom,
 			hsla(var(--base-hue), calc(var(--base-saturation)), calc(var(--base-light) - 10%), 0.03) 0%,
@@ -30,7 +29,7 @@
 	--border-width: 1px;
 	--font-size: 16px;
 
-	--max-width: 1280px;
+	--max-width: 1440px;
 	--max-height: 960px;
 }
 
@@ -53,9 +52,10 @@ body {
 	font-family: 'Terminus', 'Courier New', monospace;
 	font-synthesis-weight: none;
 	font-variant-ligatures: none;
-	font-smooth: never;
-	-webkit-font-smoothing: none;
-	text-rendering: optimizeLegibility;
+
+	-webkit-font-smoothing: none; 
+	font-smooth: never; 
+	text-rendering: optimizeSpeed; 
 
 	text-align: left;
 	word-wrap: break-word;
@@ -198,6 +198,7 @@ button:hover {
 .box {
 	display: flex;
 	flex-shrink: 0;
+	flex-direction: column;
 	align-items: stretch;
 
 	position: relative;

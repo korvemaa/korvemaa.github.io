@@ -1,5 +1,6 @@
 ---
 title:  "Deputy 4hr Round 4"
+fileName: "2025-deputy-r4.md"
 global: false
 blurb: "My first race"
 description: | 

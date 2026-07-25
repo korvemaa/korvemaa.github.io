@@ -1,5 +1,6 @@
 ---
 title:  "Asset Browser"
+fileName: "AssetBrowser.cs"
 blurb: "Drag and drop assets from the cloud into the scene."
 description: |
     The asset browser was a unity plugin I was developing that made it so you could drag and drop assets from external sources like poly haven directly into the scene with no setup

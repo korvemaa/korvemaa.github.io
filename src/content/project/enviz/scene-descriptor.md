@@ -1,5 +1,6 @@
 ---
 title:  "Scene Descriptor"
+fileName: "Scene.evrp"
 job: "enviz"
 global: false
 description: "The custom file format that holds converted scenes"

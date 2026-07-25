@@ -1,5 +1,6 @@
 ---
 title:  "VR App"
+fileName: "vr.apk"
 job: "enviz"
 global: false
 description: "Walk your spaces in 1:1 scale with the VR app"

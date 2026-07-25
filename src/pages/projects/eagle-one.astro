@@ -3,7 +3,6 @@ import { getCollection } from "astro:content";
 import Layout from "@layout/Layout.astro";
 import ScrollView from "@component/ScrollView.astro";
 import ProjectTile from "@component/ProjectTile.astro";
-import Breadcrumbs from "@component/Breadcrumbs.astro";
 
 const projects = (await getCollection("project"))
     .filter((e) => e.data.group == "Eagle One")
@@ -12,21 +11,34 @@ const projects = (await getCollection("project"))
         const db = b.data.date?.getTime() ?? 100;
         return db - da;
     });
+
+export const explorer = {
+    name: "README.md",
+    folder: "experience/eagle-one",
+    order: 0,
+    children: (await getCollection("project"))
+        .filter((e) => e.data.group == "Eagle One")
+        .map((project) => ({
+            name: project.data.fileName || project.data.title,
+            url: "projects/" + project.id,
+        })),
+};
 ---
 
 <Layout title="Eagle One">
-    <Breadcrumbs routes={[{href: "/", name: "Home"}]} active="Eagle One"></Breadcrumbs>
     <ScrollView>
         <div class="content">
             <section>
                 <h1>Eagle One</h1>
                 <hr />
-                A collection of exceptionally talented developers and artists. I was an advisor, programmer and environment artist for a variety of projects.
+                A collection of exceptionally talented developers and artists. I was
+                an advisor, programmer and environment artist for a variety of projects.
             </section>
             <section id="projects">
                 <h1>Alyx Bond</h1>
                 <hr />
-                A multi-part campaign series about Alyx being a spy. Heavily inspired by Goldeneye.
+                A multi-part campaign series about Alyx being a spy. Heavily inspired
+                by Goldeneye.
                 <div class="grid">
                     {
                         projects.map((post) => {
@@ -74,4 +86,3 @@ const projects = (await getCollection("project"))
         gap: 1rem;
     }
 </style>
-

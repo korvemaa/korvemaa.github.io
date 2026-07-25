@@ -1,5 +1,6 @@
 ---
 title:  "Interactive Display"
+fileName: "InteractiveDisplay.cs"
 job: "enviz"
 global: false
 description: "The interactive display mode for projects"

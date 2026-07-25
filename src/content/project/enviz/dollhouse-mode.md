@@ -1,5 +1,6 @@
 ---
 title:  "Dollhouse"
+fileName: "Dollhouse.cs"
 job: "enviz"
 global: false
 description: "The dollhouse mode for Enviz spaces"

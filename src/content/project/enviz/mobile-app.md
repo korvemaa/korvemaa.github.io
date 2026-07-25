@@ -1,5 +1,6 @@
 ---
 title:  "Mobile App"
+fileName: "mobile.aab"
 job: "enviz"
 global: false
 group: "Enviz/Apps"

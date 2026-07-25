@@ -15,11 +15,6 @@ export const SOCIALS = [
         icon: "linkedin",
         url: "https://linkedin.com/in/jakekve",
     },
-    {
-        title: "YouTube",
-        icon: "youtube",
-        url: "https://www.youtube.com/@JakeK",
-    },
 ];
 
 export const SKILLS = [

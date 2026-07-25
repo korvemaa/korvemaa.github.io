@@ -2,10 +2,14 @@
 import Effects from "@component/Effects.astro";
 import BaseHead from "@component/BaseHead.astro";
 import Navigation from "@component/Navigation.astro";
-import Footer from "@component/Footer.astro";
+import StatusLine from "@component/StatusLine.astro";
+import TabBar from "@component/TabBar.astro";
 import { SITE_DESCRIPTION } from "../consts";
 
-const { title, description, namespace } = Astro.props;
+const { title, description, namespace, fileName } = Astro.props;
+
+var url = Astro.originPathname;
+if (url.endsWith("/")) url = url.substring(0, url.length - 1);
 ---
 
 <!doctype html>
@@ -22,18 +26,24 @@ const { title, description, namespace } = Astro.props;
     <body>
         <Effects />
         <div class="website">
-            <div class="height-restrict">
-                <div class="top-section">
-                    <span> KORVEMAA INDUSTRIES (TM) TERMINAL LINK </span>
-                    <div style="display:flex;flex-grow:1;"></div>
-                    <span id="current-time">9:50PM</span>
+            <div class="top-section">
+                <span> KORVEMAA INDUSTRIES (TM) TERMINAL LINK </span>
+                <div style="display:flex;flex-grow:1;"></div>
+                <span id="current-time">9:50PM</span>
+            </div>
+            <div class="content">
+                <div class="box" id="navigator">
+                    <Navigation />
                 </div>
-                <div class="content">
-                    <main class="box">
-                        <slot />
-                    </main>
-                </div>
-                <Footer />
+                <main class="box" id="page">
+                    <slot />
+                    <StatusLine>
+                        <span id="status-mode">VISUAL</span>
+                        <span id="status-file">{fileName || "Unsaved"}</span>
+                        <div style="margin: auto;"></div>
+                        <span id="status-progress">98%</span>
+                    </StatusLine>
+                </main>
             </div>
         </div>
     </body>
@@ -52,6 +62,55 @@ const { title, description, namespace } = Astro.props;
     }
 
     updateClock();
+</script>
+
+<script defer>
+    function updateStatusFile() {
+        const active = document.querySelector("#navigation a.file.active span");
+        const statusFile = document.getElementById("status-file");
+        if (statusFile && active) {
+            statusFile.textContent = active.textContent;
+        }
+    }
+
+    updateStatusFile();
+    document.addEventListener("astro:page-load", updateStatusFile);
+</script>
+
+<script defer>
+    function initStatusProgress() {
+        const statusProgress = document.getElementById("status-progress");
+        const scroller =
+            document.getElementById("scroll-view") ||
+            document.scrollingElement ||
+            document.documentElement;
+
+        if (!statusProgress || !scroller) return;
+
+        function updateProgress() {
+            const max = scroller.scrollHeight - scroller.clientHeight;
+
+            if (max <= 0) {
+                statusProgress.textContent = "All";
+                return;
+            }
+
+            const ratio = scroller.scrollTop / max;
+
+            if (ratio <= 0) statusProgress.textContent = "0%";
+            else if (ratio >= 0.98) statusProgress.textContent = "100%";
+            else statusProgress.textContent = Math.round(ratio * 100) + "%";
+        }
+
+        const target =
+            scroller === document.scrollingElement ? window : scroller;
+        target.addEventListener("scroll", updateProgress, { passive: true });
+        window.addEventListener("resize", updateProgress, { passive: true });
+        updateProgress();
+    }
+
+    initStatusProgress();
+    document.addEventListener("astro:page-load", initStatusProgress);
 </script>
 
 <script defer>
@@ -187,13 +246,6 @@ const { title, description, namespace } = Astro.props;
         gap: 0.5rem;
     }
 
-    .height-restrict {
-        display: flex;
-        flex-direction: column;
-        min-height: calc(min(100%, var(--max-height)));
-        max-height: var(--max-height);
-    }
-
     .content {
         display: flex;
         flex-direction: row;
@@ -222,6 +274,12 @@ const { title, description, namespace } = Astro.props;
         image-rendering: pixelated;
 
         overflow: hidden;
+
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    #navigator {
+        background-color: rgba(0, 0, 0, 0.1);
     }
 
     @media (max-width: 550px) {
@@ -243,3 +301,4 @@ const { title, description, namespace } = Astro.props;
         }
     }
 </style>
+

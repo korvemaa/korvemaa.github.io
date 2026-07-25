@@ -1,0 +1,205 @@
+---
+import ExplorerFile from "@component/ExplorerFile.astro";
+
+type Child = { name: string; url: string };
+
+type Item = {
+    name: string;
+    folder?: string;
+    order: number;
+    url: string;
+    children?: Child[];
+};
+
+type Props = {
+    name: string;
+    items: Item[];
+    path?: string;
+};
+
+const { name, items, path } = Astro.props;
+
+const folderKey = path ? `${path}/${name}` : name;
+
+const base = import.meta.env.BASE_URL;
+const pathname = Astro.url.pathname.replace(/\/$/, "");
+
+const resolve = (target: string) => {
+    if (/^https?:\/\//.test(target)) return target;
+    const p = target.startsWith("/") ? target : `${base}/${target}`;
+    return p.replace(/\/{2,}/g, "/");
+};
+
+const isActive = (target: string) =>
+    resolve(target).replace(/\/$/, "") === pathname;
+
+// Open this folder by default only if it (or a descendant) is the active page.
+const containsActive = items.some(
+    (item) =>
+        isActive(item.url) ||
+        item.children?.some((child) => isActive(child.url)),
+);
+
+const files = items
+    .filter((item) => !item.folder)
+    .sort((a, b) => a.order - b.order);
+
+const folders = new Map<string, Item[]>();
+for (const item of items) {
+    if (!item.folder) continue;
+    const [head, ...rest] = item.folder.split("/");
+    if (!folders.has(head)) folders.set(head, []);
+    folders.get(head)!.push({ ...item, folder: rest.join("/") });
+}
+
+const subfolders = [...folders.entries()].sort(([a], [b]) =>
+    a.localeCompare(b),
+);
+
+const restoreScript = `(function () {
+    try {
+        var state = JSON.parse(
+            localStorage.getItem("explorer-folder-state") || "{}"
+        );
+        document
+            .querySelectorAll("details[data-folder-key]")
+            .forEach(function (details) {
+                var key = details.dataset.folderKey;
+                if (key in state) details.open = state[key];
+            });
+    } catch (e) {}
+    document
+        .querySelectorAll("#navigation a.file.active")
+        .forEach(function (link) {
+            var el = link.parentElement;
+            while (el) {
+                if (el.tagName === "DETAILS") el.open = true;
+                el = el.parentElement;
+            }
+        });
+})();`;
+---
+
+<li>
+    <details open={containsActive} data-folder-key={folderKey}>
+        <summary>
+            <i class="bi bi-folder2"></i>
+            <span>{name + "/"}</span>
+        </summary>
+        <ul>
+            {
+                files.map(
+                    (file) =>
+                        file.name && (
+                            <ExplorerFile name={file.name} url={file.url} />
+                        ),
+                )
+            }
+
+            {
+                files.map((file) => {
+                    return file.children?.map((child) => (
+                        <ExplorerFile name={child.name} url={child.url} />
+                    ));
+                })
+            }
+
+            {
+                subfolders.map(([folderName, folderItems]) => (
+                    <Astro.self
+                        name={folderName}
+                        items={folderItems}
+                        path={folderKey}
+                    />
+                ))
+            }
+        </ul>
+    </details>
+</li>
+
+{!path && <script is:inline set:html={restoreScript} />}
+
+<script>
+    const STORAGE_KEY = "explorer-folder-state";
+    let suppressSave = false;
+
+    function readState(): Record<string, boolean> {
+        try {
+            return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+        } catch {
+            return {};
+        }
+    }
+
+    function openActivePath() {
+        document
+            .querySelectorAll("#navigation a.file.active")
+            .forEach((link) => {
+                let el = link.parentElement;
+                while (el) {
+                    if (el instanceof HTMLDetailsElement) el.open = true;
+                    el = el.parentElement;
+                }
+            });
+    }
+
+    function restoreFolders() {
+        const state = readState();
+        suppressSave = true;
+        document
+            .querySelectorAll<HTMLDetailsElement>("details[data-folder-key]")
+            .forEach((details) => {
+                const key = details.dataset.folderKey;
+                if (!key || !(key in state)) return;
+                details.open = state[key];
+            });
+        openActivePath();
+        suppressSave = false;
+    }
+
+    document.addEventListener("toggle", (event) => {
+        if (suppressSave) return;
+        const details = event.target as HTMLElement;
+        if (!(details instanceof HTMLDetailsElement)) return;
+        const key = details.dataset.folderKey;
+        if (!key) return;
+        const state = readState();
+        state[key] = details.open;
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }, true);
+
+    document.addEventListener("astro:page-load", restoreFolders);
+</script>
+
+<style>
+    li {
+        list-style: none;
+    }
+
+    ul {
+        list-style: none;
+        margin: 0;
+        padding-left: 0.5rem;
+
+        border-left: 1px var(--dimmed-glow-color) dotted;
+    }
+
+    summary {
+        list-style: none;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.25rem;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    summary::marker,
+    summary::-webkit-details-marker {
+        display: none;
+    }
+
+    summary:hover {
+        background-color: var(--dimmed-glow-color);
+    }
+</style>

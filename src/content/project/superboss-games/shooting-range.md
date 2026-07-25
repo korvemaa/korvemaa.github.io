@@ -1,5 +1,6 @@
 ---
 title:  "Shooting Range"
+fileName: "shooting_range.blend"
 job: "superboss"
 group: "Intruder/Map"
 thumbnail: "./images/shooting-range/thumbnail.jpg"

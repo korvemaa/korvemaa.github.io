@@ -4,7 +4,6 @@ import Layout from "@layout/Layout.astro";
 import ScrollView from "@component/ScrollView.astro";
 import VerticalProjectTile from "@component/VerticalProjectTile.astro";
 import SimpleProjectTile from "@component/SimpleProjectTile.astro";
-import Breadcrumbs from "@component/Breadcrumbs.astro";
 
 const projects = (await getCollection("project"))
     .filter((e) => e.id.startsWith("enviz"))
@@ -19,10 +18,19 @@ const modes = projects.filter((e) => e.data.group.endsWith("Modes"));
 const automation = projects.filter((e) => e.data.group.endsWith("Automation"));
 
 const videos = ["NnytluMi5rA", "wmEDHk5knnk"];
+
+export const explorer = {
+	name: "README.md",
+    folder: "experience/enviz",
+	order: 0,
+    children: ((await getCollection("project")).filter(e=>e.id.startsWith("enviz")).map((project)=>({
+        name: project.data.fileName || project.data.title,
+        url: "projects/" + project.id,
+    })))
+};
 ---
 
 <Layout title="Enviz" useNavigation={false}>
-    <Breadcrumbs routes={[{href: "/", name: "Home"}]} active="Enviz"></Breadcrumbs>
     <ScrollView>
         <div class="content">
             <section>

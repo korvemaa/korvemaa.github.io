@@ -1,5 +1,6 @@
 ---
 title: Phoenix Framework
+fileName: "phoenix_framework.lua"
 description: "Mod that added an attachment system, aim reloading, inspect animations, camera animation and more to weapons."
 group: Personal 
 thumbnail: images/phoenix-framework/thumbnail.png

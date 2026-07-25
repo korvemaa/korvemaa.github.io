@@ -1,5 +1,6 @@
 ---
 title:  "Space Editor"
+fileName: "space_editor.js"
 job: "enviz"
 global: false
 description: Customer facing space editor for Enviz.

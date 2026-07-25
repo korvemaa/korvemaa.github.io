@@ -39,6 +39,7 @@ if (post.data.job) {
     if (job) routes.push({ href: job.data.projects, name: job.data.name });
 
 }
+
 ---
 
 <Layout title={post.data.title} description={post.data.description}>
@@ -53,7 +54,6 @@ if (post.data.job) {
         )
     }
 
-    <Breadcrumbs routes={routes} active={post.data.title}></Breadcrumbs>
     <ScrollView style="scroll-behavior:smooth;">
         <article>
             <div class="header">

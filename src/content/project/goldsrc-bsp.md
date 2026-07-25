@@ -1,5 +1,6 @@
 ---
 title:  "GoldSrc Map Loader"
+fileName: "GoldSrcMap.cs"
 description: Load GoldSrc maps at runtime. Automatically mounting WADs and other assets.
 group: "Personal"
 tags: ["c#", "goldsrc", "unity"]

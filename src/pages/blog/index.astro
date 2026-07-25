@@ -1,0 +1,22 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import path from 'path';
+
+import UseME from "../404.astro"
+
+export const explorer = {
+    folder: "motorsport",
+    children: (await getCollection("blog"))
+        .sort((a, b) => {
+            const da = a.data.date?.getTime() ?? 100;
+            const db = b.data.date?.getTime() ?? 100;
+            return db - da;
+        })
+        .map((project) => ({
+            name: path.basename(project.filePath!),
+            url: "blog/" + project.id,
+        })),
+};
+---
+
+<UseME/>

@@ -1,5 +1,6 @@
 ---
 title:  "Manta"
+fileName: "manta.spp"
 job: "superboss"
 description: "The default smg in Intruder."
 group: "Intruder/Weapon"

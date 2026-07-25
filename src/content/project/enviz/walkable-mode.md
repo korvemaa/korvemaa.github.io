@@ -1,5 +1,6 @@
 ---
 title:  "Walkable"
+fileName : "Walkable.cs"
 job: "enviz"
 global: false
 description: "The walkable mode for Enviz spaces"

@@ -1,5 +1,6 @@
 ---
 title:  "Deputy 4hr Round 6"
+fileName: "2025-deputy-r6.md"
 global: false
 blurb: "A bipolar weather endurance race"
 description: |

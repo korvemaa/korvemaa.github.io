@@ -1,5 +1,6 @@
 ---
-title:  "Clickable"
+title:  "Explore"
+fileName: "Explore.cs"
 job: "enviz"
 global: false
 description: "The clickable mode for Enviz spaces"

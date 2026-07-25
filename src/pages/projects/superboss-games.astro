@@ -4,7 +4,6 @@ import Layout from "@layout/Layout.astro";
 import ScrollView from "@component/ScrollView.astro";
 import SimpleProjectTile from "@component/SimpleProjectTile.astro";
 import ProjectTile from "@component/ProjectTile.astro";
-import Breadcrumbs from "@component/Breadcrumbs.astro";
 
 const projects = (await getCollection("project"))
     .filter((e) => e.id.startsWith("superboss-games"))
@@ -14,15 +13,22 @@ const projects = (await getCollection("project"))
         return db - da;
     });
 
-const experience = await getEntry("experience", "superboss");
-
 const weapons = projects.filter((e) => e.data.group.endsWith("Weapon"));
 const maps = projects.filter((e) => e.data.group.endsWith("Map"));
 const videos = ["peCgGt7N-84", "hLJy1IBNfHs"];
+
+export const explorer = {
+	name: "README.md",
+    folder: "experience/superboss",
+	order: 0,
+    children: ((await getCollection("project")).filter(e=>e.id.startsWith("superboss-games")).map((project)=>({
+        name: project.data.fileName || project.data.title,
+        url: "projects/" + project.id,
+    })))
+};
 ---
 
-<Layout title="Superboss Games" useNavigation={false}>
-    <Breadcrumbs routes={[{href: "/", name: "Home"}]} active="Superboss Games"></Breadcrumbs>
+<Layout title="Superboss Games">
     <ScrollView>
         <div class="content">
             <section id="about">
