@@ -81,9 +81,7 @@ if (url.endsWith("/")) url = url.substring(0, url.length - 1);
     function initStatusProgress() {
         const statusProgress = document.getElementById("status-progress");
         const scroller =
-            document.getElementById("scroll-view") ||
-            document.scrollingElement ||
-            document.documentElement;
+            document.querySelector("#page #scroll-view") || document.body;
 
         if (!statusProgress || !scroller) return;
 
@@ -102,10 +100,17 @@ if (url.endsWith("/")) url = url.substring(0, url.length - 1);
             else statusProgress.textContent = Math.round(ratio * 100) + "%";
         }
 
-        const target =
-            scroller === document.scrollingElement ? window : scroller;
-        target.addEventListener("scroll", updateProgress, { passive: true });
+        scroller.addEventListener("scroll", updateProgress, { passive: true });
         window.addEventListener("resize", updateProgress, { passive: true });
+
+        // Recalculate once content size settles (images/fonts loading, etc.)
+        if (window.ResizeObserver) {
+            const ro = new ResizeObserver(updateProgress);
+            ro.observe(scroller);
+            for (const child of scroller.children) ro.observe(child);
+        }
+        window.addEventListener("load", updateProgress);
+
         updateProgress();
     }
 

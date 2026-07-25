@@ -1,0 +1,14 @@
+---
+import figlet from "figlet";
+const { text, font, ...props } = Astro.props;
+
+interface Props {
+    text: string;
+    font: string;
+    class?: string;
+}
+
+const ascii = figlet.textSync(text, { font });
+---
+
+<pre {...props}>{ascii}</pre>

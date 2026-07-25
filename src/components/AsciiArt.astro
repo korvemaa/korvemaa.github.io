@@ -1,0 +1,25 @@
+---
+import fs from "node:fs/promises";
+import path from "node:path";
+
+const { filePath, ...props } = Astro.props;
+
+interface Props {
+    filePath: string;
+    class?: string;
+    id?: string;
+}
+
+// Define the precise path to your target file
+let ascii = "";
+try {
+    ascii = await fs.readFile(
+        path.join(process.cwd(), "src/" + filePath),
+        "utf-8",
+    );
+} catch (error) {
+    console.error("Failed to read file:", error);
+}
+---
+
+<pre {...props}>{ascii}</pre>
