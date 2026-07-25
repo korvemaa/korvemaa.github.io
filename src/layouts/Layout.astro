@@ -119,11 +119,8 @@ if (url.endsWith("/")) url = url.substring(0, url.length - 1);
             this.el = el;
             this.chars = "!<>-_\\/[]{}—=+*^?#________";
 
-            // Store final text once
             this.finalText = el.textContent;
-
-            // 👇 Immediately replace with scrambled text
-            this.el.textContent = this.randomString(this.finalText.length);
+            this.el.textContent = this.randomString(this.finalText);
         }
 
         scramble() {
@@ -133,6 +130,11 @@ if (url.endsWith("/")) url = url.substring(0, url.length - 1);
 
             for (let i = 0; i < length; i++) {
                 const to = this.finalText[i];
+
+                if (/\s/.test(to)) {
+                    this.queue.push({ to, start: 0, end: 0, char: to });
+                    continue;
+                }
 
                 const start = Math.floor(Math.random() * 20);
                 const end = start + Math.floor(Math.random() * 20);
@@ -178,10 +180,10 @@ if (url.endsWith("/")) url = url.substring(0, url.length - 1);
             return this.chars[Math.floor(Math.random() * this.chars.length)];
         }
 
-        randomString(length) {
+        randomString(text) {
             let result = "";
-            for (let i = 0; i < length; i++) {
-                result += this.randomChar();
+            for (let i = 0; i < text.length; i++) {
+                result += /\s/.test(text[i]) ? text[i] : this.randomChar();
             }
             return result;
         }
@@ -191,11 +193,9 @@ if (url.endsWith("/")) url = url.substring(0, url.length - 1);
         const instances = [];
 
         document.querySelectorAll(".scramble, h1").forEach((el) => {
-            // 👇 constructor runs immediately → no flash of real text
             instances.push(new TextScramble(el));
         });
 
-        // 👇 only delay the unravel animation
         instances.forEach((fx, i) => {
             setTimeout(() => {
                 fx.scramble();
@@ -301,4 +301,3 @@ if (url.endsWith("/")) url = url.substring(0, url.length - 1);
         }
     }
 </style>
-

@@ -20,8 +20,8 @@ export const explorer = {
 			<div class="hero-content">
 				<div class="hero-left">
 					<div id="name-ascii">
-						<pre class="ascii">{firstName}</pre>
-						<pre class="ascii">{lastName}</pre>
+						<pre class="ascii scramble">{firstName}</pre>
+						<pre class="ascii scramble">{lastName}</pre>
 					</div>
 					<div class="socials">
 						{
@@ -43,12 +43,12 @@ export const explorer = {
 						experience working at
 						<a href="/projects/enviz" id="cta">Enviz</a>.
 					</span>
-					<a href="#content" id="cta">Learn more about me > </a>
+					<a href="#about" id="cta">Learn more about me > </a>
 				</div>
 			</div>
 			<pre
 				id="ascii-background"
-				class="ascii"> 
+				class="ascii scramble"> 
                                                                                       .+@*@-+++*:#*@%.. :.:%+.                                                                                          
                                                                                       #+@@@+@+@@.=@  @*@=@@@@*@                                                                                         
                                                                                 @. .@@@-=#:.@.*.==.=-.-=+...:-%%@@                                                                                      
@@ -144,10 +144,13 @@ export const explorer = {
            .#..   .*@@@@%@@@@@@@@@@@@%+:.. . ..::-+-@#+-%%%%%@@@@@@=--+#@%%@@@@@@@@@@@@%%@%@@@@@%@%@%#@##****%###*++==------:..+%%%%%%%@%##%%.:#@%-*@+%#%@@@..... .....= =.**-.....:..   .      ......--
 					</pre>
 		</div>
-		<section id="content">
-			<hr />
-			who am i?
-		</div>
+		<section id="about">
+			<h1>{"> About Me"}</h1>
+		</section>
+
+		<section id="experience">
+			<h1>{"> Professional Experience"}</h1>
+		</section>
 	</ScrollView>
 </Layout>
 
