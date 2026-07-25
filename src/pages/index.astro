@@ -51,20 +51,71 @@ export const explorer = {
 					<a href="#about" id="cta">Learn more about me > </a>
 				</div>
 			</div>
-			<AsciiArt id="ascii-background" class="ascii scramble" filePath="ascii/aura.txt" />
+			<AsciiArt
+				class="ascii ascii-background scramble vertical-mask"
+				filePath="ascii/aura.txt"
+			/>
 		</div>
 		<section id="about">
 			<h1>{"> About Me"}</h1>
-			im a developer and I make shit thats pretty dope
+			<div class="about">
+				<div class="about-content">
+					<div class="about-left">
+						<p>
+							Game developer and software engineer building
+							gameplay systems, developer tools, and cloud-based
+							applications. Experienced in Unity, C#, Azure,
+							Blender, and multiplayer development. I like solving
+							complex problems through thoughtful design.
+						</p>
+					</div>
+					<div class="about-right">
+						<Figlet
+							class="ascii ascii-background scramble"
+							font="Slant"
+							text="Profile"
+						/>
+					</div>
+					<div class="about-left">
+						<Figlet
+							class="ascii ascii-background scramble"
+							font="Slant"
+							text="Personal"
+						/>
+					</div>
+					<div class="about-right">
+						<p>
+							Outside of work, you'll usually find me riding my
+							motorcycle, working on personal projects, racing, or
+							enjoying games and music. I'm always exploring
+							something new, whether that's technology, hardware,
+							or a new hobby.
+						</p>
+					</div>
+					<div class="about-left">
+						<p>
+							My technical background spans game development,
+							cloud systems, and software engineering. I enjoy
+							working close to the engine from gameplay systems
+							and tooling to automation, pipelines, and
+							infrastructure.
+						</p>
+					</div>
+					<div class="about-right">
+						<Figlet
+							class="ascii ascii-background scramble"
+							font="Slant"
+							text="Proficiency"
+						/>
+					</div>
+				</div>
+			</div>
 		</section>
 		<section id="experience">
 			<h1>{"> Experience"}</h1>
 		</section>
 		<section id="projects">
 			<h1>{"> Featured Projects"}</h1>
-		</section>
-		<section id="skills">
-			<h1>{"> Skills"}</h1>
 		</section>
 	</ScrollView>
 </Layout>
@@ -106,6 +157,7 @@ export const explorer = {
 		display: flex;
 		flex-direction: column;
 		min-height: var(--hero-height);
+		flex-shrink: 0;
 		padding: 1rem;
 		gap: 1rem;
 		position: relative;
@@ -155,14 +207,44 @@ export const explorer = {
 		gap: 1rem;
 	}
 
-	#ascii-background {
-		position: absolute;
-		opacity: 0.075;
-		mask-image: linear-gradient(black 20%, transparent 80%);
-		font-family: Terminus;
-		font-size: 18px;
-		pointer-events: none;
-		user-select: none;
+	.about {
+		display: flex;
+		flex-grow: 1;
+
+		align-items: center;
+		justify-content: center;
+
+		padding: 2rem;
+	}
+
+	.about-content {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 4rem;
+
+		align-items: center;
+		justify-content: center;
+	}
+
+	.about-left {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: flex-end;
+		text-align: right;
+		gap: 1rem;
+	}
+
+	.about-right {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: flex-start;
+		text-align: left;
+		gap: 1rem;
+	}
+
+	.about-image {
 	}
 
 	.technical {
@@ -208,6 +290,19 @@ export const explorer = {
 		line-height: 1;
 		padding: 0;
 		margin: 0;
+		pointer-events: none;
 		user-select: none;
+	}
+
+	.ascii-background {
+		position: absolute;
+		/* opacity: 0.075; */
+		opacity: 0.1;
+		font-family: Terminus;
+		font-size?: 18px;
+	}
+
+	.vertical-mask {
+		mask-image: linear-gradient(black 20%, transparent 80%);
 	}
 </style>
