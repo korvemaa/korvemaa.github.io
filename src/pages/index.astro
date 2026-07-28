@@ -3,6 +3,7 @@ import { SOCIALS, SKILLS } from "@src/consts";
 import Layout from "@layout/Layout.astro";
 import ScrollView from "@component/ScrollView.astro";
 import Figlet from "@component/Figlet.astro";
+import Divider from "@component/Divider.astro";
 import AsciiArt from "@component/AsciiArt.astro";
 
 export const explorer = {
@@ -57,10 +58,18 @@ export const explorer = {
 			/>
 		</div>
 		<section id="about">
-			<h1>{"> About Me"}</h1>
+			<hr/>
+			<Divider title="> About Me"/>
 			<div class="about">
 				<div class="about-content">
 					<div class="about-left">
+						<Figlet
+							class="ascii scramble"
+							font="Slant"
+							text="About"
+						/>
+					</div>
+					<div class="about-right">
 						<p>
 							Game developer and software engineer building
 							gameplay systems, developer tools, and cloud-based
@@ -69,18 +78,11 @@ export const explorer = {
 							complex problems through thoughtful design.
 						</p>
 					</div>
-					<div class="about-right">
-						<Figlet
-							class="ascii ascii-background scramble"
-							font="Slant"
-							text="Profile"
-						/>
-					</div>
 					<div class="about-left">
 						<Figlet
-							class="ascii ascii-background scramble"
+							class="ascii scramble"
 							font="Slant"
-							text="Personal"
+							text="Persona"
 						/>
 					</div>
 					<div class="about-right">
@@ -93,6 +95,13 @@ export const explorer = {
 						</p>
 					</div>
 					<div class="about-left">
+						<Figlet
+							class="ascii scramble"
+							font="Slant"
+							text="Skills"
+						/>
+					</div>
+					<div class="about-right">
 						<p>
 							My technical background spans game development,
 							cloud systems, and software engineering. I enjoy
@@ -101,21 +110,23 @@ export const explorer = {
 							infrastructure.
 						</p>
 					</div>
-					<div class="about-right">
-						<Figlet
-							class="ascii ascii-background scramble"
-							font="Slant"
-							text="Proficiency"
-						/>
-					</div>
 				</div>
 			</div>
 		</section>
 		<section id="experience">
-			<h1>{"> Experience"}</h1>
+			<hr/>
+			<Divider title="> Experience"/>
+			My professional experience goes here
 		</section>
 		<section id="projects">
-			<h1>{"> Featured Projects"}</h1>
+			<hr/>
+			<Divider title="> Featured Projects"/>
+			My featured projects will go here
+		</section>
+		<section id="interests">
+			<hr/>
+			<Divider title="> Interests"/>
+			All motorsport and other related things go here
 		</section>
 	</ScrollView>
 </Layout>
@@ -156,7 +167,7 @@ export const explorer = {
 	section {
 		display: flex;
 		flex-direction: column;
-		min-height: var(--hero-height);
+		/* min-height: var(--hero-height); */
 		flex-shrink: 0;
 		padding: 1rem;
 		gap: 1rem;
@@ -217,9 +228,14 @@ export const explorer = {
 		padding: 2rem;
 	}
 
+	.about .ascii {
+		opacity: 0.2;
+		font-family: Terminus;
+	}
+
 	.about-content {
 		display: grid;
-		grid-template-columns: 1fr 1fr;
+		grid-template-columns: 0.5fr 1fr;
 		gap: 4rem;
 
 		align-items: center;
@@ -299,7 +315,7 @@ export const explorer = {
 		/* opacity: 0.075; */
 		opacity: 0.1;
 		font-family: Terminus;
-		font-size?: 18px;
+		font-size: 18px;
 	}
 
 	.vertical-mask {
