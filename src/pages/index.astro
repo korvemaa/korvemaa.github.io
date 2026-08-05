@@ -7,49 +7,33 @@ import Divider from "@component/Divider.astro";
 import AsciiArt from "@component/AsciiArt.astro";
 
 export const explorer = {
-	name: "WELCOME.md",
+	name: "HOME.md",
 	order: 0,
 };
 ---
 
-<Layout fileName={explorer.name}>
+<Layout>
 	<ScrollView style="scroll-behavior:smooth;">
 		<div class="hero">
 			<div class="hero-content">
-				<div class="hero-left">
-					<div id="name-ascii">
-						<Figlet
-							class="ascii scramble"
-							text="Jake"
-							font="Future"
-						/>
-						<Figlet
-							class="ascii scramble"
-							text="Korvemaa"
-							font="Future"
-						/>
-					</div>
-					<div class="socials">
-						{
-							SOCIALS.map((social) => (
-								<a
-									target="_blank"
-									href={social.url}
-									class={"icon bi bi-" + social.icon}
-								>
-									{social.title}
-								</a>
-							))
-						}
-					</div>
+				<div id="name-ascii">
+					<Figlet class="ascii scramble" text="Jake" font="Future" />
+					<Figlet
+						class="ascii scramble"
+						text="Korvemaa"
+						font="Future"
+					/>
 				</div>
-				<div class="hero-right">
-					<span id="blurb">
-						Sydney based senior software engineer with 5+ years of
-						experience. Currently working at
-						<a href="/projects/enviz" id="cta">Enviz</a>.
-					</span>
-					<a href="#about" id="cta">Learn more about me > </a>
+				<span id="blurb">
+					Sydney based senior software engineer with 5+ years of
+					expertise. Specializing in creating value and unique experiences.
+				</span>
+				<hr />
+				<div class="cta-stack">
+					<a href="#experience">{"Professional experience"}</a>
+					<a href="#about">{"Learn about me"}</a>
+					<a href="#projects">{"Personal projects"}</a>
+					<a href="#interests">{"Explore interests"}</a>
 				</div>
 			</div>
 			<AsciiArt
@@ -58,18 +42,29 @@ export const explorer = {
 			/>
 		</div>
 		<section id="about">
-			<hr/>
-			<Divider title="> About Me"/>
+			<hr />
+			<Divider title="> neofetch" />
 			<div class="about">
 				<div class="about-content">
-					<div class="about-left">
-						<Figlet
+					<div>
+						<AsciiArt
 							class="ascii scramble"
-							font="Slant"
-							text="About"
+							filePath="ascii/bug-cat.txt"
 						/>
 					</div>
-					<div class="about-right">
+					<div style="gap: 0;">
+						<span>jake@korvemaa.dev</span>
+						<span>------------------------------</span>
+						<span>Role: Senior Software Engineer</span>
+						<span>Location: Sydney, AU</span>
+						<span>Uptime: 5+ years</span>
+						<span>Employment: Enviz</span>
+					</div>
+				</div>
+				<hr />
+				<div class="about-content">
+					<div>
+						<h1>Profile</h1>
 						<p>
 							Game developer and software engineer building
 							gameplay systems, developer tools, and cloud-based
@@ -78,14 +73,8 @@ export const explorer = {
 							complex problems through thoughtful design.
 						</p>
 					</div>
-					<div class="about-left">
-						<Figlet
-							class="ascii scramble"
-							font="Slant"
-							text="Persona"
-						/>
-					</div>
-					<div class="about-right">
+					<div>
+						<h1>Persona</h1>
 						<p>
 							Outside of work, you'll usually find me riding my
 							motorcycle, working on personal projects, racing, or
@@ -94,38 +83,22 @@ export const explorer = {
 							or a new hobby.
 						</p>
 					</div>
-					<div class="about-left">
-						<Figlet
-							class="ascii scramble"
-							font="Slant"
-							text="Skills"
-						/>
-					</div>
-					<div class="about-right">
-						<p>
-							My technical background spans game development,
-							cloud systems, and software engineering. I enjoy
-							working close to the engine from gameplay systems
-							and tooling to automation, pipelines, and
-							infrastructure.
-						</p>
-					</div>
 				</div>
 			</div>
 		</section>
 		<section id="experience">
-			<hr/>
-			<Divider title="> Experience"/>
+			<hr />
+			<Divider title="> Experience" />
 			My professional experience goes here
 		</section>
 		<section id="projects">
-			<hr/>
-			<Divider title="> Featured Projects"/>
+			<hr />
+			<Divider title="> Projects" />
 			My featured projects will go here
 		</section>
 		<section id="interests">
-			<hr/>
-			<Divider title="> Interests"/>
+			<hr />
+			<Divider title="> Interests" />
 			All motorsport and other related things go here
 		</section>
 	</ScrollView>
@@ -135,7 +108,7 @@ export const explorer = {
 	const align = function () {
 		document.body.style.setProperty(
 			"--hero-height",
-			document.getElementById("scroll-view").clientHeight - 64 + "px",
+			document.getElementById("scroll-view").clientHeight + "px",
 		);
 	};
 
@@ -159,9 +132,11 @@ export const explorer = {
 
 		position: relative;
 		overflow: hidden;
-		align-items: center;
+		align-items: flex-start;
 		justify-content: center;
 		padding: 1rem 3rem;
+
+		gap: 2rem;
 	}
 
 	section {
@@ -176,39 +151,37 @@ export const explorer = {
 	}
 
 	.hero-content {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-
-		align-items: center;
-		justify-content: center;
-		flex-direction: row;
-	}
-
-	.hero-left {
 		display: flex;
 		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		gap: 1rem;
-		padding-right: 2rem;
-		border-right: var(--border-width) dotted var(--dimmed-glow-color);
-	}
-
-	.hero-right {
-		display: flex;
-		flex-direction: column;
+		justify-content: flex-start;
 		align-items: stretch;
 		gap: 1rem;
-		justify-content: center;
-		padding-left: 2rem;
+		max-width: 530px;
 	}
 
-	.hero-right #cta {
+	.hero #blurb {
+		overflow-wrap: break-word;
+		min-width: 0;
+	}
+
+	.hero .cta-stack {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	.hero .cta-stack a {
 		text-decoration: none;
+		padding: 4px 1ch;
 	}
 
-	.hero-right #cta:hover {
-		text-decoration: underline;
+	.hero .cta-stack a::after {
+		content: " >";
+		margin-left: 0.5ch;
+	}
+
+	.hero .cta-stack a:hover {
+		background-color: var(--dimmed-glow-color);
 	}
 
 	.hero #name-ascii {
@@ -221,40 +194,42 @@ export const explorer = {
 	.about {
 		display: flex;
 		flex-grow: 1;
+		flex-direction: column;
 
-		align-items: center;
+		align-items: stretch;
 		justify-content: center;
+		gap: 1rem;
 
 		padding: 2rem;
 	}
 
 	.about .ascii {
-		opacity: 0.2;
+		opacity: 1;
 		font-family: Terminus;
 	}
 
 	.about-content {
 		display: grid;
-		grid-template-columns: 0.5fr 1fr;
-		gap: 4rem;
+		grid-template-columns: 1fr 1fr;
+		gap: 2rem;
 
-		align-items: center;
-		justify-content: center;
+		align-items: flex-start;
+		justify-content: flex-start;
 	}
 
-	.about-left {
+	.about-content > :nth-child(odd) {
 		display: flex;
 		flex-direction: column;
-		justify-content: center;
+		justify-content: flex-start;
 		align-items: flex-end;
 		text-align: right;
 		gap: 1rem;
 	}
 
-	.about-right {
+	.about-content > :nth-child(even) {
 		display: flex;
 		flex-direction: column;
-		justify-content: center;
+		justify-content: flex-start;
 		align-items: flex-start;
 		text-align: left;
 		gap: 1rem;
@@ -275,7 +250,7 @@ export const explorer = {
 
 	.socials {
 		display: flex;
-		flex-direction: row;
+		flex-direction: column;
 		flex-wrap: wrap;
 		gap: 0.5rem;
 	}

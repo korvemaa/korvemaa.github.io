@@ -17,9 +17,13 @@ const { ...props } = Astro.props;
         box-sizing: border-box;
         overflow-x: hidden;
         overflow-y: auto;
+    }
 
-        scrollbar-color: var(--text-color) transparent;
-        scrollbar-width: thin; 
+    @-moz-document url-prefix() {
+        #scroll-view {
+            scrollbar-color: var(--text-color) transparent;
+            scrollbar-width: thin;
+        }
     }
 
     #scroll-view::-webkit-scrollbar {
