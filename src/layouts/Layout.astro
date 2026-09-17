@@ -1,7 +1,8 @@
 ---
 import Effects from "@component/Effects.astro";
 import BaseHead from "@component/BaseHead.astro";
-import { SITE_DESCRIPTION } from "../consts";
+import FloatingText from "@component/FloatingText.astro";
+import { SITE_DESCRIPTION, FLOATING_KEYWORDS } from "../consts";
 
 const { title, description, namespace } = Astro.props;
 
@@ -22,6 +23,9 @@ if (url.endsWith("/")) url = url.substring(0, url.length - 1);
     </head>
     <body>
         <Effects />
+        <div class="pad left">
+            <FloatingText strings={FLOATING_KEYWORDS}></FloatingText>
+        </div>
         <div class="website">
             <div class="top-section">
                 <span> <span style="opacity: 0.5;">korvemaa.dev</span> / Home </span>
@@ -37,6 +41,9 @@ if (url.endsWith("/")) url = url.substring(0, url.length - 1);
                 <span> Email, LinkedIn, GitHub </span>
                 <span id="current-time">9:50PM</span>
             </div>
+        </div>
+        <div class="pad right">
+            <FloatingText strings={FLOATING_KEYWORDS}></FloatingText>
         </div>
     </body>
 </html>
@@ -165,13 +172,25 @@ if (url.endsWith("/")) url = url.substring(0, url.length - 1);
     }
 
     body {
-        flex-direction: column;
+        flex-direction: row;
         align-items: stretch;
         overflow: auto;
         flex-grow: 1;
 
         min-width: 0;
-        max-width: var(--max-width);
+    }
+
+    .pad {
+        display: flex;
+        flex-grow: 1;
+    }
+
+    .pad.left {
+		mask-image: linear-gradient(to right, black 40%, transparent 100%);
+    }
+
+    .pad.right {
+		mask-image: linear-gradient(to left, black 40%, transparent 100%);
     }
 
     .website {
@@ -183,6 +202,8 @@ if (url.endsWith("/")) url = url.substring(0, url.length - 1);
         align-items: stretch;
         justify-content: center;
         gap: 0.5rem;
+
+        max-width: var(--max-width);
     }
 
     .content {

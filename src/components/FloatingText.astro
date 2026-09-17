@@ -1,0 +1,162 @@
+---
+const { strings } = Astro.props;
+
+interface Props {
+    strings: string[];
+}
+
+const particles = Array.from(
+    { length: 40 },
+    (_, i) => strings[i % strings.length],
+);
+---
+
+<div class="floating-texts" aria-hidden="true">
+    {particles.map((text) => (
+        <span class="floating-text">{text}</span>
+    ))}
+</div>
+
+<script>
+    const particles =
+        document.querySelectorAll<HTMLElement>(".floating-text");
+
+    particles.forEach((particle) => {
+        const depth = Math.random();
+
+        // Starting position
+        particle.style.setProperty("--x", `${Math.random() * 100}%`);
+        particle.style.setProperty("--y", `${Math.random() * 100}%`);
+
+        // Depth
+        particle.style.setProperty(
+            "--size",
+            `${8 + depth * 5}px`,
+        );
+
+        particle.style.setProperty(
+            "--opacity",
+            `${0.03 + depth * 0.09}`,
+        );
+
+        particle.style.setProperty(
+            "--blur",
+            `${(1 - depth) * 1.5}px`,
+        );
+
+        // Movement speed
+        particle.style.setProperty(
+            "--duration",
+            `${20 + Math.random() * 30}s`,
+        );
+
+        particle.style.setProperty(
+            "--fade-duration",
+            `${40 + Math.random() * 40}s`,
+        );
+
+        // Movement distance
+        particle.style.setProperty(
+            "--float-x",
+            `${-50 + Math.random() * 100}px`,
+        );
+
+        particle.style.setProperty(
+            "--float-y",
+            `${-50 + Math.random() * 100}px`,
+        );
+
+        // Rotation
+        /*
+        particle.style.setProperty(
+            "--rotation",
+            `${-4 + Math.random() * 8}deg`,
+        );
+
+        particle.style.setProperty(
+            "--rotation-range",
+            `${-6 + Math.random() * 12}deg`,
+        );
+        */
+
+        // Random animation offset so everything doesn't start together
+        particle.style.setProperty(
+            "--delay",
+            `${-Math.random() * 60}s`,
+        );
+    });
+</script>
+
+<style>
+    .floating-texts {
+        display: flex;
+        flex-grow: 1;
+        position: relative;
+        inset: 0;
+
+        overflow: hidden;
+        pointer-events: none;
+
+        z-index: -1;
+    }
+
+    .floating-text {
+        position: absolute;
+
+        left: var(--x);
+        top: var(--y);
+
+        /* font-family: monospace; */
+        font-size: var(--size);
+        color: var(--accent);
+
+        white-space: nowrap;
+
+        opacity: 0;
+
+        filter: blur(var(--blur));
+
+        animation:
+            float var(--duration) ease-in-out infinite alternate,
+            fade var(--fade-duration) linear infinite;
+
+        animation-delay: var(--delay);
+    }
+
+    @keyframes float {
+        from {
+            transform: translate(0, 0) rotate(var(--rotation));
+        }
+
+        to {
+            transform:
+                translate(var(--float-x), var(--float-y))
+                rotate(calc(var(--rotation) + var(--rotation-range)));
+        }
+    }
+
+    @keyframes fade {
+        0%,
+        10% {
+            opacity: 0;
+        }
+
+        25%,
+        75% {
+            opacity: var(--opacity);
+        }
+
+        90%,
+        100% {
+            opacity: 0;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .floating-text {
+            animation: none;
+            opacity: 0.08;
+            filter: none;
+        }
+    }
+</style>
