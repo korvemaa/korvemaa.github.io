@@ -1,10 +1,9 @@
 ---
 import Effects from "@component/Effects.astro";
 import BaseHead from "@component/BaseHead.astro";
-import StatusLine from "@component/StatusLine.astro";
 import { SITE_DESCRIPTION } from "../consts";
 
-const { title, description, namespace, mode } = Astro.props;
+const { title, description, namespace } = Astro.props;
 
 var url = Astro.originPathname;
 if (url.endsWith("/")) url = url.substring(0, url.length - 1);
@@ -25,19 +24,18 @@ if (url.endsWith("/")) url = url.substring(0, url.length - 1);
         <Effects />
         <div class="website">
             <div class="top-section">
-                <span> <i>KORVEMAA INDUSTRIES(TM)</i> TERMINAL </span>
-                <span style="margin-left: auto;" id="current-time">9:50PM</span>
+                <span> <span style="opacity: 0.5;">korvemaa.dev</span> / Home </span>
             </div>
             <div class="content">
                 <main class="box" id="page">
                     <slot />
-                    <StatusLine>
-                        {mode && <span id="status-mode">{mode}</span>}
-                        <span id="status-file">Unsaved</span>
-                        <div style="margin: auto;"></div>
-                        <span id="status-progress">98%</span>
-                    </StatusLine>
                 </main>
+            </div>
+            <div class="bottom-section">
+                <span style="opacity: 0.5;"> KORVEMAA INDUSTRIES(TM) TERMINAL </span>
+                <div style="margin-left: auto;"></div>
+                <span> Email, LinkedIn, GitHub </span>
+                <span id="current-time">9:50PM</span>
             </div>
         </div>
     </body>
@@ -56,60 +54,6 @@ if (url.endsWith("/")) url = url.substring(0, url.length - 1);
     }
 
     updateClock();
-</script>
-
-<script defer>
-    function updateStatusFile() {
-        const active = document.querySelector("#navigation a.file.active span");
-        const statusFile = document.getElementById("status-file");
-        if (statusFile && active) {
-            statusFile.textContent = active.textContent;
-        }
-    }
-
-    updateStatusFile();
-    document.addEventListener("astro:page-load", updateStatusFile);
-</script>
-
-<script defer>
-    function initStatusProgress() {
-        const statusProgress = document.getElementById("status-progress");
-        const scroller =
-            document.querySelector("#page #scroll-view") || document.body;
-
-        if (!statusProgress || !scroller) return;
-
-        function updateProgress() {
-            const max = scroller.scrollHeight - scroller.clientHeight;
-
-            if (max <= 0) {
-                statusProgress.textContent = "All";
-                return;
-            }
-
-            const ratio = scroller.scrollTop / max;
-
-            if (ratio <= 0) statusProgress.textContent = "0%";
-            else if (ratio >= 0.98) statusProgress.textContent = "100%";
-            else statusProgress.textContent = Math.round(ratio * 100) + "%";
-        }
-
-        scroller.addEventListener("scroll", updateProgress, { passive: true });
-        window.addEventListener("resize", updateProgress, { passive: true });
-
-        // Recalculate once content size settles (images/fonts loading, etc.)
-        if (window.ResizeObserver) {
-            const ro = new ResizeObserver(updateProgress);
-            ro.observe(scroller);
-            for (const child of scroller.children) ro.observe(child);
-        }
-        window.addEventListener("load", updateProgress);
-
-        updateProgress();
-    }
-
-    initStatusProgress();
-    document.addEventListener("astro:page-load", initStatusProgress);
 </script>
 
 <script defer>
@@ -246,15 +190,29 @@ if (url.endsWith("/")) url = url.substring(0, url.length - 1);
         flex-direction: row;
         flex: 1 1 auto;
         min-height: 0;
+        max-height: var(--max-height);
         align-items: stretch;
         justify-content: center;
         gap: 0.5rem;
     }
 
-    .top-section {
+    .bottom-section {
         display: flex;
         flex-direction: row;
         gap: 1rem;
+    }
+
+    .top-section {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .top-section span:nth-child(1n) {
+        text-align: left;
+    }
+
+    .top-section span:nth-child(2n) {
+        text-align: right;
     }
 
     main {
