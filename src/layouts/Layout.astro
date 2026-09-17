@@ -1,7 +1,9 @@
 ---
 import Effects from "@component/Effects.astro";
 import BaseHead from "@component/BaseHead.astro";
+
 import FloatingText from "@component/FloatingText.astro";
+
 import { SITE_DESCRIPTION, FLOATING_KEYWORDS } from "../consts";
 
 const { title, description, namespace } = Astro.props;
@@ -24,44 +26,22 @@ if (url.endsWith("/")) url = url.substring(0, url.length - 1);
     <body>
         <Effects />
         <div class="pad left">
-            <FloatingText strings={FLOATING_KEYWORDS}></FloatingText>
         </div>
         <div class="website">
             <div class="top-section">
-                <span> <span style="opacity: 0.5;">korvemaa.dev</span> / Home </span>
+                <span> <span style="opacity: 0.5;">korvemaa.dev /</span> Home </span>
+                <span> Email, LinkedIn, GitHub </span>
             </div>
             <div class="content">
                 <main class="box" id="page">
                     <slot />
                 </main>
             </div>
-            <div class="bottom-section">
-                <span style="opacity: 0.5;"> KORVEMAA INDUSTRIES(TM) TERMINAL </span>
-                <div style="margin-left: auto;"></div>
-                <span> Email, LinkedIn, GitHub </span>
-                <span id="current-time">9:50PM</span>
-            </div>
         </div>
         <div class="pad right">
-            <FloatingText strings={FLOATING_KEYWORDS}></FloatingText>
         </div>
     </body>
 </html>
-
-<script defer>
-    function updateClock() {
-        document.getElementById("current-time").textContent =
-            "SYD " +
-            new Date().toLocaleTimeString("en", {
-                timeZone: "Australia/Sydney",
-                timeStyle: "short",
-            });
-
-        setTimeout(updateClock, 10000);
-    }
-
-    updateClock();
-</script>
 
 <script defer>
     class TextScramble {
@@ -92,7 +72,7 @@ if (url.endsWith("/")) url = url.substring(0, url.length - 1);
                 this.queue.push({ to, start, end, char: this.randomChar() });
             }
 
-            cancelAnimationFrame(this.frameRequest);
+            clearTimeout(this.frameRequest);
             this.frame = 0;
             this.update();
         }
@@ -121,7 +101,7 @@ if (url.endsWith("/")) url = url.substring(0, url.length - 1);
             if (complete === this.queue.length) {
                 this.el.textContent = this.finalText;
             } else {
-                this.frameRequest = requestAnimationFrame(() => this.update());
+                this.frameRequest = setTimeout(() => this.update(), 20.8); // 24fps
                 this.frame++;
             }
         }
@@ -186,11 +166,13 @@ if (url.endsWith("/")) url = url.substring(0, url.length - 1);
     }
 
     .pad.left {
-		mask-image: linear-gradient(to right, black 40%, transparent 100%);
+		mask-image: linear-gradient(to right, black 20%, transparent 100%);
+		background-image: linear-gradient(to right, black 20%, transparent 100%);
     }
 
     .pad.right {
-		mask-image: linear-gradient(to left, black 40%, transparent 100%);
+		mask-image: linear-gradient(to left, black 20%, transparent 100%);
+		background-image: linear-gradient(to left, black 20%, transparent 100%);
     }
 
     .website {

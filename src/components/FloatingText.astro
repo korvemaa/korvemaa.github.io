@@ -1,19 +1,20 @@
 ---
-const { strings } = Astro.props;
+const { strings, size } = Astro.props;
 
 interface Props {
     strings: string[];
+    size?: number
 }
 
 const particles = Array.from(
-    { length: 40 },
+    { length: size || 100 },
     (_, i) => strings[i % strings.length],
 );
 ---
 
 <div class="floating-texts" aria-hidden="true">
     {particles.map((text) => (
-        <span class="floating-text">{text}</span>
+        <span class="floating-text">{text.toLowerCase()}</span>
     ))}
 </div>
 
@@ -66,19 +67,6 @@ const particles = Array.from(
             `${-50 + Math.random() * 100}px`,
         );
 
-        // Rotation
-        /*
-        particle.style.setProperty(
-            "--rotation",
-            `${-4 + Math.random() * 8}deg`,
-        );
-
-        particle.style.setProperty(
-            "--rotation-range",
-            `${-6 + Math.random() * 12}deg`,
-        );
-        */
-
         // Random animation offset so everything doesn't start together
         particle.style.setProperty(
             "--delay",
@@ -106,7 +94,6 @@ const particles = Array.from(
         left: var(--x);
         top: var(--y);
 
-        /* font-family: monospace; */
         font-size: var(--size);
         color: var(--accent);
 

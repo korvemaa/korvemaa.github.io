@@ -1,0 +1,92 @@
+---
+interface Props {
+    count?: number;
+    minSize?: number;
+    maxSize?: number;
+}
+
+const {
+    count = 50,
+    minSize = 2,
+    maxSize = 8,
+} = Astro.props;
+---
+
+<div class="floating-squares" aria-hidden="true">
+    {Array.from({ length: count }).map(() => (
+        <span
+            class="square"
+            style={{
+                "--size": `${minSize + Math.random() * (maxSize - minSize)}px`,
+                "--x": `${Math.random() * 100}%`,
+                "--y": `${Math.random() * 100}%`,
+                "--duration": `${12 + Math.random() * 20}s`,
+                "--delay": `${Math.random() * -20}s`,
+                "--drift-x": `${-40 + Math.random() * 80}px`,
+                "--drift-y": `${-60 + Math.random() * 120}px`,
+            }}
+        />
+    ))}
+</div>
+
+<style>
+    .floating-squares {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: -1;
+        opacity: 0.15;
+    }
+
+    .square {
+        position: absolute;
+
+        width: var(--size);
+        height: var(--size);
+
+        left: var(--x);
+        top: var(--y);
+
+        background: var(--text-color);
+
+        animation: float var(--duration) ease-in-out var(--delay) infinite;
+    }
+
+    @keyframes float {
+        0% {
+            transform: translate(0, 0);
+            opacity: 0;
+        }
+
+        15% {
+            opacity: 0.35;
+        }
+
+        50% {
+            transform:
+                translate(
+                    var(--drift-x),
+                    var(--drift-y)
+                );
+            opacity: 0.2;
+        }
+
+        85% {
+            opacity: 0.35;
+        }
+
+        100% {
+            transform:
+                translate(0, 0);
+            opacity: 0;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .square {
+            animation: none;
+            opacity: 0.15;
+        }
+    }
+</style>
