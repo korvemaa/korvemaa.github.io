@@ -2,9 +2,7 @@
 import Effects from "@component/Effects.astro";
 import BaseHead from "@component/BaseHead.astro";
 
-import FloatingText from "@component/FloatingText.astro";
-
-import { SITE_DESCRIPTION, FLOATING_KEYWORDS } from "../consts";
+import { SITE_DESCRIPTION } from "../consts";
 
 const { title, description, namespace } = Astro.props;
 
@@ -25,12 +23,25 @@ if (url.endsWith("/")) url = url.substring(0, url.length - 1);
     </head>
     <body>
         <Effects />
-        <div class="pad left">
-        </div>
+        <div class="pad left"></div>
         <div class="website">
             <div class="top-section">
-                <span> <span style="opacity: 0.5;">korvemaa.dev /</span> Home </span>
-                <span> Email, LinkedIn, GitHub </span>
+                <span>
+                    <span style="opacity: 0.5;">korvemaa.dev /</span> Home
+                </span>
+                <span>
+                    <a href="mailto:contact@korvemaa.dev" target="_blank"
+                        >Email</a
+                    >
+                    |
+                    <a
+                        href="https://www.linkedin.com/in/jakekve"
+                        target="_blank">LinkedIn</a
+                    > | <a
+                        href="https://www.github.com/korvemaa"
+                        target="_blank">GitHub</a
+                    >
+                </span>
             </div>
             <div class="content">
                 <main class="box" id="page">
@@ -38,8 +49,7 @@ if (url.endsWith("/")) url = url.substring(0, url.length - 1);
                 </main>
             </div>
         </div>
-        <div class="pad right">
-        </div>
+        <div class="pad right"></div>
     </body>
 </html>
 
@@ -166,13 +176,17 @@ if (url.endsWith("/")) url = url.substring(0, url.length - 1);
     }
 
     .pad.left {
-		mask-image: linear-gradient(to right, black 20%, transparent 100%);
-		background-image: linear-gradient(to right, black 20%, transparent 100%);
+        mask-image: linear-gradient(to right, black 20%, transparent 100%);
+        background-image: linear-gradient(
+            to right,
+            black 20%,
+            transparent 100%
+        );
     }
 
     .pad.right {
-		mask-image: linear-gradient(to left, black 20%, transparent 100%);
-		background-image: linear-gradient(to left, black 20%, transparent 100%);
+        mask-image: linear-gradient(to left, black 20%, transparent 100%);
+        background-image: linear-gradient(to left, black 20%, transparent 100%);
     }
 
     .website {

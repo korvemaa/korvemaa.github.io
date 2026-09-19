@@ -4,10 +4,9 @@ import { getCollection } from "astro:content";
 import Layout from "@layout/Layout.astro";
 import ScrollView from "@component/ScrollView.astro";
 import Figlet from "@component/Figlet.astro";
-import Divider from "@component/Divider.astro";
 import AsciiArt from "@component/AsciiArt.astro";
-import FloatingText from "@component/FloatingText.astro";
 import ProjectTile from "@component/ProjectTile.astro";
+import FloatingText from "@component/FloatingText.astro";
 
 import { FLOATING_KEYWORDS } from "@src/consts";
 
@@ -57,55 +56,46 @@ export const explorer = {
 		</div>
 		<section id="about">
 			<hr />
-			<Divider title="> neofetch" />
 			<div class="about">
 				<div class="about-content">
+					<Figlet
+						style="align-self: flex-start;"
+						class="ascii scramble"
+						text="About me"
+						font="Future"
+					/>
 					<div>
-						<AsciiArt
-							class="ascii scramble"
-							filePath="ascii/bug-cat.txt"
-						/>
+						Game developer and software engineer building gameplay
+						systems, developer tools, and cloud-based applications.
+						Experienced in Unity, C#, Azure, Blender, and
+						multiplayer development. I like solving complex problems
+						through thoughtful design.
 					</div>
-					<div style="gap: 0;">
-						<span>jake@korvemaa.dev</span>
-						<span>------------------------------</span>
-						<span>Role: Senior Software Engineer</span>
-						<span>Location: Sydney, AU</span>
-						<span>Uptime: 5+ years</span>
-						<span>Employment: Enviz</span>
-					</div>
-				</div>
-				<hr />
-				<div class="about-content">
+					<hr />
 					<div>
-						<h1>Profile</h1>
-						<p>
-							Game developer and software engineer building
-							gameplay systems, developer tools, and cloud-based
-							applications. Experienced in Unity, C#, Azure,
-							Blender, and multiplayer development. I like solving
-							complex problems through thoughtful design.
-						</p>
-					</div>
-					<div>
-						<h1>Persona</h1>
-						<p>
-							Outside of work, you'll usually find me riding my
-							motorcycle, working on personal projects, racing, or
-							enjoying games and music. I'm always exploring
-							something new, whether that's technology, hardware,
-							or a new hobby.
-						</p>
+						Outside of work, you'll usually find me riding my
+						motorcycle, working on personal projects, racing, or
+						enjoying games and music. I'm always exploring something
+						new, whether that's technology, hardware, or a new
+						hobby.
 					</div>
 				</div>
 			</div>
+			<div class="floating-text vertical-mask">
+				<FloatingText strings={FLOATING_KEYWORDS} />
+			</div>
+			<AsciiArt
+				class="ascii ascii-background scramble vertical-mask"
+				filePath="ascii/about.txt"
+			/>
 		</section>
 		<section id="experience">
 			<hr />
-			My professional experience goes here. Each one being in a seperate box
+			<h1>[ professional experience ]</h1>
 		</section>
 		<section id="projects">
 			<hr />
+			<h1>[ personal projects ]</h1>
 			<div class="content-section">
 				<div class="grid">
 					{
@@ -125,8 +115,7 @@ export const explorer = {
 		</section>
 		<section id="interests">
 			<hr />
-			<Divider title="> Interests" />
-			All motorsport and other related things go here
+			<h1>[ explore interests ]</h1>
 		</section>
 	</ScrollView>
 </Layout>
@@ -170,7 +159,7 @@ export const explorer = {
 		display: flex;
 		flex-direction: column;
 		flex-shrink: 0;
-		padding: 1rem;
+		padding: 1rem 1rem;
 		gap: 1rem;
 		position: relative;
 		overflow: hidden;
@@ -227,51 +216,44 @@ export const explorer = {
 		gap: 1rem;
 	}
 
+	section#about {
+		min-height: var(--hero-height);
+		max-height: var(--hero-height);
+	}
+
+	section#about .floating-text {
+		position: absolute;
+		display: flex;
+		flex-grow: 1;
+		user-select: none;
+		pointer-events: none;
+
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+	}
+
 	.about {
 		display: flex;
 		flex-grow: 1;
 		flex-direction: column;
 
-		align-items: stretch;
+		align-items: flex-end;
 		justify-content: center;
-		gap: 1rem;
 
-		padding: 2rem;
-	}
-
-	.about .ascii {
-		opacity: 1;
-		font-family: Terminus;
+		padding: 1rem 2rem;
+		gap: 2rem;
 	}
 
 	.about-content {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
+		display: flex;
+		flex-direction: column;
+		max-width: 570px;
+
 		gap: 2rem;
-
-		align-items: flex-start;
-		justify-content: flex-start;
-	}
-
-	.about-content > :nth-child(odd) {
-		display: flex;
-		flex-direction: column;
-		justify-content: flex-start;
-		align-items: flex-end;
-		text-align: right;
-		gap: 1rem;
-	}
-
-	.about-content > :nth-child(even) {
-		display: flex;
-		flex-direction: column;
-		justify-content: flex-start;
-		align-items: flex-start;
-		text-align: left;
-		gap: 1rem;
-	}
-
-	.about-image {
+		align-items: stretch;
+		justify-content: flex-end;
 	}
 
 	.technical {
@@ -325,7 +307,7 @@ export const explorer = {
 	}
 
 	.ascii {
-		font-family: monospace;
+		font-family: Terminus;
 		font-synthesis-weight: none;
 		font-variant-ligatures: none;
 		line-height: 1;
@@ -337,10 +319,14 @@ export const explorer = {
 
 	.ascii-background {
 		position: absolute;
-		/* opacity: 0.075; */
-		opacity: 0.15;
+		opacity: 0.2;
 		font-family: Terminus;
 		font-size: 18px;
+	}
+
+	#about .ascii-background {
+		top: 1rem;
+		right: 250px;
 	}
 
 	.vertical-mask {
