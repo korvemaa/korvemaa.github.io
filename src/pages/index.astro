@@ -6,9 +6,11 @@ import ScrollView from "@component/ScrollView.astro";
 import Figlet from "@component/Figlet.astro";
 import AsciiArt from "@component/AsciiArt.astro";
 import ProjectTile from "@component/ProjectTile.astro";
+import SimpleProjectTile from "@component/SimpleProjectTile.astro";
 import FloatingText from "@component/FloatingText.astro";
 
 import { FLOATING_KEYWORDS } from "@src/consts";
+import { getEntry } from "astro:content";
 
 const projects = (await getCollection("project"))
 	.filter((e) => e.data.group === "Personal")
@@ -17,6 +19,16 @@ const projects = (await getCollection("project"))
 		const db = b.data.date?.getTime() ?? 100;
 		return db - da;
 	});
+
+const experience = (await getCollection("experience")).sort((a, b) => {
+	const da = a.data.startDate?.getTime() ?? 100;
+	const db = b.data.startDate?.getTime() ?? 100;
+	return db - da;
+});
+
+const test1 = await getEntry("project", "superboss-games/manta")!;
+const test2 = await getEntry("project", "superboss-games/panther")!;
+const test3 = await getEntry("project", "superboss-games/falcon")!;
 
 export const explorer = {
 	name: "HOME.md",
@@ -37,9 +49,8 @@ export const explorer = {
 					/>
 				</div>
 				<span id="blurb">
-					Sydney based senior software engineer with 5+ years of
-					expertise. Specializing in creating value and unique
-					experiences.
+					Sydney based software engineer with 5+ years of experience.
+					Building games, tools, and whatever else I find interesting.
 				</span>
 				<hr />
 				<div class="cta-stack">
@@ -54,8 +65,47 @@ export const explorer = {
 				filePath="ascii/aura.txt"
 			/>
 		</div>
+		<section id="experience">
+			<h1 class="faded-title">[ professional experience ]</h1>
+			<div class="experience-blocks">
+				{
+					experience.map(({ data }) => (
+						<div class="block">
+							<div class="content">
+								<h1>{data.position + " @ " + data.name}</h1>
+								<p>
+									{data.startDate.getFullYear() +
+										"-" +
+										(data.endDate?.getFullYear() ||
+											"present")}
+								</p>
+							</div>
+							<div class="featured">
+                                    <SimpleProjectTile
+                                        title={test1.data.title}
+                                        date={test1.data.date}
+                                        thumbnail={test1.data.thumbnail}
+                                    />
+
+                                    <SimpleProjectTile
+                                        title={test2.data.title}
+                                        date={test2.data.date}
+                                        thumbnail={test2.data.thumbnail}
+                                    />
+
+                                    <SimpleProjectTile
+                                        title={test3.data.title}
+                                        date={test3.data.date}
+                                        thumbnail={test3.data.thumbnail}
+                                    />
+							</div>
+						</div>
+					))
+				}
+			</div>
+		</section>
 		<section id="about">
-			<hr />
+			<h1 class="faded-title">[ learn about me ]</h1>
 			<div class="about">
 				<div class="about-content">
 					<Figlet
@@ -89,13 +139,8 @@ export const explorer = {
 				filePath="ascii/about.txt"
 			/>
 		</section>
-		<section id="experience">
-			<hr />
-			<h1>[ professional experience ]</h1>
-		</section>
 		<section id="projects">
-			<hr />
-			<h1>[ personal projects ]</h1>
+			<h1 class="faded-title">[ personal projects ]</h1>
 			<div class="content-section">
 				<div class="grid">
 					{
@@ -114,8 +159,7 @@ export const explorer = {
 			</div>
 		</section>
 		<section id="interests">
-			<hr />
-			<h1>[ explore interests ]</h1>
+			<h1 class="faded-title">[ explore interests ]</h1>
 		</section>
 	</ScrollView>
 </Layout>
@@ -306,6 +350,10 @@ export const explorer = {
 		text-decoration: none;
 	}
 
+	.faded-title {
+		opacity: 0.5;
+	}
+
 	.ascii {
 		font-family: Terminus;
 		font-synthesis-weight: none;
@@ -333,5 +381,89 @@ export const explorer = {
 		display: flex;
 		align-items: stretch;
 		mask-image: linear-gradient(black 20%, transparent 80%);
+	}
+
+	.experience-blocks {
+		display: flex;
+		flex-direction: column;
+		padding: 2rem 4rem;
+	}
+
+	.experience-blocks .block {
+		display: flex;
+		flex-direction: column;
+		align-items: stretch;
+
+		text-align: left;
+		gap: 2rem;
+
+		position: relative;
+		padding: 3rem 2rem;
+		border: var(--border-width) dashed var(--dimmed-glow-color);
+	}
+
+	.experience-blocks .block .featured {
+		display: flex;
+		flex-direction: row;
+		flex-grow: 1;
+		gap: 1rem;
+	}
+
+	.experience-blocks .block:nth-child(odd) {
+		text-align: left;
+		border-right: 0;
+	}
+
+	.experience-blocks .block:nth-child(odd) .content {
+		display: flex;
+		flex-direction: column;
+		text-align: left;
+	}
+
+	.experience-blocks .block:nth-child(odd)::after {
+		content: "";
+		position: absolute;
+		display: flex;
+
+		width: 16px;
+		height: 16px;
+		left: -8px;
+		translate: 0 8px;
+
+		background-color: var(--text-color);
+	}
+
+	.experience-blocks .block:nth-child(even) {
+		border-left: 0;
+		text-align: right;
+	}
+
+	.experience-blocks .block:nth-child(even) .content {
+		display: flex;
+		flex-direction: column;
+		text-align: right;
+	}
+
+	.experience-blocks .block:nth-child(even)::after {
+		content: "";
+		position: absolute;
+		display: flex;
+
+		width: 16px;
+		height: 16px;
+		right: -8px;
+		translate: 0 8px;
+
+		background-color: var(--text-color);
+	}
+
+	.experience-blocks .block:first-child {
+		border-top: 0;
+	padding-top: 0;
+	}
+
+	.experience-blocks .block:last-child {
+		border-bottom: 0;
+		padding-bottom: 0;
 	}
 </style>

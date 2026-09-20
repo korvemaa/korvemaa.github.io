@@ -29,18 +29,10 @@ if (url.endsWith("/")) url = url.substring(0, url.length - 1);
                 <span>
                     <span style="opacity: 0.5;">korvemaa.dev /</span> Home
                 </span>
-                <span>
-                    <a href="mailto:contact@korvemaa.dev" target="_blank"
-                        >Email</a
-                    >
-                    |
-                    <a
-                        href="https://www.linkedin.com/in/jakekve"
-                        target="_blank">LinkedIn</a
-                    > | <a
-                        href="https://www.github.com/korvemaa"
-                        target="_blank">GitHub</a
-                    >
+                <span class="social-links">
+                    <a href="mailto:contact@korvemaa.dev" target="_blank" >Email</a>
+                    <a href="https://www.linkedin.com/in/jakekve" target="_blank">LinkedIn</a>
+                    <a href="https://www.github.com/korvemaa" target="_blank">GitHub</a>
                 </span>
             </div>
             <div class="content">
@@ -246,6 +238,15 @@ if (url.endsWith("/")) url = url.substring(0, url.length - 1);
         overflow: hidden;
 
         background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    .social-links a {
+        text-decoration: none;
+        padding: 0.5ch 1ch;
+    }
+
+    .social-links a:hover {
+        background-color: var(--dimmed-glow-color);
     }
 
     @media (max-width: 550px) {

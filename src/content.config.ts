@@ -1,17 +1,6 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
-const blog = defineCollection({
-	loader: glob({ base: './src/content/blog', pattern: '**/*.{md,mdx}' }),
-	schema: () =>
-		z.object({
-			title: z.string(),
-			description: z.string(),
-			date: z.coerce.date(),
-			tags: z.array(z.string()).optional()
-		}),
-});
-
 const project = defineCollection({
 	loader: glob({ base: './src/content/project', pattern: '**/*.{md,mdx}' }),
 	schema: ({ image }) => z.object({
@@ -40,10 +29,9 @@ const experience = defineCollection({
 		projects: z.string(),
 		startDate: z.coerce.date(),
 		endDate: z.coerce.date().optional(),
-		icon: image().optional(), // Shown in the experience panel. should be 1:1
 		thumbnail: image().optional(), // Shown in the projects panel. should be 16/9 roughly
+		featured: z.array(z.string()).optional()
 	})
-
 });
 
-export const collections = { blog, project, experience };
+export const collections = { project, experience };

@@ -8,4 +8,9 @@ endDate: "Jul 2021"
 icon: 'images/superboss.jpg'
 thumbnail: 'images/superboss-thumbnail.png'
 projects: "/projects/superboss-games"
+featured: [
+    "falcon",
+    "manta",
+    "panther"
+]
 ---
