@@ -3,10 +3,10 @@ import Project from "../../layouts/Project.astro";
 import { type CollectionEntry, getCollection } from "astro:content";
 
 export async function getStaticPaths() {
-    const posts = (await getCollection("project")).filter(e=>e.id.startsWith("motorsport"));
-    return posts.map((project) => ({
-        params: { slug: project.id.substring("motorsport".length) },
-        props: project,
+    const posts = (await getCollection("blog"));
+    return posts.map((blog) => ({
+        params: { slug: blog.id },
+        props: blog,
     }));
 }
 

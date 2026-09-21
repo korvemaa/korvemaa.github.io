@@ -6,12 +6,11 @@ import ScrollView from "@component/ScrollView.astro";
 import Figlet from "@component/Figlet.astro";
 import AsciiArt from "@component/AsciiArt.astro";
 import ProjectTile from "@component/ProjectTile.astro";
-import SimpleProjectTile from "@component/SimpleProjectTile.astro";
 import FloatingText from "@component/FloatingText.astro";
 import ExperienceFeatured from "@component/ExperienceFeatured.astro";
+import BlogBlock from "@component/BlogBlock.astro";
 
 import { FLOATING_KEYWORDS } from "@src/consts";
-import { getEntry } from "astro:content";
 
 const projects = (await getCollection("project"))
 	.filter((e) => e.data.group === "Personal")
@@ -21,20 +20,17 @@ const projects = (await getCollection("project"))
 		return db - da;
 	});
 
+const blogs = (await getCollection("blog")).sort((a, b) => {
+	const da = a.data.date?.getTime() ?? 100;
+	const db = b.data.date?.getTime() ?? 100;
+	return db - da;
+});
+
 const experience = (await getCollection("experience")).sort((a, b) => {
 	const da = a.data.startDate?.getTime() ?? 100;
 	const db = b.data.startDate?.getTime() ?? 100;
 	return db - da;
 });
-
-const test1 = await getEntry("project", "superboss-games/manta")!;
-const test2 = await getEntry("project", "superboss-games/panther")!;
-const test3 = await getEntry("project", "superboss-games/falcon")!;
-
-export const explorer = {
-	name: "HOME.md",
-	order: 0,
-};
 ---
 
 <Layout>
@@ -76,7 +72,7 @@ export const explorer = {
 								<h1>{data.position + " @ " + data.name}</h1>
 								<p>
 									{data.startDate.getFullYear() +
-										"-" +
+										" - " +
 										(data.endDate?.getFullYear() ||
 											"present")}
 								</p>
@@ -156,9 +152,20 @@ export const explorer = {
 		</section>
 		<section id="interests">
 			<h1 class="faded-title">[ explore interests ]</h1>
+			<div class="blog-blocks">
+				{
+					blogs.map((blog) => (
+						<BlogBlock blog={blog} class="block"></BlogBlock>
+					))
+				}
+			</div>
 		</section>
 		<section id="footer">
 			<h1 class="faded-title">[ footer ]</h1>
+			<p>
+				Congratulations you've made it to the bottom! (Add control for
+				changing colour theme)
+			</p>
 		</section>
 	</ScrollView>
 </Layout>
@@ -203,6 +210,7 @@ export const explorer = {
 		flex-direction: column;
 		flex-shrink: 0;
 		padding: 2rem 1rem;
+
 		gap: 1rem;
 		position: relative;
 		overflow: hidden;
@@ -211,11 +219,7 @@ export const explorer = {
 	.content-section {
 		display: flex;
 		flex-direction: column;
-
-		background-image: var(--box-fade);
-		border: var(--border-width) dotted var(--dimmed-glow-color);
-		padding: 1rem;
-		gap: 1rem;
+		padding: 2rem;
 	}
 
 	.hero-content {
@@ -351,6 +355,7 @@ export const explorer = {
 
 	.faded-title {
 		opacity: 0.5;
+		align-self: center;
 	}
 
 	.ascii {
@@ -402,8 +407,8 @@ export const explorer = {
 	}
 
 	.experience-blocks .block .featured {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
 		gap: 1rem;
 	}
 
@@ -504,5 +509,13 @@ export const explorer = {
 
 	.experience-blocks .block:nth-child(even) .block-cta {
 		align-items: flex-start;
+	}
+
+	.blog-blocks {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(min(550px, 100%), 1fr));
+		gap: 1rem;
+
+		padding: 2rem;
 	}
 </style>

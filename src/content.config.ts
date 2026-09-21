@@ -6,7 +6,6 @@ const project = defineCollection({
 	schema: ({ image }) => z.object({
 		title: z.string(),
 		group: z.string(),
-		fileName: z.string().optional(),
 		description: z.string().optional(),
 		blurb: z.string().optional(),
 		date: z.coerce.date().optional(),
@@ -34,4 +33,18 @@ const experience = defineCollection({
 	})
 });
 
-export const collections = { project, experience };
+const blog = defineCollection({
+	loader: glob({ base: './src/content/blog', pattern: '**/*.{md,mdx}' }),
+	schema: ({ image }) => z.object({
+		title: z.string(),
+		description: z.string(),
+		date: z.coerce.date(),
+		thumbnail: image(),
+		gallery: z.array(image()).optional(),
+		videos: z.array(z.string()).optional(),
+		links: z.array(z.string()).optional(),
+		tags: z.array(z.string()).optional(),
+	})
+})
+
+export const collections = { blog, project, experience };

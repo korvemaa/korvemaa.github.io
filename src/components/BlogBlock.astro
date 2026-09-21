@@ -1,0 +1,79 @@
+---
+import { getImage } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+
+const { blog, ...props } = Astro.props;
+
+const image = await getImage({ src: blog.data.thumbnail! });
+
+type Props = {
+    blog: CollectionEntry<"blog">;
+    style?: string;
+    class?: string;
+};
+---
+
+<a id="blog-block" {...props} href={"/blog/" + blog.id}>
+    <div id="blog-image" style={`background-image: url(${image.src});`}></div>
+    <div id="blog-content">
+        <span id="age">
+            {
+                blog.data.date.toLocaleString("en-au", {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric",
+                })
+            }
+        </span>
+        <h1>{blog.data.title}</h1>
+        <hr />
+        <p>{blog.data.description}</p>
+    </div>
+</a>
+
+<style>
+    #blog-block {
+        display: flex;
+
+        background-image: var(--box-fade);
+        border: var(--border-width) dotted var(--dimmed-glow-color);
+        text-decoration: none;
+    }
+
+    #blog-block:hover {
+        background-color: var(--dimmed-glow-color);
+    }
+
+    #blog-block p {
+        flex-grow: 1;
+        padding: 0;
+    }
+
+    #blog-block #age {
+        opacity: 0.5;
+    }
+
+    #blog-block #blog-image {
+        display: flex;
+        aspect-ratio: 4/3;
+        height: 190px;
+
+        background-position: center;
+        background-size: cover;
+    }
+
+    #blog-block #blog-content {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        flex-shrink: 1;
+        padding: 1rem;
+        gap: 1ch;
+
+        border-left: var(--border-width) dotted var(--dimmed-glow-color);
+    }
+
+    #blog-block #blog-content a {
+        align-self: flex-end;
+    }
+</style>
