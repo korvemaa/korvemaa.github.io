@@ -58,7 +58,7 @@ const experience = (await getCollection("experience")).sort((a, b) => {
 				</div>
 			</div>
 			<AsciiArt
-				class="ascii ascii-background scramble vertical-mask"
+				class="ascii ascii-background terminus scramble vertical-mask"
 				filePath="ascii/aura.txt"
 			/>
 		</div>
@@ -127,7 +127,7 @@ const experience = (await getCollection("experience")).sort((a, b) => {
 				<FloatingText strings={FLOATING_KEYWORDS} />
 			</div>
 			<AsciiArt
-				class="ascii ascii-background scramble vertical-mask"
+				class="ascii ascii-background terminus scramble vertical-mask"
 				filePath="ascii/about.txt"
 			/>
 		</section>
@@ -358,8 +358,8 @@ const experience = (await getCollection("experience")).sort((a, b) => {
 	}
 
 	.ascii {
-		font-family: Terminus;
-		font-synthesis-weight: none;
+		font-family: monospace;
+		font-synthesis: none;
 		font-variant-ligatures: none;
 		line-height: 1;
 		padding: 0;
@@ -371,9 +371,17 @@ const experience = (await getCollection("experience")).sort((a, b) => {
 	.ascii-background {
 		position: absolute;
 		opacity: 0.2;
-		font-family: Terminus;
+		font-family: monospace;
 		font-size: 18px;
 	}
+
+	.terminus {
+		/* FOR SOME REASON CHROMIUM RENDERS TERMINUS FUCKING STUPIDLY I HATE CHROME POS, so terminus is only used for background ascii */
+		font-family: Terminus;
+		font-synthesis: none;
+		font-variant-ligatures: none;
+	}
+	
 
 	#about .ascii-background {
 		top: 1rem;

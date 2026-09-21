@@ -36,9 +36,11 @@
 @font-face {
 	font-family: 'Terminus';
 	src: url('/fonts/terminus-webfont.woff2') format('woff2');
+
 	font-weight: normal;
 	font-style: normal;
-	font-display: swap;
+	font-display: block;
+
 }
 
 html {
