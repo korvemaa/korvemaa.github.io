@@ -1,0 +1,38 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { getEntry } from "astro:content";
+import SimpleProjectTile from "./SimpleProjectTile.astro";
+
+const { job, ...props } = Astro.props;
+
+interface Props {
+    job: string[];
+    class?: string;
+    style?: string;
+}
+
+const featured = await Promise.all(
+    job.map((feature) => getEntry("project", feature)),
+);
+---
+
+<div {...props}>
+    {
+        featured.map((d) => (
+            <a href={`/projects/${d!.id}`}>
+                <SimpleProjectTile
+                    title={d!.data.title}
+                    date={d!.data.date}
+                    thumbnail={d!.data.thumbnail}
+                />
+            </a>
+        ))
+    }
+</div>
+
+<style>
+    a {
+        flex-grow: 1;
+        text-decoration: none;
+    }
+</style>

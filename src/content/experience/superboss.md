@@ -9,8 +9,8 @@ icon: 'images/superboss.jpg'
 thumbnail: 'images/superboss-thumbnail.png'
 projects: "/projects/superboss-games"
 featured: [
-    "falcon",
-    "manta",
-    "panther"
+    "superboss-games/falcon",
+    "superboss-games/manta",
+    "superboss-games/panther"
 ]
 ---

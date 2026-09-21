@@ -30,7 +30,7 @@ const experience = defineCollection({
 		startDate: z.coerce.date(),
 		endDate: z.coerce.date().optional(),
 		thumbnail: image().optional(), // Shown in the projects panel. should be 16/9 roughly
-		featured: z.array(z.string()).optional()
+		featured: z.array(z.string())
 	})
 });
 

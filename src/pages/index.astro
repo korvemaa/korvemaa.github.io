@@ -8,6 +8,7 @@ import AsciiArt from "@component/AsciiArt.astro";
 import ProjectTile from "@component/ProjectTile.astro";
 import SimpleProjectTile from "@component/SimpleProjectTile.astro";
 import FloatingText from "@component/FloatingText.astro";
+import ExperienceFeatured from "@component/ExperienceFeatured.astro";
 
 import { FLOATING_KEYWORDS } from "@src/consts";
 import { getEntry } from "astro:content";
@@ -80,25 +81,20 @@ export const explorer = {
 											"present")}
 								</p>
 							</div>
-							<div class="featured">
-                                    <SimpleProjectTile
-                                        title={test1.data.title}
-                                        date={test1.data.date}
-                                        thumbnail={test1.data.thumbnail}
-                                    />
-
-                                    <SimpleProjectTile
-                                        title={test2.data.title}
-                                        date={test2.data.date}
-                                        thumbnail={test2.data.thumbnail}
-                                    />
-
-                                    <SimpleProjectTile
-                                        title={test3.data.title}
-                                        date={test3.data.date}
-                                        thumbnail={test3.data.thumbnail}
-                                    />
+							<ExperienceFeatured
+								class="featured"
+								job={data.featured}
+							/>
+							<div class="block-cta">
+								<a href={data.projects}>
+									{"View more about " + data.name}
+								</a>
 							</div>
+							<Figlet
+								class="ascii ascii-background scramble"
+								text={data.name}
+								font="Future"
+							/>
 						</div>
 					))
 				}
@@ -161,6 +157,9 @@ export const explorer = {
 		<section id="interests">
 			<h1 class="faded-title">[ explore interests ]</h1>
 		</section>
+		<section id="footer">
+			<h1 class="faded-title">[ footer ]</h1>
+		</section>
 	</ScrollView>
 </Layout>
 
@@ -203,7 +202,7 @@ export const explorer = {
 		display: flex;
 		flex-direction: column;
 		flex-shrink: 0;
-		padding: 1rem 1rem;
+		padding: 2rem 1rem;
 		gap: 1rem;
 		position: relative;
 		overflow: hidden;
@@ -403,15 +402,15 @@ export const explorer = {
 	}
 
 	.experience-blocks .block .featured {
-		display: flex;
-		flex-direction: row;
-		flex-grow: 1;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
 		gap: 1rem;
 	}
 
 	.experience-blocks .block:nth-child(odd) {
 		text-align: left;
 		border-right: 0;
+		padding-right: 0;
 	}
 
 	.experience-blocks .block:nth-child(odd) .content {
@@ -435,6 +434,7 @@ export const explorer = {
 
 	.experience-blocks .block:nth-child(even) {
 		border-left: 0;
+		padding-left: 0;
 		text-align: right;
 	}
 
@@ -459,11 +459,50 @@ export const explorer = {
 
 	.experience-blocks .block:first-child {
 		border-top: 0;
-	padding-top: 0;
+		padding-top: 0;
 	}
 
 	.experience-blocks .block:last-child {
 		border-bottom: 0;
 		padding-bottom: 0;
+	}
+
+	.experience-blocks .block .ascii-background {
+		z-index: -1;
+	}
+
+	.experience-blocks .block:nth-child(odd) .ascii-background {
+		right: 0;
+	}
+
+	.experience-blocks .block:nth-child(even) .ascii-background {
+		left: 0;
+	}
+
+	.experience-blocks .block .block-cta {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.experience-blocks .block .block-cta a {
+		text-decoration: none;
+		padding: 4px 1ch;
+	}
+
+	.experience-blocks .block .block-cta a::after {
+		content: " >";
+		margin-left: 0.5ch;
+	}
+
+	.experience-blocks .block .block-cta a:hover {
+		background-color: var(--dimmed-glow-color);
+	}
+
+	.experience-blocks .block:nth-child(odd) .block-cta {
+		align-items: flex-end;
+	}
+
+	.experience-blocks .block:nth-child(even) .block-cta {
+		align-items: flex-start;
 	}
 </style>

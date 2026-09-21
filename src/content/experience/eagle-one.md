@@ -9,6 +9,8 @@ icon: 'images/eagle-one.jpg'
 thumbnail: 'images/eagle-one-thumbnail.png'
 projects: "/projects/eagle-one"
 featured: [
-    "",
+    "eagle-one/dam",
+    "eagle-one/runway-demo",
+    "eagle-one/runway-office",
 ]
 ---
