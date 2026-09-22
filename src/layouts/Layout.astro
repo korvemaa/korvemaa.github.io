@@ -28,12 +28,12 @@ if (url.endsWith("/")) url = url.substring(0, url.length - 1);
         <div class="website">
             <div class="top-section">
                 <span>
-                    <span style="opacity: 0.5;">korvemaa.dev /</span> Home
+                    <span id="website-name" style="opacity: 0.5;" >korvemaa.dev /</span> Home 
                 </span>
                 <span class="social-links">
                     <a href="mailto:contact@korvemaa.dev" target="_blank" >Email</a>
                     <a href="https://www.linkedin.com/in/jakekve" target="_blank">LinkedIn</a>
-                    <a href="https://www.github.com/korvemaa" target="_blank">GitHub</a>
+                    <a href="https://www.github.com/korvemaa" target="_blank" >GitHub</a>
                 </span>
             </div>
             <div class="content">
@@ -157,7 +157,7 @@ if (url.endsWith("/")) url = url.substring(0, url.length - 1);
     body {
         flex-direction: row;
         align-items: stretch;
-        
+
         overflow: auto;
         flex-grow: 1;
 
@@ -269,6 +269,11 @@ if (url.endsWith("/")) url = url.substring(0, url.length - 1);
         }
 
         .top-section {
+            display: none;
+            padding: 0 1rem;
+        }
+
+        .top-section #website-name {
             display: none;
         }
     }

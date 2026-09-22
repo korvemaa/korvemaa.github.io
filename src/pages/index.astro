@@ -51,10 +51,22 @@ const experience = (await getCollection("experience")).sort((a, b) => {
 				</span>
 				<hr />
 				<div class="cta-stack">
-					<a onclick="document.getElementById('experience').scrollIntoView()">{"Professional experience"}</a>
-					<a onclick="document.getElementById('about').scrollIntoView()">{"Learn about me"}</a>
-					<a onclick="document.getElementById('projects').scrollIntoView()">{"Personal projects"}</a>
-					<a onclick="document.getElementById('interests').scrollIntoView()">{"Explore interests"}</a>
+					<a
+						onclick="document.getElementById('experience').scrollIntoView()"
+						>{"Professional experience"}</a
+					>
+					<a
+						onclick="document.getElementById('about').scrollIntoView()"
+						>{"Learn about me"}</a
+					>
+					<a
+						onclick="document.getElementById('projects').scrollIntoView()"
+						>{"Personal projects"}</a
+					>
+					<a
+						onclick="document.getElementById('interests').scrollIntoView()"
+						>{"Explore interests"}</a
+					>
 				</div>
 			</div>
 			<AsciiArt
@@ -70,14 +82,21 @@ const experience = (await getCollection("experience")).sort((a, b) => {
 						<div class="block">
 							<div class="content">
 								<h1>{data.position + " @ " + data.name}</h1>
-								<p>{data.startDate.getFullYear() + " - " + (data.endDate?.getFullYear() || "present")}</p>
+								<p>
+									{data.startDate.getFullYear() +
+										" - " +
+										(data.endDate?.getFullYear() ||
+											"present")}
+								</p>
 							</div>
 							<ExperienceFeatured
 								class="featured"
 								job={data.featured}
 							/>
 							<div class="block-cta">
-								<a href={data.projects}>{"Learn more about " + data.name}</a>
+								<a href={data.projects}>
+									{"Learn more about " + data.name}
+								</a>
 							</div>
 							<Figlet
 								class="ascii ascii-background scramble"
@@ -146,18 +165,12 @@ const experience = (await getCollection("experience")).sort((a, b) => {
 		<section id="interests">
 			<h1 class="faded-title">[ explore interests ]</h1>
 			<div class="blog-blocks">
-				{
-					blogs.map((blog) => (
-						<BlogBlock blog={blog} class="block"></BlogBlock>
-					))
-				}
+				{blogs.map((blog) => <BlogBlock blog={blog} class="block" />)}
 			</div>
 		</section>
 		<section id="footer">
 			<h1 class="faded-title">[ footer ]</h1>
-			<p>
-				Congratulations you've made it to the bottom!
-			</p>
+			<p>Congratulations you've made it to the bottom!</p>
 		</section>
 	</ScrollView>
 </Layout>
@@ -375,7 +388,6 @@ const experience = (await getCollection("experience")).sort((a, b) => {
 		font-synthesis: none;
 		font-variant-ligatures: none;
 	}
-	
 
 	#about .ascii-background {
 		top: 1rem;
@@ -475,6 +487,12 @@ const experience = (await getCollection("experience")).sort((a, b) => {
 
 	.experience-blocks .block .ascii-background {
 		z-index: -1;
+	}
+
+	@media (max-width: 1000px) {
+		.experience-blocks .block .ascii-background {
+			display: none;
+		}
 	}
 
 	.experience-blocks .block:nth-child(odd) .ascii-background {

@@ -30,7 +30,8 @@ type Props = {
         <p>{blog.data.description}</p>
         <div class="tags">
             {
-                blog.data.tags && blog.data.tags.sort().map((tag) => <code>{tag}</code>)
+                blog.data.tags &&
+                    blog.data.tags.sort().map((tag) => <code>{tag}</code>)
             }
         </div>
     </div>
@@ -63,7 +64,6 @@ type Props = {
         font-size: 12px;
     }
 
-
     #blog-block #age {
         opacity: 0.5;
     }
@@ -90,5 +90,15 @@ type Props = {
 
     #blog-block #blog-content a {
         align-self: flex-end;
+    }
+
+    @media (max-width: 700px) {
+        #blog-block {
+            flex-direction: column;
+        }
+
+        #blog-block #blog-image {
+            height: unset;
+        }
     }
 </style>
