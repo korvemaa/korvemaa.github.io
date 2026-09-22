@@ -51,10 +51,10 @@ const experience = (await getCollection("experience")).sort((a, b) => {
 				</span>
 				<hr />
 				<div class="cta-stack">
-					<a href="#experience">{"Professional experience"}</a>
-					<a href="#about">{"Learn about me"}</a>
-					<a href="#projects">{"Personal projects"}</a>
-					<a href="#interests">{"Explore interests"}</a>
+					<a onclick="document.getElementById('experience').scrollIntoView()">{"Professional experience"}</a>
+					<a onclick="document.getElementById('about').scrollIntoView()">{"Learn about me"}</a>
+					<a onclick="document.getElementById('projects').scrollIntoView()">{"Personal projects"}</a>
+					<a onclick="document.getElementById('interests').scrollIntoView()">{"Explore interests"}</a>
 				</div>
 			</div>
 			<AsciiArt
@@ -70,21 +70,14 @@ const experience = (await getCollection("experience")).sort((a, b) => {
 						<div class="block">
 							<div class="content">
 								<h1>{data.position + " @ " + data.name}</h1>
-								<p>
-									{data.startDate.getFullYear() +
-										" - " +
-										(data.endDate?.getFullYear() ||
-											"present")}
-								</p>
+								<p>{data.startDate.getFullYear() + " - " + (data.endDate?.getFullYear() || "present")}</p>
 							</div>
 							<ExperienceFeatured
 								class="featured"
 								job={data.featured}
 							/>
 							<div class="block-cta">
-								<a href={data.projects}>
-									{"View more about " + data.name}
-								</a>
+								<a href={data.projects}>{"Learn more about " + data.name}</a>
 							</div>
 							<Figlet
 								class="ascii ascii-background scramble"
@@ -253,6 +246,7 @@ const experience = (await getCollection("experience")).sort((a, b) => {
 
 	.hero .cta-stack a:hover {
 		background-color: var(--dimmed-glow-color);
+		cursor: pointer;
 	}
 
 	.hero #name-ascii {

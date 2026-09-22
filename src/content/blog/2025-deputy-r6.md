@@ -1,9 +1,9 @@
 ---
 title:  "Deputy 4 Hour Round 6"
-description: "My second race"
+description: "My birthday enduro race"
 date: "3 Aug 2025"
 thumbnail: "./images/2025-deputy-r6/image7.webp"
-tags: ["event", "motorsport", "mx-5"]
+tags: ["event", "motorsport"]
 gallery: [
     "./images/2025-deputy-r6/image1.webp",
     "./images/2025-deputy-r6/image4.webp",

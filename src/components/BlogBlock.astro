@@ -28,6 +28,11 @@ type Props = {
         <h1>{blog.data.title}</h1>
         <hr />
         <p>{blog.data.description}</p>
+        <div class="tags">
+            {
+                blog.data.tags && blog.data.tags.sort().map((tag) => <code>{tag}</code>)
+            }
+        </div>
     </div>
 </a>
 
@@ -48,6 +53,16 @@ type Props = {
         flex-grow: 1;
         padding: 0;
     }
+
+    #blog-block .tags {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        flex-shrink: 1;
+        gap: 4px;
+        font-size: 12px;
+    }
+
 
     #blog-block #age {
         opacity: 0.5;
