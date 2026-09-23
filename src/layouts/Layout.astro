@@ -4,20 +4,29 @@ import BaseHead from "@component/BaseHead.astro";
 
 import { SITE_DESCRIPTION } from "../consts";
 
-const { title, description, namespace } = Astro.props;
+const { title, description, routes } = Astro.props;
+
+type Props = {
+    title: string;
+    description?: string;
+    routes: { name: string; href: string }[];
+};
 
 var url = Astro.originPathname;
 if (url.endsWith("/")) url = url.substring(0, url.length - 1);
+
+var all = [{ name: "Home", href: "/" }];
+if (routes) all = all.concat(routes);
+
+var previous = all.slice(0, all.length - 1);
+var active = all[all.length - 1];
+
 ---
 
 <!doctype html>
 <html lang="en">
     <head>
-        <BaseHead
-            title={title}
-            description={description || SITE_DESCRIPTION}
-            namespace={namespace}
-        >
+        <BaseHead title={title} description={description || SITE_DESCRIPTION}>
             <slot name="head" />
         </BaseHead>
     </head>
@@ -27,13 +36,19 @@ if (url.endsWith("/")) url = url.substring(0, url.length - 1);
         <div class="pad left"></div>
         <div class="website">
             <div class="top-section">
-                <span>
-                    <span id="website-name" style="opacity: 0.5;" >korvemaa.dev /</span> Home 
-                </span>
+                <div class="breadcrumbs">
+                    <span id="website-name" style="opacity: 0.5;">korvemaa.dev</span>
+                    {previous.map((route) => (
+                        <span class="slash">{"/"}</span>
+                        <a href={route.href}>{route.name}</a>
+                    ))}
+                    <span class="slash">{"/"}</span>
+                    <span class="active">{active.name}</span>
+                </div>
                 <span class="social-links">
-                    <a href="mailto:contact@korvemaa.dev" target="_blank" >Email</a>
+                    <a href="mailto:contact@korvemaa.dev" target="_blank">Email</a>
                     <a href="https://www.linkedin.com/in/jakekve" target="_blank">LinkedIn</a>
-                    <a href="https://www.github.com/korvemaa" target="_blank" >GitHub</a>
+                    <a href="https://www.github.com/korvemaa" target="_blank">GitHub</a>
                 </span>
             </div>
             <div class="content">
@@ -252,6 +267,29 @@ if (url.endsWith("/")) url = url.substring(0, url.length - 1);
 
     .social-links a:hover {
         background-color: var(--dimmed-glow-color);
+    }
+
+    .breadcrumbs {
+        display: flex;
+        flex-direction: row;
+        gap: 0.5rem;
+    }
+
+    .breadcrumbs .slash {
+        user-select: none;
+    }
+
+    .breadcrumbs .slash,
+    .breadcrumbs .active {
+        opacity: 0.5;
+    }
+
+    .breadcrumbs a {
+        text-decoration: none;
+    }
+
+    .breadcrumbs a:hover {
+        text-decoration: underline;
     }
 
     @media (max-width: 550px) {

@@ -1,9 +1,6 @@
 ---
 title:  "Back Alley"
-fileName: "back_alley.vmap"
-blurb: "A environment that was inspired by the early era of the Half Life: 2 beta (2000-2001)."
-description: |
-    A environment that was inspired by a map made for the early era of the Half Life: 2 beta (2000-2001).
+description: "An environment that is inspired by a leaked map from the Half Life: 2 Beta."
 group: "Personal"
 tags: ["source2", "hammer", "art"]
 thumbnail: "images/back-alley/thumbnail.jpg"

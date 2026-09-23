@@ -10,7 +10,7 @@ thumbnail: 'images/enviz-thumbnail.jpg'
 projects: "/projects/enviz"
 featured: [
     "enviz/web-app",
-    "enviz/explore-mode",
+    "enviz/space-editor",
     "enviz/space-ai"
 ]
 

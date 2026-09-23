@@ -16,19 +16,9 @@ const projects = (await getCollection("project"))
 const weapons = projects.filter((e) => e.data.group.endsWith("Weapon"));
 const maps = projects.filter((e) => e.data.group.endsWith("Map"));
 const videos = ["peCgGt7N-84", "hLJy1IBNfHs"];
-
-export const explorer = {
-	name: "README.md",
-    folder: "experience/superboss",
-	order: 0,
-    children: ((await getCollection("project")).filter(e=>e.id.startsWith("superboss-games")).map((project)=>({
-        name: project.data.fileName || project.data.title,
-        url: "projects/" + project.id,
-    })))
-};
 ---
 
-<Layout title="Superboss Games">
+<Layout title="Superboss Games" routes={[{name: "Superboss Games", href:"/projects/superboss-games"}]}>
     <ScrollView>
         <div class="content">
             <section id="about">

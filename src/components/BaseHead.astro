@@ -7,12 +7,11 @@ import { SITE_TITLE, THEME_HUE_KEY } from "../consts";
 interface Props {
 	title: string;
 	description: string;
-	namespace?: string;
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const { title, description, namespace }: Props = Astro.props;
+const { title, description }: Props = Astro.props;
 ---
 
 <!-- Global Metadata -->
@@ -41,7 +40,7 @@ const { title, description, namespace }: Props = Astro.props;
 />
 
 <!-- Open Graph / Facebook -->
-<meta property="og:type" content={namespace ? namespace : "website"} />
+<meta property="og:type" content={"website"} />
 <meta property="og:url" content={Astro.url} />
 <meta property="og:title" content={title} />
 <meta property="og:site_name" content={SITE_TITLE} />

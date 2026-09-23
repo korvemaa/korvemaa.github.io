@@ -12,20 +12,9 @@ const projects = (await getCollection("project"))
         return db - da;
     });
 
-export const explorer = {
-    name: "README.md",
-    folder: "experience/eagle-one",
-    order: 0,
-    children: (await getCollection("project"))
-        .filter((e) => e.data.group == "Eagle One")
-        .map((project) => ({
-            name: project.data.fileName || project.data.title,
-            url: "projects/" + project.id,
-        })),
-};
 ---
 
-<Layout title="Eagle One">
+<Layout title="Eagle One" routes={[{name: "Eagle One", href:"/projects/eagle-one"}]}>
     <ScrollView>
         <div class="content">
             <section>
