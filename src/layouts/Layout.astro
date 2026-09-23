@@ -15,7 +15,7 @@ type Props = {
 var url = Astro.originPathname;
 if (url.endsWith("/")) url = url.substring(0, url.length - 1);
 
-var all = [{ name: "Home", href: "/" }];
+var all = [{ name: "korvemaa.dev", href: "/" }];
 if (routes) all = all.concat(routes);
 
 var previous = all.slice(0, all.length - 1);
@@ -37,12 +37,10 @@ var active = all[all.length - 1];
         <div class="website">
             <div class="top-section">
                 <div class="breadcrumbs">
-                    <span id="website-name" style="opacity: 0.5;">korvemaa.dev</span>
                     {previous.map((route) => (
-                        <span class="slash">{"/"}</span>
                         <a href={route.href}>{route.name}</a>
+                        <span class="slash">{"/"}</span>
                     ))}
-                    <span class="slash">{"/"}</span>
                     <span class="active">{active.name}</span>
                 </div>
                 <span class="social-links">
@@ -309,10 +307,6 @@ var active = all[all.length - 1];
         .top-section {
             display: none;
             padding: 0 1rem;
-        }
-
-        .top-section #website-name {
-            display: none;
         }
     }
 </style>
