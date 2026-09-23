@@ -33,7 +33,7 @@ const experience = (await getCollection("experience")).sort((a, b) => {
 });
 ---
 
-<Layout>
+<Layout title={""} routes={[]}>
 	<ScrollView style="scroll-behavior:smooth;">
 		<div class="hero">
 			<div class="hero-content">
@@ -95,7 +95,7 @@ const experience = (await getCollection("experience")).sort((a, b) => {
 							/>
 							<div class="block-cta">
 								<a href={data.projects}>
-									{"Learn more about " + data.name}
+									{"View my " + data.name + " experience"}
 								</a>
 							</div>
 							<Figlet

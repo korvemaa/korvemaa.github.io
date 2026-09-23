@@ -1,7 +1,7 @@
 ---
 name: "Enviz"
 employment: "Full-time"
-position: "Software Developer"
+position: "Software Engineer"
 location: "Sydney, Australia"
 startDate: '2022-04-01'
 endDate: '2026-08-24'
