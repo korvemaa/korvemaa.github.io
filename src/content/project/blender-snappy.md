@@ -1,7 +1,7 @@
 ---
 title:  "Snappy"
 fileName: "snappy.py"
-description: "Plugin for blender that adds minor features to help with level design"
+description: "Plugin for blender that adds minor features to help with level design."
 group: "Personal"
 tags: ["blender", "python"]
 thumbnail: "images/blender-snappy/thumbnail.png"

@@ -28,17 +28,21 @@ const images = await Promise.all(
 const videos = post.data.videos;
 const hasArticle = (post.body || "").length > 0;
 
-const routes: {name: string, href: string}[] = [];
+const routes: { name: string; href: string }[] = [];
 
 if (post.data.job) {
     const job = await getEntry("experience", post.data.job);
     if (job) routes.push({ href: job.data.projects, name: job.data.name });
 }
 
-routes.push({href: '', name: post.data.title})
+routes.push({ href: "", name: post.data.title });
 ---
 
-<Layout title={post.data.title} description={post.data.description} routes={routes}>
+<Layout
+    title={post.data.title}
+    description={post.data.description}
+    routes={routes}
+>
     <OpenGraphImage slot="head" image={icon} />
     {
         post.data.tags && (
@@ -260,6 +264,10 @@ routes.push({href: '', name: post.data.title})
 
         height: 100%;
         aspect-ratio: 16/9;
+
+        position: relative;
+
+        cursor: pointer;
     }
 
     header section#gallery ul .item #image {
