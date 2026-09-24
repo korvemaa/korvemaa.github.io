@@ -101,32 +101,30 @@ routes.push({ href: "", name: post.data.title });
                     {
                         videos &&
                             videos.map((video) => (
-                                <li class="item">
+                                <li id="video-item" class="item">
                                     <div
                                         style={`background-image: url("https://img.youtube.com/vi/${video}/sddefault.jpg")`}
                                         id="image"
+                                        onclick={`javascript:setVideo("${video}");`}
+                                        data-id={video}
                                     >
                                         <div
                                             id="image"
                                             style={`background-image: url("/video_overlay.png")`}
                                         />
                                     </div>
-
-                                    {/* <iframe
-                                        class="youtube-video"
-                                        src={`https://www.youtube.com/embed/${video}`}
-                                        allowfullscreen
-                                    /> */}
                                 </li>
                             ))
                     }
                     {
                         thumbnails &&
-                            thumbnails.map((img) => (
-                                <li class="item">
+                            thumbnails.map((img, index) => (
+                                <li id="image-item" class="item">
                                     <div
                                         style={`background-image: url('${img?.src}')`}
                                         id="image"
+                                        onclick={`javascript:setImage("${img?.src}", "${images[index].src}");`}
+                                        data-image={images[index].src}
                                     />
                                 </li>
                             ))
@@ -144,6 +142,46 @@ routes.push({ href: "", name: post.data.title });
         }
     </ScrollView>
 </Layout>
+
+<script is:inline>
+    const viewport = document.getElementById("viewport");
+
+    function setVideo(id) {
+        viewport.replaceChildren(); // Clear children
+
+        const iframe = document.createElement("iframe");
+        iframe.src = `https://www.youtube.com/embed/${id}`;
+        iframe.allowFullscreen = true;
+
+        viewport.appendChild(iframe);
+    }
+
+    function setImage(lowQuality, highQuality) {
+        viewport.replaceChildren(); // Clear children
+
+        const image = document.createElement("div");
+        image.style.backgroundImage = `url(${highQuality}), url(${lowQuality})`;
+        image.id = "image";
+        image.onclick = () => window.open(highQuality, "_blank").focus();
+
+        viewport.appendChild(image);
+    }
+
+    (function () {
+        // Set the gallery to the first image
+        const image = document.querySelector("li#image-item > div");
+        if (image) {
+            image.onclick();
+            return;
+        }
+
+        const video = document.querySelector("li#video-item > div");
+        if (video) {
+            video.onclick();
+            return;
+        }
+    })();
+</script>
 
 <style>
     :root {
@@ -227,7 +265,6 @@ routes.push({ href: "", name: post.data.title });
         flex-direction: column;
         min-width: 0;
         flex: 1 1 auto;
-        gap: 0.5rem;
 
         border: var(--border-width) dotted var(--dimmed-glow-color);
     }
@@ -238,14 +275,32 @@ routes.push({ href: "", name: post.data.title });
         aspect-ratio: 16 / 9;
     }
 
+    /* Use global so the ASTRO styling bs selects the right dynamically created element */
+
+    :global(header section#gallery > #viewport #image) {
+        display: flex;
+        flex-direction: column;
+        flex-shrink: 0;
+        background-position: center;
+        background-size: cover;
+        aspect-ratio: 16/9;
+        cursor: pointer;
+    }
+
+    :global(header section#gallery > #viewport iframe) {
+        display: inline-flex;
+        flex-grow: 1;
+        width: 100%;
+        height: 100%;
+        border: 0;
+    }
+
     header section#gallery ul {
         display: flex;
         flex-direction: row;
-        gap: 0.5rem;
 
         margin: 0;
         padding: 0;
-        padding-bottom: 0.5rem;
 
         height: 100px;
         box-sizing: border-box;
@@ -268,6 +323,12 @@ routes.push({ href: "", name: post.data.title });
         position: relative;
 
         cursor: pointer;
+
+        border-right: var(--border-width) dotted var(--dimmed-glow-color);
+    }
+
+    header section#gallery ul .item:last-child {
+        border-right: none;
     }
 
     header section#gallery ul .item #image {
@@ -277,14 +338,6 @@ routes.push({ href: "", name: post.data.title });
         background-position: center;
         background-size: cover;
         aspect-ratio: 16/9;
-    }
-
-    header section#gallery ul .item iframe {
-        display: inline-flex;
-        flex-grow: 1;
-        width: 100%;
-        height: 100%;
-        border: 0;
     }
 
     article {
