@@ -97,39 +97,71 @@ routes.push({ href: "", name: post.data.title });
                 <div id="viewport">
                     <!-- Script will add shit here -->
                 </div>
-                <ul>
-                    {
-                        videos &&
-                            videos.map((video) => (
-                                <li id="video-item" class="item">
-                                    <div
-                                        style={`background-image: url("https://img.youtube.com/vi/${video}/sddefault.jpg")`}
-                                        id="image"
-                                        onclick={`javascript:setVideo("${video}");`}
-                                        data-id={video}
-                                    >
+                <div id="options">
+                    <ul>
+                        {
+                            videos &&
+                                videos.map((video) => (
+                                    <li id="video-item" class="item">
                                         <div
+                                            style={`background-image: url("https://img.youtube.com/vi/${video}/sddefault.jpg")`}
                                             id="image"
-                                            style={`background-image: url("/video_overlay.png")`}
+                                            onclick={`javascript:setVideo("${video}");`}
+                                            data-id={video}
+                                        >
+                                            <div
+                                                id="image"
+                                                style={`background-image: url("/video_overlay.png")`}
+                                            />
+                                        </div>
+                                    </li>
+                                ))
+                        }
+                        {
+                            thumbnails &&
+                                thumbnails.map((img, index) => (
+                                    <li id="image-item" class="item">
+                                        <div
+                                            style={`background-image: url('${img?.src}')`}
+                                            id="image"
+                                            onclick={`javascript:setImage("${img?.src}", "${images[index].src}");`}
+                                            data-image={images[index].src}
                                         />
-                                    </div>
-                                </li>
-                            ))
-                    }
-                    {
-                        thumbnails &&
-                            thumbnails.map((img, index) => (
-                                <li id="image-item" class="item">
-                                    <div
-                                        style={`background-image: url('${img?.src}')`}
-                                        id="image"
-                                        onclick={`javascript:setImage("${img?.src}", "${images[index].src}");`}
-                                        data-image={images[index].src}
-                                    />
-                                </li>
-                            ))
-                    }
-                </ul>
+                                    </li>
+                                ))
+                        }
+                    </ul>
+                    <div id="controls">
+                        <span id="left">{"<"}</span>
+                        <span id="right">{">"}</span>
+                    </div>
+                    <script is:inline>
+                        const options = document.querySelector("#options");
+                        const carousel = options.querySelector("ul");
+
+                        function updateCarouselMask() {
+                            const canScrollLeft = carousel.scrollLeft > 1;
+
+                            const canScrollRight =
+                                carousel.scrollLeft + carousel.clientWidth <
+                                carousel.scrollWidth - 1;
+
+                            options.classList.toggle(
+                                "can-scroll-left",
+                                canScrollLeft,
+                            );
+                            options.classList.toggle(
+                                "can-scroll-right",
+                                canScrollRight,
+                            );
+                        }
+
+                        carousel.addEventListener("scroll", updateCarouselMask);
+                        window.addEventListener("resize", updateCarouselMask);
+
+                        updateCarouselMask();
+                    </script>
+                </div>
             </section>
         </header>
         {
@@ -160,9 +192,10 @@ routes.push({ href: "", name: post.data.title });
         viewport.replaceChildren(); // Clear children
 
         const image = document.createElement("div");
-        image.style.backgroundImage = `url(${highQuality}), url(${lowQuality})`;
+        // image.style.backgroundImage = `url(${highQuality}), url(${lowQuality})`;
         image.id = "image";
-        image.onclick = () => window.open(highQuality, "_blank").focus();
+        image.style.setProperty("--hq-url", "url(" + highQuality + ")");
+        image.style.setProperty("--lq-url", "url(" + lowQuality + ")");
 
         viewport.appendChild(image);
     }
@@ -271,8 +304,11 @@ routes.push({ href: "", name: post.data.title });
 
     header section#gallery > #viewport {
         display: flex;
+        position: relative;
+        overflow: hidden;
         flex-grow: 1;
         aspect-ratio: 16 / 9;
+        border-bottom: var(--border-width) dotted var(--dimmed-glow-color);
     }
 
     /* Use global so the ASTRO styling bs selects the right dynamically created element */
@@ -281,10 +317,37 @@ routes.push({ href: "", name: post.data.title });
         display: flex;
         flex-direction: column;
         flex-shrink: 0;
-        background-position: center;
-        background-size: cover;
         aspect-ratio: 16/9;
-        cursor: pointer;
+    }
+
+    :global(header section#gallery > #viewport #image::before) {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        filter: blur(16px) brightness(0.6);
+
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+
+        background-image: var(--lq-url);
+    }
+
+    :global(header section#gallery > #viewport #image::after) {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-image: var(--hq-url);
     }
 
     :global(header section#gallery > #viewport iframe) {
@@ -293,6 +356,46 @@ routes.push({ href: "", name: post.data.title });
         width: 100%;
         height: 100%;
         border: 0;
+    }
+
+    header section#gallery > #options {
+        display: flex;
+        flex-direction: column;
+
+        position: relative;
+    }
+
+    header section#gallery #options #controls {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        justify-content: space-between;
+
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+
+        pointer-events: none;
+    }
+
+    header section#gallery > #options #controls #right,
+    header section#gallery > #options #controls #left {
+        display: none;
+        padding: 2rem 1rem;
+        cursor: pointer;
+    }
+
+    header section#gallery > #options.can-scroll-right #controls #right {
+        display: flex;
+        margin-left: auto;
+    }
+
+    header section#gallery > #options.can-scroll-left #controls #left {
+        display: flex;
+        margin-right: auto;
     }
 
     header section#gallery ul {
@@ -308,7 +411,49 @@ routes.push({ href: "", name: post.data.title });
         list-style: none;
         overflow-x: scroll;
 
+        padding: 2px;
+        gap: 2px;
+
         scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+    }
+
+    header section#gallery > #options.can-scroll-left.can-scroll-right ul {
+        mask-image: linear-gradient(
+            to right,
+            transparent 26px,
+            black 96px,
+            black calc(100% - 96px),
+            transparent calc(100% - 26px)
+        );
+    }
+
+    header
+        section#gallery
+        > #options.can-scroll-right:not(.can-scroll-left)
+        ul {
+        mask-image: linear-gradient(
+            to right,
+            black 0,
+            black calc(100% - 96px),
+            transparent calc(100% - 26px)
+        );
+    }
+
+    header
+        section#gallery
+        > #options.can-scroll-left:not(.can-scroll-right)
+        ul {
+        mask-image: linear-gradient(
+            to right,
+            transparent 26px,
+            black 96px,
+            black 100%
+        );
+    }
+
+    header section#gallery ul::-webkit-scrollbar {
+        display: none;
     }
 
     header section#gallery ul .item {
@@ -317,14 +462,13 @@ routes.push({ href: "", name: post.data.title });
         flex-shrink: 0;
         overflow: hidden;
 
-        height: 100%;
         aspect-ratio: 16/9;
 
         position: relative;
 
         cursor: pointer;
 
-        border-right: var(--border-width) dotted var(--dimmed-glow-color);
+        border: var(--border-width) dotted var(--dimmed-glow-color);
     }
 
     header section#gallery ul .item:last-child {

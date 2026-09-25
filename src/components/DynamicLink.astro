@@ -20,9 +20,13 @@ function getDetails() {
             return { name: "Repository", icon: "github" };
         case "www.youtube.com":
             return { name: "YouTube", icon: "youtube" };
+        case "www.nationalparks.nsw.gov.au":
+            return { name: "NSW National Parks", icon: "link" };
+        case "driftschoolaustralia.com.au":
+            return { name: "Drift School Australia", icon: "link" };
     }
 
-    return { name: domain.replace("www.", ""), icon: "link" };
+    return { name: url.hostname.replace("www.", ""), icon: "link" };
 }
 
 const { name, icon } = getDetails();
