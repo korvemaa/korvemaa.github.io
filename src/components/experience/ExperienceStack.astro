@@ -1,0 +1,171 @@
+---
+import { getCollection } from "astro:content";
+
+import ExperienceFeatured from "./ExperienceFeatured.astro";
+import Figlet from "@component/Figlet.astro";
+
+const experience = (await getCollection("experience")).sort((a, b) => {
+    const da = a.data.startDate?.getTime() ?? 100;
+    const db = b.data.startDate?.getTime() ?? 100;
+    return db - da;
+});
+---
+<div class="experience-blocks">
+    {
+        experience.map(({ data }) => (
+            <div class="block">
+                <div class="content">
+                    <h1>{data.position + " @ " + data.name}</h1>
+                    <p>
+                        {data.startDate.getFullYear() +
+                            " - " +
+                            (data.endDate?.getFullYear() || "present")}
+                    </p>
+                </div>
+                <ExperienceFeatured class="featured" job={data.featured} />
+                <div class="block-cta">
+                    <a href={data.projects}>
+                        {"View my " + data.name + " experience"}
+                    </a>
+                </div>
+                <Figlet
+                    class="ascii ascii-background scramble"
+                    text={data.name}
+                    font="Future"
+                />
+            </div>
+        ))
+    }
+</div>
+
+<style>
+    .experience-blocks {
+        display: flex;
+        flex-direction: column;
+        padding: 2rem 4rem;
+    }
+
+    .experience-blocks .block {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+
+        text-align: left;
+        gap: 2rem;
+
+        position: relative;
+        padding: 3rem 2rem;
+        border: var(--border-width) dashed var(--dimmed-glow-color);
+    }
+
+    .experience-blocks .block .featured {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+        gap: 1rem;
+    }
+
+    .experience-blocks .block:nth-child(odd) {
+        text-align: left;
+        border-right: 0;
+        padding-right: 0;
+    }
+
+    .experience-blocks .block:nth-child(odd) .content {
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+    }
+
+    .experience-blocks .block:nth-child(odd)::after {
+        content: "";
+        position: absolute;
+        display: flex;
+
+        width: 16px;
+        height: 16px;
+        left: -8px;
+        translate: 0 8px;
+
+        background-color: var(--text-color);
+    }
+
+    .experience-blocks .block:nth-child(even) {
+        border-left: 0;
+        padding-left: 0;
+        text-align: right;
+    }
+
+    .experience-blocks .block:nth-child(even) .content {
+        display: flex;
+        flex-direction: column;
+        text-align: right;
+    }
+
+    .experience-blocks .block:nth-child(even)::after {
+        content: "";
+        position: absolute;
+        display: flex;
+
+        width: 16px;
+        height: 16px;
+        right: -8px;
+        translate: 0 8px;
+
+        background-color: var(--text-color);
+    }
+
+    .experience-blocks .block:first-child {
+        border-top: 0;
+        padding-top: 0;
+    }
+
+    .experience-blocks .block:last-child {
+        border-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    .experience-blocks .block .ascii-background {
+        z-index: -1;
+    }
+
+    @media (max-width: 1000px) {
+        .experience-blocks .block .ascii-background {
+            display: none;
+        }
+    }
+
+    .experience-blocks .block:nth-child(odd) .ascii-background {
+        right: 0;
+    }
+
+    .experience-blocks .block:nth-child(even) .ascii-background {
+        left: 0;
+    }
+
+    .experience-blocks .block .block-cta {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .experience-blocks .block .block-cta a {
+        text-decoration: none;
+        padding: 4px 1ch;
+    }
+
+    .experience-blocks .block .block-cta a::after {
+        content: " >";
+        margin-left: 0.5ch;
+    }
+
+    .experience-blocks .block .block-cta a:hover {
+        background-color: var(--dimmed-glow-color);
+    }
+
+    .experience-blocks .block:nth-child(odd) .block-cta {
+        align-items: flex-end;
+    }
+
+    .experience-blocks .block:nth-child(even) .block-cta {
+        align-items: flex-start;
+    }
+</style>

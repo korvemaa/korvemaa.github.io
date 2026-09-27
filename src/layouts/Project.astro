@@ -14,7 +14,7 @@ const { post } = Astro.props;
 const { Content } = await render(post);
 
 const icon = post.data.thumbnail
-    ? await getImage({ src: post.data.thumbnail, width: 256 })
+    ? await getImage({ src: post.data.thumbnail, width: 512 })
     : null;
 
 const thumbnails = await Promise.all(
@@ -192,10 +192,12 @@ routes.push({ href: "", name: post.data.title });
         viewport.replaceChildren(); // Clear children
 
         const image = document.createElement("div");
-        // image.style.backgroundImage = `url(${highQuality}), url(${lowQuality})`;
         image.id = "image";
         image.style.setProperty("--hq-url", "url(" + highQuality + ")");
         image.style.setProperty("--lq-url", "url(" + lowQuality + ")");
+        image.style.cursor = "pointer";
+
+        image.onclick = () => window.open(highQuality, "_blank");
 
         viewport.appendChild(image);
     }
@@ -293,10 +295,32 @@ routes.push({ href: "", name: post.data.title });
         gap: 1rem;
     }
 
+    @media (max-width: 1000px) {
+        header {
+            flex-direction: column-reverse;
+        }
+
+        header > nav {
+            max-width: unset;
+            min-width: unset;
+            padding-top: 1rem;
+        }
+
+        header section#thumbnail {
+            display: none;
+        }
+
+        header section#about {
+            margin-top: unset;
+        }
+    }
+
     header section#gallery {
         display: flex;
         flex-direction: column;
+
         min-width: 0;
+        width: 0;
         flex: 1 1 auto;
 
         border: var(--border-width) dotted var(--dimmed-glow-color);
@@ -362,6 +386,8 @@ routes.push({ href: "", name: post.data.title });
         display: flex;
         flex-direction: column;
 
+        min-width: 0;
+
         position: relative;
     }
 
@@ -384,8 +410,19 @@ routes.push({ href: "", name: post.data.title });
     header section#gallery > #options #controls #right,
     header section#gallery > #options #controls #left {
         display: none;
-        padding: 2rem 1rem;
+        padding: 1ch 2ch;
+        margin: 0 1ch;
         cursor: pointer;
+
+        border: var(--border-width) dotted var(--dimmed-glow-color);
+        background-image: var(--box-fade);
+
+        pointer-events: auto;
+    }
+
+    header section#gallery > #options #controls #right:hover,
+    header section#gallery > #options #controls #left:hover {
+        background-color: var(--dimmed-glow-color);
     }
 
     header section#gallery > #options.can-scroll-right #controls #right {
@@ -416,15 +453,18 @@ routes.push({ href: "", name: post.data.title });
 
         scroll-snap-type: x mandatory;
         scrollbar-width: none;
+
+        --fade-inset: 16px;
+        --fade-outset: 350px;
     }
 
     header section#gallery > #options.can-scroll-left.can-scroll-right ul {
         mask-image: linear-gradient(
             to right,
-            transparent 26px,
-            black 96px,
-            black calc(100% - 96px),
-            transparent calc(100% - 26px)
+            transparent var(--fade-inset),
+            black var(--fade-outset),
+            black calc(100% - var(--fade-outset)),
+            transparent calc(100% - var(--fade-inset))
         );
     }
 
@@ -435,8 +475,8 @@ routes.push({ href: "", name: post.data.title });
         mask-image: linear-gradient(
             to right,
             black 0,
-            black calc(100% - 96px),
-            transparent calc(100% - 26px)
+            black calc(100% - var(--fade-outset)),
+            transparent calc(100% - var(--fade-inset))
         );
     }
 
@@ -446,8 +486,8 @@ routes.push({ href: "", name: post.data.title });
         ul {
         mask-image: linear-gradient(
             to right,
-            transparent 26px,
-            black 96px,
+            transparent var(--fade-inset),
+            black var(--fade-outset),
             black 100%
         );
     }

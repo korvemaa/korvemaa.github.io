@@ -22,3 +22,8 @@ days, did many first things in it and adored every minute I was in it.
 Wasnt driving it much since I lived so close to town and it was getting expensive to keep, eventually circumstances meant I had to sell it.
 
 I still miss it, whenever I see another mx5 around I cry a little.
+
+# Work needed
+
+Before selling I had to change the seat bracket since I put a lower fixed one on so I could fit in the car. Was interesting trying to piece the original
+one back in without any guide.
