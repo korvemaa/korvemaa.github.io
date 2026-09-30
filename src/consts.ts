@@ -4,11 +4,15 @@ export const SITE_DESCRIPTION = 'Jakes personal website';
 export const THEME_HUE_KEY = 'terminal-hue';
 
 export const SOCIALS = [
-    { title: "GitHub", icon: "github", url: "https://github.com/korvemaa" },
     {
         title: "Email",
         icon: "envelope-fill",
         url: "mailto:contact@korvemaa.dev",
+    },
+    {
+        title: "GitHub",
+        icon: "github",
+        url: "https://github.com/korvemaa"
     },
     {
         title: "LinkedIn",
@@ -16,19 +20,9 @@ export const SOCIALS = [
         url: "https://linkedin.com/in/jakekve",
     },
     {
-        title: "Instagram",
-        icon: "instagram",
-        url: "https://instagram.com/jake.kve/"
-    },
-    {
         title: "YouTube",
         icon: "youtube",
         url: "https://youtube.com/@JakeK"
-    },
-    {
-        title: "Steam",
-        icon: "steam",
-        url: "https://steamcommunity.com/id/wooshito/"
     },
 ];
 

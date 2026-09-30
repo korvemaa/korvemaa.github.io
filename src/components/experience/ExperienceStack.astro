@@ -38,12 +38,22 @@ const experience = (await getCollection("experience")).sort((a, b) => {
     }
 </div>
 
+<div class="resume-block">
+    <h1>Looking for a resume?</h1>
+</div>
+
 <style>
     .experience-blocks {
         display: flex;
         flex-direction: column;
         padding: 2rem 4rem;
     }
+
+    @media (max-width: 550px) {
+		.experience-blocks { 
+			padding: 2rem;
+		}
+	}
 
     .experience-blocks .block {
         display: flex;

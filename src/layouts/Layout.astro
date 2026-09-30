@@ -43,11 +43,6 @@ var active = all[all.length - 1];
                     ))}
                     <span class="active">{active.name}</span>
                 </div>
-                <span class="social-links">
-                    <a href="mailto:contact@korvemaa.dev" target="_blank">Email</a>
-                    <a href="https://www.linkedin.com/in/jakekve" target="_blank">LinkedIn</a>
-                    <a href="https://www.github.com/korvemaa" target="_blank">GitHub</a>
-                </span>
             </div>
             <div class="content">
                 <main class="box" id="page">
@@ -223,25 +218,6 @@ var active = all[all.length - 1];
         gap: 0.5rem;
     }
 
-    .bottom-section {
-        display: flex;
-        flex-direction: row;
-        gap: 1rem;
-    }
-
-    .top-section {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .top-section span:nth-child(1n) {
-        text-align: left;
-    }
-
-    .top-section span:nth-child(2n) {
-        text-align: right;
-    }
-
     main {
         position: relative;
 
@@ -256,15 +232,6 @@ var active = all[all.length - 1];
         overflow: hidden;
 
         background-color: rgba(0, 0, 0, 0.1);
-    }
-
-    .social-links a {
-        text-decoration: none;
-        padding: 0.5ch 1ch;
-    }
-
-    .social-links a:hover {
-        background-color: var(--dimmed-glow-color);
     }
 
     .breadcrumbs {
@@ -292,11 +259,12 @@ var active = all[all.length - 1];
 
     @media (max-width: 550px) {
         .website {
-            margin: 0;
+            margin: 8px;
+            gap: 0;
         }
 
         main {
-            border: 0;
+            /* border: 0; */
         }
 
         .height-restrict {
@@ -305,8 +273,7 @@ var active = all[all.length - 1];
         }
 
         .top-section {
-            display: none;
-            padding: 0 1rem;
+            padding: 0.5rem 1rem;
         }
     }
 </style>

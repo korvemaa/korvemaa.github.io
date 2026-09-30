@@ -6,6 +6,8 @@ const domain = url.hostname;
 
 function getDetails() {
     switch (domain) {
+        case "linkedin.com":
+            return { name: "LinkedIn", icon: "linkedin" };
         case "www.artstation.com":
             return { name: "ArtStation", icon: "link" };
         case "steamcommunity.com":

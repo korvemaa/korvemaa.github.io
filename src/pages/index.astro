@@ -11,7 +11,7 @@ import BlogBlock from "@component/BlogBlock.astro";
 
 import ExperienceStack from "@component/experience/ExperienceStack.astro";
 
-import { FLOATING_KEYWORDS } from "@src/consts";
+import { FLOATING_KEYWORDS, SOCIALS } from "@src/consts";
 
 const projects = (await getCollection("project"))
 	.filter((e) => e.data.group === "Personal")
@@ -62,10 +62,6 @@ const blogs = (await getCollection("blog")).sort((a, b) => {
 						onclick="document.getElementById('interests').scrollIntoView()"
 						>{"Explore interests"}</a
 					>
-					<a
-						onclick="document.getElementById('contact').scrollIntoView()"
-						>{"Contact me"}</a
-					>
 				</div>
 			</div>
 			<AsciiArt
@@ -102,6 +98,20 @@ const blogs = (await getCollection("blog")).sort((a, b) => {
 						new, whether that's technology, hardware, or a new
 						hobby.
 					</div>
+					<hr />
+					<div class="social-stack">
+						{
+							SOCIALS.map((social) => (
+								<a
+									href={social.url}
+									target="_blank"
+									class={"bi bi-" + social.icon}
+								>
+									{social.title}
+								</a>
+							))
+						}
+					</div>
 				</div>
 			</div>
 			<div class="floating-text vertical-mask">
@@ -136,10 +146,6 @@ const blogs = (await getCollection("blog")).sort((a, b) => {
 			<div class="blog-blocks">
 				{blogs.map((blog) => <BlogBlock blog={blog} class="block" />)}
 			</div>
-		</section>
-		<section id="contact">
-			<h1 class="faded-title">[ contact me ]</h1>
-			<p></p>
 		</section>
 	</ScrollView>
 </Layout>
@@ -188,6 +194,12 @@ const blogs = (await getCollection("blog")).sort((a, b) => {
 		gap: 1rem;
 		position: relative;
 		overflow: hidden;
+	}
+
+	@media (max-width: 550px) {
+		section {
+			padding: 2rem 0;
+		}
 	}
 
 	.content-section {
@@ -284,36 +296,6 @@ const blogs = (await getCollection("blog")).sort((a, b) => {
 		gap: 0.5rem;
 	}
 
-	.technical code {
-		font-size: 12px;
-	}
-
-	.socials {
-		display: flex;
-		flex-direction: column;
-		flex-wrap: wrap;
-		gap: 0.5rem;
-	}
-
-	.socials a {
-		padding: 0.5rem 1rem;
-		border: var(--border-width) dotted var(--dimmed-glow-color);
-		display: flex;
-		flex-grow: 1;
-		justify-content: center;
-		text-decoration: none;
-		align-items: center;
-		background: var(--box-fade);
-	}
-
-	.socials a:hover {
-		background-color: var(--dimmed-glow-color);
-	}
-
-	.socials a::before {
-		padding-right: 1rem;
-	}
-
 	section .grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(min(250px, 100%), 1fr));
@@ -375,5 +357,35 @@ const blogs = (await getCollection("blog")).sort((a, b) => {
 		gap: 1rem;
 
 		padding: 2rem;
+	}
+
+	.social-stack {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		gap: 1rem;
+	}
+
+	.social-stack a {
+		display: flex;
+		flex-basis: 0%;
+		flex-grow: 1;
+
+		text-decoration: none;
+		padding: 0.5rem 1rem;
+
+		align-items: center;
+		justify-content: center;
+
+		border: var(--border-width) dotted var(--dimmed-glow-color);
+		background-image: var(--box-fade);
+	}
+
+	.social-stack a:hover {
+		background-color: var(--dimmed-glow-color);
+	}
+
+	.social-stack a::before {
+		padding-right: 1rem;
 	}
 </style>
