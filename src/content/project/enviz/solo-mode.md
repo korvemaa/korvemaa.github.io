@@ -1,15 +1,13 @@
 ---
-title:  "Walkable"
-fileName : "Walkable.cs"
+title:  "Solo Mode"
 job: "enviz"
 global: false
-description: "The walkable mode for Enviz spaces"
+description: "The main experience for Enviz"
 group: "Enviz/Modes"
 tags: ["unity", "csharp"]
-thumbnail: "images/walkable.png"
+thumbnail: "images/dollhouse.png"
 date: 'Jan 1 2024'
 links: ["https://enviz.co"]
 ---
-
 
 

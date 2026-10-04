@@ -1,13 +1,13 @@
 ---
-title:  "Explore"
-fileName: "Explore.cs"
+title:  "Guided Viewing"
 job: "enviz"
 global: false
-description: "The clickable mode for Enviz spaces"
+description: "Multiplayer experience for Enviz"
 group: "Enviz/Modes"
 tags: ["unity", "csharp"]
-thumbnail: "images/clickable.png"
+thumbnail: "images/walkable.png"
 date: 'Jan 1 2024'
 links: ["https://enviz.co"]
 ---
+
 

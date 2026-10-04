@@ -1,100 +1,120 @@
 ---
-import { getCollection, getEntry  } from "astro:content";
+import { getCollection, getEntry } from "astro:content";
 import Layout from "@layout/Layout.astro";
 import ScrollView from "@component/ScrollView.astro";
-import ProjectBlock from "@component/project/ProjectBlock.astro"
+import ProjectBlock from "@component/project/ProjectBlock.astro";
 import ProjectTile from "@component/ProjectTile.astro";
 import Figlet from "@component/Figlet.astro";
 import AsciiArt from "@component/AsciiArt.astro";
 
 const projects = (await getCollection("project"))
-    .filter((e) => e.id.startsWith("superboss-games"))
-    .sort((a, b) => {
-        const da = a.data.date?.getTime() ?? 100;
-        const db = b.data.date?.getTime() ?? 100;
-        return db - da;
-    });
+	.filter((e) => e.id.startsWith("superboss-games"))
+	.sort((a, b) => {
+		const da = a.data.date?.getTime() ?? 100;
+		const db = b.data.date?.getTime() ?? 100;
+		return db - da;
+	});
 
-const weapons = projects.filter((e) => e.data.group.endsWith("Weapon"));
 const maps = projects.filter((e) => e.data.group.endsWith("Map"));
-const videos = ["peCgGt7N-84", "hLJy1IBNfHs"];
 
 const panther = await getEntry("project", "superboss-games/panther");
 const manta = await getEntry("project", "superboss-games/manta");
 const falcon = await getEntry("project", "superboss-games/falcon");
 ---
 
-<Layout title="Superboss Games" routes={[{name: "Superboss Games", href:"/projects/superboss-games"}]}>
+<Layout
+	title="Superboss Games"
+	routes={[{ name: "Superboss Games", href: "/projects/superboss-games" }]}
+>
 	<ScrollView style="scroll-behavior:smooth;">
 		<div class="hero">
+			<div class="banner"></div>
 			<div class="hero-content">
-				<span id="blurb" style="opacity: 0.5">
-                    [ 2020 - 2021 ]
-				</span>
+				<span id="blurb" style="opacity: 0.5"> [ 2020 - 2021 ] </span>
 				<div id="name-ascii">
-					<Figlet 
-                        class="ascii scramble"
-                        text="Superboss"
-                        font="Future" 
-                    />
 					<Figlet
 						class="ascii scramble"
-						text="Games"
+						text="Superboss"
 						font="Future"
 					/>
+					<Figlet class="ascii scramble" text="Games" font="Future" />
 				</div>
-				<span id="blurb">
-                    Technical Artist working on "Intruder"
-				</span>
+				<span id="blurb"> Technical Artist working on "Intruder" </span>
 			</div>
-			<AsciiArt
-				class="ascii ascii-background terminus scramble vertical-mask"
-				filePath="ascii/panther.txt"
-			/>
 		</div>
 
-        <section id="projects">
-            <h1>Videos</h1>
-            <hr />
-            <div class="videos">
-                {
-                    videos.map((e) => (
-                        <iframe
-                            class="youtube"
-                            src=`https://www.youtube.com/embed/${e}`
-                            allowfullscreen
-                        />
-                    ))
-                }
-            </div>
-        </section>
+		<section id="what-is">
+			<h1 class="faded-title">[ what is intruder ]</h1>
+			<div class="content">
+				<div class="block">
+					<div>
+						<h1>Inspiration</h1>
+						<hr />
+						<p>
+							Intruder is the stealth multiplayer experience. We
+							were inspired by the great single-player campaigns
+							of Metal Gear Solid, SWAT3, Deus Ex, and Splinter
+							Cell to create a team-based multiplayer game.
+							Intruder allows for stealth, teamwork, tactics and
+							environmental interactions never before seen in a
+							multiplayer game.
+						</p>
+					</div>
+					<iframe
+						class="youtube"
+						src=`https://www.youtube.com/embed/peCgGt7N-84`
+						allowfullscreen></iframe>
+				</div>
+				<div class="block">
+					<div>
+						<h1>Gameplay</h1>
+						<hr />
+						<p>
+							Lure enemies into motion-detectors near explosive
+							traps. Watch enemy movement through live security
+							cameras and alert your teammates using the hand
+							radio. Use real SWAT hand signals to communicate
+							silently when enemies are nearby. In Intruder,
+							amazing stories and emergent gameplay come from the
+							players' actions to provide an experience you will
+							never forget.
+						</p>
+					</div>
+					<iframe
+						class="youtube"
+						src=`https://www.youtube.com/embed/hLJy1IBNfHs`
+						allowfullscreen></iframe>
+				</div>
+			</div>
+		</section>
 
 		<section id="weapons">
+			<h1 class="faded-title">[ weapons textured ]</h1>
 			<div id="project">
-				Manta
-				<ProjectBlock project={manta}/>
+				<Figlet font="Future" text="Manta" class="ascii scramble"/>
+				<ProjectBlock project={manta} />
 				<AsciiArt
 					class="ascii ascii-background terminus scramble vertical-mask"
 					filePath="ascii/manta.txt"
 				/>
 			</div>
 
-			<hr/>
+			<hr />
 
 			<div id="project">
-				Falcon
-				<ProjectBlock project={falcon}/>
+				<Figlet font="Future" text="Falcon" class="ascii scramble"/>
+				<ProjectBlock project={falcon} />
 				<AsciiArt
 					class="ascii ascii-background terminus scramble vertical-mask"
 					filePath="ascii/falcon.txt"
 				/>
 			</div>
 
-			<hr/>
+			<hr />
 
 			<div id="project">
-				Panther
-				<ProjectBlock project={panther}/>
+				<Figlet font="Future" text="Panther" class="ascii scramble"/>
+				<ProjectBlock project={panther} />
 				<AsciiArt
 					class="ascii ascii-background terminus scramble vertical-mask"
 					filePath="ascii/panther.txt"
@@ -102,26 +122,24 @@ const falcon = await getEntry("project", "superboss-games/falcon");
 			</div>
 		</section>
 
-        <section id="other">
-            <h1>Other</h1>
-            <hr />
-            Assortment of minor projects official or not for Intruder
-            <div class="grid">
-                {
-                    maps.map((post) => {
-                        return (
-                            <a
-                                data-group={post.data.group}
-                                href={`/projects/${post.id}`}
-                            >
-                                <ProjectTile project={post}/>
-                            </a>
-                        );
-                    })
-                }
-            </div>
-        </section>
-    </ScrollView>
+		<section id="other">
+			<h1 class="faded-title">[ other content ]</h1>
+			<div class="grid">
+				{
+					maps.map((post) => {
+						return (
+							<a
+								data-group={post.data.group}
+								href={`/projects/${post.id}`}
+							>
+								<ProjectTile project={post} />
+							</a>
+						);
+					})
+				}
+			</div>
+		</section>
+	</ScrollView>
 </Layout>
 
 <script defer>
@@ -140,12 +158,11 @@ const falcon = await getEntry("project", "superboss-games/falcon");
 	div#weapons hr {
 		margin: 4rem;
 	}
-	
+
 	.hero {
 		display: flex;
 		flex-direction: column;
-		min-height: calc(var(--hero-height) * 0.5);
-		max-height: cal(var(--hero-height) * 0.5);
+		min-height: calc(var(--hero-height) * 0.55);
 
 		position: relative;
 		overflow: hidden;
@@ -154,6 +171,22 @@ const falcon = await getEntry("project", "superboss-games/falcon");
 		padding: 1rem 3rem;
 
 		gap: 2rem;
+	}
+
+	.hero .banner {
+		background-image: url("/intruder-screenshot.jpg");
+		pointer-events: none;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		background-repeat: no-repeat;
+		background-size: cover;
+		opacity: 0.3;
+		mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
+
+		z-index: -10;
 	}
 
 	.hero-content {
@@ -196,8 +229,8 @@ const falcon = await getEntry("project", "superboss-games/falcon");
 		display: flex;
 		flex-wrap: wrap;
 		flex-direction: row;
-        align-items: center;
-        justify-content: center;
+		align-items: center;
+		justify-content: center;
 		gap: 1rem;
 	}
 
@@ -237,13 +270,6 @@ const falcon = await getEntry("project", "superboss-games/falcon");
 		mask-image: linear-gradient(black 50%, transparent 90%);
 	}
 
-    .content {
-        display: flex;
-        flex-direction: column;
-        padding: 1rem;
-        gap: 1rem;
-    }
-
 	section {
 		display: flex;
 		flex-direction: column;
@@ -255,6 +281,54 @@ const falcon = await getEntry("project", "superboss-games/falcon");
 		overflow: hidden;
 	}
 
+	/* What is intruder */
+
+	section#what-is {
+		min-height: calc(var(--hero-height) * 0.8);
+		gap: 0;
+	}
+
+	section#what-is .content {
+		display: flex;
+		flex-direction: column;
+		flex-grow: 1;
+		justify-content: center;
+	}
+
+	section#what-is .block {
+		display: flex;
+
+		align-items: center;
+		justify-content: center;
+		text-align: right;
+
+		padding: 3rem;
+		gap: 3rem;
+	}
+
+	section#what-is .block:nth-child(even) {
+		flex-direction: row-reverse;
+		text-align: left;
+	}
+
+	section#what-is .block > div {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	section#what-is .block p {
+		margin: 0;
+		padding: 0;
+		max-width: 650px;
+	}
+
+	section#what-is .block iframe {
+		border: var(--border-width) dotted var(--dimmed-glow-color);
+		aspect-ratio: 16/9;
+		height: 250px;
+	}
+
 	div#project {
 		min-height: calc(var(--hero-height) * 0.55);
 		padding: 0;
@@ -263,31 +337,36 @@ const falcon = await getEntry("project", "superboss-games/falcon");
 	}
 
 	div#project .vertical-mask {
-		mask-image: linear-gradient(transparent 5%, black 25%,  black 75%, transparent 95%);
+		mask-image: linear-gradient(
+			transparent 5%,
+			black 25%,
+			black 75%,
+			transparent 95%
+		);
 	}
 
-    section a {
-        text-decoration: none;
-    }
+	section a {
+		text-decoration: none;
+	}
 
-    .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
-        gap: 0.5rem;
-    }
+	.grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+		gap: 0.5rem;
+	}
 
-    .videos {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(min(400px, 100%), 1fr));
-        gap: 1rem;
-    }
+	.videos {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(min(400px, 100%), 1fr));
+		gap: 1rem;
+	}
 
-    .videos .youtube {
-        display: inline-flex;
-        aspect-ratio: 16/9;
-        flex-grow: 1;
-        width: 100%;
-        height: 100%;
-        border: 0;
-    }
+	.videos .youtube {
+		display: inline-flex;
+		aspect-ratio: 16/9;
+		flex-grow: 1;
+		width: 100%;
+		height: 100%;
+		border: 0;
+	}
 </style>

@@ -1,5 +1,5 @@
 export const SITE_TITLE = 'Jake Korvemaa';
-export const SITE_DESCRIPTION = 'Jakes personal website';
+export const SITE_DESCRIPTION = "Jake's website";
 
 export const THEME_HUE_KEY = 'terminal-hue';
 
@@ -19,11 +19,11 @@ export const SOCIALS = [
         icon: "linkedin",
         url: "https://linkedin.com/in/jakekve",
     },
-    {
-        title: "YouTube",
-        icon: "youtube",
-        url: "https://youtube.com/@JakeK"
-    },
+    // {
+    //     title: "YouTube",
+    //     icon: "youtube",
+    //     url: "https://youtube.com/@JakeK"
+    // },
 ];
 
 export const SKILLS = [

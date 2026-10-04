@@ -55,9 +55,9 @@ body {
 	font-synthesis-weight: none;
 	font-variant-ligatures: none;
 
-	-webkit-font-smoothing: none; 
-	font-smooth: never; 
-	text-rendering: optimizeSpeed; 
+	-webkit-font-smoothing: none;
+	font-smooth: never;
+	text-rendering: optimizeSpeed;
 
 	text-align: left;
 	word-wrap: break-word;
@@ -223,7 +223,7 @@ button:hover {
 }
 
 .box::after {
-	mask-image: linear-gradient(to bottom, black 25%,  transparent);
+	mask-image: linear-gradient(to bottom, black 25%, transparent);
 	content: "";
 	position: absolute;
 	top: 0;
@@ -236,15 +236,6 @@ button:hover {
 	bottom: 0;
 }
 
-@media (max-width: 550px) {
-	.box,
-	.box::before,
-	.box::after {
-		/* border: none; */
-	}
-
-}
-
 .ascii-art {
 	font-family: monospace;
 	font-synthesis-weight: none;
@@ -253,4 +244,9 @@ button:hover {
 	padding: 0;
 	margin: 0;
 	user-select: none;
+}
+
+.faded-title {
+	opacity: 0.5;
+	align-self: center;
 }

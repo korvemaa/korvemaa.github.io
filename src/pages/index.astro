@@ -98,7 +98,6 @@ const blogs = (await getCollection("blog")).sort((a, b) => {
 						new, whether that's technology, hardware, or a new
 						hobby.
 					</div>
-					<hr />
 					<div class="social-stack">
 						{
 							SOCIALS.map((social) => (
@@ -308,11 +307,6 @@ const blogs = (await getCollection("blog")).sort((a, b) => {
 
 	section .grid a {
 		text-decoration: none;
-	}
-
-	.faded-title {
-		opacity: 0.5;
-		align-self: center;
 	}
 
 	:global(.ascii) {
