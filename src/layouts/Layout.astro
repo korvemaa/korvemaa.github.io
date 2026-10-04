@@ -260,6 +260,10 @@ var active = all[all.length - 1];
     @media (max-width: 550px) {
         .website {
             margin: 8px;
+
+            margin-top: env(safe-area-inset-top, 8px);
+            margin-bottom: env(safe-area-inset-bottom, 8px);
+            
             gap: 0;
         }
 
